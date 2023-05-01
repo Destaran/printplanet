@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+}
+
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+button {
+    border: 1px solid black;
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100%;
+    margin: 15px 0;
+    background-color: #14213d;
+    color: #f4f1de;
+
+    &:hover {
+        cursor: pointer;
+        background-color: orange;
+        color: #14213d;
+        border-color: #14213d;
+    }
+}
