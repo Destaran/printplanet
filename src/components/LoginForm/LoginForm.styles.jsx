@@ -48,3 +48,17 @@ export const GoogleButton = styled.button`
         padding-right: 10px;
     }
 `
+
+export const PasswordReset = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    margin: 0;
+    height: 15px;
+
+    p:hover {
+        cursor: pointer;
+        color: orange;
+    }
+`

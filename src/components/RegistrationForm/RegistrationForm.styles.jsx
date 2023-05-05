@@ -31,3 +31,9 @@ export const DateOfBirthContainer = styled.div`
         margin-bottom: 3px;
     }
 `
+
+export const ContainerHeader = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`

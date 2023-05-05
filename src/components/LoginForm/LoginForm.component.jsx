@@ -1,4 +1,12 @@
-import { LoginContainer, InnerLoginContainer, Form, OrContainer, GoogleContainer, GoogleButton } from "./LoginForm.styles";
+import {
+    LoginContainer,
+    InnerLoginContainer,
+    Form,
+    OrContainer,
+    GoogleContainer,
+    GoogleButton,
+    PasswordReset
+} from "./LoginForm.styles";
 
 import GoogleLogo from '../../assets/GoogleLogo.svg'
 
@@ -27,7 +35,7 @@ const LoginForm = () => {
 
     const signInWithGoogle = async () => {
         await signInWithGooglePopup();
-        navigate('/profile');
+        navigate('/calculator');
     };
 
     const [formFields, setFormFields] = useState(defaultFormFields);
@@ -44,7 +52,7 @@ const LoginForm = () => {
                 password
             );
             setCurrentUser(user);
-            navigate('/profile');
+            navigate('/calculator');
         } catch (error) {
             switch (error.code) {
                 case 'auth/wrong-password':
@@ -63,6 +71,10 @@ const LoginForm = () => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
     };
+
+    const handleForgotPassword = () => {
+        navigate('/forgot-password');
+    }
 
     return (
         <LoginContainer>
@@ -92,6 +104,9 @@ const LoginForm = () => {
                 <GoogleContainer>
                     <GoogleButton onClick={signInWithGoogle}><img src={GoogleLogo} />Continue with Google</GoogleButton>
                 </GoogleContainer>
+                <PasswordReset>
+                    <p onClick={handleForgotPassword}>Forgot password?</p>
+                </PasswordReset>
             </InnerLoginContainer>
         </LoginContainer>
     )

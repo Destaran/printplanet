@@ -1,4 +1,4 @@
-import { RegistrationContainer, InnerRegistrationContainer, Form, DateOfBirthContainer } from "./RegistrationForm.styles";
+import { RegistrationContainer, InnerRegistrationContainer, Form, ContainerHeader } from "./RegistrationForm.styles";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +12,6 @@ const defaultFormFields = {
     email: '',
     password: '',
     confirmPassword: '',
-    dateOfBirth: {
-        month: '',  
-        day: '',
-        year: ''
-    }
 };
 
 const RegistrationForm = () => {
@@ -24,7 +19,7 @@ const RegistrationForm = () => {
     const navigate = useNavigate();
 
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const { 
+    const {
         displayName,
         email,
         password,
@@ -47,9 +42,9 @@ const RegistrationForm = () => {
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
             await createUserDocumentFromAuth(user, { displayName });
-            navigate('/profile');
+            navigate('/calculator');
         } catch (error) {
-            if(error.code == 'auth/email-already-in-use') {
+            if (error.code == 'auth/email-already-in-use') {
                 alert('Email already in use!');
             } else {
                 console.log('User creation encountered an error!', error);
@@ -60,6 +55,9 @@ const RegistrationForm = () => {
     return (
         <RegistrationContainer>
             <InnerRegistrationContainer>
+                <ContainerHeader>
+                    <h3>Register an account</h3>
+                </ContainerHeader>
                 <Form onSubmit={handleSubmit}>
                     <FormInput
                         label='Display Name'

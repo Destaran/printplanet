@@ -1,8 +1,18 @@
+import data from '../../utils/recipes/recipes.dictionary.json';
+
+import CalculatorItemSelect from '../../components/CalculatorItemSelect/CalculatorItemSelect.component';
+import CalculatorSummary from '../../components/CalculatorSummary/CalculatorSummary.component';
+
+import { CalculatorContainer } from './Calculator.styles';
+
+
 const Calculator = () => {
+
     return (
-        <div>
-            <h1>This is the calculator</h1>
-        </div>
+        <CalculatorContainer>
+            <CalculatorItemSelect/>
+            <CalculatorSummary/>
+        </CalculatorContainer>
     );
 };
 

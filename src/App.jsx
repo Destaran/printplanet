@@ -9,6 +9,8 @@ import Home from './routes/Home/Home.component';
 import Calculator from './routes/Calculator/Calculator.component';
 import Blueprints from './routes/Blueprints/Blueprints.component';
 import Profile from "./routes/Profile/Profile.component";
+import ForgotPassword from "./routes/ForgotPassword/ForgotPassword.component";
+import Dashboard from "./routes/Dashboard/Dashboard.component";
 
 const App = () => {
   return (
@@ -16,10 +18,10 @@ const App = () => {
       <Route path='/' element={<Navigation />} >
         <Route index element={<Home />} />
         <Route path='login' element={<Login />} />
-        <Route path='profile' element={<Profile />} />
         <Route path='registration' element={<Registration />} />
+        <Route path='forgot-password' element={<ForgotPassword />} />
+        <Route path='profile' element={<Profile />} />
         <Route path='calculator' element={<Calculator />} />
-        <Route path='blueprints' element={<Blueprints />} />
       </Route>
     </Routes>
   )

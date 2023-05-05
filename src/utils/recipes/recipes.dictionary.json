@@ -324,11 +324,11 @@
             ]
         }
     },
-    "battery-mk1": {
-        "id": "battery-mk1",
-        "name": "Battery MK1",
+    "personal-battery": {
+        "id": "personal-battery",
+        "name": "Personal battery",
         "type": "Item",
-        "wiki_link": "https://wiki.factorio.com/Battery_MK1",
+        "wiki_link": "https://wiki.factorio.com/Personal_battery",
         "category": "Combat",
         "recipe": {
             "time": 10,
@@ -345,23 +345,27 @@
             ]
         }
     },
-    "battery-mk2": {
-        "id": "battery-mk2",
-        "name": "Battery MK2",
+    "persona-battery-mk2": {
+        "id": "persona-battery-mk2",
+        "name": "Personal battery MK2",
         "type": "Item",
-        "wiki_link": "https://wiki.factorio.com/Battery_MK2",
+        "wiki_link": "https://wiki.factorio.com/Personal_battery_MK2",
         "category": "Combat",
         "recipe": {
             "time": 10,
             "yield": 1,
             "ingredients": [
                 {
-                    "id": "battery-mk1",
+                    "id": "personal-battery",
                     "amount": 10
                 },
                 {
+                    "id": "low-density-structure",
+                    "amount": 5
+                },
+                {
                     "id": "processing-unit",
-                    "amount": 20
+                    "amount": 15
                 }
             ]
         }
@@ -1945,31 +1949,27 @@
             "ingredients": []
         }
     },
-    "high-tech-science-pack": {
-        "id": "high-tech-science-pack",
-        "name": "High tech science pack",
+    "utility-science-pack": {
+        "id": "utility-science-pack",
+        "name": "Utility science pack",
         "type": "Science pack",
-        "wiki_link": "https://wiki.factorio.com/High_tech_science_pack",
+        "wiki_link": "https://wiki.factorio.com/Utility_science_pack",
         "category": "Intermediate product",
         "recipe": {
-            "time": 14,
-            "yield": 2,
+            "time": 21,
+            "yield": 3,
             "ingredients": [
                 {
-                    "id": "battery",
+                    "id": "flying-robot-frame",
                     "amount": 1
                 },
                 {
-                    "id": "copper-cable",
-                    "amount": 30
-                },
-                {
-                    "id": "processing-unit",
+                    "id": "low-density-structure",
                     "amount": 3
                 },
                 {
-                    "id": "speed-module",
-                    "amount": 1
+                    "id": "processing-unit",
+                    "amount": 2
                 }
             ]
         }
@@ -3650,9 +3650,9 @@
             ]
         }
     },
-    "science-pack-1": {
-        "id": "science-pack-1",
-        "name": "Science pack 1",
+    "automation-science-pack": {
+        "id": "automation-science-pack",
+        "name": "Automation science pack",
         "type": "Science pack",
         "wiki_link": "https://wiki.factorio.com/Science_pack_1",
         "category": "Intermediate product",
@@ -3671,9 +3671,9 @@
             ]
         }
     },
-    "science-pack-2": {
-        "id": "science-pack-2",
-        "name": "Science pack 2",
+    "logistic-science-pack": {
+        "id": "logistic-science-pack",
+        "name": "Logistic science pack",
         "type": "Science pack",
         "wiki_link": "https://wiki.factorio.com/Science_pack_2",
         "category": "Intermediate product",
@@ -3692,9 +3692,9 @@
             ]
         }
     },
-    "science-pack-3": {
-        "id": "science-pack-3",
-        "name": "Science pack 3",
+    "chemical-science-pack": {
+        "id": "chemical-science-pack",
+        "name": "Chemical science pack",
         "type": "Science pack",
         "wiki_link": "https://wiki.factorio.com/Science_pack_3",
         "category": "Intermediate product",

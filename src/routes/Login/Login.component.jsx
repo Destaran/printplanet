@@ -16,7 +16,7 @@ const Login = () => {
         <>
             <LoginForm/>
             <SignUpContainer>
-                <p>Don't have an account? <span onClick={navigateHandler}>Register!</span></p>
+                <p>Don't have an account? <span onClick={navigateHandler}>Register here!</span></p>
             </SignUpContainer>
         </>
     )

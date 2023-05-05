@@ -13,12 +13,18 @@ export const Header = styled.h1`
 export const NavBar = styled.div`
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+    background-color: #14213d;
+    padding: 2px;
 `
 
 export const NavLink = styled(Link)`
-    color: black;
+    color: white;
     text-decoration: none;
     margin: 5px 15px 5px 15px;
     padding: 0px;
     cursor: pointer;
+
+    &:hover {
+        color: orange;
+    }
 `

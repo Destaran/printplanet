@@ -12,6 +12,7 @@ export const SignUpContainer = styled.div`
 
     span {
         color: black;
+        font-weight: 600;
 
         &:hover {
             cursor: pointer;
