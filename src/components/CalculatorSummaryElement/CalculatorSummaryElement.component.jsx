@@ -1,19 +1,23 @@
 import { OutterElementContainer, InnerElementContainer, ImgContainer, NumberContainer } from "./CalculatorSummaryElement.styles";
 
+import { returnImageUrlById } from "../../utils/helperFunctions";
 
-const CalculatorSummaryElement = () => {
+const CalculatorSummaryElement = ({ object }) => {
+    const { amount, id } = object;
+    const imgUrl = returnImageUrlById(id);
+
     return (
         <OutterElementContainer>
             <InnerElementContainer>
                 <ImgContainer>
-                    <img src="./item-icons/accumulator.png" alt="" />
+                    <img src={imgUrl} />
                 </ImgContainer>
                 <NumberContainer>
-                    <p>25</p>
+                    <p>{amount}</p>
                 </NumberContainer>
             </InnerElementContainer>
         </OutterElementContainer>
     )
-}
+};
 
 export default CalculatorSummaryElement;

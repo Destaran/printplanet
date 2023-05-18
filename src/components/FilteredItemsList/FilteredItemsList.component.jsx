@@ -6,7 +6,7 @@ import { FilteredItems, FilteredItem, ItemIcon, FilteredItemsContainer } from ".
 
 const FilteredItemsList = () => {
 
-    const { currentItem, setCurrentItem, setSearchString, filteredItems, robi } = useContext(CalculatorContext);
+    const { setCurrentItem, setSearchString, filteredItems, robi } = useContext(CalculatorContext);
 
     const selectItem = (event) => {
         const selectedItem = event.target.id;

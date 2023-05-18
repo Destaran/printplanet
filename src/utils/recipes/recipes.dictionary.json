@@ -20,8 +20,8 @@
             ]
         }
     },
-    "logistic-chest-active-provider": {
-        "id": "logistic-chest-active-provider",
+    "active-provider-chest": {
+        "id": "active-provider-chest",
         "name": "Active provider chest",
         "type": "Machinery",
         "wiki_link": "https://wiki.factorio.com/Active_provider_chest",
@@ -346,7 +346,7 @@
         }
     },
     "persona-battery-mk2": {
-        "id": "persona-battery-mk2",
+        "id": "personal-battery-mk2",
         "name": "Personal battery MK2",
         "type": "Item",
         "wiki_link": "https://wiki.factorio.com/Personal_battery_MK2",
@@ -465,8 +465,8 @@
             ]
         }
     },
-    "logistic-chest-buffer": {
-        "id": "logistic-chest-buffer",
+    "buffer-chest": {
+        "id": "buffer-chest",
         "name": "Buffer chest",
         "type": "Machinery",
         "wiki_link": "https://wiki.factorio.com/Buffer_chest",
@@ -1040,7 +1040,7 @@
         }
     },
     "effectivity-module": {
-        "id": "effectivity-module",
+        "id": "efficiency-module",
         "name": "Efficiency module",
         "type": "Item",
         "wiki_link": "https://wiki.factorio.com/Efficiency_module",
@@ -1061,7 +1061,7 @@
         }
     },
     "effectivity-module-2": {
-        "id": "effectivity-module-2",
+        "id": "efficiency-module-2",
         "name": "Efficiency module 2",
         "type": "Item",
         "wiki_link": "https://wiki.factorio.com/Efficiency_module_2",
@@ -1086,7 +1086,7 @@
         }
     },
     "effectivity-module-3": {
-        "id": "effectivity-module-3",
+        "id": "efficiency-module-3",
         "name": "Efficiency module 3",
         "type": "Item",
         "wiki_link": "https://wiki.factorio.com/Efficiency_module_3",
@@ -2617,8 +2617,8 @@
             ]
         }
     },
-    "logistic-chest-passive-provider": {
-        "id": "logistic-chest-passive-provider",
+    "passive-provider-chest": {
+        "id": "passive-provider-chest",
         "name": "Passive provider chest",
         "type": "Machinery",
         "wiki_link": "https://wiki.factorio.com/Passive_provider_chest",
@@ -3417,8 +3417,8 @@
             ]
         }
     },
-    "logistic-chest-requester": {
-        "id": "logistic-chest-requester",
+    "requester-chest": {
+        "id": "requester-chest",
         "name": "Requester chest",
         "type": "Machinery",
         "wiki_link": "https://wiki.factorio.com/Requester_chest",

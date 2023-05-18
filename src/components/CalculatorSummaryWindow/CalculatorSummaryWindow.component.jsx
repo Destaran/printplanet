@@ -2,15 +2,15 @@ import CalculatorSummaryElement from "../CalculatorSummaryElement/CalculatorSumm
 import { SummaryWindowContainer, SummaryWindowInner, SummaryWindowOutter, TitleText } from "./CalculatorSummaryWindow.styles";
 
 
-const CalculatorSummaryWindow = ({ title }) => {
+const CalculatorSummaryWindow = ({ title, toMap }) => {
     return (
         <SummaryWindowContainer>
             <TitleText>{title}</TitleText>
             <SummaryWindowOutter>
                 <SummaryWindowInner>
-                    <CalculatorSummaryElement />
-                    <CalculatorSummaryElement />
-                    <CalculatorSummaryElement />
+                    {toMap.map((obj, idx) => {
+                        return <CalculatorSummaryElement object={obj} key={idx}/>
+                    })}
                 </SummaryWindowInner>
             </SummaryWindowOutter>
         </SummaryWindowContainer>

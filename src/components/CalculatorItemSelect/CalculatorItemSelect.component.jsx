@@ -12,21 +12,32 @@ import {
     QuantitySelectContainer,
     UnitSelectContainer,
     ButtonContainer,
-    ResetButton
+    ResetButton,
+    BeltContainer,
+    BeltButton
 } from "./CalculatorItemSelect.styles";
+
+const returnImageUrlById = (id) => {
+    return `./item-icons/${id}.png`
+};
+
+const beltImages = [
+    returnImageUrlById('transport-belt'),
+    returnImageUrlById('fast-transport-belt'),
+    returnImageUrlById('express-transport-belt')
+]
 
 const CalculatorItemSelect = () => {
 
     const {
-        currentItem,
         setCurrentItem,
-        filteredItems,
         searchString,
         setSearchString,
         quantity,
         setQuantity,
         unit,
-        setUnit
+        setUnit,
+        addOutputItem
     } = useContext(CalculatorContext);
 
     const handleSearchChange = ({ target }) => {
@@ -39,6 +50,11 @@ const CalculatorItemSelect = () => {
         setQuantity(value);
     };
 
+    const handleBeltIconClick = ({ target }) => {
+        const value = target.getAttribute('data-value');
+        setQuantity(value);
+    }
+
     const handleUnitChange = ({ target }) => {
         const { value } = target;
         setUnit(value);
@@ -47,6 +63,7 @@ const CalculatorItemSelect = () => {
     const resetButtonClick = () => {
         setSearchString("");
         setCurrentItem("");
+        setQuantity(1);
     }
 
     return (
@@ -59,7 +76,7 @@ const CalculatorItemSelect = () => {
                     name='item-search'
                     onChange={handleSearchChange}
                 />
-                {searchString && !currentItem && <FilteredItemsList />}
+                {searchString && <FilteredItemsList />}
             </ItemSelectContainer>
             <QuantitySelectContainer>
                 <CalculatorFormInput
@@ -69,6 +86,11 @@ const CalculatorItemSelect = () => {
                     name='quantity'
                     onChange={handleQuantityChange}
                 />
+                <BeltContainer>
+                    <BeltButton src={beltImages[0]} data-value={15} onClick={handleBeltIconClick} />
+                    <BeltButton src={beltImages[1]} data-value={30} onClick={handleBeltIconClick} />
+                    <BeltButton src={beltImages[2]} data-value={45} onClick={handleBeltIconClick} />
+                </BeltContainer>
             </QuantitySelectContainer>
             <UnitSelectContainer>
                 <CalculatorFormSelect
@@ -77,10 +99,10 @@ const CalculatorItemSelect = () => {
                 />
             </UnitSelectContainer>
             <ButtonContainer>
-                <ResetButton onClick={resetButtonClick}>Reset</ResetButton>
+                <ResetButton onClick={addOutputItem}>Add</ResetButton>
             </ButtonContainer>
             <ButtonContainer>
-                <ResetButton>Save</ResetButton>
+                <ResetButton onClick={resetButtonClick}>Reset</ResetButton>
             </ButtonContainer>
         </CalculatorItemSelectContainer>
     )

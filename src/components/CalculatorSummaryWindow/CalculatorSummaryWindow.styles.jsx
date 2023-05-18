@@ -10,7 +10,6 @@ export const SummaryWindowOutter = styled.div`
     justify-content: center;
     border: 1px black solid;
     background-color: #14213d;
-    width: 100%;
     margin: 0;
     padding: 4px;
 `
