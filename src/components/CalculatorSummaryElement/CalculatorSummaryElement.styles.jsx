@@ -6,6 +6,10 @@ export const OutterElementContainer = styled.div`
     width: 52px;
     padding: 2px;
     background-color: #14213d;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 export const InnerElementContainer = styled.div`

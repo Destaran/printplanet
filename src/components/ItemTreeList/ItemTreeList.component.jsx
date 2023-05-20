@@ -1,15 +1,15 @@
 import ItemTreeListElement from "../ItemTreeListElement/ItemTreeListElement.component";
 
-import { CalculatorTreeListContainer } from "./CalculatorTreeList.styles";
+import { ItemTreeListContainer } from "./ItemTreeList.styles";
 
-const CalculatorTreeList = ({ matsArray }) => {
+const ItemTreeList = ({ matsArray }) => {
     return (
-        <CalculatorTreeListContainer>
+        <ItemTreeListContainer>
             {matsArray.map((outputItem, idx) => {
                 return <ItemTreeListElement outputItem={outputItem} key={idx} />
             })}
-        </CalculatorTreeListContainer>
+        </ItemTreeListContainer>
     )
 };
 
-export default CalculatorTreeList;
+export default ItemTreeList;

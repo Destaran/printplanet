@@ -1,13 +1,13 @@
 
 import ItemTreeListElement from "../ItemTreeListSpan/ItemTreeListSpan.component";
 
-import { useState, useContext } from "react";
-import { CalculatorContext } from "../../contexts/calculator.context";
+import { useState } from "react";
 
-import CalculatorTreeList from "../CalculatorTreeList/CalculatorTreeList.component";
+import ItemTreeList from "../ItemTreeList/ItemTreeList.component";
+
+import { robi } from "../../utils/helperFunctions";
 
 const ItemTreeFragment = ( {outputItem} ) => {
-    const { robi } = useContext(CalculatorContext);
     const [showMats, setShowMats] = useState(false);
     const { id, amount } = outputItem;
 
@@ -32,7 +32,7 @@ const ItemTreeFragment = ( {outputItem} ) => {
     return (
         <>
             <ItemTreeListElement outputItem={outputItem} handleClick={handleClick} />
-            {showMats && <CalculatorTreeList matsArray={matsArrayTrue} />}
+            {showMats && <ItemTreeList matsArray={matsArrayTrue} />}
         </>
     )
 };

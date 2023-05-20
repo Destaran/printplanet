@@ -1,12 +1,7 @@
-import { useContext } from "react";
-
-import { CalculatorContext } from "../../contexts/calculator.context";
-
+import { robi } from "../../utils/helperFunctions";
 import { FilteredItems, FilteredItem, ItemIcon, FilteredItemsContainer } from "./FilteredItemsList.styles";
 
-const FilteredItemsList = () => {
-
-    const { setCurrentItem, setSearchString, filteredItems, robi } = useContext(CalculatorContext);
+const FilteredItemsList = ({ setCurrentItem, setSearchString, filteredItems }) => {
 
     const selectItem = (event) => {
         const selectedItem = event.target.id;

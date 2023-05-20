@@ -1,14 +1,14 @@
-import { useContext } from "react";
-
-import { CalculatorContext } from "../../contexts/calculator.context";
+import { useSelector } from "react-redux";
+import { selectOutput, selectInput, selectMachines } from "../../reduxStore/calculator/calculator.selector";
 
 import CalculatorSummaryWindow from "../CalculatorSummaryWindow/CalculatorSummaryWindow.component";
-
 import { CalculatorSummaryContainer } from "./CalculatorSummary.styles";
 
 
 const CalculatorSummary = () => {
-    const { output, input, machines } = useContext(CalculatorContext);
+    const output = useSelector(selectOutput);
+    const input = useSelector(selectInput);
+    const machines = useSelector(selectMachines);
 
     return (
         <CalculatorSummaryContainer>

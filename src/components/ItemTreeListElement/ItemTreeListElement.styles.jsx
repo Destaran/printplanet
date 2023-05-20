@@ -5,5 +5,5 @@ export const ItemTreeListElementContainer = styled.li`
     margin: 0px 0 0px 28px;
     list-style: none;
     border-left: 2px solid black;
-    padding-left: 40px;
+    padding-left: 27px;
 `

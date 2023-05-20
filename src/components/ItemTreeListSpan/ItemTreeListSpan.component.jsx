@@ -11,17 +11,18 @@ import { returnImageUrlById } from "../../utils/helperFunctions";
 const ItemTreeListSpan = ({ outputItem, handleClick }) => {
     const { amount, id } = outputItem;
     const imgUrl = returnImageUrlById(id);
+    const showAmount = Math.ceil(amount)
 
     return (
         <>
-            <ItemTreeListSpanContainer onClick={handleClick}>
-                <OutterElementContainer>
+            <ItemTreeListSpanContainer>
+                <OutterElementContainer onClick={handleClick}>
                     <InnerElementContainer>
                         <ImgContainer>
                             <img src={imgUrl} />
                         </ImgContainer>
                         <NumberContainer>
-                            <p>{amount}</p>
+                            <p>{showAmount}</p>
                         </NumberContainer>
                     </InnerElementContainer>
                 </OutterElementContainer>

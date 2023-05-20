@@ -1,18 +1,14 @@
+import { useSelector } from "react-redux";
+
 import ItemTreeDiv from "../ItemTree/ItemTreeDiv.component";
-
-import { useContext } from "react";
-
-import { CalculatorContext } from "../../contexts/calculator.context";
-
-import { CalculatorTreeContainer } from "./CalculatorTree.styles";
+import { CalculatorTreeContainer, TitleParagraph } from "./CalculatorTree.styles";
 
 const CalculatorTree = () => {
-
-    const { output } = useContext(CalculatorContext);
+    const output = useSelector((state) => state.calculator.output);
 
     return (
         <CalculatorTreeContainer>
-            <p>Tree Overview</p>
+            <TitleParagraph>Tree Overview</TitleParagraph>
             {output.map((outputItem, idx) => {
                 return <ItemTreeDiv outputItem={outputItem} key={idx}/>
             })}

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CalculatorTreeListContainer = styled.ul`
+export const ItemTreeListContainer = styled.ul`
     margin: 0;
     padding: 0;
 
@@ -20,7 +20,7 @@ export const CalculatorTreeListContainer = styled.ul`
         position: relative;
         display: flex;
         height: 22px;
-        left: -42px;
+        left: -29px;
         border-left: 2px solid black;
         top: -37px;
         z-index: 1;
@@ -34,8 +34,8 @@ export const CalculatorTreeListContainer = styled.ul`
         display: block;
         position: relative;
         top: 15px;
-        left: -40px;
-        width: 38px;
+        left: -27px;
+        width: 25px;
         border: solid black 1px;
     }
 

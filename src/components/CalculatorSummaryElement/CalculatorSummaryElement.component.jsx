@@ -1,13 +1,22 @@
+import { returnImageUrlById } from "../../utils/helperFunctions";
+
+import { useDispatch } from "react-redux";
+import { removeFromOutput } from "../../reduxStore/calculator/calculator.slice";
+
 import { OutterElementContainer, InnerElementContainer, ImgContainer, NumberContainer } from "./CalculatorSummaryElement.styles";
 
-import { returnImageUrlById } from "../../utils/helperFunctions";
 
 const CalculatorSummaryElement = ({ object }) => {
     const { amount, id } = object;
+    const dispatch = useDispatch();
     const imgUrl = returnImageUrlById(id);
 
+    const removeItem = () => {
+        dispatch(removeFromOutput(id))
+    };
+
     return (
-        <OutterElementContainer>
+        <OutterElementContainer onClick={removeItem}>
             <InnerElementContainer>
                 <ImgContainer>
                     <img src={imgUrl} />
