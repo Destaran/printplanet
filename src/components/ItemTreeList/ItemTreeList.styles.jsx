@@ -37,6 +37,7 @@ export const ItemTreeListContainer = styled.ul`
         left: -27px;
         width: 25px;
         border: solid black 1px;
+        z-index: 1;
     }
 
     /* li::after{

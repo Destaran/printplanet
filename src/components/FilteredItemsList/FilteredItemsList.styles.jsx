@@ -4,6 +4,7 @@ export const FilteredItemsContainer = styled.div`
     position: relative;
     top: -15px;
     width: 100%;
+    z-index: 2;
 `
 
 export const FilteredItems = styled.ul`
@@ -11,6 +12,8 @@ export const FilteredItems = styled.ul`
     width: 100%;
     margin: 0;
     padding: 0;
+    max-height: 800px;
+    overflow: scroll;
 `
 
 export const FilteredItem = styled.li`

@@ -6,6 +6,7 @@ export const OutterElementContainer = styled.div`
     width: 52px;
     padding: 2px;
     background-color: #14213d;
+    user-select: none;
 
     &:hover {
         cursor: pointer;

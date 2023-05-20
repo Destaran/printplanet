@@ -1768,7 +1768,7 @@
                     "amount": 2
                 },
                 {
-                    "id": "stone-wall",
+                    "id": "wall",
                     "amount": 1
                 }
             ]
@@ -4201,11 +4201,11 @@
             ]
         }
     },
-    "stone-wall": {
-        "id": "stone-wall",
-        "name": "Stone wall",
+    "wall": {
+        "id": "wall",
+        "name": "Wall",
         "type": "Combat",
-        "wiki_link": "https://wiki.factorio.com/Stone_wall",
+        "wiki_link": "https://wiki.factorio.com/Wall",
         "category": "Combat",
         "recipe": {
             "time": 0.5,

@@ -11,28 +11,38 @@ export const calculatorSlice = createSlice({
     initialState,
     reducers: {
         addToOutput: ({ output }, { payload }) => {
-            const { id, amount } = payload;
-            const existingItem = output.find((item) => item.id === id);
+            if (payload.id) {
+                const { id, amount } = payload;
+                const existingItem = output.find((item) => item.id === id);
 
-            if (existingItem) {
-                output.map(item => {
-                    if (item.id === id) {
-                        item.amount = Number(item.amount) + Number(amount);
-                    }
-                })
-            } else {
-                output.push(payload);
+                if (existingItem) {
+                    output.map(item => {
+                        if (item.id === id) {
+                            item.amount = Number(item.amount) + Number(amount);
+                        }
+                    })
+                } else {
+                    output.push(payload);
+                }
             }
         },
         removeFromOutput: ({ output }, { payload }) => {
             let indexToRemove = output.findIndex(item => item.id === payload);
             if (indexToRemove !== -1) {
                 output.splice(indexToRemove, 1);
-              }
+            }
+        },
+        modifyOutputElement: ({ output }, { payload }) => {
+            const { id, amount } = payload;
+            output.map(item => {
+                if (item.id === id) {
+                    item.amount = Number(amount);
+                }
+            })
         }
     }
 });
 
-export const { addToOutput, removeFromOutput } = calculatorSlice.actions;
+export const { addToOutput, removeFromOutput, modifyOutputElement } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

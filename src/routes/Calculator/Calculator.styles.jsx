@@ -6,4 +6,5 @@ export const CalculatorContainer = styled.div`
     width: 80%;
     height: 100%;  
     background-color: #f1f1f1;
+    user-select: none;
 `

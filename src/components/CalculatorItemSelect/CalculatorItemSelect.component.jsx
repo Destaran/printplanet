@@ -73,9 +73,12 @@ const CalculatorItemSelect = () => {
     const addItemHandler = () => {
         const itemToAdd = {
             id: currentItem.id,
-            amount: quantity
+            amount: quantity,
         }
         dispatch(addToOutput(itemToAdd));
+        setSearchString("");
+        setCurrentItem("");
+        setQuantity(1);
     }
 
     return (
@@ -88,7 +91,7 @@ const CalculatorItemSelect = () => {
                     name='item-search'
                     onChange={handleSearchChange}
                 />
-                {searchString && 
+                {searchString && filteredItems.length > 1 &&
                     <FilteredItemsList 
                         setCurrentItem={setCurrentItem} 
                         setSearchString={setSearchString} 

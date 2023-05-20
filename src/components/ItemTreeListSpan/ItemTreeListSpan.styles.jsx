@@ -5,6 +5,7 @@ export const ItemTreeListSpanContainer = styled.div`
     margin: 0;
     list-style: none;
     width: 100%;
+    user-select: none;
 `
 
 export const OutterElementContainer = styled.div`
@@ -12,7 +13,6 @@ export const OutterElementContainer = styled.div`
     width: 52px;
     padding: 2px;
     background-color: #14213d;
-
     &:hover {
         cursor: pointer;
     }
