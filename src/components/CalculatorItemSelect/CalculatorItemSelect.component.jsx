@@ -47,6 +47,9 @@ const CalculatorItemSelect = () => {
     const handleSearchChange = ({ target }) => {
         const { value } = target;
         setSearchString(value);
+        if (currentItem.id) {
+            setCurrentItem({});
+        }
     };
 
     const handleQuantityChange = ({ target }) => {
@@ -66,7 +69,7 @@ const CalculatorItemSelect = () => {
 
     const resetHandler = () => {
         setSearchString("");
-        setCurrentItem("");
+        setCurrentItem({});
         setQuantity(1);
     };
 
@@ -77,7 +80,7 @@ const CalculatorItemSelect = () => {
         }
         dispatch(addToOutput(itemToAdd));
         setSearchString("");
-        setCurrentItem("");
+        setCurrentItem({});
         setQuantity(1);
     }
 
@@ -85,13 +88,14 @@ const CalculatorItemSelect = () => {
         <CalculatorItemSelectContainer>
             <ItemSelectContainer>
                 <CalculatorFormInput
+                    autoFocus
                     placeholder="Search item"
                     type='text'
                     value={searchString}
                     name='item-search'
                     onChange={handleSearchChange}
                 />
-                {searchString && filteredItems.length > 1 &&
+                {searchString && !currentItem.id &&
                     <FilteredItemsList 
                         setCurrentItem={setCurrentItem} 
                         setSearchString={setSearchString} 

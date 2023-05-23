@@ -13,7 +13,6 @@ export const FilteredItems = styled.ul`
     margin: 0;
     padding: 0;
     max-height: 800px;
-    overflow: scroll;
 `
 
 export const FilteredItem = styled.li`

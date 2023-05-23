@@ -11,7 +11,7 @@ import { returnImageUrlById } from "../../utils/helperFunctions";
 const ItemTreeListSpan = ({ outputItem, handleClick }) => {
     const { amount, id } = outputItem;
     const imgUrl = returnImageUrlById(id);
-    const showAmount = Math.ceil(amount)
+    const showAmount = amount;
 
     return (
         <>

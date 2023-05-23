@@ -2,11 +2,11 @@ import ItemTreeListElement from "../ItemTreeListElement/ItemTreeListElement.comp
 
 import { ItemTreeListContainer } from "./ItemTreeList.styles";
 
-const ItemTreeList = ({ matsArray }) => {
+const ItemTreeList = ({ ingredients, pid }) => {
     return (
         <ItemTreeListContainer>
-            {matsArray.map((outputItem, idx) => {
-                return <ItemTreeListElement outputItem={outputItem} key={idx} />
+            {ingredients.map((outputItem, idx) => {
+                return <ItemTreeListElement outputItem={outputItem} key={idx} pid={pid} />
             })}
         </ItemTreeListContainer>
     )
