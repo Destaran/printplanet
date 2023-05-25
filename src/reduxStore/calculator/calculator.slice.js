@@ -12,42 +12,41 @@ export const calculatorSlice = createSlice({
     name: "calculator",
     initialState,
     reducers: {
-        addToOutput: ({ output, input }, { payload }) => {
+        addToOutput: ({ output }, { payload }) => {
             const { id, amount } = payload;
-            if (id) {
-                const itemObject = robi(id)
-                // Check if the added object is already in the output array
-                // If yes, sum amounts
-                const existingItem = output.find((item) => item.id === id);
-                if (existingItem) {
-                    output.forEach(item => {
-                        if (item.id === id) {
-                            item.amount = Number(item.amount) + Number(amount);
-                            addAmountToChildren(item, item.amount);
-                        }
-                    })
-                } else {
-                    // If no, create ingredients array
-                    const objectToPushIngredients = itemObject.recipe.ingredients.map(ingredient => {
-                        const baseYield = itemObject.recipe.yield;
-                        const amountCalc = (Number(amount) * Number(ingredient.amount)) / Number(itemObject.recipe.yield);
-                        const result = {
-                            ...ingredient,
-                            uid: uuidv4(),
-                            amount: formatNumber(amountCalc),
-                            baseAmount: ingredient.amount,
-                            baseYield: baseYield
-                        };
-                        return result;
-                    });
-                    // Push new output element to output array
-                    const objectToPush = {
-                        id: id,
-                        amount: formatNumber(Number(amount)),
-                        ingredients: objectToPushIngredients
+            if (!id) return;
+            const itemObject = robi(id)
+            // Check if the added object is already in the output array
+            const existingItem = output.find((item) => item.id === id);
+            // If yes, sum amounts
+            if (existingItem) {
+                output.forEach(item => {
+                    if (item.id === id) {
+                        item.amount = Number(item.amount) + Number(amount);
+                        addAmountToChildren(item, item.amount);
                     }
-                    output.push(objectToPush);
+                })
+            // If no, create ingredients array
+            } else {
+                const objectToPushIngredients = itemObject.recipe.ingredients.map(ingredient => {
+                    const baseYield = itemObject.recipe.yield;
+                    const amountCalc = (Number(amount) * Number(ingredient.amount)) / Number(itemObject.recipe.yield);
+                    const result = {
+                        ...ingredient,
+                        uid: uuidv4(),
+                        amount: formatNumber(amountCalc),
+                        baseAmount: ingredient.amount,
+                        baseYield: baseYield
+                    };
+                    return result;
+                });
+                // Push new output element to output array
+                const objectToPush = {
+                    id: id,
+                    amount: formatNumber(Number(amount)),
+                    ingredients: objectToPushIngredients
                 }
+                output.push(objectToPush);
             }
         },
         removeFromOutput: ({ output }, { payload }) => {

@@ -12,6 +12,15 @@ export const returnImageUrlById = (id) => {
   return `./item-icons/${id}.png`
 };
 
+// Format number
+export const formatNumber = (number) => {
+  if (Number.isInteger(number)) {
+    return number;
+  } else {
+    return Number(number.toFixed(1));
+  }
+};
+
 // Add ingredients to object tree based on uid
 export const findTreeElementAddIngredients = (obj, uid, ingredientArray) => {
   if (typeof obj !== 'object') {
@@ -54,7 +63,7 @@ export const addAmountToChildren = (obj, amount) => {
   }
 
   if ('baseAmount' in obj) {
-    obj.amount = (obj.baseAmount * amount) / obj.baseYield;
+    obj.amount = formatNumber((obj.baseAmount * amount) / obj.baseYield);
   }
 
   if ('ingredients' in obj) {
@@ -64,8 +73,8 @@ export const addAmountToChildren = (obj, amount) => {
   }
 };
 
+// Map
 export const mapInput = (obj, inputArray) => {
-
   if ('ingredients' in obj) {
     obj.ingredients.forEach(ingredient => {
       mapInput(ingredient, inputArray);
@@ -90,11 +99,3 @@ export const mapInput = (obj, inputArray) => {
     }
   }
 };
-
-export const formatNumber = (number) => {
-  if (Number.isInteger(number)) {
-    return number;
-  } else {
-    return Number(number.toFixed(1));
-  }
-}

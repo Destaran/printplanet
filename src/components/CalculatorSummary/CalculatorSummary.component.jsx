@@ -1,8 +1,5 @@
 import { useSelector } from "react-redux";
 import { selectOutput, selectInput, selectMachines } from "../../reduxStore/calculator/calculator.selector";
-
-import { useEffect } from "react";
-
 import { mapInput } from "../../utils/helperFunctions";
 
 import CalculatorSummaryWindow from "../CalculatorSummaryWindow/CalculatorSummaryWindow.component";
