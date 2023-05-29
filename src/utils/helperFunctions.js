@@ -16,6 +16,10 @@ export const returnImageUrlById = (id) => {
 export const formatNumber = (number) => {
   if (Number.isInteger(number)) {
     return number;
+  } else if (number >= 100) {
+    return Number(Math.ceil(number));
+  } else if (number <= 0.09) {
+    return Number(number.toFixed(2));
   } else {
     return Number(number.toFixed(1));
   }
@@ -63,7 +67,7 @@ export const addAmountToChildren = (obj, amount) => {
   }
 
   if ('baseAmount' in obj) {
-    obj.amount = formatNumber((obj.baseAmount * amount) / obj.baseYield);
+    obj.amount = (obj.baseAmount * amount) / obj.baseYield;
   }
 
   if ('ingredients' in obj) {
@@ -73,7 +77,7 @@ export const addAmountToChildren = (obj, amount) => {
   }
 };
 
-// Map
+// Map input based on output array
 export const mapInput = (obj, inputArray) => {
   if ('ingredients' in obj) {
     obj.ingredients.forEach(ingredient => {
@@ -82,20 +86,22 @@ export const mapInput = (obj, inputArray) => {
   } else {
     const existingItem = inputArray.find((item) => item.id === obj.id);
     if (existingItem) {
-      inputArray.forEach(item => {
-        if (item.id === obj.id) {
-          let index = inputArray.indexOf(item);
-          const newItem = {
-            ...item,
-            amount: Number(item.amount) + Number(obj.amount)
-          };
-          console.log(newItem);
-          inputArray.splice(index, 1);
-          inputArray.push(newItem);
-        }
-      })
+      const index = inputArray.indexOf(existingItem);
+      const newItem = {
+        ...existingItem,
+        amount: Number(existingItem.amount) + Number(obj.amount)
+      };
+      inputArray.splice(index, 1);
+      inputArray.push(newItem);
     } else if (!existingItem) {
       inputArray.push(obj);
     }
+  }
+};
+
+// Map machines based on output array
+export const mapMachines = (obj, inputArray) => {
+  if ('id' in obj) {
+    
   }
 };

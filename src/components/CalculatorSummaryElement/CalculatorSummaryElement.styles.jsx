@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const OutterElementContainer = styled.div`
     border: 1px solid white;
     height: 26px;
-    width: 52px;
+    width: 70px;
     padding: 2px;
     background-color: #14213d;
     user-select: none;
@@ -34,10 +34,11 @@ export const ImgContainer = styled.div`
 `
 
 export const NumberContainer = styled.div`
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    min-width: 50%;
+    padding: 2px;
     color: white;
     p {
         margin: 0;

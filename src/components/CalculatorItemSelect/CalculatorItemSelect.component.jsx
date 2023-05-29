@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { items } from "../../utils/helperFunctions";
 
 import { useDispatch } from "react-redux";
-import { addToOutput } from "../../reduxStore/calculator/calculator.slice";
+import { useSelector } from "react-redux";
+import { selectOutput } from "../../reduxStore/calculator/calculator.selector";
+import { addToOutput, resetOutput } from "../../reduxStore/calculator/calculator.slice";
 
 import { returnImageUrlById } from "../../utils/helperFunctions";
 
@@ -13,7 +15,7 @@ import FilteredItemsList from "../FilteredItemsList/FilteredItemsList.component"
 import {
     CalculatorItemSelectContainer,
     ItemSelectContainer,
-    QuantitySelectContainer,    
+    QuantitySelectContainer,
     UnitSelectContainer,
     ButtonContainer,
     ResetButton,
@@ -30,7 +32,8 @@ const beltImages = [
 const CalculatorItemSelect = () => {
 
     const dispatch = useDispatch();
-    
+    const output = useSelector(selectOutput);
+
     const [currentItem, setCurrentItem] = useState({});
     const [searchString, setSearchString] = useState('');
     const [quantity, setQuantity] = useState(1);
@@ -71,6 +74,9 @@ const CalculatorItemSelect = () => {
         setSearchString("");
         setCurrentItem({});
         setQuantity(1);
+        if (output.length > 0) {
+            dispatch(resetOutput());
+        }
     };
 
     const addItemHandler = () => {
@@ -83,6 +89,19 @@ const CalculatorItemSelect = () => {
         setCurrentItem({});
         setQuantity(1);
     }
+    
+    // HANDLE ENTER
+    // useEffect(() => {
+    //     const handleKeyDown = (event) => {
+    //         if (event.key === 'Enter') {
+    //             addItemHandler();
+    //         }
+    //     };
+    //     document.addEventListener('keydown', handleKeyDown);
+    //     return () => {
+    //         document.removeEventListener('keydown', handleKeyDown);
+    //     };
+    // }, []);
 
     return (
         <CalculatorItemSelectContainer>
@@ -96,10 +115,10 @@ const CalculatorItemSelect = () => {
                     onChange={handleSearchChange}
                 />
                 {searchString && !currentItem.id &&
-                    <FilteredItemsList 
-                        setCurrentItem={setCurrentItem} 
-                        setSearchString={setSearchString} 
-                        filteredItems={filteredItems} 
+                    <FilteredItemsList
+                        setCurrentItem={setCurrentItem}
+                        setSearchString={setSearchString}
+                        filteredItems={filteredItems}
                     />}
             </ItemSelectContainer>
             <QuantitySelectContainer>

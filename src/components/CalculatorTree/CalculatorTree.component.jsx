@@ -9,7 +9,7 @@ const CalculatorTree = () => {
 
     return (
         <CalculatorTreeContainer>
-            {output.length > 0 && <TitleParagraph>Tree Overview</TitleParagraph>}
+            <TitleParagraph>Tree Overview</TitleParagraph>
             {output.map((outputItem, idx) => {
                 return <ItemTreeDiv outputItem={outputItem} key={idx}/>
             })}

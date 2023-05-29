@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { selectOutput, selectInput, selectMachines } from "../../reduxStore/calculator/calculator.selector";
-import { mapInput } from "../../utils/helperFunctions";
+import { selectOutput } from "../../reduxStore/calculator/calculator.selector";
+import { mapInput, mapMachines } from "../../utils/helperFunctions";
 
 import CalculatorSummaryWindow from "../CalculatorSummaryWindow/CalculatorSummaryWindow.component";
 import { CalculatorSummaryContainer } from "./CalculatorSummary.styles";
@@ -8,12 +8,14 @@ import { CalculatorSummaryContainer } from "./CalculatorSummary.styles";
 
 const CalculatorSummary = () => {
     const output = useSelector(selectOutput);
-    // const input = useSelector(selectInput);
-    const machines = useSelector(selectMachines);
     let input = [];
+    let machines = [];
     output.forEach(element => {
         mapInput(element, input);
     });
+    output.forEach(element => {
+        mapMachines(element, machines);
+    })
 
     return (
         <CalculatorSummaryContainer>

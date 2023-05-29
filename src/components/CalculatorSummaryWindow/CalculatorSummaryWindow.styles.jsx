@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
 export const SummaryWindowContainer = styled.div`
-    width: 30%;
+    max-width: 31%;
+    min-width: auto;
+    height: auto;
 `
 
 export const SummaryWindowOutter = styled.div`
-    display: flex;
+    display: inline-flex;
+    height: auto;
+    width: fit-content;
     align-items: center;
     justify-content: center;
     border: 1px black solid;
@@ -15,11 +19,12 @@ export const SummaryWindowOutter = styled.div`
 `
 
 export const SummaryWindowInner = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
     border: 1px black solid;
     background-color: white;
     width: 100%;
-    height: 32px;
+    height: auto;
 `
 
 export const TitleText = styled.p`

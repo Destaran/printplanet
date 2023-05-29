@@ -4,21 +4,28 @@ import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
     output: [],
-    input: [],
-    machines: []
+    machine: {
+        type: 't1',
+        modules: []
+    },
+    beacons: {
+        amount: 0,
+        modules: []
+    }
 };
 
 export const calculatorSlice = createSlice({
     name: "calculator",
     initialState,
     reducers: {
-        addToOutput: ({ output }, { payload }) => {
+        addToOutput: ({ output, machine, beacons }, { payload }) => {
             const { id, amount } = payload;
             if (!id) return;
             const itemObject = robi(id)
             // Check if the added object is already in the output array
             const existingItem = output.find((item) => item.id === id);
             // If yes, sum amounts
+            // OPTIMIZE (?)
             if (existingItem) {
                 output.forEach(item => {
                     if (item.id === id) {
@@ -26,7 +33,7 @@ export const calculatorSlice = createSlice({
                         addAmountToChildren(item, item.amount);
                     }
                 })
-            // If no, create ingredients array
+                // If no, create ingredients array
             } else {
                 const objectToPushIngredients = itemObject.recipe.ingredients.map(ingredient => {
                     const baseYield = itemObject.recipe.yield;
@@ -34,17 +41,21 @@ export const calculatorSlice = createSlice({
                     const result = {
                         ...ingredient,
                         uid: uuidv4(),
-                        amount: formatNumber(amountCalc),
+                        amount: amountCalc,
                         baseAmount: ingredient.amount,
-                        baseYield: baseYield
+                        baseYield: baseYield,
+                        machine: machine,
+                        beacons: beacons
                     };
                     return result;
                 });
                 // Push new output element to output array
                 const objectToPush = {
                     id: id,
-                    amount: formatNumber(Number(amount)),
-                    ingredients: objectToPushIngredients
+                    amount: Number(amount),
+                    ingredients: objectToPushIngredients,
+                    machine: machine,
+                    beacons: beacons
                 }
                 output.push(objectToPush);
             }
@@ -59,18 +70,21 @@ export const calculatorSlice = createSlice({
             const { id, amount } = payload;
             output.map(item => {
                 if (item.id === id) {
-                    item.amount = formatNumber(Number(amount));
+                    item.amount = Number(amount);
                     const difference = item.amount - amount;
                     addAmountToChildren(item, difference);
                 }
             })
+        },
+        resetOutput: ({ output }) => {
+            output.splice(0, output.length);
         },
         extendElement: ({ output }, { payload }) => {
             const { id, amount, uid, parentId } = payload;
             const item = robi(id);
             const ingredientsArray = item.recipe.ingredients.map(ingredient => {
                 const baseYield = item.recipe.yield;
-                const amountCalc = formatNumber(Number(ingredient.amount) * Number(amount) / Number(item.recipe.yield));
+                const amountCalc = (Number(ingredient.amount) * Number(amount)) / Number(item.recipe.yield);
                 return {
                     ...ingredient,
                     uid: uuidv4(),
@@ -90,6 +104,6 @@ export const calculatorSlice = createSlice({
     }
 });
 
-export const { addToOutput, removeFromOutput, modifyOutputElement, extendElement, collapseElement } = calculatorSlice.actions;
+export const { addToOutput, removeFromOutput, modifyOutputElement, resetOutput, extendElement, collapseElement } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;
