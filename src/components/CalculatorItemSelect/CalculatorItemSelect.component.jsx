@@ -14,11 +14,17 @@ import FilteredItemsList from "../FilteredItemsList/FilteredItemsList.component"
 
 import {
     CalculatorItemSelectContainer,
-    ItemSelectContainer,
+    SelectionContainer,
+    MachinesContainer,
+    OptionsContainer,
+    MenusContainer,
+    SearchBarContainer,
+    CurrentItemContainer,
     QuantitySelectContainer,
     UnitSelectContainer,
+    AddButtonContainer,
     ButtonContainer,
-    ResetButton,
+    BeltsContainer,
     BeltContainer,
     BeltButton
 } from "./CalculatorItemSelect.styles";
@@ -88,65 +94,82 @@ const CalculatorItemSelect = () => {
         setSearchString("");
         setCurrentItem({});
         setQuantity(1);
-    }
-    
-    // HANDLE ENTER
-    // useEffect(() => {
-    //     const handleKeyDown = (event) => {
-    //         if (event.key === 'Enter') {
-    //             addItemHandler();
-    //         }
-    //     };
-    //     document.addEventListener('keydown', handleKeyDown);
-    //     return () => {
-    //         document.removeEventListener('keydown', handleKeyDown);
-    //     };
-    // }, []);
+    };
 
     return (
         <CalculatorItemSelectContainer>
-            <ItemSelectContainer>
-                <CalculatorFormInput
-                    autoFocus
-                    placeholder="Search item"
-                    type='text'
-                    value={searchString}
-                    name='item-search'
-                    onChange={handleSearchChange}
-                />
-                {searchString && !currentItem.id &&
-                    <FilteredItemsList
-                        setCurrentItem={setCurrentItem}
-                        setSearchString={setSearchString}
-                        filteredItems={filteredItems}
-                    />}
-            </ItemSelectContainer>
-            <QuantitySelectContainer>
-                <CalculatorFormInput
-                    placeholder="Quantity"
-                    type='number'
-                    value={quantity}
-                    name='quantity'
-                    onChange={handleQuantityChange}
-                />
-                <BeltContainer>
-                    <BeltButton src={beltImages[0]} data-value={15} onClick={handleBeltIconClick} />
-                    <BeltButton src={beltImages[1]} data-value={30} onClick={handleBeltIconClick} />
-                    <BeltButton src={beltImages[2]} data-value={45} onClick={handleBeltIconClick} />
-                </BeltContainer>
-            </QuantitySelectContainer>
-            <UnitSelectContainer>
-                <CalculatorFormSelect
-                    value={unit}
-                    onChange={handleUnitChange}
-                />
-            </UnitSelectContainer>
-            <ButtonContainer>
-                <ResetButton onClick={addItemHandler}>Add</ResetButton>
-            </ButtonContainer>
-            <ButtonContainer>
-                <ResetButton onClick={resetHandler}>Reset</ResetButton>
-            </ButtonContainer>
+            <SelectionContainer>
+                <SearchBarContainer>
+                    <CalculatorFormInput
+                        autoFocus
+                        placeholder="Search item"
+                        type='text'
+                        value={searchString}
+                        name='item-search'
+                        onChange={handleSearchChange}
+                    />
+                    {searchString && !currentItem.id &&
+                        <FilteredItemsList
+                            setCurrentItem={setCurrentItem}
+                            setSearchString={setSearchString}
+                            filteredItems={filteredItems}
+                        />}
+                    {currentItem.id ?
+                        <CurrentItemContainer>
+                            <p>Current Item:</p>
+                            <img src={returnImageUrlById(currentItem.id)} alt={currentItem.name} />
+                        </CurrentItemContainer> :
+                        <CurrentItemContainer>
+                            <p>No item selected</p>
+                        </CurrentItemContainer>}
+                </SearchBarContainer>
+                <QuantitySelectContainer>
+                    <CalculatorFormInput
+                        placeholder="Quantity"
+                        type='number'
+                        value={quantity}
+                        name='quantity'
+                        onChange={handleQuantityChange}
+                    />
+                    <BeltsContainer>
+                        <BeltContainer>
+                            <BeltButton src={beltImages[0]} data-value={15} onClick={handleBeltIconClick} />
+                        </BeltContainer>
+                        <BeltContainer>
+                            <BeltButton src={beltImages[1]} data-value={30} onClick={handleBeltIconClick} />
+                        </BeltContainer>
+                        <BeltContainer>
+                            <BeltButton src={beltImages[2]} data-value={45} onClick={handleBeltIconClick} />
+                        </BeltContainer>
+                    </BeltsContainer>
+                </QuantitySelectContainer>
+                <UnitSelectContainer>
+                    <CalculatorFormSelect
+                        value={unit}
+                        onChange={handleUnitChange}
+                    />
+                    <AddButtonContainer>
+                        <button onClick={addItemHandler}>Add</button>
+                    </AddButtonContainer>
+                </UnitSelectContainer>
+            </SelectionContainer>
+            <MachinesContainer>
+
+            </MachinesContainer>
+            <OptionsContainer>
+
+            </OptionsContainer>
+            <MenusContainer>
+                <ButtonContainer>
+                    <button onClick={resetHandler}>Reset</button>
+                </ButtonContainer>
+                <ButtonContainer>
+                    <button>Save</button>
+                </ButtonContainer>
+                <ButtonContainer>
+                    <button>Load</button>
+                </ButtonContainer>
+            </MenusContainer>
         </CalculatorItemSelectContainer>
     )
 }

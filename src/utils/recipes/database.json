@@ -4366,7 +4366,7 @@
             "energy": 0.5
         },
         {
-            "name": "small-lamp",
+            "name": "lamp",
             "category": "crafting",
             "ingredients": [
                 {
@@ -4388,7 +4388,7 @@
             "products": [
                 {
                     "type": "item",
-                    "name": "small-lamp",
+                    "name": "lamp",
                     "probability": 1,
                     "amount": 1
                 }

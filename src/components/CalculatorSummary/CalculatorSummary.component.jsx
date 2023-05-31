@@ -16,12 +16,14 @@ const CalculatorSummary = () => {
     output.forEach(element => {
         mapMachines(element, machines);
     })
+    let additionalOutput = [];
 
     return (
         <CalculatorSummaryContainer>
             <CalculatorSummaryWindow title={"Desired Output"} toMap={output} />
             <CalculatorSummaryWindow title={"Required Input"} toMap={input} />
             <CalculatorSummaryWindow title={"Required Machines"} toMap={machines} />
+            {additionalOutput.length > 0 && <CalculatorSummaryWindow title={"Additional Output"} toMap={additionalOutput} />}
         </CalculatorSummaryContainer>
     )
 }

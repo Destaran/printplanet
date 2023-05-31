@@ -1,9 +1,18 @@
 import styled from 'styled-components';
 
-export const SummaryWindowContainer = styled.div`
-    max-width: 31%;
+export const SummaryWindowContainerDiv = styled.div`
     min-width: auto;
     height: auto;
+    width: auto;
+    display: flex;
+    justify-content: start;
+    margin-bottom: 22.5px;
+`
+
+export const SummaryWindowContainer = styled.div`
+    min-width: auto;
+    height: auto;
+    width: auto;
 `
 
 export const SummaryWindowOutter = styled.div`
@@ -20,7 +29,7 @@ export const SummaryWindowOutter = styled.div`
 
 export const SummaryWindowInner = styled.div`
     display: grid;
-    grid-template-columns: repeat(6, auto);
+    grid-template-columns: repeat(9, auto);
     border: 1px black solid;
     background-color: white;
     width: 100%;
