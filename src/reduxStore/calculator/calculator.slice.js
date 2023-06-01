@@ -4,14 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
     output: [],
-    machine: {
-        type: 't1',
-        modules: []
-    },
-    beacons: {
-        amount: 0,
-        modules: []
-    }
 };
 
 export const calculatorSlice = createSlice({
@@ -21,7 +13,7 @@ export const calculatorSlice = createSlice({
         addToOutput: ({ output, machine, beacons }, { payload }) => {
             const { id, amount } = payload;
             if (!id) return;
-            const itemObject = robi(id)
+            const itemObject = robi(id);
             // Check if the added object is already in the output array
             const existingItem = output.find((item) => item.id === id);
             // If yes, sum amounts
@@ -33,7 +25,7 @@ export const calculatorSlice = createSlice({
                         addAmountToChildren(item, item.amount);
                     }
                 })
-                // If no, create ingredients array
+            // If no, create ingredients array
             } else {
                 const objectToPushIngredients = itemObject.recipe.ingredients.map(ingredient => {
                     const baseYield = itemObject.recipe.yield;

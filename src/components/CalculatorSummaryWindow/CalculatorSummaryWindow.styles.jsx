@@ -37,5 +37,5 @@ export const SummaryWindowInner = styled.div`
 `
 
 export const TitleText = styled.p`
-    margin: 0 0 1px 6px;
+    margin: 0;
 `

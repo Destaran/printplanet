@@ -7,10 +7,8 @@ import Registration from './routes/Register/Registration.component';
 import Navigation from "./routes/Navigation/Navigation.component";
 import Home from './routes/Home/Home.component';
 import Calculator from './routes/Calculator/Calculator.component';
-import Blueprints from './routes/Blueprints/Blueprints.component';
 import Profile from "./routes/Profile/Profile.component";
 import ForgotPassword from "./routes/ForgotPassword/ForgotPassword.component";
-import Dashboard from "./routes/Dashboard/Dashboard.component";
 
 const App = () => {
   return (

@@ -4,7 +4,7 @@ export const items = Object.values(data);
 
 // Return Object By ID
 export const robi = (id) => {
-  return items.filter(item => { return item.id === id; })[0];
+  return data[id];
 };
 
 // Return item icon source by ID
