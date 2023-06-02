@@ -1,6 +1,6 @@
-import CalculatorItemSelect from "../../components/CalculatorItemSelect/CalculatorItemSelect.component";
-import CalculatorSummary from "../../components/CalculatorSummary/CalculatorSummary.component";
-import CalculatorTree from "../../components/CalculatorTree/CalculatorTree.component";
+import { ItemSelect } from "../../components/Calculator/ItemSelect/ItemSelect.component";
+import { Summary } from "../../components/Calculator/Summary/Summary.component";
+import { ItemTree } from "../../components/Calculator/ItemTree/ItemTree.component";
 import { useSelector } from "react-redux";
 import { selectOutput } from "../../reduxStore/calculator/calculator.selector";
 import { CalculatorContainer } from "./Calculator.styles";
@@ -9,9 +9,9 @@ const Calculator = () => {
   const output = useSelector(selectOutput);
   return (
     <CalculatorContainer>
-      <CalculatorItemSelect />
-      {output.length > 0 && <CalculatorSummary />}
-      {output.length > 0 && <CalculatorTree />}
+      <ItemSelect />
+      {output.length > 0 && <Summary />}
+      {output.length > 0 && <ItemTree />}
     </CalculatorContainer>
   );
 };

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { robi, findTreeElementAddIngredients, removeObject, addAmountToChildren, formatNumber } from "../../utils/helperFunctions";
+import { robi, findTreeElementAddIngredients, removeObject, addAmountToChildren } from "../../utils/helperFunctions";
 import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
