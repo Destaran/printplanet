@@ -1,50 +1,58 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ItemTreeListSpanContainer = styled.div`
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    width: 100%;
-    user-select: none;
-`
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 100%;
+  user-select: none;
+`;
 
 export const OutterElementContainer = styled.div`
-    height: 26px;
-    width: 52px;
-    padding: 2px;
-    background-color: #14213d;
-    &:hover {
-        cursor: pointer;
-    }
-`
+  height: 26px;
+  width: 52px;
+  padding: 2px;
+  background-color: #14213d;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 export const InnerElementContainer = styled.div`
-    display: flex;
-    height: 100%;
-    width: 100%;
-    background-color: #ba7900;
-`
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #14213d;
+
+  &:hover {
+    background-color: orange;
+  }
+
+  &:active {
+    background-color: #14213d;
+  }
+`;
 
 export const ImgContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    object-fit: contain;
-    background-color: white;
-    img {
-        height: 100%;
-        width: auto;
-    }
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  object-fit: contain;
+  background-color: white;
+  img {
+    height: 100%;
+    width: auto;
+  }
+`;
 
 export const NumberContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    color: white;
-    p {
-        margin: 0;
-    }
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  color: white;
+  p {
+    margin: 0;
+  }
+`;

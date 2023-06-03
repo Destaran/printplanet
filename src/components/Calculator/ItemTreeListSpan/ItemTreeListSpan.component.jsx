@@ -6,7 +6,10 @@ import {
   ItemTreeListSpanContainer,
 } from "./ItemTreeListSpan.styles";
 
-import { returnImageUrlById, formatNumber } from "../../utils/helperFunctions";
+import {
+  returnImageUrlById,
+  formatNumber,
+} from "../../../utils/helperFunctions";
 
 export const ItemTreeListSpan = ({ outputItem, handleClick }) => {
   const { amount, id } = outputItem;

@@ -12,6 +12,7 @@ import {
   removeFromOutput,
   modifyOutputElement,
 } from "../../../reduxStore/calculator/calculator.slice";
+import { Button } from "../../Button/Button.component";
 
 export const SummaryElementPopup = ({ object, setShowPopup }) => {
   const { id, amount } = object;
@@ -26,7 +27,7 @@ export const SummaryElementPopup = ({ object, setShowPopup }) => {
   const modifyHandler = () => {
     const newItem = {
       id: id,
-      amount: newAmount,
+      amount: Number(newAmount),
     };
     setShowPopup(false);
     dispatch(modifyOutputElement(newItem));
@@ -57,9 +58,13 @@ export const SummaryElementPopup = ({ object, setShowPopup }) => {
           />
         </InputContainer>
         <ButtonsContainer>
-          <button onClick={modifyHandler}>Modify</button>
-          <button onClick={removeHandler}>Remove</button>
-          <button onClick={cancelHandler}>Cancel</button>
+          <Button onClick={modifyHandler} buttonType={"green"}>
+            Modify
+          </Button>
+          <Button onClick={removeHandler} buttonType={"red"}>
+            Remove
+          </Button>
+          <Button onClick={cancelHandler}>Cancel</Button>
         </ButtonsContainer>
       </InnerContainer>
     </CalculatorSummaryElementPopupContainer>

@@ -1,5 +1,8 @@
-import { items } from "../../../utils/helperFunctions";
-import { returnImageUrlById } from "../../../utils/helperFunctions";
+import {
+  returnImageUrlById,
+  allProducts,
+  returnNameById,
+} from "../../../utils/helperFunctions";
 import {
   FilteredItems,
   FilteredItem,
@@ -9,7 +12,7 @@ import {
 
 export const FilteredItemsList = ({ selectItem, searchString }) => {
   // wrap in useMemo
-  const filteredItems = items.filter((item) =>
+  const filteredItems = allProducts.filter((item) =>
     item.name.toLowerCase().includes(searchString)
   );
 
@@ -17,12 +20,13 @@ export const FilteredItemsList = ({ selectItem, searchString }) => {
     <FilteredItemsContainer>
       <FilteredItems>
         {filteredItems.map((item, idx) => {
-          const imgSrc = returnImageUrlById(item.id);
+          const imgSrc = returnImageUrlById(item.name);
+          const name = returnNameById(item.name);
 
           return (
-            <FilteredItem onClick={selectItem} key={idx} id={item.id}>
-              <ItemIcon src={imgSrc} alt={item.name} />
-              {item.name}
+            <FilteredItem onClick={selectItem} key={idx} id={item.name}>
+              <ItemIcon src={imgSrc} alt={name} />
+              {name}
             </FilteredItem>
           );
         })}

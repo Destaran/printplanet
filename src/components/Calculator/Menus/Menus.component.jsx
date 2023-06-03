@@ -1,16 +1,19 @@
 import { MenusContainer, ButtonContainer } from "./Menus.styles";
+import { Button } from "../../Button/Button.component";
 
 export const Menus = ({ resetHandler }) => {
   return (
     <MenusContainer>
       <ButtonContainer>
-        <button onClick={resetHandler}>Reset</button>
+        <Button buttonType={"green"}>Save</Button>
       </ButtonContainer>
       <ButtonContainer>
-        <button>Save</button>
+        <Button>Load</Button>
       </ButtonContainer>
       <ButtonContainer>
-        <button>Load</button>
+        <Button onClick={resetHandler} buttonType={"red"}>
+          Reset
+        </Button>
       </ButtonContainer>
     </MenusContainer>
   );

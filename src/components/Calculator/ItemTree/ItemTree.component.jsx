@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { ItemTreeDiv } from "../ItemTreeDiv/ItemTreeDiv.component";
-import { selectOutput } from "../../../reduxStore/calculator/calculator.selector";
+import { outputArray } from "../../../reduxStore/calculator/calculator.selector";
 import { CalculatorTreeContainer, TitleParagraph } from "./ItemTree.styles";
 
 export const ItemTree = () => {
-  const output = useSelector(selectOutput);
+  const output = useSelector(outputArray);
 
   return (
     <CalculatorTreeContainer>

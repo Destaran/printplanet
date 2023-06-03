@@ -15,9 +15,6 @@ export const SearchBar = ({
   const handleSearchChange = ({ target }) => {
     const { value } = target;
     setSearchString(value);
-    if (currentItem.id) {
-      setCurrentItem({});
-    }
   };
 
   return (
@@ -30,7 +27,7 @@ export const SearchBar = ({
         name="item-search"
         onChange={handleSearchChange}
       />
-      {searchString && !currentItem.id && (
+      {searchString && currentItem !== searchString && (
         <FilteredItemsList
           selectItem={selectItem}
           setCurrentItem={setCurrentItem}
@@ -38,13 +35,10 @@ export const SearchBar = ({
           searchString={searchString}
         />
       )}
-      {currentItem.id ? (
+      {currentItem ? (
         <CurrentItemContainer>
           <p>Current Item:</p>
-          <img
-            src={returnImageUrlById(currentItem.id)}
-            alt={currentItem.name}
-          />
+          <img src={returnImageUrlById(currentItem)} alt={currentItem} />
         </CurrentItemContainer>
       ) : (
         <CurrentItemContainer>

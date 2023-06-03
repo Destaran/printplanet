@@ -12,10 +12,10 @@ import {
 } from "./SummaryElement.styles";
 
 export const SummaryElement = ({ object }) => {
-  const { amount, id } = object;
   const [showPopup, setShowPopup] = useState(false);
+  const { amount, id } = object;
   const imgUrl = returnImageUrlById(id);
-  const showAmount = formatNumber(amount);
+  const displayAmount = formatNumber(amount);
 
   const removeItem = () => {
     setShowPopup(!showPopup);
@@ -29,7 +29,7 @@ export const SummaryElement = ({ object }) => {
             <img src={imgUrl} />
           </ImgContainer>
           <NumberContainer>
-            <p>{showAmount}</p>
+            <p>{displayAmount}</p>
           </NumberContainer>
         </InnerElementContainer>
       </OutterElementContainer>

@@ -1,5 +1,7 @@
 import { FormInput } from "../FormInput/FormInput.component";
 import { returnImageUrlById } from "../../../utils/helperFunctions";
+import { Tooltip } from "react-tooltip";
+import { useState } from "react";
 
 import {
   QuantitySelectContainer,
@@ -35,21 +37,30 @@ export const QuantitySelect = ({ setQuantity, quantity }) => {
         onChange={handleQuantityChange}
       />
       <BeltsContainer>
-        <BeltContainer>
+        <Tooltip id="transport-belt" delayShow={"1500"} place="bottom">
+          15 item/s
+        </Tooltip>
+        <BeltContainer data-tooltip-id="transport-belt">
           <BeltButton
             src={beltImages[0]}
             data-value={15}
             onClick={handleBeltIconClick}
           />
         </BeltContainer>
-        <BeltContainer>
+        <Tooltip id="fast-transport-belt" delayShow={"1500"} place="bottom">
+          30 item/s
+        </Tooltip>
+        <BeltContainer data-tooltip-id="fast-transport-belt">
           <BeltButton
             src={beltImages[1]}
             data-value={30}
             onClick={handleBeltIconClick}
           />
         </BeltContainer>
-        <BeltContainer>
+        <Tooltip id="express-transport-belt" delayShow={"1500"} place="bottom">
+          45 item/s
+        </Tooltip>
+        <BeltContainer data-tooltip-id="express-transport-belt">
           <BeltButton
             src={beltImages[2]}
             data-value={45}

@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToOutput } from "../../../reduxStore/calculator/calculator.slice";
-import { robi } from "../../../utils/helperFunctions";
+import {
+  checkIfMultipleRecipes,
+  returnNameById,
+} from "../../../utils/helperFunctions";
+import { Button } from "../../Button/Button.component";
 import { SearchBar } from "../SearchBar/SearchBar.component";
 import { QuantitySelect } from "../QuantitySelect/QuantitySelect.component";
 import { FormSelect } from "../FormSelect/FormSelect.component";
-
+import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component.jsx";
 import {
   SelectionContainer,
   UnitSelectContainer,
@@ -21,6 +25,8 @@ export const ItemSelectOptions = ({
   setQuantity,
 }) => {
   const dispatch = useDispatch();
+  const [recipes, setRecipes] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
   const [unit, setUnit] = useState(1);
 
   const handleUnitChange = ({ target }) => {
@@ -28,23 +34,34 @@ export const ItemSelectOptions = ({
     setUnit(value);
   };
 
-  const addItemHandler = () => {
-    const itemToAdd = {
-      id: currentItem.id,
-      amount: quantity,
-    };
-    console.log("irun");
-    dispatch(addToOutput(itemToAdd));
+  const resetOptions = () => {
     setSearchString("");
-    setCurrentItem({});
+    setCurrentItem("");
     setQuantity(1);
+    setUnit(1);
+    setRecipes([]);
   };
 
-  const selectItem = (event) => {
-    const selectedItem = event.target.id;
-    const selectedRecipe = robi(selectedItem);
-    setSearchString(selectedRecipe.name);
-    setCurrentItem(selectedRecipe);
+  const addItemHandler = () => {
+    const recipe = checkIfMultipleRecipes(currentItem);
+    if (recipe.length > 1) {
+      setRecipes(recipe);
+      setShowPopup(true);
+    } else if (recipe) {
+      const itemToAdd = {
+        id: currentItem,
+        amount: Number(quantity),
+        recipe: recipe,
+      };
+      dispatch(addToOutput(itemToAdd));
+      resetOptions();
+    }
+  };
+
+  const selectItem = ({ target }) => {
+    const selectedItem = target.id;
+    setSearchString(returnNameById(selectedItem));
+    setCurrentItem(selectedItem);
   };
 
   return (
@@ -60,9 +77,18 @@ export const ItemSelectOptions = ({
       <UnitSelectContainer>
         <FormSelect value={unit} onChange={handleUnitChange} />
         <AddButtonContainer>
-          <button onClick={addItemHandler}>Add</button>
+          <Button onClick={addItemHandler}>Add</Button>
         </AddButtonContainer>
       </UnitSelectContainer>
+      {showPopup && (
+        <SelectRecipePopup
+          currentItem={currentItem}
+          quantity={quantity}
+          recipes={recipes}
+          setShowPopup={setShowPopup}
+          resetOptions={resetOptions}
+        />
+      )}
     </SelectionContainer>
   );
 };

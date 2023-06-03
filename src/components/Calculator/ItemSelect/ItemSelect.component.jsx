@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectOutput } from "../../../reduxStore/calculator/calculator.selector";
+import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
 import { resetOutput } from "../../../reduxStore/calculator/calculator.slice";
 
 import { ItemSelectOptions } from "../ItemSelectOptions/ItemSelectOptions.component";
@@ -14,14 +14,14 @@ import {
 
 export const ItemSelect = () => {
   const dispatch = useDispatch();
-  const output = useSelector(selectOutput);
+  const output = useSelector(outputKeys);
   const [searchString, setSearchString] = useState("");
-  const [currentItem, setCurrentItem] = useState({});
+  const [currentItem, setCurrentItem] = useState("");
   const [quantity, setQuantity] = useState(1);
 
   const resetHandler = () => {
     setSearchString("");
-    setCurrentItem({});
+    setCurrentItem("");
     setQuantity(1);
     if (output.length > 0) {
       dispatch(resetOutput());

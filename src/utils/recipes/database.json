@@ -1256,31 +1256,6 @@
             "energy": 60
         },
         {
-            "name": "electric-energy-interface",
-            "category": "crafting",
-            "ingredients": [
-                {
-                    "type": "item",
-                    "amount": 2,
-                    "name": "iron-plate"
-                },
-                {
-                    "type": "item",
-                    "amount": 5,
-                    "name": "electronic-circuit"
-                }
-            ],
-            "products": [
-                {
-                    "type": "item",
-                    "name": "electric-energy-interface",
-                    "probability": 1,
-                    "amount": 1
-                }
-            ],
-            "energy": 0.5
-        },
-        {
             "name": "electric-engine-unit",
             "category": "crafting-with-fluid",
             "ingredients": [
@@ -1641,31 +1616,6 @@
             "energy": 4
         },
         {
-            "name": "express-loader",
-            "category": "crafting",
-            "ingredients": [
-                {
-                    "type": "item",
-                    "amount": 5,
-                    "name": "express-transport-belt"
-                },
-                {
-                    "type": "item",
-                    "amount": 1,
-                    "name": "fast-loader"
-                }
-            ],
-            "products": [
-                {
-                    "type": "item",
-                    "name": "express-loader",
-                    "probability": 1,
-                    "amount": 1
-                }
-            ],
-            "energy": 10
-        },
-        {
             "name": "express-splitter",
             "category": "crafting-with-fluid",
             "ingredients": [
@@ -1789,31 +1739,6 @@
                 }
             ],
             "energy": 0.5
-        },
-        {
-            "name": "fast-loader",
-            "category": "crafting",
-            "ingredients": [
-                {
-                    "type": "item",
-                    "amount": 5,
-                    "name": "fast-transport-belt"
-                },
-                {
-                    "type": "item",
-                    "amount": 1,
-                    "name": "loader"
-                }
-            ],
-            "products": [
-                {
-                    "type": "item",
-                    "name": "fast-loader",
-                    "probability": 1,
-                    "amount": 1
-                }
-            ],
-            "energy": 3
         },
         {
             "name": "fast-splitter",
@@ -2564,46 +2489,6 @@
                 }
             ],
             "energy": 3
-        },
-        {
-            "name": "loader",
-            "category": "crafting",
-            "ingredients": [
-                {
-                    "type": "item",
-                    "amount": 5,
-                    "name": "iron-plate"
-                },
-                {
-                    "type": "item",
-                    "amount": 5,
-                    "name": "iron-gear-wheel"
-                },
-                {
-                    "type": "item",
-                    "amount": 5,
-                    "name": "electronic-circuit"
-                },
-                {
-                    "type": "item",
-                    "amount": 5,
-                    "name": "transport-belt"
-                },
-                {
-                    "type": "item",
-                    "amount": 5,
-                    "name": "inserter"
-                }
-            ],
-            "products": [
-                {
-                    "type": "item",
-                    "name": "loader",
-                    "probability": 1,
-                    "amount": 1
-                }
-            ],
-            "energy": 1
         },
         {
             "name": "locomotive",

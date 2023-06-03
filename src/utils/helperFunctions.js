@@ -1,15 +1,65 @@
-// all vanilla Factorio recipes
-import data from '../../src/utils/recipes/recipes.dictionary.json';
+// All vanilla Factorio recipes (old)
+import data from "../../src/utils/recipes/recipes.dictionary.json";
 export const items = Object.values(data);
+
+// All vanilla Factorio data
+import newData from "../../src/utils/recipes/database.json";
+const database = Object.values(newData);
+const newItems = database[0];
+
+// All products array for SearchBar
+export const allProducts = newItems.reduce((accumulator, obj) => {
+  const { products } = obj;
+
+  products.forEach((product) => {
+    const { name } = product;
+
+    // Check if the product already exists in the accumulator array
+    const existingProduct = accumulator.find((p) => p.name === name);
+
+    // If the product doesn't exist, add it to the accumulator
+    if (!existingProduct) {
+      accumulator.push(product);
+    }
+  });
+
+  return accumulator;
+}, []);
+
+// Check if selected product has more than one recipes that can produce it
+export const checkIfMultipleRecipes = (productName) => {
+  const matchingObjects = newItems.filter((obj) => {
+    return obj.products.some((product) => product.name === productName);
+  });
+  if (matchingObjects.length === 1) {
+    return matchingObjects[0];
+  } else if (matchingObjects.length > 1) {
+    return matchingObjects;
+  }
+};
+
+// Return name by ID
+export const returnNameById = (string) => {
+  if (typeof string !== "string") {
+    return;
+  }
+  const words = string.split("-");
+  words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+  const result = words.join(" ");
+  return result;
+};
 
 // Return Object By ID
 export const robi = (id) => {
   return data[id];
 };
 
+// Return Recipe By ID
+export const rrbi = (id) => newItems.find((recipe) => recipe.name === id);
+
 // Return item icon source by ID
 export const returnImageUrlById = (id) => {
-  return `./item-icons/${id}.png`
+  return `./new-icons/${id}.png`;
 };
 
 // Format number
@@ -22,86 +72,5 @@ export const formatNumber = (number) => {
     return Number(number.toFixed(2));
   } else {
     return Number(number.toFixed(1));
-  }
-};
-
-// Add ingredients to object tree based on uid
-export const findTreeElementAddIngredients = (obj, uid, ingredientArray) => {
-  if (typeof obj !== 'object') {
-    return;
-  }
-
-  if ('uid' in obj) {
-    if (obj.uid === uid) {
-      obj.ingredients = ingredientArray;
-    }
-  }
-  if ('ingredients' in obj) {
-    for (let ingredient of obj.ingredients) {
-      findTreeElementAddIngredients(ingredient, uid, ingredientArray);
-    }
-  }
-};
-
-// Remove ingredients from object tree based on uid
-export const removeObject = (obj, uid) => {
-  if (typeof obj !== 'object') {
-    return;
-  }
-
-  if ('ingredients' in obj) {
-    if (obj.uid === uid) {
-      delete obj.ingredients;
-    } else {
-      for (let ingredient of obj.ingredients) {
-        removeObject(ingredient, uid);
-      }
-    }
-  }
-};
-
-// Add amount to already existing output element and its children
-export const addAmountToChildren = (obj, amount) => {
-  if (typeof obj !== 'object') {
-    return;
-  }
-
-  if ('baseAmount' in obj) {
-    obj.amount = (obj.baseAmount * amount) / obj.baseYield;
-  }
-
-  if ('ingredients' in obj) {
-    obj.ingredients.forEach(ingredient =>
-      addAmountToChildren(ingredient, obj.amount)
-    )
-  }
-};
-
-// Map input based on output array
-export const mapInput = (obj, inputArray) => {
-  if ('ingredients' in obj) {
-    obj.ingredients.forEach(ingredient => {
-      mapInput(ingredient, inputArray);
-    })
-  } else {
-    const existingItem = inputArray.find((item) => item.id === obj.id);
-    if (existingItem) {
-      const index = inputArray.indexOf(existingItem);
-      const newItem = {
-        ...existingItem,
-        amount: Number(existingItem.amount) + Number(obj.amount)
-      };
-      inputArray.splice(index, 1);
-      inputArray.push(newItem);
-    } else if (!existingItem) {
-      inputArray.push(obj);
-    }
-  }
-};
-
-// Map machines based on output array
-export const mapMachines = (obj, inputArray) => {
-  if ('id' in obj) {
-    
   }
 };

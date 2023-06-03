@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux";
-import { selectOutput } from "../../../reduxStore/calculator/calculator.selector";
-import { mapInput, mapMachines } from "../../../utils/helperFunctions";
-
 import { SummaryWindow } from "../SummaryWindow/SummaryWindow.component";
+
+import { useSelector } from "react-redux";
+import { outputArray } from "../../../reduxStore/calculator/calculator.selector";
 
 import styled from "styled-components";
 
@@ -15,16 +14,10 @@ const CalculatorSummaryContainer = styled.div`
 `;
 
 export const Summary = () => {
-  const output = useSelector(selectOutput);
-  let input = [];
-  let machines = [];
-  output.forEach((element) => {
-    mapInput(element, input);
-  });
-  output.forEach((element) => {
-    mapMachines(element, machines);
-  });
-  let additionalOutput = [];
+  const output = useSelector(outputArray);
+  const input = [];
+  const machines = [];
+  const additionalOutput = [];
 
   return (
     <CalculatorSummaryContainer>
