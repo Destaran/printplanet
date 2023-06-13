@@ -15,10 +15,11 @@ export const SelectRecipePopupContainer = styled.div`
 `;
 
 export const InnerContainer = styled.div`
+  border: 2px solid black;
   position: relative;
   padding: 8px;
   width: 100%;
-  max-width: 240px;
+  max-width: 440px;
   background-color: white;
 `;
 
@@ -29,21 +30,10 @@ export const Header = styled.div`
 `;
 
 export const InputContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(8, auto);
   justify-content: center;
   align-items: center;
-  img {
-    height: 36px;
-    width: auto;
-    padding: 4px;
-    margin: 4px;
-    border: 1px black solid;
-  }
-  input {
-    height: 40px;
-    font-size: 24px;
-    width: 80px;
-  }
 `;
 
 export const ButtonsContainer = styled.div`
@@ -53,4 +43,12 @@ export const ButtonsContainer = styled.div`
   button {
     margin: 8px;
   }
+`;
+
+export const Warning = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  color: red;
 `;

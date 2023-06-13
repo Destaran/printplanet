@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const DefaultButton = styled.button`
+export const DefaultButton = styled.button`
   border: 1px solid black;
   font-size: 16px;
   border-radius: 4px;
@@ -53,7 +53,7 @@ const GreenButton = styled(DefaultButton)`
   }
 `;
 
-export const BUTTON_TYPE_CLASSES = {
+const BUTTON_TYPE_CLASSES = {
   default: "default",
   red: "red",
   green: "green",

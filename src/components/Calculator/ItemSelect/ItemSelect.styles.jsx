@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const ppBlue = "#14213d";
-const ppBrown = "#8e5c00";
 
 export const CalculatorItemSelectContainer = styled.div`
   display: flex;

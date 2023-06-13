@@ -1,46 +1,41 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ItemTreeListContainer = styled.ul`
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 
+  li:last-child {
+    border-color: transparent;
+  }
 
-    li:last-child{
-        border-color: transparent;
-    }
+  // last child horizontal half
 
-    li:last-child > div {
-        height: 30px;
-    }
+  li:last-child > div::after {
+    content: "";
+    position: relative;
+    display: flex;
+    height: 30px;
+    left: -75px;
+    border-left: 2px solid black;
+    top: -9px;
+    z-index: 1;
+    width: 2px;
+  }
 
-    // last child horizontal half
+  // vertical lines
 
-    li:last-child > div::after {
-        content: '';
-        position: relative;
-        display: flex;
-        height: 22px;
-        left: -29px;
-        border-left: 2px solid black;
-        top: -37px;
-        z-index: 1;
-        width: 2px;
-    }
+  li::before {
+    content: "";
+    display: block;
+    position: relative;
+    top: 21px;
+    left: -27px;
+    width: 25px;
+    border: solid black 1px;
+    z-index: 1;
+  }
 
-    // vertical lines
-
-    li::before{
-        content: '';
-        display: block;
-        position: relative;
-        top: 15px;
-        left: -27px;
-        width: 25px;
-        border: solid black 1px;
-        z-index: 1;
-    }
-
-    /* li::after{
+  /* li::after{
         content: '';
         display: block;
         position: relative;
@@ -49,4 +44,4 @@ export const ItemTreeListContainer = styled.ul`
         width: 25px;
         border: solid black 1px;
     } */
-`
+`;

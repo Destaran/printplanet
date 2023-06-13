@@ -8,7 +8,6 @@ import {
   OutterElementContainer,
   InnerElementContainer,
   ImgContainer,
-  NumberContainer,
 } from "./SummaryElement.styles";
 
 export const SummaryElement = ({ object }) => {
@@ -17,20 +16,18 @@ export const SummaryElement = ({ object }) => {
   const imgUrl = returnImageUrlById(id);
   const displayAmount = formatNumber(amount);
 
-  const removeItem = () => {
+  const handleClick = () => {
     setShowPopup(!showPopup);
   };
 
   return (
     <>
-      <OutterElementContainer onClick={removeItem}>
+      <OutterElementContainer onClick={handleClick}>
         <InnerElementContainer>
           <ImgContainer>
             <img src={imgUrl} />
-          </ImgContainer>
-          <NumberContainer>
             <p>{displayAmount}</p>
-          </NumberContainer>
+          </ImgContainer>
         </InnerElementContainer>
       </OutterElementContainer>
       {showPopup && (

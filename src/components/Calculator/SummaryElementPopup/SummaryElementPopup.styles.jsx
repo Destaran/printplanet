@@ -34,6 +34,7 @@ export const InputContainer = styled.div`
   justify-content: center;
   align-items: center;
   img {
+    background-color: #313131;
     height: 36px;
     width: auto;
     padding: 4px;

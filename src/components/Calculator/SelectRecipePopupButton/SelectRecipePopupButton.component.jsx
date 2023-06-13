@@ -1,36 +1,46 @@
 import styled from "styled-components";
-import {
-  returnImageUrlById,
-  returnNameById,
-} from "../../../utils/helperFunctions";
+import { returnImageUrlById } from "../../../utils/helperFunctions";
 import { Tooltip } from "react-tooltip";
 import { useState, useEffect } from "react";
+import { SelectRecipePopupButtonTooltip } from "../SelectRecipePopupButtonTooltip/SelectRecipePopupButtonTooltip.component";
 
-const ppBrown = "#8e5c00";
-const ppBlue = "#14213d";
+const ppDark = "#313131";
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3px;
+const OutterElementContainer = styled.div`
+  border: 2px solid #b47500;
+  height: 42px;
+  width: auto;
+  padding: 2px;
   margin: 1px;
-  border: 1px solid black;
-  background-color: ${(props) => (props.selected ? "orange" : ppBlue)};
+  background-color: ${(props) => (props.selected ? "orange" : ppDark)};
+  user-select: none;
 
   &:hover {
     cursor: pointer;
     background-color: orange;
   }
-
   &:active {
-    background-color: ${ppBlue};
+    background-color: #313131;
   }
+`;
 
+const InnerElementContainer = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+`;
+
+const ImgContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
   img {
-    padding: 0;
-    margin: 0;
-    background-color: white;
+    height: 100%;
+    width: auto;
   }
 `;
 
@@ -41,7 +51,6 @@ export const SelectRecipePopupButton = ({
 }) => {
   const [selected, setSelected] = useState(false);
   const { name } = recipe;
-  const stringName = returnNameById(name);
   const imgUrl = returnImageUrlById(name);
 
   useEffect(() => {
@@ -54,10 +63,20 @@ export const SelectRecipePopupButton = ({
 
   return (
     <>
-      <Tooltip id={name}>{stringName}</Tooltip>
-      <Container selected={selected} data-tooltip-id={name} onClick={onClick}>
-        <img id={name} src={imgUrl} alt="" />
-      </Container>
+      <Tooltip id={name} delayShow={"300"}>
+        <SelectRecipePopupButtonTooltip recipe={recipe} />
+      </Tooltip>
+      <OutterElementContainer
+        selected={selected}
+        data-tooltip-id={name}
+        onClick={onClick}
+      >
+        <InnerElementContainer>
+          <ImgContainer>
+            <img id={name} src={imgUrl} alt="" />
+          </ImgContainer>
+        </InnerElementContainer>
+      </OutterElementContainer>
     </>
   );
 };

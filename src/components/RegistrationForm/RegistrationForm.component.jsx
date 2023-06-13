@@ -6,6 +6,7 @@ import {
 } from "./RegistrationForm.styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../Button/Button.component";
 import FormInput from "../FormInput/FormInput.component";
 import {
   createAuthUserWithEmailAndPassword,
@@ -93,7 +94,7 @@ const RegistrationForm = () => {
             name="confirmPassword"
             onChange={handleChange}
           />
-          <button>Register</button>
+          <Button>Register</Button>
         </Form>
       </InnerRegistrationContainer>
     </RegistrationContainer>

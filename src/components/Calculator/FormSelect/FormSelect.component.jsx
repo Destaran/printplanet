@@ -1,6 +1,6 @@
 import { Select, Group } from "./FormSelect.styles";
 
-export const FormSelect = ({ label, ...otherProps }) => {
+export const FormSelect = ({ ...otherProps }) => {
   return (
     <Group>
       <Select {...otherProps}>

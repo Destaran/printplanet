@@ -4,13 +4,13 @@ import {
   Header,
   InputContainer,
   ButtonsContainer,
+  Warning,
 } from "./SelectRecipePopup.styles";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToOutput } from "../../../reduxStore/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
 import { SelectRecipePopupButton } from "../SelectRecipePopupButton/SelectRecipePopupButton.component";
-import { rrbi } from "../../../utils/helperFunctions";
 
 export const SelectRecipePopup = ({
   currentItem,
@@ -20,6 +20,7 @@ export const SelectRecipePopup = ({
   resetOptions,
 }) => {
   const [selectedRecipe, setSelectedRecipe] = useState("");
+  const [didntSelect, setDidntSelect] = useState(false);
   const dispatch = useDispatch();
 
   const handleSelectRecipe = ({ target }) => {
@@ -28,16 +29,26 @@ export const SelectRecipePopup = ({
   };
 
   const handleSelect = () => {
-    const recipe = rrbi(selectedRecipe);
-    const itemToAdd = {
-      id: currentItem,
-      amount: Number(quantity),
-      recipe: recipe,
-    };
-    dispatch(addToOutput(itemToAdd));
+    if (selectedRecipe) {
+      const itemToAdd = {
+        id: currentItem,
+        amount: Number(quantity),
+        recipe: selectedRecipe,
+      };
+      dispatch(addToOutput(itemToAdd));
+      setShowPopup(false);
+      setDidntSelect(false);
+      setSelectedRecipe({});
+      resetOptions();
+    } else {
+      setDidntSelect(true);
+    }
+  };
+
+  const handleCancel = () => {
     setShowPopup(false);
     setSelectedRecipe({});
-    resetOptions();
+    setDidntSelect(false);
   };
 
   return (
@@ -56,8 +67,14 @@ export const SelectRecipePopup = ({
             />
           ))}
         </InputContainer>
+        {didntSelect && <Warning>Select a recipe to continue!</Warning>}
         <ButtonsContainer>
-          <Button onClick={handleSelect}>Select</Button>
+          <Button onClick={handleSelect} buttonType={"green"}>
+            Submit
+          </Button>
+          <Button onClick={handleCancel} buttonType={"red"}>
+            Cancel
+          </Button>
         </ButtonsContainer>
       </InnerContainer>
     </SelectRecipePopupContainer>

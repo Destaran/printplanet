@@ -1,4 +1,5 @@
 import { SummaryElement } from "../SummaryElement/SummaryElement.component";
+import { SummaryInputElement } from "../SummaryInputElement/SummaryInputElement.component";
 import {
   SummaryWindowContainer,
   SummaryWindowInner,
@@ -7,16 +8,22 @@ import {
   SummaryWindowContainerDiv,
 } from "./SummaryWindow.styles";
 
-export const SummaryWindow = ({ title, toMap }) => {
+export const SummaryWindow = ({ title, toMap, ...otherProps }) => {
+  const { input } = otherProps;
   return (
     <SummaryWindowContainerDiv>
       <SummaryWindowContainer>
         <TitleText>{title}</TitleText>
         <SummaryWindowOutter>
           <SummaryWindowInner>
-            {toMap.map((obj, idx) => {
-              return <SummaryElement object={obj} key={idx} />;
-            })}
+            {input &&
+              toMap.map((obj, idx) => {
+                return <SummaryInputElement object={obj} key={idx} />;
+              })}
+            {!input &&
+              toMap.map((obj, idx) => {
+                return <SummaryElement object={obj} key={idx} />;
+              })}
           </SummaryWindowInner>
         </SummaryWindowOutter>
       </SummaryWindowContainer>

@@ -1,7 +1,10 @@
 import { SummaryWindow } from "../SummaryWindow/SummaryWindow.component";
 
 import { useSelector } from "react-redux";
-import { outputArray } from "../../../reduxStore/calculator/calculator.selector";
+import {
+  outputArray,
+  inputArray,
+} from "../../../reduxStore/calculator/calculator.selector";
 
 import styled from "styled-components";
 
@@ -15,14 +18,14 @@ const CalculatorSummaryContainer = styled.div`
 
 export const Summary = () => {
   const output = useSelector(outputArray);
-  const input = [];
+  const input = useSelector(inputArray);
   const machines = [];
   const additionalOutput = [];
 
   return (
     <CalculatorSummaryContainer>
       <SummaryWindow title={"Desired Output"} toMap={output} />
-      <SummaryWindow title={"Required Input"} toMap={input} />
+      <SummaryWindow title={"Required Input"} toMap={input} input={"input"} />
       <SummaryWindow title={"Required Machines"} toMap={machines} />
       {additionalOutput.length > 0 && (
         <SummaryWindow title={"Additional Output"} toMap={additionalOutput} />

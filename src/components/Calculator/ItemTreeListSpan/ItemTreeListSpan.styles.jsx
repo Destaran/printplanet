@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ItemTreeListSpanContainer = styled.div`
+  display: flex;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -9,12 +10,20 @@ export const ItemTreeListSpanContainer = styled.div`
 `;
 
 export const OutterElementContainer = styled.div`
-  height: 26px;
-  width: 52px;
+  border: 2px solid #b47500;
+  height: 36px;
+  width: 36px;
   padding: 2px;
-  background-color: #14213d;
+  margin: 1px;
+  background-color: #313131;
+  user-select: none;
+
   &:hover {
     cursor: pointer;
+    background-color: orange;
+  }
+  &:active {
+    background-color: #313131;
   }
 `;
 
@@ -22,37 +31,27 @@ export const InnerElementContainer = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
-  background-color: #14213d;
-
-  &:hover {
-    background-color: orange;
-  }
-
-  &:active {
-    background-color: #14213d;
-  }
 `;
 
 export const ImgContainer = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
   object-fit: contain;
-  background-color: white;
   img {
     height: 100%;
     width: auto;
   }
-`;
-
-export const NumberContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  color: white;
   p {
+    position: absolute;
+    font-size: 16px;
+    bottom: 0;
+    right: 0;
     margin: 0;
+    color: white;
+    text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
+      -1px 0px 1px #000;
   }
 `;

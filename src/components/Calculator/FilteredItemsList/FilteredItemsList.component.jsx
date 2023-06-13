@@ -3,6 +3,7 @@ import {
   allProducts,
   returnNameById,
 } from "../../../utils/helperFunctions";
+import { useMemo } from "react";
 import {
   FilteredItems,
   FilteredItem,
@@ -11,9 +12,12 @@ import {
 } from "./FilteredItemsList.styles";
 
 export const FilteredItemsList = ({ selectItem, searchString }) => {
-  // wrap in useMemo
-  const filteredItems = allProducts.filter((item) =>
-    item.name.toLowerCase().includes(searchString)
+  const filteredItems = useMemo(
+    () =>
+      allProducts.filter((item) =>
+        item.name.toLowerCase().includes(searchString)
+      ),
+    [searchString]
   );
 
   return (

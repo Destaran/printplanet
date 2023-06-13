@@ -13,6 +13,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
 import FormInput from "../FormInput/FormInput.component";
+import { Button } from "../Button/Button.component";
 import {
   signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword,
@@ -25,8 +26,6 @@ const defaultFormFields = {
 
 const LoginForm = () => {
   const navigate = useNavigate();
-
-  const { currentUser } = useContext(UserContext);
 
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
@@ -91,7 +90,7 @@ const LoginForm = () => {
             name="password"
             onChange={handleChange}
           />
-          <button onClick={handleSubmit}>Login</button>
+          <Button onClick={handleSubmit}>Login</Button>
         </Form>
         <OrContainer>
           <p>or</p>

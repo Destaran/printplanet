@@ -1,15 +1,21 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToOutput } from "../../../reduxStore/calculator/calculator.slice";
+import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToOutput,
+  addToExistingOutput,
+} from "../../../reduxStore/calculator/calculator.slice";
 import {
   checkIfMultipleRecipes,
   returnNameById,
 } from "../../../utils/helperFunctions";
+// Components
 import { Button } from "../../Button/Button.component";
 import { SearchBar } from "../SearchBar/SearchBar.component";
 import { QuantitySelect } from "../QuantitySelect/QuantitySelect.component";
 import { FormSelect } from "../FormSelect/FormSelect.component";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component.jsx";
+// CSS
 import {
   SelectionContainer,
   UnitSelectContainer,
@@ -24,6 +30,7 @@ export const ItemSelectOptions = ({
   quantity,
   setQuantity,
 }) => {
+  const output = useSelector(outputKeys);
   const dispatch = useDispatch();
   const [recipes, setRecipes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -43,18 +50,30 @@ export const ItemSelectOptions = ({
   };
 
   const addItemHandler = () => {
-    const recipe = checkIfMultipleRecipes(currentItem);
-    if (recipe.length > 1) {
-      setRecipes(recipe);
-      setShowPopup(true);
-    } else if (recipe) {
-      const itemToAdd = {
-        id: currentItem,
-        amount: Number(quantity),
-        recipe: recipe,
-      };
-      dispatch(addToOutput(itemToAdd));
-      resetOptions();
+    if (currentItem) {
+      const existingItem = output.find((item) => item === currentItem);
+      if (!existingItem) {
+        const recipe = checkIfMultipleRecipes(currentItem);
+        if (recipe.length > 1) {
+          setRecipes(recipe);
+          setShowPopup(true);
+        } else if (recipe) {
+          const itemToAdd = {
+            id: currentItem,
+            amount: Number(quantity),
+            recipe: recipe.name,
+          };
+          dispatch(addToOutput(itemToAdd));
+          resetOptions();
+        }
+      } else {
+        const itemToAdd = {
+          id: currentItem,
+          amount: Number(quantity),
+        };
+        dispatch(addToExistingOutput(itemToAdd));
+        resetOptions();
+      }
     }
   };
 

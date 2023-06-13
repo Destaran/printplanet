@@ -1,7 +1,6 @@
 import { FormInput } from "../FormInput/FormInput.component";
 import { returnImageUrlById } from "../../../utils/helperFunctions";
 import { Tooltip } from "react-tooltip";
-import { useState } from "react";
 
 import {
   QuantitySelectContainer,
