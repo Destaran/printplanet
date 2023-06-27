@@ -10,7 +10,40 @@ import {
 
 const initialState = {
   output: {},
-  defaultMachines: {},
+  machines: {
+    crafting: {
+      id: "assembling-machine-1",
+    },
+    "basic-crafting": {
+      id: "assembling-machine-1",
+    },
+    "advanced-crafting": {
+      id: "assembling-machine-1",
+    },
+    "crafting-with-fluid": {
+      id: "assembling-machine-2",
+      modules: [{}, {}],
+      beacons: {
+        amount: 0,
+        modules: [{}, {}],
+      },
+    },
+    smelting: {
+      id: "stone-furnance",
+    },
+    "oil-processing": {
+      id: "oil-refinery",
+    },
+    chemistry: {
+      id: "chemical-plant",
+    },
+    centrifuging: {
+      id: "centrifuge",
+    },
+    "rocket-building": {
+      id: "rocket-silo",
+    },
+  },
 };
 
 export const calculatorSlice = createSlice({

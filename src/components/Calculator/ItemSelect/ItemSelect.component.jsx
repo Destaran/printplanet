@@ -5,12 +5,9 @@ import { resetOutput } from "../../../reduxStore/calculator/calculator.slice";
 
 import { ItemSelectOptions } from "../ItemSelectOptions/ItemSelectOptions.component";
 import { Menus } from "../Menus/Menus.component";
+import { MachineConfig } from "./MachineConfig/MachineConfig.component";
 
-import {
-  CalculatorItemSelectContainer,
-  MachinesContainer,
-  OptionsContainer,
-} from "./ItemSelect.styles";
+import { Container, OptionsContainer } from "./ItemSelect.styles";
 
 export const ItemSelect = () => {
   const dispatch = useDispatch();
@@ -29,7 +26,7 @@ export const ItemSelect = () => {
   };
 
   return (
-    <CalculatorItemSelectContainer>
+    <Container>
       <ItemSelectOptions
         searchString={searchString}
         setSearchString={setSearchString}
@@ -38,9 +35,9 @@ export const ItemSelect = () => {
         quantity={quantity}
         setQuantity={setQuantity}
       />
-      <MachinesContainer></MachinesContainer>
+      <MachineConfig />
       <OptionsContainer></OptionsContainer>
       <Menus resetHandler={resetHandler} />
-    </CalculatorItemSelectContainer>
+    </Container>
   );
 };

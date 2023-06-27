@@ -11,7 +11,7 @@ export const SelectRecipePopupContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: 100;
 `;
 
 export const InnerContainer = styled.div`
@@ -25,7 +25,7 @@ export const InnerContainer = styled.div`
     content: none;
   }
   /* HIDDEN ::AFTER SHOULD BE FIXED */
-  z-index: 11;
+  z-index: 100;
 `;
 
 export const Header = styled.div`

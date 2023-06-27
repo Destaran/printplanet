@@ -3,22 +3,23 @@ import styled from "styled-components";
 export const ItemTreeListContainer = styled.ul`
   margin: 0;
   padding: 0;
+  z-index: 9;
 
   li:last-child {
+    position: relative;
     border-color: transparent;
   }
 
   // last child horizontal half
 
-  li:last-child > div::after {
+  li:last-child::after {
     content: "";
-    position: relative;
+    position: absolute;
     display: flex;
-    height: 30px;
-    left: -75px;
+    height: 28px;
+    left: -2px;
     border-left: 2px solid black;
-    top: -9px;
-    z-index: 1;
+    top: 0px;
     width: 2px;
   }
 
@@ -28,11 +29,10 @@ export const ItemTreeListContainer = styled.ul`
     content: "";
     display: block;
     position: relative;
-    top: 21px;
-    left: -27px;
-    width: 25px;
+    top: 26px;
+    left: -50px;
+    width: 75px;
     border: solid black 1px;
-    z-index: 1;
   }
 
   /* li::after{

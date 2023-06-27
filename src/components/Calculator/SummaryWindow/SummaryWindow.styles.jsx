@@ -29,7 +29,7 @@ export const SummaryWindowOutter = styled.div`
 
 export const SummaryWindowInner = styled.div`
   display: grid;
-  grid-template-columns: repeat(9, auto);
+  grid-template-columns: repeat(14, auto);
   border: 1px black solid;
   background-color: #313131;
   width: 100%;

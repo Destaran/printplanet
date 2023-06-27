@@ -55,6 +55,8 @@ export const ItemTreeFragment = ({ outputItem, pid }) => {
 
   return (
     <>
+      <ItemTreeListSpan outputItem={outputItem} handleClick={handleClick} />
+      {ingredients && <ItemTreeList ingredients={ingredients} pid={pid} />}
       {showPopup && (
         <ItemTreeExtendPopup
           setShowPopup={setShowPopup}
@@ -64,8 +66,6 @@ export const ItemTreeFragment = ({ outputItem, pid }) => {
           noAfter={true}
         />
       )}
-      <ItemTreeListSpan outputItem={outputItem} handleClick={handleClick} />
-      {ingredients && <ItemTreeList ingredients={ingredients} pid={pid} />}
     </>
   );
 };

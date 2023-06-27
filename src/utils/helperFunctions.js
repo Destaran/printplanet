@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import newData from "../../src/utils/recipes/database.json";
 const database = Object.values(newData);
 const newItems = database[0];
-const machines = database[1];
-const modules = database[2];
+export const machines = database[1];
+export const modules = database[2];
 
 // All products array for SearchBar
 export const allProducts = newItems.reduce((accumulator, obj) => {
