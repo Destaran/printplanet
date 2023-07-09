@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import {
-  returnIngredients,
+  getIngredients,
   extendElementByUid,
   extendElementsById,
   collapseElementByUid,
   collapseElementsById,
+  getRecipeCategory,
 } from "../../utils/helperFunctions";
 
 const initialState = {
@@ -13,35 +14,84 @@ const initialState = {
   machines: {
     crafting: {
       id: "assembling-machine-1",
+      craftingSpeed: 0.5,
+      modules: [],
+      beacons: {
+        amount: 0,
+        modules: ["", ""],
+      },
     },
     "basic-crafting": {
       id: "assembling-machine-1",
+      craftingSpeed: 0.5,
+      modules: [],
+      beacons: {
+        amount: 0,
+        modules: ["", ""],
+      },
     },
     "advanced-crafting": {
       id: "assembling-machine-1",
+      craftingSpeed: 0.5,
+      modules: [],
+      beacons: {
+        amount: 0,
+        modules: ["", ""],
+      },
     },
     "crafting-with-fluid": {
       id: "assembling-machine-2",
-      modules: [{}, {}],
+      craftingSpeed: 0.75,
+      modules: ["", ""],
       beacons: {
         amount: 0,
-        modules: [{}, {}],
+        modules: ["", ""],
       },
     },
     smelting: {
-      id: "stone-furnance",
+      id: "stone-furnace",
+      craftingSpeed: 1,
+      modules: [],
+      beacons: {
+        amount: 0,
+        modules: ["", ""],
+      },
     },
     "oil-processing": {
       id: "oil-refinery",
+      craftingSpeed: 1,
+      modules: ["", "", ""],
+      beacons: {
+        amount: 0,
+        modules: ["", ""],
+      },
     },
     chemistry: {
       id: "chemical-plant",
+      craftingSpeed: 1,
+      modules: ["", "", ""],
+      beacons: {
+        amount: 0,
+        modules: ["", ""],
+      },
     },
     centrifuging: {
       id: "centrifuge",
+      craftingSpeed: 1,
+      modules: ["", ""],
+      beacons: {
+        amount: 0,
+        modules: ["", ""],
+      },
     },
     "rocket-building": {
       id: "rocket-silo",
+      craftingSpeed: 1,
+      modules: ["", "", "", ""],
+      beacons: {
+        amount: 0,
+        modules: ["", ""],
+      },
     },
   },
 };
@@ -50,14 +100,16 @@ export const calculatorSlice = createSlice({
   name: "calculator",
   initialState,
   reducers: {
-    addToOutput: ({ output }, { payload }) => {
+    addToOutput: (state, { payload }) => {
       const { id, amount, recipe } = payload;
-      output[id] = {
+      const recipeCategory = getRecipeCategory(recipe);
+      state.output[id] = {
         id: id,
         uid: uuidv4(),
         amount: amount,
         recipe: recipe,
-        ingredients: returnIngredients(recipe),
+        ingredients: getIngredients(recipe),
+        machine: { ...state.machines[recipeCategory], uid: uuidv4() },
       };
     },
     addToExistingOutput: ({ output }, { payload }) => {
@@ -77,14 +129,20 @@ export const calculatorSlice = createSlice({
     resetOutput: (state) => {
       state.output = {};
     },
-    extendElement: ({ output }, { payload }) => {
+    extendElement: (state, { payload }) => {
       const { uid, pid, recipe } = payload;
-      extendElementByUid(output[pid], uid, recipe);
+      const machine = {
+        ...state.machines[getRecipeCategory(recipe)],
+        uid: uuidv4(),
+      };
+      extendElementByUid(state.output[pid], uid, recipe, machine);
     },
-    extendSameTypeElements: ({ output }, { payload }) => {
+    // refactor: receives recipe obj while extendElement receives recipe id string
+    extendSameTypeElements: (state, { payload }) => {
       const { id, recipe } = payload;
-      Object.keys(output).forEach((key) => {
-        extendElementsById(output[key], id, recipe);
+      const machine = state.machines[getRecipeCategory(recipe.name)];
+      Object.keys(state.output).forEach((key) => {
+        extendElementsById(state.output[key], id, recipe, machine);
       });
     },
     collapseElement: ({ output }, { payload }) => {
@@ -95,6 +153,12 @@ export const calculatorSlice = createSlice({
       const id = payload;
       Object.keys(output).forEach((key) => {
         collapseElementsById(output[key], id);
+      });
+    },
+    saveDefaultMachineConfig: ({ machines }, { payload }) => {
+      const { categories, machineConfig } = payload;
+      categories.forEach((category) => {
+        machines[category] = machineConfig;
       });
     },
   },
@@ -110,6 +174,7 @@ export const {
   extendSameTypeElements,
   collapseElement,
   collapseSameTypeElements,
+  saveDefaultMachineConfig,
 } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

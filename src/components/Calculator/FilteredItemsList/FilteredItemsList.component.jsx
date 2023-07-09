@@ -1,7 +1,7 @@
 import {
-  returnImageUrlById,
+  getImageUrlById,
   allProducts,
-  returnNameById,
+  getNameById,
 } from "../../../utils/helperFunctions";
 import { useMemo } from "react";
 import {
@@ -24,8 +24,8 @@ export const FilteredItemsList = ({ selectItem, searchString }) => {
     <FilteredItemsContainer>
       <FilteredItems>
         {filteredItems.map((item, idx) => {
-          const imgSrc = returnImageUrlById(item.name);
-          const name = returnNameById(item.name);
+          const imgSrc = getImageUrlById(item.name);
+          const name = getNameById(item.name);
 
           return (
             <FilteredItem onClick={selectItem} key={idx} id={item.name}>

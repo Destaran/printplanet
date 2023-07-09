@@ -14,7 +14,7 @@ import {
 } from "../../../reduxStore/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
 import { SelectRecipePopupButton } from "../SelectRecipePopupButton/SelectRecipePopupButton.component";
-import { rrbi } from "../../../utils/helperFunctions";
+import { getRecipeById } from "../../../utils/helperFunctions";
 
 export const ItemTreeExtendPopup = ({
   setShowPopup,
@@ -33,7 +33,7 @@ export const ItemTreeExtendPopup = ({
 
   const handleSelect = () => {
     if (selectedRecipe) {
-      const recipe = rrbi(selectedRecipe);
+      const recipe = getRecipeById(selectedRecipe);
       if (!uid) {
         const payload = {
           id: id,

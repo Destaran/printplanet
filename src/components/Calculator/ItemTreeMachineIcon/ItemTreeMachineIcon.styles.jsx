@@ -7,7 +7,7 @@ export const OutterElementContainer = styled.div`
   padding: 2px;
   margin: 1px;
   margin-left: 1px;
-  background-color: black;
+  background-color: #313131;
   user-select: none;
 
   &:hover {
@@ -31,6 +31,7 @@ export const ImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: auto;
   object-fit: contain;
   img {
     height: 100%;

@@ -1,14 +1,11 @@
 import { ItemTreeListSpanContainer, Wrapper } from "./ItemTreeListSpan.styles";
-import {
-  returnImageUrlById,
-  formatNumber,
-} from "../../../utils/helperFunctions";
+import { getImageUrlById, formatNumber } from "../../../utils/helperFunctions";
 import { ItemTreeIcon } from "../ItemTreeIcon/ItemTreeIcon.component";
 import { ItemTreeMachineIcon } from "../ItemTreeMachineIcon/ItemTreeMachineIcon.component";
 
 export const ItemTreeListSpan = ({ outputItem, handleClick }) => {
   const { amount, id } = outputItem;
-  const imgUrl = returnImageUrlById(id);
+  const imgUrl = getImageUrlById(id);
   const showAmount = formatNumber(amount);
 
   return (

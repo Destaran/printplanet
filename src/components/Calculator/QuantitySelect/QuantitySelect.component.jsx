@@ -1,5 +1,5 @@
 import { FormInput } from "../FormInput/FormInput.component";
-import { returnImageUrlById } from "../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 import { Tooltip } from "react-tooltip";
 
 import {
@@ -10,9 +10,9 @@ import {
 } from "./QuantitySelect.styles";
 
 const beltImages = [
-  returnImageUrlById("transport-belt"),
-  returnImageUrlById("fast-transport-belt"),
-  returnImageUrlById("express-transport-belt"),
+  getImageUrlById("transport-belt"),
+  getImageUrlById("fast-transport-belt"),
+  getImageUrlById("express-transport-belt"),
 ];
 
 export const QuantitySelect = ({ setQuantity, quantity }) => {

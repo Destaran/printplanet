@@ -1,7 +1,4 @@
-import {
-  returnImageUrlById,
-  formatNumber,
-} from "../../../utils/helperFunctions";
+import { getImageUrlById, formatNumber } from "../../../utils/helperFunctions";
 import {
   OutterElementContainer,
   InnerElementContainer,
@@ -10,7 +7,7 @@ import {
 
 export const SelectRecipePopupButtonTooltipElement = ({ object }) => {
   const { amount, name } = object;
-  const imgUrl = returnImageUrlById(name);
+  const imgUrl = getImageUrlById(name);
 
   return (
     <OutterElementContainer>

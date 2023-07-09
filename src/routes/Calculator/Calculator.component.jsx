@@ -2,11 +2,11 @@ import { ItemSelect } from "../../components/Calculator/ItemSelect/ItemSelect.co
 import { Summary } from "../../components/Calculator/Summary/Summary.component";
 import { ItemTree } from "../../components/Calculator/ItemTree/ItemTree.component";
 import { useSelector } from "react-redux";
-import { outputArray } from "../../reduxStore/calculator/calculator.selector";
+import { outputValues } from "../../reduxStore/calculator/calculator.selector";
 import { CalculatorContainer } from "./Calculator.styles";
 
 const Calculator = () => {
-  const output = useSelector(outputArray);
+  const output = useSelector(outputValues);
   return (
     <CalculatorContainer>
       <ItemSelect />

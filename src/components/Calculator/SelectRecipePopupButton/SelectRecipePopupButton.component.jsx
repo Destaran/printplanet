@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { returnImageUrlById } from "../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 import { Tooltip } from "react-tooltip";
 import { useState, useEffect } from "react";
 import { SelectRecipePopupButtonTooltip } from "../SelectRecipePopupButtonTooltip/SelectRecipePopupButtonTooltip.component";
@@ -51,7 +51,7 @@ export const SelectRecipePopupButton = ({
 }) => {
   const [selected, setSelected] = useState(false);
   const { name } = recipe;
-  const imgUrl = returnImageUrlById(name);
+  const imgUrl = getImageUrlById(name);
 
   useEffect(() => {
     if (selectedRecipe === name) {
@@ -59,7 +59,7 @@ export const SelectRecipePopupButton = ({
     } else {
       setSelected(false);
     }
-  }, [selectedRecipe]);
+  }, [name, selectedRecipe]);
 
   return (
     <>

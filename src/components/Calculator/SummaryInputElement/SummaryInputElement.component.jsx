@@ -1,12 +1,12 @@
 import {
-  returnImageUrlById,
+  getImageUrlById,
   formatNumber,
   checkIfMultipleRecipes,
   lookUpProducers,
 } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { outputArray } from "../../../reduxStore/calculator/calculator.selector";
+import { outputValues } from "../../../reduxStore/calculator/calculator.selector";
 import {
   extendSameTypeElements,
   collapseSameTypeElements,
@@ -22,9 +22,9 @@ export const SummaryInputElement = ({ object }) => {
   const { amount, id } = object;
   const [recipes, setRecipes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const output = useSelector(outputArray);
+  const output = useSelector(outputValues);
   const dispatch = useDispatch();
-  const imgUrl = returnImageUrlById(id);
+  const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(amount);
 
   const handleClick = (event) => {
@@ -39,14 +39,13 @@ export const SummaryInputElement = ({ object }) => {
           dispatch(collapseSameTypeElements(id));
         });
       } else if (resultArray.length === 1) {
-        const id = resultArray[0];
-        dispatch(collapseSameTypeElements(id));
+        dispatch(collapseSameTypeElements(resultArray[0]));
       }
     } else {
-      if (recipe.length > 1) {
+      if (recipe && recipe.length > 1) {
         setRecipes(recipe);
         setShowPopup(true);
-      } else {
+      } else if (recipe) {
         const payload = {
           id: id,
           recipe: recipe,

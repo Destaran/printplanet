@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { useState } from "react";
 import {
   modules,
-  returnImageUrlById,
+  getImageUrlById,
+  getNameById,
 } from "../../../../../utils/helperFunctions";
 
 const ppBlue = "#14213d";
@@ -39,37 +39,57 @@ const Slot = styled.div`
   }
 `;
 
-export const ModuleSlot = () => {
-  const [module, setModule] = useState(0);
-  const [empty, setEmpty] = useState(true);
+import { useState, useEffect } from "react";
+
+const createModuleArray = () => {
+  const newModuleArray = [""];
+  modules.forEach((module) => {
+    newModuleArray.push(module.name);
+  });
+  return newModuleArray;
+};
+const allModulesArray = createModuleArray();
+
+export const ModuleSlot = ({ idx, module, setCurrentConfig, beaconModule }) => {
+  const [arrayIndex, setArrayIndex] = useState(0);
+  let moduleArray = allModulesArray;
+  if (beaconModule) {
+    moduleArray = allModulesArray.filter(
+      (module) => !module.includes("productivity")
+    );
+  }
+
+  useEffect(() => {
+    if (module === "") {
+      setArrayIndex(0);
+    }
+  }, [module]);
+
+  // refactor: this logic could be done in MachineConfig
+  useEffect(() => {
+    setCurrentConfig((prevConfig) => {
+      const newConfig = structuredClone(prevConfig);
+      if (beaconModule) {
+        newConfig.beacons.modules[idx] = moduleArray[arrayIndex];
+      } else {
+        newConfig.modules[idx] = moduleArray[arrayIndex];
+      }
+      return newConfig;
+    });
+  }, [arrayIndex, beaconModule, idx, setCurrentConfig]);
 
   const handleClick = (event) => {
-    if (event.shiftKey && event.button === 0) {
-      if (empty) {
-        setModule(modules.length - 1);
-        setEmpty(false);
-      } else if (module === 0) {
-        setEmpty(true);
-      } else if (module <= modules.length - 1) {
-        setModule(module - 1);
-      }
-    } else {
-      if (empty) {
-        setEmpty(false);
-      } else if (!empty && module == modules.length - 1) {
-        setEmpty(true);
-        setModule(0);
-      } else if (module === modules.length - 1) {
-        setModule(0);
-      } else {
-        setModule(module + 1);
-      }
-    }
+    let direction = event.shiftKey && event.button === 0 ? -1 : 1;
+    setArrayIndex(
+      (arrayIndex + direction + moduleArray.length) % moduleArray.length
+    );
   };
 
   return (
     <Slot onClick={handleClick}>
-      {!empty && <img src={returnImageUrlById(modules[module].name)} alt="" />}
+      {module.length > 0 && (
+        <img src={getImageUrlById(module)} alt={getNameById(module)} />
+      )}
     </Slot>
   );
 };

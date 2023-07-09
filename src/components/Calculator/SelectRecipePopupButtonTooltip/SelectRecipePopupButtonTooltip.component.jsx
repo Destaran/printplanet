@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import {
-  returnNameById,
-  returnMachinesById,
-  returnModulesByRecipe,
+  getNameById,
+  getMachinesById,
+  getModulesByRecipeId,
 } from "../../../utils/helperFunctions";
 import { SelectRecipePopupButtonTooltipElement } from "../SelectRecipePopupButtonTooltipElement/SelectRecipePopupButtonTooltipElement.component";
 
@@ -28,13 +28,13 @@ const MapContainer = styled.div`
 `;
 
 export const SelectRecipePopupButtonTooltip = ({ recipe }) => {
-  const name = returnNameById(recipe.name);
+  const name = getNameById(recipe.name);
   const time = {
     name: "clock",
     amount: recipe.energy,
   };
-  const machines = returnMachinesById(recipe.name);
-  const modules = returnModulesByRecipe(recipe.name);
+  const machines = getMachinesById(recipe.name);
+  const modules = getModulesByRecipeId(recipe.name);
   return (
     <Container>
       <Title>{name}</Title>

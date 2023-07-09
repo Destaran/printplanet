@@ -2,10 +2,8 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   margin: 0;
-  padding: 5px 0 0 0;
-  display: list-item;
+  padding: 0 0 0 0;
   list-style: none;
-  height: 46px;
 
   position: sticky;
   top: 0;
@@ -20,4 +18,5 @@ export const ItemTreeListSpanContainer = styled.div`
   background-color: black;
   user-select: none;
   align-items: top;
+  justify-content: center;
 `;

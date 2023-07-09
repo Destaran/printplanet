@@ -5,7 +5,7 @@ import {
   InputContainer,
   ButtonsContainer,
 } from "./SummaryElementPopup.styles";
-import { returnImageUrlById } from "../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -17,7 +17,7 @@ import { Button } from "../../Button/Button.component";
 export const SummaryElementPopup = ({ object, setShowPopup }) => {
   const { id, amount } = object;
   const [newAmount, setNewAmount] = useState(amount);
-  const imgUrl = returnImageUrlById(id);
+  const imgUrl = getImageUrlById(id);
   const dispatch = useDispatch();
 
   const inputHandler = ({ target }) => {

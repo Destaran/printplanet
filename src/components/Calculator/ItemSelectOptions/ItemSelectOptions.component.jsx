@@ -7,7 +7,7 @@ import {
 } from "../../../reduxStore/calculator/calculator.slice";
 import {
   checkIfMultipleRecipes,
-  returnNameById,
+  getNameById,
 } from "../../../utils/helperFunctions";
 // Components
 import { Button } from "../../Button/Button.component";
@@ -79,7 +79,7 @@ export const ItemSelectOptions = ({
 
   const selectItem = ({ target }) => {
     const selectedItem = target.id;
-    setSearchString(returnNameById(selectedItem));
+    setSearchString(getNameById(selectedItem));
     setCurrentItem(selectedItem);
   };
 

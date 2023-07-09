@@ -1,7 +1,4 @@
-import {
-  formatNumber,
-  returnImageUrlById,
-} from "../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 import {
   OutterElementContainer,
   InnerElementContainer,
@@ -9,8 +6,8 @@ import {
 } from "./ItemTreeMachineIcon.styles";
 
 export const ItemTreeMachineIcon = ({ outputItem }) => {
-  const imgUrl = returnImageUrlById("assembling-machine-1");
-  const showAmount = formatNumber(outputItem.amount);
+  const imgUrl = getImageUrlById(outputItem.machine.id);
+  const showAmount = Math.ceil(outputItem.machine.amount);
 
   return (
     <OutterElementContainer>

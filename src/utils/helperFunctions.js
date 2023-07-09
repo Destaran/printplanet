@@ -1,49 +1,27 @@
 import { v4 as uuidv4 } from "uuid";
+import data from "../../src/utils/recipes/database.json";
 
-// All vanilla Factorio data
-import newData from "../../src/utils/recipes/database.json";
-const database = Object.values(newData);
-const newItems = database[0];
-export const machines = database[1];
-export const modules = database[2];
+export const recipes = data.recipes;
+export const craftingMachines = data.craftingMachines;
+export const modules = data.modules;
 
-// All products array for SearchBar
-export const allProducts = newItems.reduce((accumulator, obj) => {
+export const allProducts = recipes.reduce((accumulator, obj) => {
   const { products } = obj;
-
   products.forEach((product) => {
     const { name } = product;
-
-    // Check if the product already exists in the accumulator array
     const existingProduct = accumulator.find((p) => p.name === name);
-
-    // If the product doesn't exist, add it to the accumulator
     if (!existingProduct) {
       accumulator.push(product);
     }
   });
-
   return accumulator;
 }, []);
 
-// Check if selected product has more than one recipes that can produce it
-export const checkIfMultipleRecipes = (productName) => {
-  const matchingObjects = newItems.filter((obj) => {
-    return obj.products.some((product) => product.name === productName);
-  });
-  if (matchingObjects.length === 1) {
-    return matchingObjects[0];
-  } else if (matchingObjects.length > 1) {
-    return matchingObjects;
-  }
-};
-
-// Return available machines by recipe
-export const returnMachinesById = (name) => {
-  const recipe = newItems.find((recipe) => recipe.name === name);
+export const getMachinesById = (id) => {
+  const recipe = recipes.find((recipe) => recipe.name === id);
   const category = recipe.category;
   const machinesArray = [];
-  machines.forEach((machine) => {
+  craftingMachines.forEach((machine) => {
     if (machine.categories[category] === true) {
       machinesArray.push(machine);
     }
@@ -51,15 +29,14 @@ export const returnMachinesById = (name) => {
   return machinesArray;
 };
 
-// Return available modules by recipe
-export const returnModulesByRecipe = (name) => {
+export const getModulesByRecipeId = (id) => {
   const modulesArray = [];
   modules.forEach((module) => {
     if (module.limitations.length < 1) {
       modulesArray.push(module);
     } else {
       const contains = module.limitations.find(
-        (limitation) => limitation === name
+        (limitation) => limitation === id
       );
       if (contains) {
         modulesArray.push(module);
@@ -69,28 +46,30 @@ export const returnModulesByRecipe = (name) => {
   return modulesArray;
 };
 
-// Return name by ID
-export const returnNameById = (string) => {
-  if (typeof string !== "string") {
+export const getNameById = (id) => {
+  if (typeof id !== "string") {
     return;
   }
-  const words = string.split("-");
+  const words = id.split("-");
   words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
   const result = words.join(" ");
   return result;
 };
 
-// Return Recipe By ID
-export const rrbi = (id) => newItems.find((recipe) => recipe.name === id);
+export const getRecipeById = (id) =>
+  recipes.find((recipe) => recipe.name === id);
 
-// Return item icon source by ID
-export const returnImageUrlById = (id) => {
+export const getImageUrlById = (id) => {
   return `./new-icons/${id}.png`;
 };
 
-// Return ingredients by recipe ID for Redux
-export const returnIngredients = (id) => {
-  const recipe = rrbi(id);
+export const getRecipeCategory = (id) => {
+  const item = recipes.find((item) => item.name === id);
+  return item.category;
+};
+
+export const getIngredients = (id) => {
+  const recipe = getRecipeById(id);
   if (recipe) {
     const array = [];
     recipe.ingredients.forEach((ingredient) => {
@@ -106,12 +85,61 @@ export const returnIngredients = (id) => {
   }
 };
 
-// Format number
+export const getMachineObjectById = (id) => {
+  return craftingMachines.find((item) => item.name === id);
+};
+
+export const checkIfMultipleRecipes = (productId) => {
+  const matchingObjects = recipes.filter((obj) => {
+    return obj.products.some((product) => product.name === productId);
+  });
+  if (matchingObjects.length === 1) {
+    return matchingObjects[0];
+  } else if (matchingObjects.length > 1) {
+    return matchingObjects;
+  }
+};
+
+export const getReqMachineCount = (
+  craftingSpeed,
+  amount,
+  craftingTime,
+  recipeYield
+) => {
+  const result = (amount * craftingTime) / recipeYield / craftingSpeed;
+  return result;
+};
+
+const getModuleSpeedBonus = (id) => {
+  if (!id) {
+    return 0;
+  }
+  const module = modules.find((module) => id === module.name);
+  if (module && module.effects.speed) {
+    return module.effects.speed.bonus;
+  }
+  return 0;
+};
+
+// refactor: reduce
+const getBonusSpeed = (modules) => {
+  let sum = 0;
+  modules.forEach((module) => {
+    sum += getModuleSpeedBonus(module);
+  });
+  return sum;
+};
+
+const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
+  const modulesBonus = getBonusSpeed(modules);
+  const beaconsBonus = (getBonusSpeed(beacons.modules) * beacons.amount) / 2;
+  return craftingSpeed * (modulesBonus + beaconsBonus) + craftingSpeed;
+};
+
 export const formatNumber = (number) => {
   if (typeof number !== "number") {
     return;
   }
-
   if (Number.isInteger(number)) {
     return number;
   } else if (number >= 100) {
@@ -123,86 +151,7 @@ export const formatNumber = (number) => {
   }
 };
 
-// Extend element based on UID
-export const extendElementByUid = (obj, uid, recipe) => {
-  if (typeof obj !== "object") {
-    return;
-  }
-
-  if (obj.uid === uid) {
-    const newIngredients = returnIngredients(recipe);
-    if (newIngredients.length > 0) {
-      obj.ingredients = newIngredients;
-      obj.recipe = recipe;
-    }
-  } else if (obj.ingredients) {
-    obj.ingredients.forEach((object) => {
-      extendElementByUid(object, uid, recipe);
-    });
-  }
-};
-
-// Extend all elements based on ID
-export const extendElementsById = (obj, id, recipe) => {
-  if (typeof obj !== "object") {
-    throw Error("wrong type in extendElementsById");
-  }
-  // console.log(id);
-  if (obj.id === id) {
-    const ingredients = recipe.ingredients;
-    const newIngredients = [];
-    ingredients.forEach((ingredient) => {
-      const newIngredient = {
-        id: ingredient.name,
-        uid: uuidv4(),
-      };
-      newIngredients.push(newIngredient);
-    });
-    obj.ingredients = newIngredients;
-    obj.recipe = recipe.name;
-  }
-  if (obj.ingredients) {
-    obj.ingredients.forEach((ingredient) => {
-      extendElementsById(ingredient, id, recipe);
-    });
-  }
-};
-
-// Collapse element based on UID
-export const collapseElementByUid = (obj, uid) => {
-  if (typeof obj !== "object") {
-    return;
-  }
-  if (obj.uid === uid) {
-    delete obj.ingredients;
-    delete obj.recipe;
-  } else if (obj.ingredients) {
-    obj.ingredients.forEach((object) => {
-      collapseElementByUid(object, uid);
-    });
-  }
-};
-
-// Collapse elements based on ID
-export const collapseElementsById = (obj, id) => {
-  if (typeof obj !== "object") {
-    return;
-  }
-  if (obj.id === id) {
-    delete obj.ingredients;
-  } else if (obj.ingredients) {
-    obj.ingredients.forEach((object) => {
-      collapseElementsById(object, id);
-    });
-  }
-};
-
-// Recursive input summarizing
 export const summarizeInputs = (outputItem, inputArray) => {
-  if (typeof outputItem !== "object" && typeof inputArray !== "object") {
-    throw Error("Wrong type in summarizeInputs");
-  }
-
   if (!outputItem.ingredients) {
     const existingItem = inputArray.find((item) => item.id === outputItem.id);
     if (!existingItem) {
@@ -222,43 +171,63 @@ export const summarizeInputs = (outputItem, inputArray) => {
   }
 };
 
-// Return req. ingredient count based on recipe and item ID
-export const returnIngredientCount = (id, recipeName, ingredientId) => {
-  const recipe = rrbi(recipeName);
-  if (recipe) {
-    const reqIngredient = recipe.ingredients.find(
-      (ingredient) => ingredient.name === ingredientId
+// undone
+export const summarizeMachines = (outputItem, machinesArray) => {
+  if (outputItem.ingredients) {
+    const existingItem = machinesArray.find(
+      (machine) => machine.id === outputItem.machine.id
     );
-    const product = recipe.products.find((product) => product.name === id);
-    const result = Number(reqIngredient.amount / product.amount);
-    return result;
+    if (!existingItem) {
+      const objToPush = {
+        id: outputItem.machine.id,
+        amount: Math.ceil(outputItem.machine.amount),
+      };
+      machinesArray.push(objToPush);
+    } else {
+      existingItem.amount += Math.ceil(outputItem.machine.amount);
+    }
+    outputItem.ingredients.forEach((ingredient) => {
+      summarizeMachines(ingredient, machinesArray);
+    });
   }
 };
 
-// Calculate item tree inputs
-// Later this function also should calculate and inject machine counts
-export const calculateIngredients = (outputItem) => {
-  if (outputItem.ingredients) {
-    const recipe = rrbi(outputItem.recipe);
-    const product = recipe.products.find((item) => item.name === outputItem.id);
+export const calculateTree = ({
+  ingredients,
+  recipe: recipeId,
+  id,
+  machine,
+  amount,
+}) => {
+  if (ingredients && machine) {
+    const recipe = getRecipeById(recipeId);
+    const product = recipe.products.find((item) => item.name === id);
+    machine.craftingSpeed = getModdedMachineSpeed(
+      machine.modules,
+      machine.beacons,
+      machine.craftingSpeed
+    );
+    machine.amount = getReqMachineCount(
+      machine.craftingSpeed,
+      amount,
+      recipe.energy,
+      product.amount
+    );
 
-    outputItem.ingredients.forEach((ingredient) => {
+    ingredients.forEach((ingredient) => {
       const recipeIngredient = recipe.ingredients.find(
         (item) => item.name === ingredient.id
       );
-      if (ingredient) {
-        ingredient.amount = Number(
-          (recipeIngredient.amount * outputItem.amount) / product.amount
-        );
-      }
-      calculateIngredients(ingredient);
+      ingredient.amount = Number(
+        (recipeIngredient.amount * amount) / product.amount
+      );
+      calculateTree(ingredient);
     });
   }
 };
 
 // Search for recipes producing product based on id
 // Returns array of multiple ids or single id
-
 export const lookUpProducers = (resultArray, outputItem, lookUpId) => {
   if (outputItem.ingredients) {
     const existingItem = resultArray.find((item) => item === outputItem.id);
@@ -269,6 +238,81 @@ export const lookUpProducers = (resultArray, outputItem, lookUpId) => {
       if (ingredient.ingredients) {
         lookUpProducers(resultArray, ingredient, lookUpId);
       }
+    });
+  }
+};
+
+// Redux functions
+export const extendElementByUid = (obj, uid, recipe, machine) => {
+  if (typeof obj !== "object") {
+    return;
+  }
+
+  if (obj.uid === uid) {
+    const newIngredients = getIngredients(recipe);
+    if (newIngredients.length > 0) {
+      obj.ingredients = newIngredients;
+      obj.recipe = recipe;
+      obj.machine = machine;
+    }
+  } else if (obj.ingredients) {
+    obj.ingredients.forEach((object) => {
+      extendElementByUid(object, uid, recipe, machine);
+    });
+  }
+};
+
+export const extendElementsById = (obj, id, recipe, machine) => {
+  if (typeof obj !== "object") {
+    throw Error("wrong type in extendElementsById");
+  }
+  if (obj.id === id) {
+    const ingredients = recipe.ingredients;
+    const newIngredients = [];
+    ingredients.forEach((ingredient) => {
+      const newIngredient = {
+        id: ingredient.name,
+        uid: uuidv4(),
+      };
+      newIngredients.push(newIngredient);
+    });
+    obj.ingredients = newIngredients;
+    obj.recipe = recipe.name;
+    obj.machine = machine;
+  }
+  if (obj.ingredients) {
+    obj.ingredients.forEach((ingredient) => {
+      extendElementsById(ingredient, id, recipe, machine);
+    });
+  }
+};
+
+export const collapseElementByUid = (obj, uid) => {
+  if (typeof obj !== "object") {
+    return;
+  }
+  if (obj.uid === uid) {
+    delete obj.ingredients;
+    delete obj.recipe;
+    delete obj.machine;
+  } else if (obj.ingredients) {
+    obj.ingredients.forEach((object) => {
+      collapseElementByUid(object, uid);
+    });
+  }
+};
+
+export const collapseElementsById = (obj, id) => {
+  if (typeof obj !== "object") {
+    return;
+  }
+  if (obj.id === id) {
+    delete obj.ingredients;
+    delete obj.recipe;
+    delete obj.machine;
+  } else if (obj.ingredients) {
+    obj.ingredients.forEach((object) => {
+      collapseElementsById(object, id);
     });
   }
 };

@@ -1,4 +1,4 @@
-import { returnImageUrlById } from "../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 
 import { FormInput } from "../FormInput/FormInput.component";
 import { FilteredItemsList } from "../FilteredItemsList/FilteredItemsList.component";
@@ -38,7 +38,7 @@ export const SearchBar = ({
       {currentItem ? (
         <CurrentItemContainer>
           <p>Current Item:</p>
-          <img src={returnImageUrlById(currentItem)} alt={currentItem} />
+          <img src={getImageUrlById(currentItem)} alt={currentItem} />
         </CurrentItemContainer>
       ) : (
         <CurrentItemContainer>
