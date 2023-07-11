@@ -8,20 +8,11 @@ import {
 } from "./ItemTreeExtendPopup.styles";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  extendElement,
-  extendSameTypeElements,
-} from "../../../reduxStore/calculator/calculator.slice";
+import { extendSameTypeElements } from "../../../reduxStore/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
 import { SelectRecipePopupButton } from "../SelectRecipePopupButton/SelectRecipePopupButton.component";
-import { getRecipeById } from "../../../utils/helperFunctions";
 
-export const ItemTreeExtendPopup = ({
-  setShowPopup,
-  recipes,
-  ...otherProps
-}) => {
-  const { id, uid, pid } = otherProps;
+export const ItemTreeExtendPopup = ({ setShowPopup, recipes, id }) => {
   const [selectedRecipe, setSelectedRecipe] = useState("");
   const [didntSelect, setDidntSelect] = useState(false);
   const dispatch = useDispatch();
@@ -33,21 +24,11 @@ export const ItemTreeExtendPopup = ({
 
   const handleSelect = () => {
     if (selectedRecipe) {
-      const recipe = getRecipeById(selectedRecipe);
-      if (!uid) {
-        const payload = {
-          id: id,
-          recipe: recipe,
-        };
-        dispatch(extendSameTypeElements(payload));
-      } else {
-        const payload = {
-          uid: uid,
-          pid: pid,
-          recipe: selectedRecipe,
-        };
-        dispatch(extendElement(payload));
-      }
+      const payload = {
+        id: id,
+        recipe: selectedRecipe,
+      };
+      dispatch(extendSameTypeElements(payload));
       setShowPopup(false);
       setDidntSelect(false);
       setSelectedRecipe({});

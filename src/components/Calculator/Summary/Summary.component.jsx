@@ -27,9 +27,7 @@ export const Summary = () => {
     <CalculatorSummaryContainer>
       <SummaryWindow title={"Desired Output"} toMap={output} />
       <SummaryWindow title={"Required Input"} toMap={input} input={"input"} />
-      {machines.length > 0 && (
-        <SummaryWindow title={"Required Machines"} toMap={machines} />
-      )}
+      <SummaryWindow title={"Required Machines"} toMap={machines} />
       {additionalOutput.length > 0 && (
         <SummaryWindow title={"Additional Output"} toMap={additionalOutput} />
       )}

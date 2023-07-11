@@ -28,12 +28,11 @@ export const ItemTreeFragment = ({ outputItem, pid }) => {
         if (event.shiftKey && event.button === 0) {
           const payload = {
             id: id,
-            recipe: recipe,
+            recipe: recipe.name,
           };
           dispatch(extendSameTypeElements(payload));
         } else {
           const payload = {
-            pid: pid,
             uid: uid,
             recipe: recipe.name,
           };
@@ -44,11 +43,7 @@ export const ItemTreeFragment = ({ outputItem, pid }) => {
       if (event.shiftKey && event.button === 0) {
         dispatch(collapseSameTypeElements(id));
       } else {
-        const payload = {
-          pid: pid,
-          uid: uid,
-        };
-        dispatch(collapseElement(payload));
+        dispatch(collapseElement(uid));
       }
     }
   };

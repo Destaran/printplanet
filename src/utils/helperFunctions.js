@@ -90,9 +90,9 @@ export const getMachineObjectById = (id) => {
 };
 
 export const checkIfMultipleRecipes = (productId) => {
-  const matchingObjects = recipes.filter((obj) => {
-    return obj.products.some((product) => product.name === productId);
-  });
+  const matchingObjects = recipes.filter((obj) =>
+    obj.products.some((product) => product.name === productId)
+  );
   if (matchingObjects.length === 1) {
     return matchingObjects[0];
   } else if (matchingObjects.length > 1) {
@@ -253,7 +253,7 @@ export const extendElementByUid = (obj, uid, recipe, machine) => {
     if (newIngredients.length > 0) {
       obj.ingredients = newIngredients;
       obj.recipe = recipe;
-      obj.machine = machine;
+      obj.machine = { ...machine, uid: uuidv4() };
     }
   } else if (obj.ingredients) {
     obj.ingredients.forEach((object) => {
@@ -262,35 +262,7 @@ export const extendElementByUid = (obj, uid, recipe, machine) => {
   }
 };
 
-export const extendElementsById = (obj, id, recipe, machine) => {
-  if (typeof obj !== "object") {
-    throw Error("wrong type in extendElementsById");
-  }
-  if (obj.id === id) {
-    const ingredients = recipe.ingredients;
-    const newIngredients = [];
-    ingredients.forEach((ingredient) => {
-      const newIngredient = {
-        id: ingredient.name,
-        uid: uuidv4(),
-      };
-      newIngredients.push(newIngredient);
-    });
-    obj.ingredients = newIngredients;
-    obj.recipe = recipe.name;
-    obj.machine = machine;
-  }
-  if (obj.ingredients) {
-    obj.ingredients.forEach((ingredient) => {
-      extendElementsById(ingredient, id, recipe, machine);
-    });
-  }
-};
-
 export const collapseElementByUid = (obj, uid) => {
-  if (typeof obj !== "object") {
-    return;
-  }
   if (obj.uid === uid) {
     delete obj.ingredients;
     delete obj.recipe;
@@ -315,4 +287,23 @@ export const collapseElementsById = (obj, id) => {
       collapseElementsById(object, id);
     });
   }
+};
+
+const getTreeUids = (outputItem, id, allUids) => {
+  if (outputItem.id === id) {
+    allUids.push(outputItem.uid);
+  }
+  if (outputItem.ingredients) {
+    outputItem.ingredients.forEach((ingredient) => {
+      getTreeUids(ingredient, id, allUids);
+    });
+  }
+};
+
+export const getAllUids = (output, id) => {
+  const allUids = [];
+  output.forEach((outputItem) => {
+    getTreeUids(outputItem, id, allUids);
+  });
+  return allUids;
 };

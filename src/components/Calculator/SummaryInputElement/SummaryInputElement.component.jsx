@@ -20,12 +20,12 @@ import { ItemTreeExtendPopup } from "../ItemTreeExtendPopup/ItemTreeExtendPopup.
 
 export const SummaryInputElement = ({ object }) => {
   const { amount, id } = object;
-  const [recipes, setRecipes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const output = useSelector(outputValues);
-  const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(amount);
+  const [recipes, setRecipes] = useState([]);
+  const output = useSelector(outputValues);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     const recipe = checkIfMultipleRecipes(id);
@@ -48,7 +48,7 @@ export const SummaryInputElement = ({ object }) => {
       } else if (recipe) {
         const payload = {
           id: id,
-          recipe: recipe,
+          recipe: recipe.name,
         };
         dispatch(extendSameTypeElements(payload));
       }

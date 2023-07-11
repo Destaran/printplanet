@@ -3,10 +3,10 @@ import { v4 as uuidv4 } from "uuid";
 import {
   getIngredients,
   extendElementByUid,
-  extendElementsById,
   collapseElementByUid,
   collapseElementsById,
   getRecipeCategory,
+  getAllUids,
 } from "../../utils/helperFunctions";
 
 const initialState = {
@@ -130,24 +130,27 @@ export const calculatorSlice = createSlice({
       state.output = {};
     },
     extendElement: (state, { payload }) => {
-      const { uid, pid, recipe } = payload;
-      const machine = {
-        ...state.machines[getRecipeCategory(recipe)],
-        uid: uuidv4(),
-      };
-      extendElementByUid(state.output[pid], uid, recipe, machine);
+      const { uid, recipe } = payload;
+      const machine = state.machines[getRecipeCategory(recipe)];
+      Object.keys(state.output).forEach((item) => {
+        extendElementByUid(state.output[item], uid, recipe, machine);
+      });
     },
-    // refactor: receives recipe obj while extendElement receives recipe id string
     extendSameTypeElements: (state, { payload }) => {
       const { id, recipe } = payload;
-      const machine = state.machines[getRecipeCategory(recipe.name)];
-      Object.keys(state.output).forEach((key) => {
-        extendElementsById(state.output[key], id, recipe, machine);
+      const machine = state.machines[getRecipeCategory(recipe)];
+      const uids = getAllUids(Object.values(state.output), id);
+      uids.forEach((uid) => {
+        Object.keys(state.output).forEach((key) => {
+          extendElementByUid(state.output[key], uid, recipe, machine);
+        });
       });
     },
     collapseElement: ({ output }, { payload }) => {
-      const { uid, pid } = payload;
-      collapseElementByUid(output[pid], uid);
+      const uid = payload;
+      Object.keys(output).forEach((key) => {
+        collapseElementByUid(output[key], uid);
+      });
     },
     collapseSameTypeElements: ({ output }, { payload }) => {
       const id = payload;

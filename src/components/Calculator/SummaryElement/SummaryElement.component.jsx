@@ -1,4 +1,4 @@
-import { getImageUrlById } from "../../../utils/helperFunctions";
+import { formatNumber, getImageUrlById } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { SummaryElementPopup } from "../SummaryElementPopup/SummaryElementPopup.component";
 import {
@@ -8,10 +8,10 @@ import {
 } from "./SummaryElement.styles";
 
 export const SummaryElement = ({ object }) => {
-  const [showPopup, setShowPopup] = useState(false);
   const { amount, id } = object;
+  const [showPopup, setShowPopup] = useState(false);
   const imgUrl = getImageUrlById(id);
-  const displayAmount = amount;
+  const displayAmount = formatNumber(amount);
 
   const handleClick = () => {
     setShowPopup(!showPopup);
