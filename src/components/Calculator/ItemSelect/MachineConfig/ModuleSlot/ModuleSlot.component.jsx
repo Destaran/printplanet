@@ -69,11 +69,9 @@ export const ModuleSlot = ({ idx, module, setCurrentConfig, beaconModule }) => {
   useEffect(() => {
     setCurrentConfig((prevConfig) => {
       const newConfig = structuredClone(prevConfig);
-      if (beaconModule) {
-        newConfig.beacons.modules[idx] = moduleArray[arrayIndex];
-      } else {
-        newConfig.modules[idx] = moduleArray[arrayIndex];
-      }
+      beaconModule
+        ? (newConfig.beacons.modules[idx] = moduleArray[arrayIndex])
+        : (newConfig.modules[idx] = moduleArray[arrayIndex]);
       return newConfig;
     });
   }, [arrayIndex, beaconModule, idx, setCurrentConfig]);

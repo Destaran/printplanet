@@ -4,18 +4,19 @@ import {
   Header,
   InputContainer,
   ButtonsContainer,
-} from "./SummaryElementPopup.styles";
+} from "./ModifyOutputPopup.styles";
 import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromOutput,
   modifyOutputElement,
 } from "../../../reduxStore/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
+import { outputObject } from "../../../reduxStore/calculator/calculator.selector";
 
-export const SummaryElementPopup = ({ object, setShowPopup }) => {
-  const { id, amount } = object;
+export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
+  const amount = useSelector(outputObject)[id].amount;
   const [newAmount, setNewAmount] = useState(amount);
   const imgUrl = getImageUrlById(id);
   const dispatch = useDispatch();
@@ -29,17 +30,17 @@ export const SummaryElementPopup = ({ object, setShowPopup }) => {
       id: id,
       amount: Number(newAmount),
     };
-    setShowPopup(false);
     dispatch(modifyOutputElement(newItem));
+    setOutputId(null);
   };
 
   const removeHandler = () => {
-    setShowPopup(false);
     dispatch(removeFromOutput(id));
+    setOutputId(null);
   };
 
   const cancelHandler = () => {
-    setShowPopup(false);
+    setOutputId(null);
   };
 
   return (

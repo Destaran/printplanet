@@ -8,37 +8,55 @@ import {
 } from "./ItemTreeExtendPopup.styles";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { extendSameTypeElements } from "../../../reduxStore/calculator/calculator.slice";
+import {
+  extendElement,
+  extendSameTypeElements,
+} from "../../../reduxStore/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
 import { SelectRecipePopupButton } from "../SelectRecipePopupButton/SelectRecipePopupButton.component";
+import { getRecipes } from "../../../utils/helperFunctions";
 
-export const ItemTreeExtendPopup = ({ setShowPopup, recipes, id }) => {
+export const ItemTreeExtendPopup = ({
+  inputId: id,
+  uid,
+  setInputId,
+  setShowPopup,
+}) => {
+  const recipes = getRecipes(id);
   const [selectedRecipe, setSelectedRecipe] = useState("");
   const [didntSelect, setDidntSelect] = useState(false);
   const dispatch = useDispatch();
 
   const handleSelectRecipe = ({ target }) => {
-    const { id } = target;
-    setSelectedRecipe(id);
+    setSelectedRecipe(target.id);
   };
 
-  const handleSelect = () => {
-    if (selectedRecipe) {
+  const handleSubmit = () => {
+    if (selectedRecipe && !uid) {
       const payload = {
         id: id,
         recipe: selectedRecipe,
       };
       dispatch(extendSameTypeElements(payload));
+      setInputId(null);
+      setDidntSelect(false);
+      setSelectedRecipe("");
+    } else if (selectedRecipe) {
+      const payload = {
+        uid: uid,
+        recipe: selectedRecipe,
+      };
+      dispatch(extendElement(payload));
       setShowPopup(false);
       setDidntSelect(false);
-      setSelectedRecipe({});
+      setSelectedRecipe("");
     } else {
       setDidntSelect(true);
     }
   };
 
   const handleCancel = () => {
-    setShowPopup(false);
+    setInputId(null);
     setSelectedRecipe({});
     setDidntSelect(false);
   };
@@ -61,7 +79,7 @@ export const ItemTreeExtendPopup = ({ setShowPopup, recipes, id }) => {
         </InputContainer>
         {didntSelect && <Warning>Select a recipe to continue!</Warning>}
         <ButtonsContainer>
-          <Button onClick={handleSelect} buttonType={"green"}>
+          <Button onClick={handleSubmit} buttonType={"green"}>
             Submit
           </Button>
           <Button onClick={handleCancel} buttonType={"red"}>

@@ -5,6 +5,7 @@ import {
 } from "../../utils/helperFunctions";
 import { createSelector } from "reselect";
 
+export const outputObject = (state) => state.calculator.output;
 export const outputValues = (state) => Object.values(state.calculator.output);
 export const outputKeys = (state) => Object.keys(state.calculator.output);
 

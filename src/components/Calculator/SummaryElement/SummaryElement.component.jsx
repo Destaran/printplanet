@@ -1,25 +1,22 @@
-import { formatNumber, getImageUrlById } from "../../../utils/helperFunctions";
-import { useState } from "react";
-import { SummaryElementPopup } from "../SummaryElementPopup/SummaryElementPopup.component";
+import { getImageUrlById, formatNumber } from "../../../utils/helperFunctions";
 import {
   OutterElementContainer,
   InnerElementContainer,
   ImgContainer,
 } from "./SummaryElement.styles";
 
-export const SummaryElement = ({ object }) => {
-  const { amount, id } = object;
-  const [showPopup, setShowPopup] = useState(false);
+export const SummaryElement = ({ item, handleClick }) => {
+  const { amount, id } = item;
   const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(amount);
 
-  const handleClick = () => {
-    setShowPopup(!showPopup);
-  };
-
   return (
     <>
-      <OutterElementContainer onClick={handleClick}>
+      <OutterElementContainer
+        onClick={(event) => {
+          handleClick(id, event);
+        }}
+      >
         <InnerElementContainer>
           <ImgContainer>
             <img src={imgUrl} />
@@ -27,9 +24,6 @@ export const SummaryElement = ({ object }) => {
           </ImgContainer>
         </InnerElementContainer>
       </OutterElementContainer>
-      {showPopup && (
-        <SummaryElementPopup object={object} setShowPopup={setShowPopup} />
-      )}
     </>
   );
 };

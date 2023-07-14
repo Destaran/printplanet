@@ -89,7 +89,7 @@ export const getMachineObjectById = (id) => {
   return craftingMachines.find((item) => item.name === id);
 };
 
-export const checkIfMultipleRecipes = (productId) => {
+export const getRecipes = (productId) => {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === productId)
   );
@@ -158,7 +158,6 @@ export const summarizeInputs = (outputItem, inputArray) => {
       const objToPush = {
         id: outputItem.id,
         amount: outputItem.amount,
-        recipe: outputItem.recipe,
       };
       inputArray.push(objToPush);
     } else {
@@ -171,7 +170,7 @@ export const summarizeInputs = (outputItem, inputArray) => {
   }
 };
 
-// undone
+// refactor: look into rounding
 export const summarizeMachines = (outputItem, machinesArray) => {
   if (outputItem.ingredients) {
     const existingItem = machinesArray.find(
@@ -240,6 +239,14 @@ export const lookUpProducers = (resultArray, outputItem, lookUpId) => {
       }
     });
   }
+};
+
+export const getProducers = (output, id) => {
+  const resultArray = [];
+  output.forEach((element) => {
+    lookUpProducers(resultArray, element, id);
+  });
+  return resultArray;
 };
 
 // Redux functions

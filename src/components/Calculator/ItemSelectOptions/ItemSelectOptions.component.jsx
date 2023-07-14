@@ -5,17 +5,12 @@ import {
   addToOutput,
   addToExistingOutput,
 } from "../../../reduxStore/calculator/calculator.slice";
-import {
-  checkIfMultipleRecipes,
-  getNameById,
-} from "../../../utils/helperFunctions";
-// Components
+import { getRecipes, getNameById } from "../../../utils/helperFunctions";
 import { Button } from "../../Button/Button.component";
 import { SearchBar } from "../SearchBar/SearchBar.component";
 import { QuantitySelect } from "../QuantitySelect/QuantitySelect.component";
 import { FormSelect } from "../FormSelect/FormSelect.component";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component.jsx";
-// CSS
 import {
   SelectionContainer,
   UnitSelectContainer,
@@ -53,7 +48,7 @@ export const ItemSelectOptions = ({
     if (currentItem) {
       const existingItem = output.find((item) => item === currentItem);
       if (!existingItem) {
-        const recipe = checkIfMultipleRecipes(currentItem);
+        const recipe = getRecipes(currentItem);
         if (recipe.length > 1) {
           setRecipes(recipe);
           setShowPopup(true);

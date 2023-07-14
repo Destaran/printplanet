@@ -83,7 +83,7 @@ import { ModuleSlot } from "./ModuleSlot/ModuleSlot.component";
 import { Select } from "./Select/Select.component";
 import { useCallback } from "react";
 
-// destructure machineConfig into multiple states and assemble the complete object in saveHandler
+// refactor: destructure machineConfig into multiple states and assemble the complete object in saveHandler
 
 export const MachineConfig = () => {
   const dispatch = useDispatch();
@@ -91,6 +91,8 @@ export const MachineConfig = () => {
   const [currentSelected, setCurrentSelected] = useState(
     getMachineObjectById(defaultMachine.id)
   );
+  const [modules, setModules] = useState(defaultMachine.modules);
+  const [beacons, setBeacons] = useState(defaultMachine.beacons);
   const [machineConfig, setMachineConfig] = useState(defaultMachine);
 
   const beaconAmountChange = ({ target }) => {
