@@ -38,3 +38,5 @@ export const machinesArray = createSelector(calculatedOutput, (output) => {
 
 export const defaultCraftingMachine = (state) =>
   state.calculator.machines.crafting;
+
+export const craftingMachines = (state) => state.calculator.machines;

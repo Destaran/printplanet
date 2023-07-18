@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import {
   getImageUrlById,
   getNameById,
-} from "../../../../../utils/helperFunctions";
+} from "../../../../utils/helperFunctions";
 
 const ppBlue = "#14213d";
 
@@ -13,10 +13,11 @@ const Slot = styled.div`
   margin: 1px;
   border: 2px solid black;
   background-color: ${ppBlue};
-  cursor: pointer;
   :hover {
+    cursor: pointer;
     background-color: orange;
   }
+
   :active {
     background-color: ${ppBlue};
   }
@@ -48,8 +49,10 @@ export const ModuleSlot = ({
   const [moduleIdx, setModuleIdx] = useState(modules.indexOf(module));
 
   useEffect(() => {
-    setModuleIdx(modules.indexOf(module));
-  }, [module, modules]);
+    if (module === "") {
+      setModuleIdx(0);
+    }
+  }, [module]);
 
   useEffect(() => {
     onModuleChange(modules, slotIdx, moduleIdx, beaconModule);

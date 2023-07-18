@@ -1,9 +1,30 @@
-import { MenusContainer, ButtonContainer } from "./Menus.styles";
+import styled from "styled-components";
 import { Button } from "../../Button/Button.component";
 
+const ppBlue = "#14213d";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 10%;
+  border: 1px solid ${ppBlue};
+  padding: 5px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0;
+  button {
+    margin: 2px;
+    height: 28px;
+  }
+`;
+// refactor
 export const Menus = ({ resetHandler }) => {
   return (
-    <MenusContainer>
+    <Container>
       <ButtonContainer>
         <Button buttonType={"green"}>Save</Button>
       </ButtonContainer>
@@ -15,6 +36,6 @@ export const Menus = ({ resetHandler }) => {
           Reset
         </Button>
       </ButtonContainer>
-    </MenusContainer>
+    </Container>
   );
 };

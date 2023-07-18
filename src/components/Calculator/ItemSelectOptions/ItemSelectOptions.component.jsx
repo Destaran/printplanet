@@ -1,22 +1,23 @@
-import { useState } from "react";
-import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addToOutput,
-  addToExistingOutput,
-} from "../../../reduxStore/calculator/calculator.slice";
-import { getRecipes, getNameById } from "../../../utils/helperFunctions";
-import { Button } from "../../Button/Button.component";
-import { SearchBar } from "../SearchBar/SearchBar.component";
-import { QuantitySelect } from "../QuantitySelect/QuantitySelect.component";
-import { FormSelect } from "../FormSelect/FormSelect.component";
-import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component.jsx";
 import {
   SelectionContainer,
   UnitSelectContainer,
   AddButtonContainer,
 } from "./ItemSelectOptions.styles";
+import { getRecipes, getNameById } from "../../../utils/helperFunctions";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToOutput,
+  addToExistingOutput,
+} from "../../../reduxStore/calculator/calculator.slice";
+import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
+import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component.jsx";
+import { SearchBar } from "../SearchBar/SearchBar.component";
+import { QuantitySelect } from "../QuantitySelect/QuantitySelect.component";
+import { FormSelect } from "../FormSelect/FormSelect.component";
+import { Button } from "../../Button/Button.component";
 
+// refactor
 export const ItemSelectOptions = ({
   searchString,
   setSearchString,
@@ -25,8 +26,8 @@ export const ItemSelectOptions = ({
   quantity,
   setQuantity,
 }) => {
-  const output = useSelector(outputKeys);
   const dispatch = useDispatch();
+  const output = useSelector(outputKeys);
   const [recipes, setRecipes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [unit, setUnit] = useState(1);

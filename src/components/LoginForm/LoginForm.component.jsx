@@ -7,23 +7,23 @@ import {
   GoogleButton,
   PasswordReset,
 } from "./LoginForm.styles";
-
+import {
+  signInWithGooglePopup,
+  signInAuthUserWithEmailAndPassword,
+} from "../../utils/firestore/firestore";
 import GoogleLogo from "../../assets/GoogleLogo.svg";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
 import FormInput from "../FormInput/FormInput.component";
 import { Button } from "../Button/Button.component";
-import {
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firestore/firestore";
 
 const defaultFormFields = {
   email: "",
   password: "",
 };
 
+// refactor: into multiple components
 const LoginForm = () => {
   const navigate = useNavigate();
 

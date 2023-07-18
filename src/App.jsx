@@ -1,4 +1,4 @@
-import "./index.scss";
+import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/user.context";
 import { Provider } from "react-redux";

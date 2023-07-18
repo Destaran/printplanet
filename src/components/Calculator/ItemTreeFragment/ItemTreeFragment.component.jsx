@@ -1,5 +1,5 @@
-import { ItemTreeList } from "../ItemTreeList/ItemTreeList.component";
 import { ItemTreeListSpan } from "../ItemTreeListSpan/ItemTreeListSpan.component";
+import { ItemTreeList } from "../ItemTreeList/ItemTreeList.component";
 
 export const ItemTreeFragment = ({ outputItem, pid }) => {
   const { ingredients } = outputItem;

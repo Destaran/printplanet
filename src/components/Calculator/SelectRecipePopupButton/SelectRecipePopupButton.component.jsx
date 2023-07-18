@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../utils/helperFunctions";
-import { Tooltip } from "react-tooltip";
 import { useState, useEffect } from "react";
+import { Tooltip } from "react-tooltip";
 import { SelectRecipePopupButtonTooltip } from "../SelectRecipePopupButtonTooltip/SelectRecipePopupButtonTooltip.component";
 
 const ppDark = "#313131";
 
-const OutterElementContainer = styled.div`
+const OutterContainer = styled.div`
   border: 2px solid #b47500;
   height: 42px;
   width: auto;
@@ -24,7 +24,7 @@ const OutterElementContainer = styled.div`
   }
 `;
 
-const InnerElementContainer = styled.div`
+const InnerContainer = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
@@ -44,6 +44,7 @@ const ImgContainer = styled.div`
   }
 `;
 
+// refactor
 export const SelectRecipePopupButton = ({
   recipe,
   selectedRecipe,
@@ -66,17 +67,17 @@ export const SelectRecipePopupButton = ({
       <Tooltip id={name} delayShow={"300"}>
         <SelectRecipePopupButtonTooltip recipe={recipe} />
       </Tooltip>
-      <OutterElementContainer
+      <OutterContainer
         selected={selected}
         data-tooltip-id={name}
         onClick={onClick}
       >
-        <InnerElementContainer>
+        <InnerContainer>
           <ImgContainer>
             <img id={name} src={imgUrl} alt="" />
           </ImgContainer>
-        </InnerElementContainer>
-      </OutterElementContainer>
+        </InnerContainer>
+      </OutterContainer>
     </>
   );
 };

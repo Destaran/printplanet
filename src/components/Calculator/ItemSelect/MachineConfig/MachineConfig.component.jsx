@@ -1,4 +1,21 @@
 import styled from "styled-components";
+import {
+  checkIfDefault,
+  getDefaultMachine,
+  getEmptyMachine,
+  getMachineObjectById,
+} from "../../../../utils/helperFunctions";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useState, useEffect } from "react";
+import {
+  defaultCraftingMachine,
+  craftingMachines,
+} from "../../../../reduxStore/calculator/calculator.selector";
+import { saveDefaultMachineConfig } from "../../../../reduxStore/calculator/calculator.slice";
+import { Beacons } from "./Beacons/Beacons.component";
+import { Modules } from "./Modules/Modules.component";
+import { Button } from "../../../Button/Button.component";
+import { Select } from "./Select/Select.component";
 
 const ppBlue = "#14213d";
 
@@ -14,43 +31,14 @@ const Container = styled.div`
   }
 `;
 
-const ModulesContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 30px;
-`;
-
-const BeaconContainer = styled.div`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  height: 30px;
-  margin-right: 10px;
-
-  p {
-    margin: 0 5px 0 5px;
-  }
-
-  input {
-    width: 30px;
-    margin: 0 5px 0 0;
-  }
-
-  img {
-    height: 28px;
-    width: 28px;
-    background-color: #313131;
-    border: 1px solid black;
-  }
-`;
-
 const ConfigContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const MachineSettings = styled.div``;
+const MachineSettings = styled.div`
+  width: 310px;
+`;
 
 const MachineFunctions = styled.div`
   display: flex;
@@ -69,71 +57,76 @@ const MachineFunctions = styled.div`
   }
 `;
 
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import {
-  getMachineObjectById,
-  getImageUrlById,
-} from "../../../../utils/helperFunctions";
-import { useDispatch } from "react-redux";
-import { saveDefaultMachineConfig } from "../../../../reduxStore/calculator/calculator.slice";
-import { defaultCraftingMachine } from "../../../../reduxStore/calculator/calculator.selector";
-import { Button } from "../../../Button/Button.component";
-import { ModuleSlot } from "./ModuleSlot/ModuleSlot.component";
-import { Select } from "./Select/Select.component";
-import { useCallback } from "react";
-
-// refactor: destructure machineConfig into multiple states and assemble the complete object in saveHandler
-
 export const MachineConfig = () => {
   const dispatch = useDispatch();
+  const defaultMachines = useSelector(craftingMachines);
   const defaultMachine = useSelector(defaultCraftingMachine);
   const [currentSelected, setCurrentSelected] = useState(
     getMachineObjectById(defaultMachine.id)
   );
   const [modules, setModules] = useState(defaultMachine.modules);
   const [beacons, setBeacons] = useState(defaultMachine.beacons);
-  const [machineConfig, setMachineConfig] = useState(defaultMachine);
 
-  const beaconAmountChange = ({ target }) => {
-    const { value } = target;
-    setMachineConfig((prevConfig) => ({
-      ...prevConfig,
-      beacons: {
-        ...prevConfig.beacons,
-        amount: value,
-      },
-    }));
-  };
-
+  // refactor: calculate modded machine speed + productivity
   const saveHandler = () => {
-    const categories = Object.keys(currentSelected.categories);
     const payload = {
-      categories,
-      machineConfig,
+      categories: Object.keys(currentSelected.categories),
+      machineConfig: {
+        id: currentSelected.name,
+        craftingSpeed: currentSelected.craftingSpeed,
+        modules: modules,
+        beacons: beacons,
+      },
     };
     dispatch(saveDefaultMachineConfig(payload));
   };
 
-  const resetHandler = useCallback(() => {
-    setMachineConfig({
-      id: currentSelected.name,
-      craftingSpeed: currentSelected.craftingSpeed,
-      modules: new Array(currentSelected.moduleSlots).fill(""),
-      beacons: {
-        amount: 0,
-        modules: ["", ""],
-      },
-    });
-  }, [
-    currentSelected.craftingSpeed,
-    currentSelected.moduleSlots,
-    currentSelected.name,
-  ]);
+  const changeHandler = useCallback(() => {
+    if (checkIfDefault(currentSelected.name, defaultMachines)) {
+      const machine = getDefaultMachine(currentSelected.name, defaultMachines);
+      setBeacons(machine.beacons);
+      setModules(machine.modules);
+    } else {
+      const empty = getEmptyMachine(currentSelected.name);
+      setBeacons(empty.beacons);
+      setModules(empty.modules);
+    }
+  }, [currentSelected.name, defaultMachines]);
+
+  const resetHandler = () => {
+    const empty = getEmptyMachine(currentSelected.name);
+    setModules(empty.modules);
+    setBeacons(empty.beacons);
+  };
+
+  const onBeaconAmountChange = ({ target }) => {
+    const { value } = target;
+    setBeacons((prevConfig) => ({
+      ...prevConfig,
+      amount: value,
+    }));
+  };
+
+  const onModuleChange = useCallback(
+    (modules, slotIdx, moduleIdx, isBeaconModule) => {
+      isBeaconModule
+        ? setBeacons((prevModules) => {
+            const newModules = structuredClone(prevModules);
+            newModules.modules[slotIdx] = modules[moduleIdx];
+            return newModules;
+          })
+        : setModules((prevModules) => {
+            const newModules = structuredClone(prevModules);
+            newModules[slotIdx] = modules[moduleIdx];
+            return newModules;
+          });
+    },
+    [setBeacons, setModules]
+  );
 
   useEffect(() => {
-    resetHandler();
-  }, [resetHandler]);
+    changeHandler();
+  }, [changeHandler]);
 
   return (
     <Container>
@@ -143,40 +136,12 @@ export const MachineConfig = () => {
           setCurrentSelected={setCurrentSelected}
         />
         <ConfigContainer>
-          <BeaconContainer>
-            {machineConfig.beacons.modules.map((module, idx) => {
-              return (
-                <ModuleSlot
-                  key={idx}
-                  idx={idx}
-                  module={module}
-                  setCurrentConfig={setMachineConfig}
-                  beaconModule={true}
-                />
-              );
-            })}
-            <p>&#x2715;</p>
-            <input
-              value={machineConfig.beacons.amount}
-              onChange={beaconAmountChange}
-              max={20}
-              min={0}
-              type="number"
-            />
-            <img src={getImageUrlById("beacon")} alt="Beacon" />
-          </BeaconContainer>
-          <ModulesContainer>
-            {machineConfig.modules.map((module, idx) => {
-              return (
-                <ModuleSlot
-                  key={idx}
-                  idx={idx}
-                  module={module}
-                  setCurrentConfig={setMachineConfig}
-                />
-              );
-            })}
-          </ModulesContainer>
+          <Beacons
+            beacons={beacons}
+            onModuleChange={onModuleChange}
+            onBeaconAmountChange={onBeaconAmountChange}
+          />
+          <Modules modules={modules} onModuleChange={onModuleChange} />
         </ConfigContainer>
       </MachineSettings>
       <MachineFunctions>

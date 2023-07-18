@@ -1,21 +1,22 @@
-import { getRecipes, getProducers } from "../../../utils/helperFunctions";
 import styled from "styled-components";
+import { getRecipes, getProducers } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  collapseSameTypeElements,
+  extendSameTypeElements,
+} from "../../../reduxStore/calculator/calculator.slice";
 import {
   outputValues,
   inputArray,
   machinesArray,
 } from "../../../reduxStore/calculator/calculator.selector";
-import {
-  collapseSameTypeElements,
-  extendSameTypeElements,
-} from "../../../reduxStore/calculator/calculator.slice";
-import { SummaryWindow } from "../SummaryWindow/SummaryWindow.component";
 import { ModifyOutputPopup } from "../ModifyOutputPopup/ModifyOutputPopup.component";
-import { ItemTreeExtendPopup } from "../ItemTreeExtendPopup/ItemTreeExtendPopup.component";
+import { RecipeSelectPopup } from "../RecipeSelectPopup/RecipeSelectPopup.component";
+import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup.component";
+import { Window } from "./Window/Window.component";
 
-const CalculatorSummaryContainer = styled.div`
+const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   object-fit: contain;
@@ -31,7 +32,7 @@ export const Summary = () => {
   const additionalOutput = [];
   const [inputId, setInputId] = useState(null);
   const [outputId, setOutputId] = useState(null);
-  const [machinesId, setMachinesId] = useState(null);
+  const [machineId, setMachineId] = useState(null);
 
   const handleOutputClick = (id) => {
     setOutputId(id);
@@ -45,9 +46,9 @@ export const Summary = () => {
         dispatch(collapseSameTypeElements(id));
       });
     } else {
-      if (recipe.length > 1) {
+      if (recipe && recipe.length > 1) {
         setInputId(id);
-      } else {
+      } else if (recipe) {
         const payload = {
           id: id,
           recipe: recipe.name,
@@ -58,12 +59,12 @@ export const Summary = () => {
   };
 
   const handleMachineClick = (id) => {
-    setMachinesId(id);
+    setMachineId(id);
   };
 
   return (
-    <CalculatorSummaryContainer>
-      <SummaryWindow
+    <Container>
+      <Window
         title={"Desired Output"}
         items={output}
         handleClick={handleOutputClick}
@@ -71,25 +72,27 @@ export const Summary = () => {
       {outputId && (
         <ModifyOutputPopup outputId={outputId} setOutputId={setOutputId} />
       )}
-      <SummaryWindow
+      <Window
         title={"Required Input"}
         items={input}
         handleClick={handleInputClick}
       />
       {inputId && (
-        <ItemTreeExtendPopup inputId={inputId} setInputId={setInputId} />
+        <RecipeSelectPopup inputId={inputId} setInputId={setInputId} />
       )}
       {machines.length > 0 && (
-        <SummaryWindow
+        <Window
           title={"Required Machines"}
           items={machines}
           handleClick={handleMachineClick}
         />
       )}
-      {/* machinesId */}
-      {additionalOutput.length > 0 && (
-        <SummaryWindow title={"Additional Output"} items={additionalOutput} />
+      {machineId && (
+        <MachineEditPopup machineId={machineId} setMachineId={setMachineId} />
       )}
-    </CalculatorSummaryContainer>
+      {additionalOutput.length > 0 && (
+        <Window title={"Additional Output"} items={additionalOutput} />
+      )}
+    </Container>
   );
 };

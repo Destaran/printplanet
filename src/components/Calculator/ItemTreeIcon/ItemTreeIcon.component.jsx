@@ -1,19 +1,22 @@
-import { useDispatch } from "react-redux";
 import {
   OutterElementContainer,
   InnerElementContainer,
   ImgContainer,
 } from "./ItemTreeIcon.styles";
-import { formatNumber, getImageUrlById } from "../../../utils/helperFunctions";
+import {
+  formatNumber,
+  getImageUrlById,
+  getRecipes,
+} from "../../../utils/helperFunctions";
 import { useState } from "react";
-import { getRecipes } from "../../../utils/helperFunctions";
+import { useDispatch } from "react-redux";
 import {
   extendElement,
   extendSameTypeElements,
   collapseElement,
   collapseSameTypeElements,
 } from "../../../reduxStore/calculator/calculator.slice";
-import { ItemTreeExtendPopup } from "../ItemTreeExtendPopup/ItemTreeExtendPopup.component";
+import { RecipeSelectPopup } from "../RecipeSelectPopup/RecipeSelectPopup.component";
 
 export const ItemTreeIcon = ({ outputItem }) => {
   const { uid, id, amount, ingredients } = outputItem;
@@ -22,6 +25,7 @@ export const ItemTreeIcon = ({ outputItem }) => {
   const imgUrl = getImageUrlById(id);
   const showAmount = formatNumber(amount);
 
+  // refactor
   const handleClick = (event) => {
     const recipe = getRecipes(id);
     if (!ingredients) {
@@ -62,11 +66,7 @@ export const ItemTreeIcon = ({ outputItem }) => {
         </InnerElementContainer>
       </OutterElementContainer>
       {showPopup && (
-        <ItemTreeExtendPopup
-          inputId={id}
-          uid={uid}
-          setShowPopup={setShowPopup}
-        />
+        <RecipeSelectPopup inputId={id} uid={uid} setShowPopup={setShowPopup} />
       )}
     </>
   );

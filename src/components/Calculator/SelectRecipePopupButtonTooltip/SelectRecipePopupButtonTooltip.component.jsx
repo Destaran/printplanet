@@ -20,8 +20,10 @@ const Title = styled.div`
   margin-bottom: 10px;
   border-bottom: 1px solid white;
 `;
+
 const DetailContainer = styled.div``;
-const MapContainer = styled.div`
+
+const ListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, auto);
   width: fit-content;
@@ -40,22 +42,22 @@ export const SelectRecipePopupButtonTooltip = ({ recipe }) => {
       <Title>{name}</Title>
       <DetailContainer>
         <p>Craftable at:</p>
-        <MapContainer>
+        <ListContainer>
           {machines.map((machine, idx) => (
             <SelectRecipePopupButtonTooltipElement object={machine} key={idx} />
           ))}
-        </MapContainer>
+        </ListContainer>
       </DetailContainer>
       <DetailContainer>
         <p>Modules:</p>
-        <MapContainer>
+        <ListContainer>
           {modules.map((ingredient, idx) => (
             <SelectRecipePopupButtonTooltipElement
               object={ingredient}
               key={idx}
             />
           ))}
-        </MapContainer>
+        </ListContainer>
       </DetailContainer>
       <DetailContainer>
         <p>Base crafting time:</p>
@@ -63,25 +65,25 @@ export const SelectRecipePopupButtonTooltip = ({ recipe }) => {
       </DetailContainer>
       <DetailContainer>
         <p>Input:</p>
-        <MapContainer>
+        <ListContainer>
           {recipe.ingredients.map((ingredient, idx) => (
             <SelectRecipePopupButtonTooltipElement
               object={ingredient}
               key={idx}
             />
           ))}
-        </MapContainer>
+        </ListContainer>
       </DetailContainer>
       <DetailContainer>
         <p>Output:</p>
-        <MapContainer>
+        <ListContainer>
           {recipe.products.map((ingredient, idx) => (
             <SelectRecipePopupButtonTooltipElement
               object={ingredient}
               key={idx}
             />
           ))}
-        </MapContainer>
+        </ListContainer>
       </DetailContainer>
     </Container>
   );

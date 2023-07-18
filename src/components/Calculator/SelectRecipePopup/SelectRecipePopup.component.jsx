@@ -9,9 +9,10 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToOutput } from "../../../reduxStore/calculator/calculator.slice";
-import { Button } from "../../Button/Button.component";
 import { SelectRecipePopupButton } from "../SelectRecipePopupButton/SelectRecipePopupButton.component";
+import { Button } from "../../Button/Button.component";
 
+// refactor
 export const SelectRecipePopup = ({
   currentItem,
   quantity,

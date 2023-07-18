@@ -5,7 +5,7 @@ export const recipes = data.recipes;
 export const craftingMachines = data.craftingMachines;
 export const modules = data.modules;
 
-export const allProducts = recipes.reduce((accumulator, obj) => {
+export const getAllProducts = recipes.reduce((accumulator, obj) => {
   const { products } = obj;
   products.forEach((product) => {
     const { name } = product;
@@ -130,7 +130,7 @@ const getBonusSpeed = (modules) => {
   return sum;
 };
 
-const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
+const getModdedMachineSpeed = ({ modules, beacons, craftingSpeed }) => {
   const modulesBonus = getBonusSpeed(modules);
   const beaconsBonus = (getBonusSpeed(beacons.modules) * beacons.amount) / 2;
   return craftingSpeed * (modulesBonus + beaconsBonus) + craftingSpeed;
@@ -170,6 +170,31 @@ export const summarizeInputs = (outputItem, inputArray) => {
   }
 };
 
+export const getEmptyMachine = (id) => {
+  const machine = getMachineObjectById(id);
+  return {
+    id: id,
+    craftingSpeed: machine.craftingSpeed,
+    beacons: {
+      amount: 0,
+      modules: ["", ""],
+    },
+    modules: new Array(machine.moduleSlots).fill(""),
+  };
+};
+
+export const checkIfDefault = (machineId, defaultMachines) => {
+  const defMachinesArray = Object.values(defaultMachines);
+  const existingItem = defMachinesArray.find(
+    (machine) => machine.id === machineId
+  );
+  if (existingItem) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 // refactor: look into rounding
 export const summarizeMachines = (outputItem, machinesArray) => {
   if (outputItem.ingredients) {
@@ -190,7 +215,7 @@ export const summarizeMachines = (outputItem, machinesArray) => {
     });
   }
 };
-
+// refactor: dont calculate modded machine speed here!
 export const calculateTree = ({
   ingredients,
   recipe: recipeId,
@@ -201,11 +226,7 @@ export const calculateTree = ({
   if (ingredients && machine) {
     const recipe = getRecipeById(recipeId);
     const product = recipe.products.find((item) => item.name === id);
-    machine.craftingSpeed = getModdedMachineSpeed(
-      machine.modules,
-      machine.beacons,
-      machine.craftingSpeed
-    );
+    machine.craftingSpeed = getModdedMachineSpeed(machine);
     machine.amount = getReqMachineCount(
       machine.craftingSpeed,
       amount,
@@ -247,6 +268,51 @@ export const getProducers = (output, id) => {
     lookUpProducers(resultArray, element, id);
   });
   return resultArray;
+};
+
+export const getModules = () => {
+  const modulNames = [""];
+  modules.forEach((module) => {
+    modulNames.push(module.name);
+  });
+  return modulNames;
+};
+
+export const getBeaconModules = () => {
+  const moduleNames = getModules();
+  return moduleNames.filter(
+    (moduleName) => !moduleName.includes("productivity")
+  );
+};
+
+export const getDefaultMachine = (id, machines) => {
+  const machinesArray = Object.values(machines);
+  return machinesArray.find((category) => category.id === id);
+};
+
+export const compareObjects = (obj1, obj2) => {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  for (let key of keys1) {
+    if (!keys2.includes(key) || obj1[key] !== obj2[key]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+export const switchMachines = (outputItem, machine, updateId) => {
+  if (outputItem.machine) {
+    if (outputItem.machine.id === updateId) {
+      outputItem.machine = structuredClone(machine);
+    }
+  }
+  if (outputItem.ingredients) {
+    outputItem.ingredients.forEach((ingredient) => {
+      switchMachines(ingredient, machine, updateId);
+    });
+  }
 };
 
 // Redux functions

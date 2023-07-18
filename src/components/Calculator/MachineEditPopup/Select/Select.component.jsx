@@ -3,10 +3,11 @@ import {
   getImageUrlById,
   getNameById,
   craftingMachines,
-} from "../../../../../utils/helperFunctions";
+  compareObjects,
+} from "../../../../utils/helperFunctions";
 
 const Container = styled.div`
-  width: 100%;
+  width: 320px;
   position: relative;
   margin-bottom: 15px;
 `;
@@ -77,6 +78,11 @@ export const Select = ({ currentSelected, setCurrentSelected }) => {
   const [showList, setShowList] = useState(false);
   const displayName = getNameById(currentSelected.name);
   const imgUrl = getImageUrlById(currentSelected.name);
+  const availableMachines = craftingMachines.filter((machine) => {
+    if (compareObjects(currentSelected.categories, machine.categories)) {
+      return machine;
+    }
+  });
 
   const liClick = (machine) => {
     setCurrentSelected(machine);
@@ -84,7 +90,9 @@ export const Select = ({ currentSelected, setCurrentSelected }) => {
   };
 
   const selectClick = () => {
-    setShowList(!showList);
+    if (availableMachines.length > 1) {
+      setShowList(!showList);
+    }
   };
 
   return (
@@ -95,7 +103,7 @@ export const Select = ({ currentSelected, setCurrentSelected }) => {
       </SelectedContainer>
       <UnorderedList>
         {showList &&
-          craftingMachines.map((machine, idx) => {
+          availableMachines.map((machine, idx) => {
             const displayName = getNameById(machine.name);
             const imgUrl = getImageUrlById(machine.name);
             if (

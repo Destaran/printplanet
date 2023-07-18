@@ -1,5 +1,5 @@
 import {
-  CalculatorSummaryElementPopupContainer,
+  Container,
   InnerContainer,
   Header,
   InputContainer,
@@ -12,8 +12,8 @@ import {
   removeFromOutput,
   modifyOutputElement,
 } from "../../../reduxStore/calculator/calculator.slice";
-import { Button } from "../../Button/Button.component";
 import { outputObject } from "../../../reduxStore/calculator/calculator.selector";
+import { Button } from "../../Button/Button.component";
 
 export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
   const amount = useSelector(outputObject)[id].amount;
@@ -44,7 +44,7 @@ export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
   };
 
   return (
-    <CalculatorSummaryElementPopupContainer>
+    <Container>
       <InnerContainer>
         <Header>
           <p>Modify / Remove Item</p>
@@ -68,6 +68,6 @@ export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
           <Button onClick={cancelHandler}>Cancel</Button>
         </ButtonsContainer>
       </InnerContainer>
-    </CalculatorSummaryElementPopupContainer>
+    </Container>
   );
 };

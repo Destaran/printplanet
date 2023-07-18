@@ -7,6 +7,7 @@ import {
   collapseElementsById,
   getRecipeCategory,
   getAllUids,
+  switchMachines,
 } from "../../utils/helperFunctions";
 
 const initialState = {
@@ -164,6 +165,12 @@ export const calculatorSlice = createSlice({
         machines[category] = machineConfig;
       });
     },
+    swapMachines: ({ output }, { payload }) => {
+      const { update, machineConfig } = payload;
+      Object.keys(output).forEach((key) => {
+        switchMachines(output[key], machineConfig, update);
+      });
+    },
   },
 });
 
@@ -178,6 +185,7 @@ export const {
   collapseElement,
   collapseSameTypeElements,
   saveDefaultMachineConfig,
+  swapMachines,
 } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

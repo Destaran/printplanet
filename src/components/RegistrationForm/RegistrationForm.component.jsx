@@ -4,14 +4,14 @@ import {
   Form,
   ContainerHeader,
 } from "./RegistrationForm.styles";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "../Button/Button.component";
-import FormInput from "../FormInput/FormInput.component";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firestore/firestore";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../Button/Button.component";
+import FormInput from "../FormInput/FormInput.component";
 
 const defaultFormFields = {
   displayName: "",

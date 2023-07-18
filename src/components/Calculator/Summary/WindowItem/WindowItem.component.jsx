@@ -1,6 +1,10 @@
 import styled from "styled-components";
+import {
+  getImageUrlById,
+  formatNumber,
+} from "../../../../utils/helperFunctions";
 
-export const OutterElementContainer = styled.div`
+const OutterContainer = styled.div`
   border: 2px solid #b47500;
   height: 42px;
   width: auto;
@@ -18,13 +22,13 @@ export const OutterElementContainer = styled.div`
   }
 `;
 
-export const InnerElementContainer = styled.div`
+const InnerContainer = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
 `;
 
-export const ImgContainer = styled.div`
+const ImgContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -46,3 +50,26 @@ export const ImgContainer = styled.div`
       -1px 0px 1px #000;
   }
 `;
+
+export const WindowItem = ({ item, handleClick }) => {
+  const { amount, id } = item;
+  const imgUrl = getImageUrlById(id);
+  const displayAmount = formatNumber(amount);
+
+  return (
+    <>
+      <OutterContainer
+        onClick={(event) => {
+          handleClick(id, event);
+        }}
+      >
+        <InnerContainer>
+          <ImgContainer>
+            <img src={imgUrl} />
+            <p>{displayAmount}</p>
+          </ImgContainer>
+        </InnerContainer>
+      </OutterContainer>
+    </>
+  );
+};

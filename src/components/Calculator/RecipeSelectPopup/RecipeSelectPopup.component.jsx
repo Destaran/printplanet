@@ -5,18 +5,19 @@ import {
   InputContainer,
   ButtonsContainer,
   Warning,
-} from "./ItemTreeExtendPopup.styles";
+} from "./RecipeSelectPopup.styles";
+import { getRecipes } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   extendElement,
   extendSameTypeElements,
 } from "../../../reduxStore/calculator/calculator.slice";
-import { Button } from "../../Button/Button.component";
 import { SelectRecipePopupButton } from "../SelectRecipePopupButton/SelectRecipePopupButton.component";
-import { getRecipes } from "../../../utils/helperFunctions";
+import { Button } from "../../Button/Button.component";
 
-export const ItemTreeExtendPopup = ({
+// refactor
+export const RecipeSelectPopup = ({
   inputId: id,
   uid,
   setInputId,
@@ -56,7 +57,11 @@ export const ItemTreeExtendPopup = ({
   };
 
   const handleCancel = () => {
-    setInputId(null);
+    if (setInputId) {
+      setInputId(null);
+    } else {
+      setShowPopup(false);
+    }
     setSelectedRecipe({});
     setDidntSelect(false);
   };
