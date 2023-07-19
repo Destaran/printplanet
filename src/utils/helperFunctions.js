@@ -130,7 +130,7 @@ const getBonusSpeed = (modules) => {
   return sum;
 };
 
-const getModdedMachineSpeed = ({ modules, beacons, craftingSpeed }) => {
+export const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
   const modulesBonus = getBonusSpeed(modules);
   const beaconsBonus = (getBonusSpeed(beacons.modules) * beacons.amount) / 2;
   return craftingSpeed * (modulesBonus + beaconsBonus) + craftingSpeed;
@@ -226,7 +226,6 @@ export const calculateTree = ({
   if (ingredients && machine) {
     const recipe = getRecipeById(recipeId);
     const product = recipe.products.find((item) => item.name === id);
-    machine.craftingSpeed = getModdedMachineSpeed(machine);
     machine.amount = getReqMachineCount(
       machine.craftingSpeed,
       amount,

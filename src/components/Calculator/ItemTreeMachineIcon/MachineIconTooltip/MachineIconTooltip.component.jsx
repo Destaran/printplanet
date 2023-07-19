@@ -56,18 +56,20 @@ export const MachineIconTooltip = ({ machine }) => {
         <Details>
           <p>Crafting Speed: {displaySpeed}%</p>
         </Details>
-        <ModulesContainer>
-          <ModulesInner>
-            <BeaconIcons>
-              {machine.beacons.modules.map((module, key) => (
-                <ModuleIcon key={key} module={module} />
-              ))}
-            </BeaconIcons>
-            <p>&#x2715;</p>
-            <p>{machine.beacons.amount}</p>
-            <ModuleIcon module={"beacon"} />
-          </ModulesInner>
-        </ModulesContainer>
+        {machine.beacons.amount > 0 && (
+          <ModulesContainer>
+            <ModulesInner>
+              <BeaconIcons>
+                {machine.beacons.modules.map((module, key) => (
+                  <ModuleIcon key={key} module={module} />
+                ))}
+              </BeaconIcons>
+              <p>&#x2715;</p>
+              <p>{machine.beacons.amount}</p>
+              <ModuleIcon module={"beacon"} />
+            </ModulesInner>
+          </ModulesContainer>
+        )}
         {machine.modules.length > 0 && (
           <ModulesContainer>
             <ModulesInner>

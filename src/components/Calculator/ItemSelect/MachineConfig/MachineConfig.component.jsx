@@ -4,6 +4,7 @@ import {
   getDefaultMachine,
   getEmptyMachine,
   getMachineObjectById,
+  getModdedMachineSpeed,
 } from "../../../../utils/helperFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useState, useEffect } from "react";
@@ -67,13 +68,16 @@ export const MachineConfig = () => {
   const [modules, setModules] = useState(defaultMachine.modules);
   const [beacons, setBeacons] = useState(defaultMachine.beacons);
 
-  // refactor: calculate modded machine speed + productivity
   const saveHandler = () => {
     const payload = {
       categories: Object.keys(currentSelected.categories),
       machineConfig: {
         id: currentSelected.name,
-        craftingSpeed: currentSelected.craftingSpeed,
+        craftingSpeed: getModdedMachineSpeed(
+          modules,
+          beacons,
+          currentSelected.craftingSpeed
+        ),
         modules: modules,
         beacons: beacons,
       },

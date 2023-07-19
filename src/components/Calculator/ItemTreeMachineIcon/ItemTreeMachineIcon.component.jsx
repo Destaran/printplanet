@@ -51,6 +51,14 @@ const ImgContainer = styled.div`
   }
 `;
 
+const ModuleIcons = styled.div`
+  position: absolute;
+  font-size: 16px;
+  top: 0;
+  right: 0;
+  margin: 0;
+`;
+
 export const ItemTreeMachineIcon = ({ outputItem }) => {
   const imgUrl = getImageUrlById(outputItem.machine.id);
   const showAmount = Math.ceil(outputItem.machine.amount);
