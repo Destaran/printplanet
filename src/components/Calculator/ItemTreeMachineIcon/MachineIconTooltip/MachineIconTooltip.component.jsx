@@ -41,7 +41,7 @@ const BeaconIcons = styled.div`
 export const MachineIconTooltip = ({ machine }) => {
   const displayName = getNameById(machine.id);
   const displaySpeed = (machine.craftingSpeed * 100).toFixed(0);
-  console.log(displaySpeed);
+  const hasModules = machine.modules.some((module) => module.length > 0);
   return (
     <Tooltip
       id={machine.uid}
@@ -70,7 +70,7 @@ export const MachineIconTooltip = ({ machine }) => {
             </ModulesInner>
           </ModulesContainer>
         )}
-        {machine.modules.length > 0 && (
+        {hasModules && (
           <ModulesContainer>
             <ModulesInner>
               {machine.modules.map((module, key) => (
