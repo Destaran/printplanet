@@ -42,6 +42,7 @@ const ImgContainer = styled.div`
   p {
     position: absolute;
     font-size: 16px;
+    height: 16px;
     bottom: 0;
     right: 0;
     margin: 0;
@@ -53,23 +54,53 @@ const ImgContainer = styled.div`
 
 const ModuleIcons = styled.div`
   position: absolute;
-  font-size: 16px;
-  top: 0;
-  right: 0;
+  top: -1px;
+  right: -1px;
   margin: 0;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+`;
+
+const BeaconsIcons = styled.div`
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  margin: 0;
+  height: 16px;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
 `;
 
 export const ItemTreeMachineIcon = ({ outputItem }) => {
-  const imgUrl = getImageUrlById(outputItem.machine.id);
-  const showAmount = Math.ceil(outputItem.machine.amount);
+  const { id, amount, modules, uid, beacons } = outputItem.machine;
+  const imgUrl = getImageUrlById(id);
+  const showAmount = Math.ceil(amount);
+  const moduleUrl = getImageUrlById(modules[0]);
+  const beaconUrl = getImageUrlById("beacon");
 
   return (
     <>
-      <OutterContainer data-tooltip-id={outputItem.machine.uid}>
+      <OutterContainer data-tooltip-id={uid}>
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
             <p>{showAmount}</p>
+            {moduleUrl.length > 0 && (
+              <ModuleIcons>
+                <img src={moduleUrl} alt={modules[0]} />
+              </ModuleIcons>
+            )}
+            {beacons.amount > 0 && (
+              <BeaconsIcons>
+                <img src={beaconUrl} alt="beacon" />
+              </BeaconsIcons>
+            )}
           </ImgContainer>
         </InnerContainer>
       </OutterContainer>
