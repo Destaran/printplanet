@@ -66,7 +66,7 @@ const ModuleIcons = styled.div`
 
 const BeaconsIcons = styled.div`
   position: absolute;
-  bottom: -1px;
+  top: -1px;
   left: -1px;
   margin: 0;
   height: 16px;

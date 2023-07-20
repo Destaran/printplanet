@@ -38,6 +38,7 @@ export const ImgContainer = styled.div`
   p {
     position: absolute;
     font-size: 16px;
+    height: 16px;
     bottom: 0;
     right: 0;
     margin: 0;
