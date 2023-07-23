@@ -30,8 +30,8 @@ export const Summary = () => {
   const input = useSelector(inputArray);
   const machines = useSelector(machinesArray);
   const additionalOutput = [];
-  const [inputId, setInputId] = useState(null);
   const [outputId, setOutputId] = useState(null);
+  const [inputId, setInputId] = useState(null);
   const [machineId, setMachineId] = useState(null);
 
   const handleOutputClick = (id) => {

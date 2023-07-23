@@ -2,6 +2,7 @@ import {
   calculateTree,
   summarizeInputs,
   summarizeMachines,
+  summarizeModules,
 } from "../../utils/helperFunctions";
 import { createSelector } from "reselect";
 
@@ -11,27 +12,28 @@ export const outputKeys = (state) => Object.keys(state.calculator.output);
 
 export const calculatedOutput = (state) => {
   const output = Object.values(state.calculator.output);
-  const newOutput = [];
-  output.forEach((element) => {
-    const elementCopy = structuredClone(element);
-    calculateTree(elementCopy);
-    newOutput.push(elementCopy);
+  const calcOutput = [];
+  output.forEach((item) => {
+    const itemCopy = structuredClone(item);
+    calculateTree(itemCopy);
+    calcOutput.push(itemCopy);
   });
-  return newOutput;
+  return calcOutput;
 };
 
 export const inputArray = createSelector(calculatedOutput, (output) => {
   const input = [];
-  output.forEach((element) => {
-    summarizeInputs(element, input);
+  output.forEach((item) => {
+    summarizeInputs(item, input);
   });
   return input;
 });
 
 export const machinesArray = createSelector(calculatedOutput, (output) => {
   const machines = [];
-  output.forEach((element) => {
-    summarizeMachines(element, machines);
+  output.forEach((item) => {
+    summarizeMachines(item, machines);
+    summarizeModules(item, machines);
   });
   return machines;
 });
