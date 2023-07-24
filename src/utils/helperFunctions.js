@@ -215,7 +215,37 @@ export const summarizeMachines = (outputItem, machinesArray) => {
     });
   }
 };
-// refactor: dont calculate modded machine speed here!
+
+export const countModules = ({ modules, beacons }) => {
+  const modulesAcc = {};
+  modules.forEach((module) => {
+    if (module.length > 0) {
+      if (!modulesAcc[module]) {
+        modulesAcc[module] = 1;
+      } else {
+        modulesAcc[module] += 1;
+      }
+    }
+  });
+  beacons.modules.forEach((module) => {
+    if (module.length > 0) {
+      if (!modulesAcc[module]) {
+        modulesAcc[module] = 1;
+      } else {
+        modulesAcc[module] += 1;
+      }
+    }
+  });
+  return modulesAcc;
+};
+
+// export const summarizeModules = (outputItem, machinesArray) => {
+//   if (outputItem.machine) {
+//     const machineModules = countModules(outputItem.machine);
+//     console.log(machineModules);
+//   }
+// };
+
 export const calculateTree = ({
   ingredients,
   recipe: recipeId,
