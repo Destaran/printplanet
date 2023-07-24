@@ -166,8 +166,6 @@ export const MachineConfig = () => {
           <Modules modules={modules} onModuleChange={onModuleChange} />
         </ConfigContainer>
       </MachineSettings>
-      {/* <MachineBeacons>
-      </MachineBeacons> */}
       <MachineFunctions>
         <Button buttonType={"green"} onClick={saveHandler}>
           Save

@@ -71,17 +71,17 @@ export const Beacons = ({
       <img src={getImageUrlById("beacon")} alt="Beacon" />
       <Input
         type="number"
-        value={beacons.additional}
-        min={0}
-        max={20}
-        onChange={onBeaconAdditionalChange}
-      />
-      <Input
-        type="number"
         value={beacons.constant}
         min={0}
         max={20}
         onChange={onBeaconConstantChange}
+      />
+      <Input
+        type="number"
+        value={beacons.additional}
+        min={0}
+        max={20}
+        onChange={onBeaconAdditionalChange}
       />
     </BeaconsContainer>
   );
