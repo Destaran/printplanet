@@ -38,7 +38,7 @@ const ConfigContainer = styled.div`
 `;
 
 const MachineSettings = styled.div`
-  width: 310px;
+  width: 360px;
 `;
 
 const MachineFunctions = styled.div`
@@ -103,11 +103,27 @@ export const MachineConfig = () => {
     setBeacons(empty.beacons);
   };
 
-  const onBeaconAmountChange = ({ target }) => {
+  const onBeaconAffectingChange = ({ target }) => {
     const { value } = target;
     setBeacons((prevConfig) => ({
       ...prevConfig,
-      amount: value,
+      affecting: value,
+    }));
+  };
+
+  const onBeaconAdditionalChange = ({ target }) => {
+    const { value } = target;
+    setBeacons((prevConfig) => ({
+      ...prevConfig,
+      additional: value,
+    }));
+  };
+
+  const onBeaconConstantChange = ({ target }) => {
+    const { value } = target;
+    setBeacons((prevConfig) => ({
+      ...prevConfig,
+      constant: value,
     }));
   };
 
@@ -143,11 +159,15 @@ export const MachineConfig = () => {
           <Beacons
             beacons={beacons}
             onModuleChange={onModuleChange}
-            onBeaconAmountChange={onBeaconAmountChange}
+            onBeaconAffectingChange={onBeaconAffectingChange}
+            onBeaconAdditionalChange={onBeaconAdditionalChange}
+            onBeaconConstantChange={onBeaconConstantChange}
           />
           <Modules modules={modules} onModuleChange={onModuleChange} />
         </ConfigContainer>
       </MachineSettings>
+      {/* <MachineBeacons>
+      </MachineBeacons> */}
       <MachineFunctions>
         <Button buttonType={"green"} onClick={saveHandler}>
           Save

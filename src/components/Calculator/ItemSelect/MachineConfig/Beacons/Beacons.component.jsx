@@ -18,8 +18,13 @@ const BeaconsContainer = styled.div`
   }
 
   input {
-    width: 30px;
+    width: 15px;
     margin: 0 5px 0 0;
+    ::-webkit-outer-spin-button,
+    ::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   img {
@@ -30,9 +35,17 @@ const BeaconsContainer = styled.div`
   }
 `;
 
+const Input = styled.input``;
+
 const beaconModules = getBeaconModules();
 
-export const Beacons = ({ beacons, onModuleChange, onBeaconAmountChange }) => {
+export const Beacons = ({
+  beacons,
+  onModuleChange,
+  onBeaconAffectingChange,
+  onBeaconAdditionalChange,
+  onBeaconConstantChange,
+}) => {
   return (
     <BeaconsContainer>
       {beacons.modules.map((module, slotIdx) => {
@@ -48,14 +61,28 @@ export const Beacons = ({ beacons, onModuleChange, onBeaconAmountChange }) => {
         );
       })}
       <p>&#x2715;</p>
-      <input
+      <Input
         type="number"
-        value={beacons.amount}
+        value={beacons.affecting}
         min={0}
         max={20}
-        onChange={onBeaconAmountChange}
+        onChange={onBeaconAffectingChange}
       />
       <img src={getImageUrlById("beacon")} alt="Beacon" />
+      <Input
+        type="number"
+        value={beacons.additional}
+        min={0}
+        max={20}
+        onChange={onBeaconAdditionalChange}
+      />
+      <Input
+        type="number"
+        value={beacons.constant}
+        min={0}
+        max={20}
+        onChange={onBeaconConstantChange}
+      />
     </BeaconsContainer>
   );
 };

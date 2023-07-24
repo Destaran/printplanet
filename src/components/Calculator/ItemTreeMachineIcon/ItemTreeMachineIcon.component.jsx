@@ -96,7 +96,7 @@ export const ItemTreeMachineIcon = ({ outputItem }) => {
                 <img src={moduleUrl} alt={modules[0]} />
               </ModuleIcons>
             )}
-            {beacons.amount > 0 && (
+            {beacons.affecting > 0 && (
               <BeaconsIcons>
                 <img src={beaconUrl} alt="beacon" />
               </BeaconsIcons>

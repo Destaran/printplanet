@@ -132,7 +132,7 @@ const getBonusSpeed = (modules) => {
 
 export const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
   const modulesBonus = getBonusSpeed(modules);
-  const beaconsBonus = (getBonusSpeed(beacons.modules) * beacons.amount) / 2;
+  const beaconsBonus = (getBonusSpeed(beacons.modules) * beacons.affecting) / 2;
   return craftingSpeed * (modulesBonus + beaconsBonus) + craftingSpeed;
 };
 
@@ -176,7 +176,9 @@ export const getEmptyMachine = (id) => {
     id: id,
     craftingSpeed: machine.craftingSpeed,
     beacons: {
-      amount: 0,
+      affecting: 0,
+      additional: 0,
+      constant: 0,
       modules: ["", ""],
     },
     modules: new Array(machine.moduleSlots).fill(""),
@@ -263,6 +265,12 @@ export const calculateTree = ({
       product.amount
     );
 
+    const requiredBeaconCount =
+      Number(machine.beacons.constant) +
+      Number(machine.beacons.additional) * Number(Math.ceil(machine.amount));
+
+    machine.beacons.required = requiredBeaconCount;
+
     ingredients.forEach((ingredient) => {
       const recipeIngredient = recipe.ingredients.find(
         (item) => item.name === ingredient.id
@@ -345,20 +353,20 @@ export const switchMachines = (outputItem, machine, updateId) => {
 };
 
 // Redux functions
-export const extendElementByUid = (obj, uid, recipe, machine) => {
-  if (typeof obj !== "object") {
+export const extendElementByUid = (item, uid, recipe, machine) => {
+  if (typeof item !== "object") {
     return;
   }
 
-  if (obj.uid === uid) {
+  if (item.uid === uid) {
     const newIngredients = getIngredients(recipe);
     if (newIngredients.length > 0) {
-      obj.ingredients = newIngredients;
-      obj.recipe = recipe;
-      obj.machine = { ...machine, uid: uuidv4() };
+      item.ingredients = newIngredients;
+      item.recipe = recipe;
+      item.machine = { ...machine, uid: uuidv4() };
     }
-  } else if (obj.ingredients) {
-    obj.ingredients.forEach((object) => {
+  } else if (item.ingredients) {
+    item.ingredients.forEach((object) => {
       extendElementByUid(object, uid, recipe, machine);
     });
   }

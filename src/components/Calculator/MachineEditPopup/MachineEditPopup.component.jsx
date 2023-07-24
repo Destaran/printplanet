@@ -86,7 +86,6 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
   const [modules, setModules] = useState(defaultMachine.modules);
   const [beacons, setBeacons] = useState(defaultMachine.beacons);
 
-  // refactor: calculate modded defaultMachine speed here(?)
   const saveHandler = () => {
     const payload = {
       update: machineId,
@@ -109,7 +108,9 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
 
   const changeHandler = useCallback(() => {
     setBeacons({
-      amount: 0,
+      affecting: 0,
+      additional: 0,
+      constant: 0,
       modules: ["", ""],
     });
     setModules(new Array(currentSelected.moduleSlots).fill(""));
@@ -119,11 +120,27 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
     setMachineId(null);
   };
 
-  const onBeaconAmountChange = ({ target }) => {
+  const onBeaconAffectingChange = ({ target }) => {
     const { value } = target;
     setBeacons((prevConfig) => ({
       ...prevConfig,
-      amount: value,
+      affecting: value,
+    }));
+  };
+
+  const onBeaconAdditionalChange = ({ target }) => {
+    const { value } = target;
+    setBeacons((prevConfig) => ({
+      ...prevConfig,
+      additional: value,
+    }));
+  };
+
+  const onBeaconConstantChange = ({ target }) => {
+    const { value } = target;
+    setBeacons((prevConfig) => ({
+      ...prevConfig,
+      constant: value,
     }));
   };
 
@@ -165,7 +182,9 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
             <Beacons
               beacons={beacons}
               onModuleChange={onModuleChange}
-              onBeaconAmountChange={onBeaconAmountChange}
+              onBeaconAffectingChange={onBeaconAffectingChange}
+              onBeaconAdditionalChange={onBeaconAdditionalChange}
+              onBeaconConstantChange={onBeaconConstantChange}
             />
             <Modules modules={modules} onModuleChange={onModuleChange} />
           </ConfigContainer>

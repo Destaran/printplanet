@@ -56,7 +56,7 @@ export const MachineIconTooltip = ({ machine }) => {
         <Details>
           <p>Crafting Speed: {displaySpeed}%</p>
         </Details>
-        {machine.beacons.amount > 0 && (
+        {machine.beacons.affecting > 0 && (
           <ModulesContainer>
             <ModulesInner>
               <BeaconIcons>
@@ -65,7 +65,7 @@ export const MachineIconTooltip = ({ machine }) => {
                 ))}
               </BeaconIcons>
               <p>&#x2715;</p>
-              <p>{machine.beacons.amount}</p>
+              <p>{machine.beacons.required}</p>
               <ModuleIcon module={"beacon"} />
             </ModulesInner>
           </ModulesContainer>
