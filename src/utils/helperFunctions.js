@@ -100,16 +100,6 @@ export const getRecipes = (productId) => {
   }
 };
 
-export const getReqMachineCount = (
-  craftingSpeed,
-  amount,
-  craftingTime,
-  recipeYield
-) => {
-  const result = (amount * craftingTime) / recipeYield / craftingSpeed;
-  return result;
-};
-
 const getModuleSpeedBonus = (id) => {
   if (!id) {
     return 0;
@@ -117,6 +107,17 @@ const getModuleSpeedBonus = (id) => {
   const module = modules.find((module) => id === module.name);
   if (module && module.effects.speed) {
     return module.effects.speed.bonus;
+  }
+  return 0;
+};
+
+const getModuleProdBonus = (id) => {
+  if (!id) {
+    return 0;
+  }
+  const module = modules.find((module) => id === module.name);
+  if (module && module.effects.productivity) {
+    return module.effects.productivity.bonus;
   }
   return 0;
 };
@@ -130,10 +131,22 @@ const getBonusSpeed = (modules) => {
   return sum;
 };
 
+const getBonusProd = (modules) => {
+  let sum = 0;
+  modules.forEach((module) => {
+    sum += getModuleProdBonus(module);
+  });
+  return sum;
+};
+
 export const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
   const modulesBonus = getBonusSpeed(modules);
   const beaconsBonus = (getBonusSpeed(beacons.modules) * beacons.affecting) / 2;
   return craftingSpeed * (modulesBonus + beaconsBonus) + craftingSpeed;
+};
+
+export const getModdedMachineProd = (modules) => {
+  return getBonusProd(modules);
 };
 
 export const formatNumber = (number) => {
@@ -175,6 +188,7 @@ export const getEmptyMachine = (id) => {
   return {
     id: id,
     craftingSpeed: machine.craftingSpeed,
+    productivity: 0,
     beacons: {
       affecting: 0,
       additional: 0,
@@ -241,12 +255,26 @@ export const countModules = ({ modules, beacons }) => {
   return modulesAcc;
 };
 
-// export const summarizeModules = (outputItem, machinesArray) => {
-//   if (outputItem.machine) {
-//     const machineModules = countModules(outputItem.machine);
-//     console.log(machineModules);
-//   }
-// };
+export const summarizeModules = (outputItem, machinesArray) => {
+  if (outputItem.machine) {
+    const machineModules = countModules(outputItem.machine);
+    // console.log(machineModules);
+  }
+};
+
+const getReqMachineCount = (
+  craftingSpeed,
+  productivity,
+  amount,
+  craftingTime,
+  recipeYield
+) => {
+  const result =
+    ((amount / (productivity + 1)) * craftingTime) /
+    recipeYield /
+    craftingSpeed;
+  return result;
+};
 
 export const calculateTree = ({
   ingredients,
@@ -260,6 +288,7 @@ export const calculateTree = ({
     const product = recipe.products.find((item) => item.name === id);
     machine.amount = getReqMachineCount(
       machine.craftingSpeed,
+      machine.productivity,
       amount,
       recipe.energy,
       product.amount
@@ -276,7 +305,8 @@ export const calculateTree = ({
         (item) => item.name === ingredient.id
       );
       ingredient.amount = Number(
-        (recipeIngredient.amount * amount) / product.amount
+        (recipeIngredient.amount * (amount / (machine.productivity + 1))) /
+          product.amount
       );
       calculateTree(ingredient);
     });

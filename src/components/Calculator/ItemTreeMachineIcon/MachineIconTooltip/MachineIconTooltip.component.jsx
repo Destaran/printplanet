@@ -41,7 +41,11 @@ const BeaconIcons = styled.div`
 export const MachineIconTooltip = ({ machine }) => {
   const displayName = getNameById(machine.id);
   const displaySpeed = (machine.craftingSpeed * 100).toFixed(0);
+  const displayProd = (machine.productivity * 100).toFixed(0);
   const hasModules = machine.modules.some((module) => module.length > 0);
+  const hasProd = machine.modules.some((module) =>
+    module.includes("productivity")
+  );
   return (
     <Tooltip
       id={machine.uid}
@@ -55,6 +59,7 @@ export const MachineIconTooltip = ({ machine }) => {
         </Title>
         <Details>
           <p>Crafting Speed: {displaySpeed}%</p>
+          {hasProd && <p>Productivity: {displayProd}%</p>}
         </Details>
         {machine.beacons.affecting > 0 && (
           <ModulesContainer>

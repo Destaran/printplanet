@@ -2,6 +2,7 @@ import {
   calculateTree,
   summarizeInputs,
   summarizeMachines,
+  summarizeModules,
 } from "../../utils/helperFunctions";
 import { createSelector } from "reselect";
 
@@ -32,6 +33,7 @@ export const machinesArray = createSelector(calculatedOutput, (output) => {
   const machines = [];
   output.forEach((item) => {
     summarizeMachines(item, machines);
+    summarizeModules(item, machines);
   });
   return machines;
 });

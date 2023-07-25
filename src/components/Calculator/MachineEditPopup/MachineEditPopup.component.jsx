@@ -5,6 +5,7 @@ import {
   getEmptyMachine,
   getMachineObjectById,
   getModdedMachineSpeed,
+  getModdedMachineProd,
 } from "../../../utils/helperFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useState } from "react";
@@ -92,6 +93,7 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
       categories: Object.keys(currentSelected.categories),
       machineConfig: {
         id: currentSelected.name,
+        productivity: getModdedMachineProd(modules),
         craftingSpeed: getModdedMachineSpeed(
           modules,
           beacons,

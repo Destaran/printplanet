@@ -16,6 +16,7 @@ const initialState = {
     crafting: {
       id: "assembling-machine-1",
       craftingSpeed: 0.5,
+      productivity: 0,
       modules: [],
       beacons: {
         affecting: 0,
@@ -27,6 +28,7 @@ const initialState = {
     "basic-crafting": {
       id: "assembling-machine-1",
       craftingSpeed: 0.5,
+      productivity: 0,
       modules: [],
       beacons: {
         affecting: 0,
@@ -38,6 +40,7 @@ const initialState = {
     "advanced-crafting": {
       id: "assembling-machine-1",
       craftingSpeed: 0.5,
+      productivity: 0,
       modules: [],
       beacons: {
         affecting: 0,
@@ -49,6 +52,7 @@ const initialState = {
     "crafting-with-fluid": {
       id: "assembling-machine-2",
       craftingSpeed: 0.75,
+      productivity: 0,
       modules: ["", ""],
       beacons: {
         affecting: 0,
@@ -60,6 +64,7 @@ const initialState = {
     smelting: {
       id: "stone-furnace",
       craftingSpeed: 1,
+      productivity: 0,
       modules: [],
       beacons: {
         affecting: 0,
@@ -71,6 +76,7 @@ const initialState = {
     "oil-processing": {
       id: "oil-refinery",
       craftingSpeed: 1,
+      productivity: 0,
       modules: ["", "", ""],
       beacons: {
         affecting: 0,
@@ -82,6 +88,7 @@ const initialState = {
     chemistry: {
       id: "chemical-plant",
       craftingSpeed: 1,
+      productivity: 0,
       modules: ["", "", ""],
       beacons: {
         affecting: 0,
@@ -93,6 +100,7 @@ const initialState = {
     centrifuging: {
       id: "centrifuge",
       craftingSpeed: 1,
+      productivity: 0,
       modules: ["", ""],
       beacons: {
         affecting: 0,
@@ -104,6 +112,7 @@ const initialState = {
     "rocket-building": {
       id: "rocket-silo",
       craftingSpeed: 1,
+      productivity: 0,
       modules: ["", "", "", ""],
       beacons: {
         affecting: 0,
