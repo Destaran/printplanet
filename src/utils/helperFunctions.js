@@ -301,6 +301,12 @@ export const calculateTree = ({
   if (ingredients && machine) {
     const recipe = getRecipeById(recipeId);
     const product = recipe.products.find((item) => item.name === id);
+    machine.craftingSpeed = getModdedMachineSpeed(
+      machine.modules,
+      machine.beacons,
+      machine.craftingSpeed
+    );
+    machine.productivity = getModdedMachineProd(machine.modules);
     machine.amount = getReqMachineCount(
       machine.craftingSpeed,
       machine.productivity,

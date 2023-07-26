@@ -4,8 +4,6 @@ import {
   getDefaultMachine,
   getEmptyMachine,
   getMachineObjectById,
-  getModdedMachineSpeed,
-  getModdedMachineProd,
 } from "../../../../utils/helperFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useState, useEffect } from "react";
@@ -74,12 +72,7 @@ export const MachineConfig = () => {
       categories: Object.keys(currentSelected.categories),
       machineConfig: {
         id: currentSelected.name,
-        productivity: getModdedMachineProd(modules),
-        craftingSpeed: getModdedMachineSpeed(
-          modules,
-          beacons,
-          currentSelected.craftingSpeed
-        ),
+        craftingSpeed: currentSelected.craftingSpeed,
         modules: modules,
         beacons: beacons,
       },
