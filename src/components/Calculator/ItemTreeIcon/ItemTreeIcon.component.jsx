@@ -22,6 +22,7 @@ import { RecipeSelectPopup } from "../RecipeSelectPopup/RecipeSelectPopup.compon
 import { useEffect } from "react";
 import { useCallback } from "react";
 
+// refactor
 export const ItemTreeIcon = ({ outputItem }) => {
   const { uid, id, amount, ingredients, machine, recipe } = outputItem;
   const [showPopup, setShowPopup] = useState(false);
@@ -51,7 +52,6 @@ export const ItemTreeIcon = ({ outputItem }) => {
     checkMachine();
   }, [checkMachine, dispatch, machine, recipe, uid]);
 
-  // refactor
   const handleClick = (event) => {
     const recipe = getRecipes(id);
     if (!ingredients) {
