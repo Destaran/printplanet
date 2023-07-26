@@ -71,6 +71,7 @@ const MachineFunctions = styled.div`
   }
 `;
 
+// refactor: much to do here m8
 export const MachineEditPopup = ({ machineId, setMachineId }) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
@@ -173,7 +174,7 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
     <PopupContainer>
       <Container>
         <Header>
-          <p>Edit Machine Config</p>
+          <p>Edit Current Machines & Save to Default</p>
         </Header>
         <MachineSettings>
           <Select

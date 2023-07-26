@@ -31,7 +31,18 @@ const BeaconsContainer = styled.div`
     height: 28px;
     width: 28px;
     background-color: #313131;
-    border: 1px solid black;
+  }
+`;
+
+const BeaconImgContainer = styled.div`
+  border: 2px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+
+  img {
+    border: 2px solid black;
+    margin-right: 5px;
   }
 `;
 
@@ -68,7 +79,9 @@ export const Beacons = ({
         max={20}
         onChange={onBeaconAffectingChange}
       />
-      <img src={getImageUrlById("beacon")} alt="Beacon" />
+      <BeaconImgContainer>
+        <img src={getImageUrlById("beacon")} alt="Beacon" />
+      </BeaconImgContainer>
       <Input
         type="number"
         value={beacons.constant}

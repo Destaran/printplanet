@@ -211,6 +211,21 @@ export const checkIfDefault = (machineId, defaultMachines) => {
   }
 };
 
+export const checkIfUseableModule = (module, recipeId) => {
+  if (module) {
+    let isUseable = false;
+    const useableModules = getModulesByRecipeId(recipeId);
+    useableModules.forEach((useable) => {
+      if (useable.name.includes("productivity")) {
+        useable = true;
+      }
+    });
+    return isUseable;
+  } else {
+    return true;
+  }
+};
+
 // refactor: look into rounding
 export const summarizeMachines = (outputItem, machinesArray) => {
   if (outputItem.ingredients) {
@@ -369,19 +384,6 @@ export const compareObjects = (obj1, obj2) => {
   return true;
 };
 
-export const switchMachines = (outputItem, machine, updateId) => {
-  if (outputItem.machine) {
-    if (outputItem.machine.id === updateId) {
-      outputItem.machine = structuredClone(machine);
-    }
-  }
-  if (outputItem.ingredients) {
-    outputItem.ingredients.forEach((ingredient) => {
-      switchMachines(ingredient, machine, updateId);
-    });
-  }
-};
-
 // Redux functions
 export const extendElementByUid = (item, uid, recipe, machine) => {
   if (typeof item !== "object") {
@@ -446,4 +448,35 @@ export const getAllUids = (output, id) => {
     getTreeUids(outputItem, id, allUids);
   });
   return allUids;
+};
+
+export const switchMachines = (outputItem, machine, updateId) => {
+  if (outputItem.machine) {
+    if (outputItem.machine.id === updateId) {
+      outputItem.machine = structuredClone(machine);
+    }
+  }
+  if (outputItem.ingredients) {
+    outputItem.ingredients.forEach((ingredient) => {
+      switchMachines(ingredient, machine, updateId);
+    });
+  }
+};
+
+export const bumpProdModules = (outputItem, uid) => {
+  if (outputItem.machine) {
+    if (outputItem.uid === uid) {
+      const newModules = outputItem.machine.modules.map((module) => {
+        if (module.includes("productivity")) {
+          const words = module.split("-");
+          words[0] = "speed";
+          const word = words.join("-");
+          return word;
+        } else {
+          return module;
+        }
+      });
+      outputItem.machine.modules = newModules;
+    }
+  }
 };

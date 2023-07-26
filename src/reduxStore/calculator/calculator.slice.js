@@ -8,6 +8,7 @@ import {
   getRecipeCategory,
   getAllUids,
   switchMachines,
+  bumpProdModules,
 } from "../../utils/helperFunctions";
 
 const initialState = {
@@ -186,16 +187,21 @@ export const calculatorSlice = createSlice({
         collapseElementsById(output[key], id);
       });
     },
-    saveDefaultMachineConfig: ({ machines }, { payload }) => {
-      const { categories, machineConfig } = payload;
-      categories.forEach((category) => {
-        machines[category] = machineConfig;
-      });
-    },
     swapMachines: ({ output }, { payload }) => {
       const { update, machineConfig } = payload;
       Object.keys(output).forEach((key) => {
         switchMachines(output[key], machineConfig, update);
+      });
+    },
+    bumpModules: ({ output }, { payload }) => {
+      Object.keys(output).forEach((key) => {
+        bumpProdModules(output[key], payload);
+      });
+    },
+    saveDefaultMachineConfig: ({ machines }, { payload }) => {
+      const { categories, machineConfig } = payload;
+      categories.forEach((category) => {
+        machines[category] = machineConfig;
       });
     },
   },
@@ -213,6 +219,7 @@ export const {
   collapseSameTypeElements,
   saveDefaultMachineConfig,
   swapMachines,
+  bumpModules,
 } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;
