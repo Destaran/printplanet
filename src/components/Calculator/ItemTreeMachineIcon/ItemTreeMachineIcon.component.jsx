@@ -81,7 +81,8 @@ export const ItemTreeMachineIcon = ({ outputItem }) => {
   const { id, amount, modules, uid, beacons } = outputItem.machine;
   const imgUrl = getImageUrlById(id);
   const showAmount = Math.ceil(amount);
-  const moduleUrl = getImageUrlById(modules[0]);
+  const firstModule = modules.find((module) => module.length > 0);
+  const moduleUrl = getImageUrlById(firstModule);
   const beaconUrl = getImageUrlById("beacon");
 
   return (
