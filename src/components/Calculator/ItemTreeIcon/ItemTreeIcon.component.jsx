@@ -34,18 +34,10 @@ export const ItemTreeIcon = ({ outputItem }) => {
       const { modules } = machine;
       let shouldBump = false;
       modules.forEach((module) => {
-        console.log("module name:");
-        console.log(module);
-        console.log("module includes prod string:");
-        console.log(module.includes("productivity"));
-        console.log("module is usable for this recipe:");
-        console.log(checkIfUseableModule(module, recipe));
-        console.log("----------------------");
         if (
           module.includes("productivity") &&
           !checkIfUseableModule(module, recipe)
         ) {
-          console.log("irun");
           shouldBump = true;
         }
       });

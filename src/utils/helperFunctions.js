@@ -215,10 +215,8 @@ export const checkIfUseableModule = (module, recipeId) => {
   if (module) {
     let isUseable = false;
     const useableModules = getModulesByRecipeId(recipeId);
-    console.log(useableModules);
     useableModules.forEach((useable) => {
       if (useable.name == module) {
-        console.log("irun");
         isUseable = true;
       }
     });
