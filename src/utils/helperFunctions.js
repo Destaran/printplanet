@@ -5,6 +5,21 @@ export const recipes = data.recipes;
 export const craftingMachines = data.craftingMachines;
 export const modules = data.modules;
 
+export const formatNumber = (number) => {
+  if (typeof number !== "number") {
+    return;
+  }
+  if (Number.isInteger(number)) {
+    return number;
+  } else if (number >= 100) {
+    return Number(Math.ceil(number));
+  } else if (number <= 0.09) {
+    return Number(number.toFixed(2));
+  } else {
+    return Number(number.toFixed(1));
+  }
+};
+
 export const getAllProducts = recipes.reduce((accumulator, obj) => {
   const { products } = obj;
   products.forEach((product) => {
@@ -122,21 +137,16 @@ const getModuleProdBonus = (id) => {
   return 0;
 };
 
-// refactor: reduce
 const getBonusSpeed = (modules) => {
-  let sum = 0;
-  modules.forEach((module) => {
-    sum += getModuleSpeedBonus(module);
-  });
-  return sum;
+  return modules.reduce((sum, module) => {
+    return sum + getModuleSpeedBonus(module);
+  }, 0);
 };
 
 const getBonusProd = (modules) => {
-  let sum = 0;
-  modules.forEach((module) => {
-    sum += getModuleProdBonus(module);
-  });
-  return sum;
+  return modules.reduce((sum, module) => {
+    return sum + getModuleProdBonus(module);
+  }, 0);
 };
 
 export const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
@@ -147,21 +157,6 @@ export const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
 
 export const getModdedMachineProd = (modules) => {
   return getBonusProd(modules);
-};
-
-export const formatNumber = (number) => {
-  if (typeof number !== "number") {
-    return;
-  }
-  if (Number.isInteger(number)) {
-    return number;
-  } else if (number >= 100) {
-    return Number(Math.ceil(number));
-  } else if (number <= 0.09) {
-    return Number(number.toFixed(2));
-  } else {
-    return Number(number.toFixed(1));
-  }
 };
 
 export const summarizeInputs = (outputItem, inputArray) => {
