@@ -75,7 +75,11 @@ export const getRecipeById = (id) =>
   recipes.find((recipe) => recipe.name === id);
 
 export const getImageUrlById = (id) => {
-  return `./new-icons/${id}.png`;
+  if (id) {
+    return `./new-icons/${id}.png`;
+  } else {
+    return "";
+  }
 };
 
 export const getRecipeCategory = (id) => {
