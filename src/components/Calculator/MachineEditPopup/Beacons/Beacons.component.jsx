@@ -22,7 +22,7 @@ const BeaconsContainer = styled.div`
     margin: 0 5px 0 0;
     ::-webkit-outer-spin-button,
     ::-webkit-inner-spin-button {
-      -webkit-appearance: none;
+      appearance: none;
       margin: 0;
     }
   }
