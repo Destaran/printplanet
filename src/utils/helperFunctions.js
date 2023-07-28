@@ -269,6 +269,31 @@ export const countModules = ({ modules, beacons, amount }) => {
 export const summarizeModules = (outputItem, machinesArray) => {
   if (outputItem.machine) {
     const machineModules = countModules(outputItem.machine);
+    const hasBeacon = machinesArray.find((module) => module.id === "beacon");
+    if (!hasBeacon) {
+      const objToPush = {
+        id: "beacon",
+        amount: outputItem.machine.beacons.required,
+      };
+      machinesArray.push(objToPush);
+    } else {
+      hasBeacon.amount += outputItem.machine.beacons.required;
+    }
+    Object.keys(machineModules).forEach((key) => {
+      const existingItem = machinesArray.find((module) => module.id === key);
+      if (!existingItem) {
+        const objToPush = {
+          id: key,
+          amount: machineModules[key],
+        };
+        machinesArray.push(objToPush);
+      } else {
+        existingItem.amount += machineModules[key];
+      }
+      outputItem.ingredients.forEach((ingredient) => {
+        summarizeModules(ingredient, machinesArray);
+      });
+    });
   }
 };
 
