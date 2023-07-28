@@ -93,6 +93,7 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
       machineConfig: {
         id: currentSelected.name,
         craftingSpeed: currentSelected.craftingSpeed,
+        productivity: 0,
         modules: modules,
         beacons: beacons,
       },
