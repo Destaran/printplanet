@@ -246,24 +246,21 @@ export const summarizeMachines = (outputItem, machinesArray) => {
   }
 };
 
-export const countModules = ({ modules, beacons }) => {
+export const countModules = ({ modules, beacons, amount }) => {
   const modulesAcc = {};
+  const roundedMachineCount = Math.ceil(amount);
   modules.forEach((module) => {
     if (module.length > 0) {
-      if (!modulesAcc[module]) {
-        modulesAcc[module] = 1;
-      } else {
-        modulesAcc[module] += 1;
-      }
+      modulesAcc[module]
+        ? (modulesAcc[module] += roundedMachineCount)
+        : (modulesAcc[module] = roundedMachineCount);
     }
   });
   beacons.modules.forEach((module) => {
     if (module.length > 0) {
-      if (!modulesAcc[module]) {
-        modulesAcc[module] = 1;
-      } else {
-        modulesAcc[module] += 1;
-      }
+      modulesAcc[module]
+        ? (modulesAcc[module] += beacons.required)
+        : (modulesAcc[module] = beacons.required);
     }
   });
   return modulesAcc;
@@ -272,7 +269,6 @@ export const countModules = ({ modules, beacons }) => {
 export const summarizeModules = (outputItem, machinesArray) => {
   if (outputItem.machine) {
     const machineModules = countModules(outputItem.machine);
-    // console.log(machineModules);
   }
 };
 
@@ -314,10 +310,10 @@ export const calculateTree = ({
       product.amount
     );
 
+    // bug: adds same value to same type of factories
     const requiredBeaconCount =
       Number(machine.beacons.constant) +
       Number(machine.beacons.additional) * Number(Math.ceil(machine.amount));
-
     machine.beacons.required = requiredBeaconCount;
 
     ingredients.forEach((ingredient) => {
