@@ -82,7 +82,7 @@ export const Summary = () => {
       )}
       {machines.length > 0 && (
         <Window
-          title={"Required Machines"}
+          title={"Required Machines / Beacons / Modules"}
           items={machines}
           handleClick={handleMachineClick}
         />
