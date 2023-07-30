@@ -265,7 +265,7 @@ export const countModules = ({ modules, beacons, amount }) => {
   });
   return modulesAcc;
 };
-
+// bug
 export const summarizeModules = (outputItem, machinesArray) => {
   if (outputItem.machine) {
     const machineModules = countModules(outputItem.machine);
@@ -304,11 +304,15 @@ const getReqMachineCount = (
   craftingTime,
   recipeYield
 ) => {
-  const result =
-    ((amount / (productivity + 1)) * craftingTime) /
-    recipeYield /
-    craftingSpeed;
-  return result;
+  return (
+    ((amount / (productivity + 1)) * craftingTime) / recipeYield / craftingSpeed
+  );
+};
+
+const getReqBeaconCount = (constant, additional, machineAmount) => {
+  return (
+    Number(constant) + Number(additional) * Number(Math.ceil(machineAmount))
+  );
 };
 
 export const calculateTree = ({
@@ -335,11 +339,14 @@ export const calculateTree = ({
       product.amount
     );
 
-    // bug: adds same value to same type of factories
-    const requiredBeaconCount =
-      Number(machine.beacons.constant) +
-      Number(machine.beacons.additional) * Number(Math.ceil(machine.amount));
-    machine.beacons.required = requiredBeaconCount;
+    const beaconsCopy = structuredClone(machine.beacons);
+    beaconsCopy.required = getReqBeaconCount(
+      machine.beacons.constant,
+      machine.beacons.additional,
+      machine.amount
+    );
+
+    machine.beacons = beaconsCopy;
 
     ingredients.forEach((ingredient) => {
       const recipeIngredient = recipe.ingredients.find(
