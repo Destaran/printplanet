@@ -21,7 +21,6 @@ const ButtonContainer = styled.div`
     height: 28px;
   }
 `;
-// refactor
 export const Menus = ({ resetHandler }) => {
   return (
     <Container>
