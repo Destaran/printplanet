@@ -74,17 +74,15 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
 
-  let defaultMachine;
-  if (checkIfDefault(machineId, defaultMachines)) {
-    defaultMachine = getDefaultMachine(machineId, defaultMachines);
-  } else {
-    defaultMachine = getEmptyMachine(machineId);
-  }
+  let machine;
+  checkIfDefault(machineId, defaultMachines)
+    ? (machine = getDefaultMachine(machineId, defaultMachines))
+    : (machine = getEmptyMachine(machineId));
   const [currentSelected, setCurrentSelected] = useState(
-    getMachineObjectById(defaultMachine.id)
+    getMachineObjectById(machine.id)
   );
-  const [modules, setModules] = useState(defaultMachine.modules);
-  const [beacons, setBeacons] = useState(defaultMachine.beacons);
+  const [modules, setModules] = useState(machine.modules);
+  const [beacons, setBeacons] = useState(machine.beacons);
 
   const saveHandler = () => {
     const payload = {
@@ -117,6 +115,7 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
     setMachineId(null);
   };
 
+  // ask Guli for best practice
   const onBeaconChange = ({ target }) => {
     const { value, alt } = target;
     setBeacons((prevConfig) => ({
