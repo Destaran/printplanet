@@ -265,7 +265,6 @@ export const countModules = ({ modules, beacons, amount }) => {
   });
   return modulesAcc;
 };
-// bug
 export const summarizeModules = (outputItem, machinesArray) => {
   if (outputItem.machine) {
     const machineModules = countModules(outputItem.machine);
