@@ -117,27 +117,11 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
     setMachineId(null);
   };
 
-  const onBeaconAffectingChange = ({ target }) => {
-    const { value } = target;
+  const onBeaconChange = ({ target }) => {
+    const { value, alt } = target;
     setBeacons((prevConfig) => ({
       ...prevConfig,
-      affecting: value,
-    }));
-  };
-
-  const onBeaconAdditionalChange = ({ target }) => {
-    const { value } = target;
-    setBeacons((prevConfig) => ({
-      ...prevConfig,
-      additional: value,
-    }));
-  };
-
-  const onBeaconConstantChange = ({ target }) => {
-    const { value } = target;
-    setBeacons((prevConfig) => ({
-      ...prevConfig,
-      constant: value,
+      [alt]: value,
     }));
   };
 
@@ -179,9 +163,7 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
             <Beacons
               beacons={beacons}
               onModuleChange={onModuleChange}
-              onBeaconAffectingChange={onBeaconAffectingChange}
-              onBeaconAdditionalChange={onBeaconAdditionalChange}
-              onBeaconConstantChange={onBeaconConstantChange}
+              onBeaconChange={onBeaconChange}
             />
             <Modules modules={modules} onModuleChange={onModuleChange} />
           </ConfigContainer>

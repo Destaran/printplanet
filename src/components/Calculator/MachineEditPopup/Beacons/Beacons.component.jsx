@@ -48,13 +48,7 @@ const BeaconImgContainer = styled.div`
 
 const beaconModules = getBeaconModules();
 
-export const Beacons = ({
-  beacons,
-  onModuleChange,
-  onBeaconAffectingChange,
-  onBeaconAdditionalChange,
-  onBeaconConstantChange,
-}) => {
+export const Beacons = ({ beacons, onModuleChange, onBeaconChange }) => {
   return (
     <BeaconsContainer>
       {beacons.modules.map((module, slotIdx) => {
@@ -75,7 +69,8 @@ export const Beacons = ({
         value={beacons.affecting}
         min={0}
         max={20}
-        onChange={onBeaconAffectingChange}
+        alt="affecting"
+        onChange={onBeaconChange}
       />
       <BeaconImgContainer>
         <img src={getImageUrlById("beacon")} alt="Beacon" />
@@ -85,14 +80,16 @@ export const Beacons = ({
         value={beacons.constant}
         min={0}
         max={20}
-        onChange={onBeaconConstantChange}
+        alt="constant"
+        onChange={onBeaconChange}
       />
       <input
         type="number"
         value={beacons.additional}
         min={0}
         max={20}
-        onChange={onBeaconAdditionalChange}
+        alt="additional"
+        onChange={onBeaconChange}
       />
     </BeaconsContainer>
   );
