@@ -270,13 +270,13 @@ export const summarizeModules = (outputItem, machinesArray) => {
   if (outputItem.machine) {
     const machineModules = countModules(outputItem.machine);
     const hasBeacon = machinesArray.find((module) => module.id === "beacon");
-    if (!hasBeacon) {
+    if (!hasBeacon && outputItem.machine.beacons.required > 0) {
       const objToPush = {
         id: "beacon",
         amount: outputItem.machine.beacons.required,
       };
       machinesArray.push(objToPush);
-    } else {
+    } else if (outputItem.machine.beacons.required > 0) {
       hasBeacon.amount += outputItem.machine.beacons.required;
     }
     Object.keys(machineModules).forEach((key) => {
@@ -340,12 +340,13 @@ export const calculateTree = ({
     );
 
     const beaconsCopy = structuredClone(machine.beacons);
-    beaconsCopy.required = getReqBeaconCount(
-      machine.beacons.constant,
-      machine.beacons.additional,
-      machine.amount
-    );
-
+    if (beaconsCopy.modules.some((module) => module.length > 0)) {
+      beaconsCopy.required = getReqBeaconCount(
+        machine.beacons.constant,
+        machine.beacons.additional,
+        machine.amount
+      );
+    }
     machine.beacons = beaconsCopy;
 
     ingredients.forEach((ingredient) => {
