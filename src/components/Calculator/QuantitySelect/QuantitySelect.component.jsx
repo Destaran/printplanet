@@ -23,10 +23,10 @@ const ButtonContainer = styled.div`
   padding: 2px;
   border: 2px solid black;
   background-color: ${ppBlue};
+  cursor: pointer;
 
   &:hover {
     background-color: orange;
-    cursor: pointer;
   }
 
   &:active {
