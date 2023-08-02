@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -20,8 +19,6 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-// Firebase config from web
-
 const firebaseConfig = {
   apiKey: "AIzaSyBKTCkN-0r3pF3g7MdRVm7QUqrAhGoGxsc",
   authDomain: "print-planet-6579f.firebaseapp.com",
@@ -31,35 +28,19 @@ const firebaseConfig = {
   appId: "1:502324877885:web:5bdd70f91e4b682d1da854",
   measurementId: "G-QXYZVVVTJK",
 };
-
-// Set up Firebase with config
-
 initializeApp(firebaseConfig);
-
-// Sign-in Setup
 
 export const auth = getAuth();
 
 const googleProvider = new GoogleAuthProvider();
-
-// Prompt user to select Google account (later in detail)
-
 googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-// Sign in functions
-
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
-export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProvider);
-
-// db points to Database
 
 export const db = getFirestore();
-
-// Create data
 
 export const addCollectionAndDocuments = async (
   collectionKey,
@@ -77,8 +58,6 @@ export const addCollectionAndDocuments = async (
   console.log("done");
 };
 
-// Fetch data
-
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
@@ -92,8 +71,6 @@ export const getCategoriesAndDocuments = async () => {
 
   return categoryMap;
 };
-
-// Create user document in Database from Google Popup Sign-in
 
 export const createUserDocumentFromAuth = async (
   userAuth,
@@ -122,13 +99,17 @@ export const createUserDocumentFromAuth = async (
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
-  if (!email || !password) return;
+  if (!email || !password) {
+    return;
+  }
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
-  if (!email || !password) return;
+  if (!email || !password) {
+    return;
+  }
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
