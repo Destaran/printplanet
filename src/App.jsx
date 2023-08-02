@@ -2,7 +2,8 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/user.context";
 import { Provider } from "react-redux";
-import { store } from "./reduxStore/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./reduxStore/store";
 import { Routes, Route } from "react-router-dom";
 
 import Navigation from "./routes/Navigation/Navigation.component";
@@ -18,16 +19,18 @@ const App = () => {
     <BrowserRouter>
       <UserProvider>
         <Provider store={store}>
-          <Routes>
-            <Route path="/" element={<Navigation />}>
-              <Route index element={<Home />} />
-              <Route path="login" element={<Login />} />
-              <Route path="registration" element={<Registration />} />
-              <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="calculator" element={<Calculator />} />
-            </Route>
-          </Routes>
+          <PersistGate loading={null} persistor={persistor}>
+            <Routes>
+              <Route path="/" element={<Navigation />}>
+                <Route index element={<Home />} />
+                <Route path="login" element={<Login />} />
+                <Route path="registration" element={<Registration />} />
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="calculator" element={<Calculator />} />
+              </Route>
+            </Routes>
+          </PersistGate>
         </Provider>
       </UserProvider>
     </BrowserRouter>
