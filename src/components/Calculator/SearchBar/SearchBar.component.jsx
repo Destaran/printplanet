@@ -47,6 +47,10 @@ export const SearchBar = ({
     setSearchString(value);
   };
 
+  const handleInputFocus = ({ target }) => {
+    target.select();
+  };
+
   return (
     <Container>
       <FormInput
@@ -56,6 +60,7 @@ export const SearchBar = ({
         value={searchString}
         name="item-search"
         onChange={handleSearchChange}
+        onFocus={handleInputFocus}
       />
       {searchString && currentItem !== searchString && (
         <FilteredItemsList
