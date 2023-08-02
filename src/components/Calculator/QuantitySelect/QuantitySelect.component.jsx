@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { getImageUrlById } from "../../../utils/helperFunctions";
 import { Tooltip } from "react-tooltip";
 import { FormInput } from "../FormInput/FormInput.component";
+import { useMemo, useState } from "react";
 
 const ppBlue = "#14213d";
 
@@ -45,6 +46,14 @@ const beltImages = {
 };
 
 export const QuantitySelect = ({ setQuantity, quantity }) => {
+  const [beltPerSec, setBeltPerSec] = useState(0);
+
+  useMemo(() => {
+    if (quantity % beltPerSec !== 0) {
+      setBeltPerSec(0);
+    }
+  }, [beltPerSec, quantity]);
+
   const onQuantityChange = ({ target }) => {
     const { value } = target;
     setQuantity(value);
@@ -52,7 +61,14 @@ export const QuantitySelect = ({ setQuantity, quantity }) => {
 
   const handleClick = ({ target }) => {
     const value = target.getAttribute("data-value");
-    setQuantity(value);
+    if (value !== beltPerSec) {
+      setBeltPerSec(value);
+    }
+    if (beltPerSec === value) {
+      setQuantity(Number(quantity) + Number(value));
+    } else {
+      setQuantity(value);
+    }
   };
 
   return (
