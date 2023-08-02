@@ -71,6 +71,10 @@ export const QuantitySelect = ({ setQuantity, quantity }) => {
     }
   };
 
+  const handleInputFocus = ({ target }) => {
+    target.select();
+  };
+
   return (
     <Container>
       <FormInput
@@ -79,6 +83,7 @@ export const QuantitySelect = ({ setQuantity, quantity }) => {
         value={quantity}
         name="quantity"
         onChange={onQuantityChange}
+        onFocus={handleInputFocus}
       />
       <BeltsContainer>
         <Tooltip id="transport-belt" delayShow={"1500"} place="bottom">

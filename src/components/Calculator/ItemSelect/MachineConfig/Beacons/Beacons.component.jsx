@@ -51,6 +51,10 @@ const Input = styled.input``;
 const beaconModules = getBeaconModules();
 
 export const Beacons = ({ beacons, onModuleChange, onBeaconChange }) => {
+  const handleInputFocus = ({ target }) => {
+    target.select();
+  };
+
   return (
     <BeaconsContainer>
       {beacons.modules.map((module, slotIdx) => {
@@ -73,6 +77,7 @@ export const Beacons = ({ beacons, onModuleChange, onBeaconChange }) => {
         max={20}
         alt="affecting"
         onChange={onBeaconChange}
+        onFocus={handleInputFocus}
       />
       <BeaconImgContainer>
         <img src={getImageUrlById("beacon")} alt="Beacon" />
@@ -84,6 +89,7 @@ export const Beacons = ({ beacons, onModuleChange, onBeaconChange }) => {
         max={20}
         alt="constant"
         onChange={onBeaconChange}
+        onFocus={handleInputFocus}
       />
       <Input
         type="number"
@@ -92,6 +98,7 @@ export const Beacons = ({ beacons, onModuleChange, onBeaconChange }) => {
         max={20}
         alt="additional"
         onChange={onBeaconChange}
+        onFocus={handleInputFocus}
       />
     </BeaconsContainer>
   );
