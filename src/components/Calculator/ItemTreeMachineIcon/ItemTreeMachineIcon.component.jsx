@@ -39,17 +39,19 @@ const ImgContainer = styled.div`
     height: 100%;
     width: auto;
   }
-  p {
-    position: absolute;
-    font-size: 16px;
-    height: 16px;
-    bottom: 0;
-    right: 0;
-    margin: 0;
-    color: white;
-    text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
-      -1px 0px 1px #000;
-  }
+`;
+
+const AmountText = styled.p`
+  position: absolute;
+  font-size: ${({ lengthExceedsLimit }) =>
+    lengthExceedsLimit ? "12px" : "16px"};
+  height: 16px;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  color: white;
+  text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
+    -1px 0px 1px #000;
 `;
 
 const ModuleIcons = styled.div`
@@ -80,10 +82,11 @@ const BeaconsIcons = styled.div`
 export const ItemTreeMachineIcon = ({ outputItem }) => {
   const { id, amount, modules, uid, beacons } = outputItem.machine;
   const imgUrl = getImageUrlById(id);
-  const showAmount = Math.ceil(amount);
+  const displayAmount = Math.ceil(amount);
   const firstModule = modules.find((module) => module.length > 0);
   const moduleUrl = getImageUrlById(firstModule);
   const beaconUrl = getImageUrlById("beacon");
+  const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
 
   return (
     <>
@@ -91,7 +94,9 @@ export const ItemTreeMachineIcon = ({ outputItem }) => {
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
-            <p>{showAmount}</p>
+            <AmountText lengthExceedsLimit={lengthExceedsLimit}>
+              {displayAmount}
+            </AmountText>
             {moduleUrl.length > 0 && (
               <ModuleIcons>
                 <img src={moduleUrl} alt={modules[0]} />
