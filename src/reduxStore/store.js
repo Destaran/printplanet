@@ -1,4 +1,6 @@
+import calculatorReducer from "./calculator/calculator.slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import localStorage from "redux-persist/es/storage";
 import {
   persistReducer,
   persistStore,
@@ -9,8 +11,6 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import calculatorReducer from "./calculator/calculator.slice";
-import localStorage from "redux-persist/es/storage";
 
 const persistConfig = {
   key: "root",
