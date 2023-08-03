@@ -13,6 +13,10 @@ const Container = styled.div`
   margin-right: 10px;
 `;
 
+const SearchBarContainer = styled.div`
+  width: 100%;
+`;
+
 const CurrentItemContainer = styled.div`
   display: flex;
   align-items: center;
@@ -53,33 +57,35 @@ export const SearchBar = ({
 
   return (
     <Container>
-      <FormInput
-        autoFocus
-        placeholder="Search item"
-        type="text"
-        value={searchString}
-        name="item-search"
-        onChange={handleSearchChange}
-        onFocus={handleInputFocus}
-      />
-      {searchString && currentItem !== searchString && (
-        <FilteredItemsList
-          selectItem={selectItem}
-          setCurrentItem={setCurrentItem}
-          setSearchString={setSearchString}
-          searchString={searchString}
+      <SearchBarContainer>
+        <FormInput
+          autoFocus
+          placeholder="Search item"
+          type="text"
+          value={searchString}
+          name="item-search"
+          onChange={handleSearchChange}
+          onFocus={handleInputFocus}
         />
-      )}
-      {currentItem ? (
-        <CurrentItemContainer>
-          <p>Current Item:</p>
-          <img src={getImageUrlById(currentItem)} alt={currentItem} />
-        </CurrentItemContainer>
-      ) : (
-        <CurrentItemContainer>
+        {searchString && currentItem !== searchString && (
+          <FilteredItemsList
+            selectItem={selectItem}
+            setCurrentItem={setCurrentItem}
+            setSearchString={setSearchString}
+            searchString={searchString}
+          />
+        )}
+      </SearchBarContainer>
+      <CurrentItemContainer>
+        {currentItem ? (
+          <>
+            <p>Current Item:</p>
+            <img src={getImageUrlById(currentItem)} alt={currentItem} />
+          </>
+        ) : (
           <p>No item selected</p>
-        </CurrentItemContainer>
-      )}
+        )}
+      </CurrentItemContainer>
     </Container>
   );
 };
