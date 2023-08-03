@@ -48,6 +48,7 @@ export const SearchBar = ({
 }) => {
   const handleSearchChange = ({ target }) => {
     const { value } = target;
+    setCurrentItem("");
     setSearchString(value);
   };
 
