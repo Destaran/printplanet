@@ -1,8 +1,4 @@
-import {
-  OutterElementContainer,
-  InnerElementContainer,
-  ImgContainer,
-} from "./ItemTreeIcon.styles";
+import styled from "styled-components";
 import {
   formatNumber,
   getImageUrlById,
@@ -22,13 +18,64 @@ import { RecipeSelectPopup } from "../RecipeSelectPopup/RecipeSelectPopup.compon
 import { useEffect } from "react";
 import { useCallback } from "react";
 
+const Container = styled.div`
+  border: 2px solid #b47500;
+  height: 36px;
+  width: 36px;
+  padding: 2px;
+  margin: 1px;
+  background-color: #313131;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+    background-color: orange;
+  }
+  &:active {
+    background-color: #313131;
+  }
+`;
+
+const InnerContainer = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+`;
+
+const ImgContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  object-fit: contain;
+  img {
+    height: 100%;
+    width: auto;
+  }
+`;
+
+const AmountText = styled.p`
+  position: absolute;
+  font-size: ${({ lengthExceedsLimit }) =>
+    lengthExceedsLimit ? "12px" : "16px"};
+  height: 16px;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  color: white;
+  text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
+    -1px 0px 1px #000;
+`;
+
 // refactor
 export const ItemTreeIcon = ({ outputItem }) => {
   const { uid, id, amount, ingredients, machine, recipe } = outputItem;
   const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
-  const showAmount = formatNumber(amount);
+  const displayAmount = formatNumber(amount);
+  const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
 
   const checkMachine = useCallback(() => {
     if (uid && machine) {
@@ -83,14 +130,18 @@ export const ItemTreeIcon = ({ outputItem }) => {
 
   return (
     <>
-      <OutterElementContainer onClick={handleClick}>
-        <InnerElementContainer>
+      <Container onClick={handleClick}>
+        <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
-            {showAmount && <p>{showAmount}</p>}
+            {displayAmount && (
+              <AmountText lengthExceedsLimit={lengthExceedsLimit}>
+                {displayAmount}
+              </AmountText>
+            )}
           </ImgContainer>
-        </InnerElementContainer>
-      </OutterElementContainer>
+        </InnerContainer>
+      </Container>
       {showPopup && (
         <RecipeSelectPopup inputId={id} uid={uid} setShowPopup={setShowPopup} />
       )}
