@@ -256,13 +256,15 @@ export const countModules = ({ modules, beacons, amount }) => {
         : (modulesAcc[module] = roundedMachineCount);
     }
   });
-  beacons.modules.forEach((module) => {
-    if (module.length > 0) {
-      modulesAcc[module]
-        ? (modulesAcc[module] += beacons.required)
-        : (modulesAcc[module] = beacons.required);
-    }
-  });
+  if (beacons.required > 0) {
+    beacons.modules.forEach((module) => {
+      if (module.length > 0) {
+        modulesAcc[module]
+          ? (modulesAcc[module] += beacons.required)
+          : (modulesAcc[module] = beacons.required);
+      }
+    });
+  }
   return modulesAcc;
 };
 export const summarizeModules = (outputItem, machinesArray) => {
@@ -280,13 +282,13 @@ export const summarizeModules = (outputItem, machinesArray) => {
     }
     Object.keys(machineModules).forEach((key) => {
       const existingItem = machinesArray.find((module) => module.id === key);
-      if (!existingItem && outputItem.machine.beacons.required > 0) {
+      if (!existingItem) {
         const objToPush = {
           id: key,
           amount: machineModules[key],
         };
         machinesArray.push(objToPush);
-      } else if (outputItem.machine.beacons.required > 0) {
+      } else {
         existingItem.amount += machineModules[key];
       }
       outputItem.ingredients.forEach((ingredient) => {
@@ -301,11 +303,20 @@ const getReqMachineCount = (
   productivity,
   amount,
   craftingTime,
+  constant,
   recipeYield
 ) => {
-  return (
-    ((amount / (productivity + 1)) * craftingTime) / recipeYield / craftingSpeed
-  );
+  if (!constant) {
+    return (
+      (amount / recipeYield) *
+      (craftingTime / craftingSpeed / (productivity + 1))
+    );
+  } else {
+    return (
+      (amount / recipeYield) *
+      (craftingTime / craftingSpeed / (productivity + 1) + constant)
+    );
+  }
 };
 
 const getReqBeaconCount = (constant, additional, machineAmount) => {
@@ -335,9 +346,10 @@ export const calculateTree = ({
       machine.productivity,
       amount,
       recipe.energy,
+      recipe.constant,
       product.amount
     );
-
+    // refactor: make the beacons calculation below a function
     const beaconsCopy = structuredClone(machine.beacons);
     if (
       beaconsCopy.modules.some((module) => module.length > 0) &&
@@ -353,14 +365,21 @@ export const calculateTree = ({
     }
     machine.beacons = beaconsCopy;
 
+    // refactor: make children amount calc a function
     ingredients.forEach((ingredient) => {
-      const recipeIngredient = recipe.ingredients.find(
+      const ingredientRecipe = recipe.ingredients.find(
         (item) => item.name === ingredient.id
       );
-      ingredient.amount = Number(
-        (recipeIngredient.amount * (amount / (machine.productivity + 1))) /
-          product.amount
-      );
+      if (ingredient.id !== "satellite") {
+        ingredient.amount = Number(
+          (ingredientRecipe.amount * (amount / (machine.productivity + 1))) /
+            product.amount
+        );
+      } else {
+        ingredient.amount = Number(
+          (ingredientRecipe.amount * amount) / product.amount
+        );
+      }
       calculateTree(ingredient);
     });
   }
