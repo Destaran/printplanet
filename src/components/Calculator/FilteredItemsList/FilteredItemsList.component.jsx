@@ -6,7 +6,7 @@ import {
 } from "../../../utils/helperFunctions";
 import { useMemo } from "react";
 
-const FilteredItemsContainer = styled.div`
+const Container = styled.div`
   position: relative;
   top: -15px;
   width: 100%;
@@ -30,13 +30,13 @@ const FilteredItem = styled.li`
   border: solid black 1px;
   background-color: #f1f1f1;
   overflow: hidden;
+  cursor: pointer;
 
   img {
     margin-right: 5px;
   }
 
   &:hover {
-    cursor: pointer;
     background-color: orange;
   }
 `;
@@ -56,7 +56,7 @@ export const FilteredItemsList = ({ selectItem, searchString }) => {
   );
 
   return (
-    <FilteredItemsContainer>
+    <Container>
       <FilteredItems>
         {filteredItems.map((item, idx) => {
           const imgSrc = getImageUrlById(item.name);
@@ -70,6 +70,6 @@ export const FilteredItemsList = ({ selectItem, searchString }) => {
           );
         })}
       </FilteredItems>
-    </FilteredItemsContainer>
+    </Container>
   );
 };
