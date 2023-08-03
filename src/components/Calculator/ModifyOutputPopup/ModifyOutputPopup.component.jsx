@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../utils/helperFunctions";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromOutput,
@@ -76,27 +76,45 @@ export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
     setNewAmount(target.value);
   };
 
-  const modifyHandler = () => {
+  const enterHandler = useCallback(() => {
     const newItem = {
       id: id,
       amount: Number(newAmount),
     };
     dispatch(modifyOutputElement(newItem));
     setOutputId(null);
-  };
+  }, [dispatch, id, newAmount, setOutputId]);
 
-  const removeHandler = () => {
+  const removeHandler = useCallback(() => {
     dispatch(removeFromOutput(id));
     setOutputId(null);
-  };
+  }, [dispatch, id, setOutputId]);
 
-  const cancelHandler = () => {
+  const backHandler = useCallback(() => {
     setOutputId(null);
-  };
+  }, [setOutputId]);
 
   const handleInputFocus = ({ target }) => {
     target.select();
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key.toLowerCase() === "r") {
+        removeHandler();
+      }
+      if (event.key.toLowerCase() === "e") {
+        enterHandler();
+      }
+      if (event.key.toLowerCase() === "b") {
+        backHandler();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [backHandler, enterHandler, removeHandler]);
 
   return (
     <Container>
@@ -115,13 +133,13 @@ export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
           />
         </InputContainer>
         <ButtonsContainer>
-          <Button onClick={modifyHandler} buttonType={"green"}>
-            Modify
+          <Button onClick={enterHandler} buttonType={"green"}>
+            [E]nter
           </Button>
           <Button onClick={removeHandler} buttonType={"red"}>
-            Remove
+            [R]emove
           </Button>
-          <Button onClick={cancelHandler}>Cancel</Button>
+          <Button onClick={backHandler}>[B]ack</Button>
         </ButtonsContainer>
       </InnerContainer>
     </Container>
