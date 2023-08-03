@@ -4,7 +4,7 @@ import {
   AddButtonContainer,
 } from "./ItemSelectOptions.styles";
 import { getRecipes, getNameById } from "../../../utils/helperFunctions";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToOutput,
@@ -37,15 +37,15 @@ export const ItemSelectOptions = ({
     setUnit(value);
   };
 
-  const resetOptions = () => {
+  const resetOptions = useCallback(() => {
     setSearchString("");
     setCurrentItem("");
     setQuantity(1);
     setUnit(1);
     setRecipes([]);
-  };
+  }, [setCurrentItem, setQuantity, setSearchString]);
 
-  const addItemHandler = () => {
+  const addItemHandler = useCallback(() => {
     if (currentItem) {
       const existingItem = output.find((item) => item === currentItem);
       if (!existingItem) {
@@ -71,13 +71,25 @@ export const ItemSelectOptions = ({
         resetOptions();
       }
     }
-  };
+  }, [currentItem, dispatch, output, quantity, resetOptions]);
 
   const selectItem = ({ target }) => {
     const selectedItem = target.id;
     setSearchString(getNameById(selectedItem));
     setCurrentItem(selectedItem);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "A") {
+        addItemHandler();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [addItemHandler]);
 
   return (
     <SelectionContainer>
@@ -92,7 +104,7 @@ export const ItemSelectOptions = ({
       <UnitSelectContainer>
         <FormSelect value={unit} onChange={handleUnitChange} />
         <AddButtonContainer>
-          <Button onClick={addItemHandler}>Add</Button>
+          <Button onClick={addItemHandler}>[A]dd</Button>
         </AddButtonContainer>
       </UnitSelectContainer>
       {showPopup && (
