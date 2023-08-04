@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { getImageUrlById } from "../../../utils/helperFunctions";
+import {
+  getImageUrlById,
+  checkIfUseableModule,
+} from "../../../utils/helperFunctions";
+import { useEffect, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { bumpModules } from "../../../reduxStore/calculator/calculator.slice";
 import { MachineIconTooltip } from "./MachineIconTooltip/MachineIconTooltip.component";
 
 const OutterContainer = styled.div`
@@ -80,7 +86,9 @@ const BeaconsIcons = styled.div`
 `;
 
 export const ItemTreeMachineIcon = ({ outputItem }) => {
-  const { id, amount, modules, uid, beacons } = outputItem.machine;
+  const dispatch = useDispatch();
+  const { recipe, machine, uid } = outputItem;
+  const { id, amount, modules, uid: machineUid, beacons } = machine;
   const imgUrl = getImageUrlById(id);
   const displayAmount = Math.ceil(amount);
   const firstModule = modules.find((module) => module.length > 0);
@@ -88,9 +96,30 @@ export const ItemTreeMachineIcon = ({ outputItem }) => {
   const beaconUrl = getImageUrlById("beacon");
   const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
 
+  const checkModules = useCallback(() => {
+    if (uid && machine) {
+      let shouldBump = false;
+      modules.forEach((module) => {
+        if (
+          module.includes("productivity") &&
+          !checkIfUseableModule(module, recipe)
+        ) {
+          shouldBump = true;
+        }
+      });
+      if (shouldBump === true) {
+        dispatch(bumpModules(uid));
+      }
+    }
+  }, [dispatch, machine, modules, recipe, uid]);
+
+  useEffect(() => {
+    checkModules();
+  }, [checkModules, dispatch, machine, recipe, uid]);
+
   return (
     <>
-      <OutterContainer data-tooltip-id={uid}>
+      <OutterContainer data-tooltip-id={machineUid}>
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />

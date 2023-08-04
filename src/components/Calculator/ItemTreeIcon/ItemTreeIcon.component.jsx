@@ -3,7 +3,6 @@ import {
   formatNumber,
   getImageUrlById,
   getRecipes,
-  checkIfUseableModule,
 } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -12,11 +11,8 @@ import {
   extendSameTypeElements,
   collapseElement,
   collapseSameTypeElements,
-  bumpModules,
 } from "../../../reduxStore/calculator/calculator.slice";
 import { RecipeSelectPopup } from "../RecipeSelectPopup/RecipeSelectPopup.component";
-import { useEffect } from "react";
-import { useCallback } from "react";
 
 const Container = styled.div`
   border: 2px solid #b47500;
@@ -70,34 +66,12 @@ const AmountText = styled.p`
 
 // refactor
 export const ItemTreeIcon = ({ outputItem }) => {
-  const { uid, id, amount, ingredients, machine, recipe } = outputItem;
+  const { uid, id, amount, ingredients } = outputItem;
   const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(amount);
   const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
-
-  const checkMachine = useCallback(() => {
-    if (uid && machine) {
-      const { modules } = machine;
-      let shouldBump = false;
-      modules.forEach((module) => {
-        if (
-          module.includes("productivity") &&
-          !checkIfUseableModule(module, recipe)
-        ) {
-          shouldBump = true;
-        }
-      });
-      if (shouldBump === true) {
-        dispatch(bumpModules(uid));
-      }
-    }
-  }, [dispatch, machine, recipe, uid]);
-
-  useEffect(() => {
-    checkMachine();
-  }, [checkMachine, dispatch, machine, recipe, uid]);
 
   const handleClick = (event) => {
     const recipe = getRecipes(id);
