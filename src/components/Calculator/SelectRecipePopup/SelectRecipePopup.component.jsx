@@ -117,10 +117,10 @@ export const SelectRecipePopup = ({
         {didntSelect && <Warning>Select a recipe to continue!</Warning>}
         <ButtonsContainer>
           <Button onClick={handleSelect} buttonType={"green"}>
-            Submit
+            [E]nter
           </Button>
           <Button onClick={handleCancel} buttonType={"red"}>
-            Cancel
+            [B]ack
           </Button>
         </ButtonsContainer>
       </InnerContainer>
