@@ -39,6 +39,7 @@ export const Summary = () => {
   const [machineId, setMachineId] = useState(null);
 
   const handleOutputClick = (id) => {
+    document.activeElement.blur();
     setOutputId(id);
   };
 
@@ -50,6 +51,7 @@ export const Summary = () => {
       });
     } else {
       if (checkIfMultipleRecipes(id)) {
+        document.activeElement.blur();
         setInputId(id);
       } else {
         const recipe = getRecipeByProduct(id);

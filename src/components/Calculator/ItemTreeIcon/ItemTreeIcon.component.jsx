@@ -76,6 +76,7 @@ export const ItemTreeIcon = ({ outputItem }) => {
   const handleClick = (event) => {
     if (!ingredients) {
       if (checkIfMultipleRecipes(id)) {
+        document.activeElement.blur();
         setPopupId(id);
       } else {
         const recipe = getRecipeByProduct(id);

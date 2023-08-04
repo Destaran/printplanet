@@ -52,6 +52,7 @@ export const ItemSelectOptions = ({
       const existingItem = output.find((item) => item === currentItem);
       if (!existingItem) {
         if (checkIfMultipleRecipes(currentItem)) {
+          document.activeElement.blur();
           setPopupId(currentItem);
         } else {
           const recipe = getRecipeById(currentItem);
