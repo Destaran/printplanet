@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { getImageUrlById } from "../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../../../utils/helperFunctions";
 import { Tooltip } from "react-tooltip";
-import { FormInput } from "../FormInput/FormInput.component";
+import { FormInput } from "../../../FormInput/FormInput.component";
 import { useMemo, useState } from "react";
 
 const ppBlue = "#14213d";

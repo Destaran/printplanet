@@ -4,7 +4,7 @@ import {
   formatNumber,
   getImageUrlById,
   getRecipeByProduct,
-} from "../../../utils/helperFunctions";
+} from "../../../../../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -12,8 +12,8 @@ import {
   extendSameTypeElements,
   collapseElement,
   collapseSameTypeElements,
-} from "../../../reduxStore/calculator/calculator.slice";
-import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
+} from "../../../../../../../reduxStore/calculator/calculator.slice";
+import { SelectRecipePopup } from "../../../../../SelectRecipePopup/SelectRecipePopup.component";
 
 const Container = styled.div`
   border: 2px solid #b47500;
@@ -65,7 +65,7 @@ const AmountText = styled.p`
     -1px 0px 1px #000;
 `;
 
-export const ItemTreeIcon = ({ outputItem }) => {
+export const ProductIcon = ({ outputItem }) => {
   const { uid, id, amount, ingredients } = outputItem;
   const [popupId, setPopupId] = useState(null);
   const dispatch = useDispatch();

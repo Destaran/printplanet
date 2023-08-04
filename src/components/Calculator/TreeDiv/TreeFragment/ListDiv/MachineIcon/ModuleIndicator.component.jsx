@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getImageUrlById } from "../../../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../../../../../utils/helperFunctions";
 
 const ppBlue = "#14213d";
 
@@ -27,7 +27,7 @@ const Container = styled.div`
   }
 `;
 
-export const ModuleIcon = ({ module }) => {
+export const ModuleIndicator = ({ module }) => {
   const imgUrl = getImageUrlById(module);
   return (
     <Container>{module.length > 0 && <img src={imgUrl} alt="" />}</Container>

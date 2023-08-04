@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { ItemTreeIcon } from "../ItemTreeIcon/ItemTreeIcon.component";
-import { ItemTreeMachineIcon } from "../ItemTreeMachineIcon/ItemTreeMachineIcon.component";
+import { ProductIcon } from "./ProductIcon/ProductIcon.component";
+import { MachineIcon } from "./MachineIcon/MachineIcon.component";
 
 const Wrapper = styled.div`
   margin: 0;
@@ -23,14 +23,12 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-export const ItemTreeListSpan = ({ outputItem }) => {
+export const ListDiv = ({ outputItem }) => {
   return (
     <Wrapper>
       <Container>
-        <ItemTreeIcon outputItem={outputItem} />
-        {outputItem.ingredients && (
-          <ItemTreeMachineIcon outputItem={outputItem} />
-        )}
+        <ProductIcon outputItem={outputItem} />
+        {outputItem.ingredients && <MachineIcon outputItem={outputItem} />}
       </Container>
     </Wrapper>
   );

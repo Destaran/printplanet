@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
-import { getNameById } from "../../../../utils/helperFunctions";
-import { ModuleIcon } from "./ModuleIcon/ModuleIcon.component";
+import { getNameById } from "../../../../../../../utils/helperFunctions";
+import { ModuleIndicator } from "./ModuleIndicator.component";
 
 const Container = styled.div`
   display: block;
@@ -38,7 +38,7 @@ const BeaconIcons = styled.div`
   object-fit: contain;
 `;
 
-export const MachineIconTooltip = ({ machine }) => {
+export const IconTooltip = ({ machine }) => {
   const displayName = getNameById(machine.id);
   const displaySpeed = (machine.craftingSpeed * 100).toFixed(0);
   const displayProd = (machine.productivity * 100).toFixed(0);
@@ -66,12 +66,12 @@ export const MachineIconTooltip = ({ machine }) => {
             <ModulesInner>
               <BeaconIcons>
                 {machine.beacons.modules.map((module, key) => (
-                  <ModuleIcon key={key} module={module} />
+                  <ModuleIndicator key={key} module={module} />
                 ))}
               </BeaconIcons>
               <p>&#x2715;</p>
               <p>{machine.beacons.required}</p>
-              <ModuleIcon module={"beacon"} />
+              <ModuleIndicator module={"beacon"} />
             </ModulesInner>
           </ModulesContainer>
         )}
@@ -79,7 +79,7 @@ export const MachineIconTooltip = ({ machine }) => {
           <ModulesContainer>
             <ModulesInner>
               {machine.modules.map((module, key) => (
-                <ModuleIcon key={key} module={module} />
+                <ModuleIndicator key={key} module={module} />
               ))}
             </ModulesInner>
           </ModulesContainer>

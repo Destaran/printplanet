@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ItemTreeListElement } from "../ItemTreeListElement/ItemTreeListElement.component";
+import { TreeFragment } from "../TreeFragment.component";
 
 const UnorderedList = styled.ul`
   margin: 0;
@@ -35,16 +35,12 @@ const UnorderedList = styled.ul`
   }
 `;
 
-export const ItemTreeList = ({ ingredients, pid }) => {
+export const IngredientList = ({ ingredients, pid }) => {
   return (
     <UnorderedList>
       {ingredients.map((outputItem, idx) => {
         return (
-          <ItemTreeListElement
-            outputItem={{ ...outputItem }}
-            key={idx}
-            pid={pid}
-          />
+          <TreeFragment outputItem={{ ...outputItem }} key={idx} pid={pid} />
         );
       })}
     </UnorderedList>

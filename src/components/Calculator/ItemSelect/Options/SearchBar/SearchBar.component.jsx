@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { getImageUrlById } from "../../../utils/helperFunctions";
-import { FilteredItemsList } from "../FilteredItemsList/FilteredItemsList.component";
-import { FormInput } from "../FormInput/FormInput.component";
+import { getImageUrlById } from "../../../../../utils/helperFunctions";
+import { FilteredItemsList } from "./FilteredItemsList.component";
+import { FormInput } from "../../../FormInput/FormInput.component";
 
 const ppBlue = "#14213d";
 

@@ -1,28 +1,36 @@
-import {
-  SelectionContainer,
-  UnitSelectContainer,
-  AddButtonContainer,
-} from "./ItemSelectOptions.styles";
+import styled from "styled-components";
 import {
   getNameById,
   checkIfMultipleRecipes,
   getRecipeById,
-} from "../../../utils/helperFunctions";
+} from "../../../../utils/helperFunctions";
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToOutput,
   addToExistingOutput,
-} from "../../../reduxStore/calculator/calculator.slice";
-import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
-import { SearchBar } from "../SearchBar/SearchBar.component";
-import { QuantitySelect } from "../QuantitySelect/QuantitySelect.component";
-import { FormSelect } from "../FormSelect/FormSelect.component";
-import { Button } from "../../Button/Button.component";
-import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
+} from "../../../../reduxStore/calculator/calculator.slice";
+import { outputKeys } from "../../../../reduxStore/calculator/calculator.selector";
+import { SearchBar } from "./SearchBar/SearchBar.component";
+import { QuantitySelect } from "./QuantitySelect/QuantitySelect.component";
+import { SelectRecipePopup } from "../../SelectRecipePopup/SelectRecipePopup.component";
+import { UnitSelection } from "./UnitSelection/UnitSelection.component";
+
+const ppBlue = "#14213d";
+
+const Container = styled.div`
+  display: flex;
+  border: 1px solid ${ppBlue};
+  padding: 10px;
+  width: auto;
+  input,
+  select {
+    margin-top: 0;
+  }
+`;
 
 // refactor
-export const ItemSelectOptions = ({
+export const Options = ({
   searchString,
   setSearchString,
   currentItem,
@@ -99,7 +107,7 @@ export const ItemSelectOptions = ({
   };
 
   return (
-    <SelectionContainer>
+    <Container>
       <SearchBar
         selectItem={selectItem}
         currentItem={currentItem}
@@ -108,15 +116,14 @@ export const ItemSelectOptions = ({
         setSearchString={setSearchString}
       />
       <QuantitySelect quantity={quantity} setQuantity={setQuantity} />
-      <UnitSelectContainer>
-        <FormSelect value={unit} onChange={handleUnitChange} />
-        <AddButtonContainer>
-          <Button onClick={addHandler}>[A]dd</Button>
-        </AddButtonContainer>
-      </UnitSelectContainer>
+      <UnitSelection
+        unit={unit}
+        handleUnitChange={handleUnitChange}
+        addHandler={addHandler}
+      />
       {popupId && (
         <SelectRecipePopup id={popupId} setId={setPopupId} addInfo={addInfo} />
       )}
-    </SelectionContainer>
+    </Container>
   );
 };

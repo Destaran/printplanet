@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetOutput } from "../../../reduxStore/calculator/calculator.slice";
 import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
-import { ItemSelectOptions } from "../ItemSelectOptions/ItemSelectOptions.component";
+import { Options } from "./Options/Options.component";
 import { MachineConfig } from "./MachineConfig/MachineConfig.component";
 import { Menus } from "../Menus/Menus.component";
 
@@ -50,7 +50,7 @@ export const ItemSelect = () => {
 
   return (
     <Container>
-      <ItemSelectOptions
+      <Options
         searchString={searchString}
         setSearchString={setSearchString}
         currentItem={currentItem}

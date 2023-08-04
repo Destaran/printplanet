@@ -3,7 +3,7 @@ import {
   getImageUrlById,
   getAllProducts,
   getNameById,
-} from "../../../utils/helperFunctions";
+} from "../../../../../utils/helperFunctions";
 import { useMemo } from "react";
 
 const Container = styled.div`

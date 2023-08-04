@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { calculatedOutput } from "../../../reduxStore/calculator/calculator.selector";
-import { ItemTreeDiv } from "../ItemTreeDiv/ItemTreeDiv.component";
+import { TreeDiv } from "./TreeDiv/TreeDiv.component";
 
 const Container = styled.div``;
 
@@ -16,7 +16,7 @@ export const ItemTree = () => {
     <Container>
       <Title>Tree Overview</Title>
       {output.map((outputItem, idx) => (
-        <ItemTreeDiv outputItem={outputItem} key={idx} />
+        <TreeDiv outputItem={outputItem} key={idx} />
       ))}
     </Container>
   );

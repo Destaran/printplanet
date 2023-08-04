@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ItemTreeFragment } from "../ItemTreeFragment/ItemTreeFragment.component";
+import { TreeFragment } from "./TreeFragment/TreeFragment.component";
 
 const Container = styled.div`
   margin-bottom: 22.5px;
@@ -7,12 +7,12 @@ const Container = styled.div`
   border: 1px solid grey;
 `;
 
-export const ItemTreeDiv = ({ outputItem }) => {
+export const TreeDiv = ({ outputItem }) => {
   const { id: pid } = outputItem;
 
   return (
     <Container>
-      <ItemTreeFragment outputItem={outputItem} pid={pid} />
+      <TreeFragment outputItem={outputItem} pid={pid} />
     </Container>
   );
 };

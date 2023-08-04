@@ -2,11 +2,11 @@ import styled from "styled-components";
 import {
   getImageUrlById,
   checkModulesForBumping,
-} from "../../../utils/helperFunctions";
+} from "../../../../../../../utils/helperFunctions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { bumpModules } from "../../../reduxStore/calculator/calculator.slice";
-import { MachineIconTooltip } from "./MachineIconTooltip/MachineIconTooltip.component";
+import { bumpModules } from "../../../../../../../reduxStore/calculator/calculator.slice";
+import { IconTooltip } from "./IconTooltip.component";
 
 const OutterContainer = styled.div`
   border: 2px solid #b47500;
@@ -85,7 +85,7 @@ const BeaconsIcons = styled.div`
   }
 `;
 
-export const ItemTreeMachineIcon = ({ outputItem }) => {
+export const MachineIcon = ({ outputItem }) => {
   const dispatch = useDispatch();
   const { recipe, machine, uid } = outputItem;
   const { id, amount, modules, uid: machineUid, beacons } = machine;
@@ -124,7 +124,7 @@ export const ItemTreeMachineIcon = ({ outputItem }) => {
           </ImgContainer>
         </InnerContainer>
       </OutterContainer>
-      <MachineIconTooltip machine={outputItem.machine} />
+      <IconTooltip machine={outputItem.machine} />
     </>
   );
 };

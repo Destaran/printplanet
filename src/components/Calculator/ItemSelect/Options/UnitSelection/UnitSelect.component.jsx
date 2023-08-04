@@ -53,7 +53,7 @@ const Group = styled.div`
   }
 `;
 
-export const FormSelect = ({ ...otherProps }) => {
+export const UnitSelect = ({ ...otherProps }) => {
   return (
     <Group>
       <Select {...otherProps}>
