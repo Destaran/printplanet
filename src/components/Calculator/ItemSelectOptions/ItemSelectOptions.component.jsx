@@ -28,7 +28,6 @@ export const ItemSelectOptions = ({
 }) => {
   const dispatch = useDispatch();
   const output = useSelector(outputKeys);
-  const [recipes, setRecipes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [unit, setUnit] = useState(1);
 
@@ -42,7 +41,6 @@ export const ItemSelectOptions = ({
     setCurrentItem("");
     setQuantity(1);
     setUnit(1);
-    setRecipes([]);
   }, [setCurrentItem, setQuantity, setSearchString]);
 
   const addItemHandler = useCallback(() => {
@@ -51,7 +49,6 @@ export const ItemSelectOptions = ({
       if (!existingItem) {
         const recipe = getRecipes(currentItem);
         if (recipe.length > 1) {
-          setRecipes(recipe);
           setShowPopup(true);
         } else if (recipe) {
           const itemToAdd = {
@@ -111,7 +108,6 @@ export const ItemSelectOptions = ({
         <SelectRecipePopup
           currentItem={currentItem}
           quantity={quantity}
-          recipes={recipes}
           setShowPopup={setShowPopup}
           resetOptions={resetOptions}
         />
