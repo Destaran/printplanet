@@ -4,7 +4,7 @@ import {
   getMachinesById,
   getModulesByRecipeId,
 } from "../../../utils/helperFunctions";
-import { SelectRecipePopupButtonTooltipElement } from "../SelectRecipePopupButtonTooltipElement/SelectRecipePopupButtonTooltipElement.component";
+import { TooltipElement } from "./TooltipElement.component";
 
 const Container = styled.div`
   p {
@@ -29,7 +29,7 @@ const ListContainer = styled.div`
   width: fit-content;
 `;
 
-export const SelectRecipePopupButtonTooltip = ({ recipe }) => {
+export const SelectButtonTooltip = ({ recipe }) => {
   const name = getNameById(recipe.name);
   const time = {
     name: "clock",
@@ -44,7 +44,7 @@ export const SelectRecipePopupButtonTooltip = ({ recipe }) => {
         <p>Craftable at:</p>
         <ListContainer>
           {machines.map((machine, idx) => (
-            <SelectRecipePopupButtonTooltipElement object={machine} key={idx} />
+            <TooltipElement object={machine} key={idx} />
           ))}
         </ListContainer>
       </DetailContainer>
@@ -52,25 +52,19 @@ export const SelectRecipePopupButtonTooltip = ({ recipe }) => {
         <p>Modules:</p>
         <ListContainer>
           {modules.map((ingredient, idx) => (
-            <SelectRecipePopupButtonTooltipElement
-              object={ingredient}
-              key={idx}
-            />
+            <TooltipElement object={ingredient} key={idx} />
           ))}
         </ListContainer>
       </DetailContainer>
       <DetailContainer>
         <p>Base crafting time:</p>
-        <SelectRecipePopupButtonTooltipElement object={time} />
+        <TooltipElement object={time} />
       </DetailContainer>
       <DetailContainer>
         <p>Input:</p>
         <ListContainer>
           {recipe.ingredients.map((ingredient, idx) => (
-            <SelectRecipePopupButtonTooltipElement
-              object={ingredient}
-              key={idx}
-            />
+            <TooltipElement object={ingredient} key={idx} />
           ))}
         </ListContainer>
       </DetailContainer>
@@ -78,10 +72,7 @@ export const SelectRecipePopupButtonTooltip = ({ recipe }) => {
         <p>Output:</p>
         <ListContainer>
           {recipe.products.map((ingredient, idx) => (
-            <SelectRecipePopupButtonTooltipElement
-              object={ingredient}
-              key={idx}
-            />
+            <TooltipElement object={ingredient} key={idx} />
           ))}
         </ListContainer>
       </DetailContainer>

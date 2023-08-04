@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
-import { SelectRecipePopupButtonTooltip } from "../SelectRecipePopupButtonTooltip/SelectRecipePopupButtonTooltip.component";
+import { SelectButtonTooltip } from "./SelectButtonTooltip.component";
 
 const ppDark = "#313131";
 
-const OutterContainer = styled.div`
+const Container = styled.div`
   border: 2px solid #b47500;
   height: 42px;
   width: auto;
@@ -45,11 +45,7 @@ const ImgContainer = styled.div`
 `;
 
 // refactor
-export const SelectRecipePopupButton = ({
-  recipe,
-  selectedRecipe,
-  onClick,
-}) => {
+export const SelectButton = ({ recipe, selectedRecipe, onClick }) => {
   const [selected, setSelected] = useState(false);
   const { name } = recipe;
   const imgUrl = getImageUrlById(name);
@@ -65,19 +61,15 @@ export const SelectRecipePopupButton = ({
   return (
     <>
       <Tooltip id={name} delayShow={"300"}>
-        <SelectRecipePopupButtonTooltip recipe={recipe} />
+        <SelectButtonTooltip recipe={recipe} />
       </Tooltip>
-      <OutterContainer
-        selected={selected}
-        data-tooltip-id={name}
-        onClick={onClick}
-      >
+      <Container selected={selected} data-tooltip-id={name} onClick={onClick}>
         <InnerContainer>
           <ImgContainer>
             <img id={name} src={imgUrl} alt="" />
           </ImgContainer>
         </InnerContainer>
-      </OutterContainer>
+      </Container>
     </>
   );
 };

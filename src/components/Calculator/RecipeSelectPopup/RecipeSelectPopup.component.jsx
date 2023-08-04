@@ -13,7 +13,7 @@ import {
   extendElement,
   extendSameTypeElements,
 } from "../../../reduxStore/calculator/calculator.slice";
-import { SelectRecipePopupButton } from "../SelectRecipePopupButton/SelectRecipePopupButton.component";
+import { SelectButton } from "../SelectRecipePopup/SelectButton.component";
 import { Button } from "../../Button/Button.component";
 
 // refactor
@@ -74,7 +74,7 @@ export const RecipeSelectPopup = ({
         </Header>
         <InputContainer>
           {recipes.map((recipe, idx) => (
-            <SelectRecipePopupButton
+            <SelectButton
               onClick={handleSelectRecipe}
               selectedRecipe={selectedRecipe}
               recipe={recipe}

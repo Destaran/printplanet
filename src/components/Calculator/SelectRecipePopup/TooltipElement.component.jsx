@@ -48,7 +48,7 @@ const ImgContainer = styled.div`
   }
 `;
 
-export const SelectRecipePopupButtonTooltipElement = ({ object }) => {
+export const TooltipElement = ({ object }) => {
   const { amount, name } = object;
   const imgUrl = getImageUrlById(name);
 

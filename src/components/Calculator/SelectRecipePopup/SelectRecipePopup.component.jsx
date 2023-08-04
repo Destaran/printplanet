@@ -1,16 +1,62 @@
-import {
-  SelectRecipePopupContainer,
-  InnerContainer,
-  Header,
-  InputContainer,
-  ButtonsContainer,
-  Warning,
-} from "./SelectRecipePopup.styles";
+import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToOutput } from "../../../reduxStore/calculator/calculator.slice";
-import { SelectRecipePopupButton } from "../SelectRecipePopupButton/SelectRecipePopupButton.component";
+import { SelectButton } from "./SelectButton.component";
 import { Button } from "../../Button/Button.component";
+
+export const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+`;
+
+export const InnerContainer = styled.div`
+  border: 2px solid black;
+  position: relative;
+  padding: 8px;
+  width: 100%;
+  max-width: 440px;
+  background-color: white;
+`;
+
+export const Header = styled.div`
+  p {
+    margin: 0 0 8px 0;
+  }
+`;
+
+export const InputContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(8, auto);
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    margin: 8px;
+  }
+`;
+
+export const Warning = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  color: red;
+`;
 
 // refactor
 export const SelectRecipePopup = ({
@@ -53,14 +99,14 @@ export const SelectRecipePopup = ({
   };
 
   return (
-    <SelectRecipePopupContainer>
+    <Container>
       <InnerContainer>
         <Header>
           <p>Select Recipe</p>
         </Header>
         <InputContainer>
           {recipes.map((recipe, idx) => (
-            <SelectRecipePopupButton
+            <SelectButton
               onClick={handleSelectRecipe}
               selectedRecipe={selectedRecipe}
               recipe={recipe}
@@ -78,6 +124,6 @@ export const SelectRecipePopup = ({
           </Button>
         </ButtonsContainer>
       </InnerContainer>
-    </SelectRecipePopupContainer>
+    </Container>
   );
 };
