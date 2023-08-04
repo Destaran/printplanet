@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getRecipes } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToOutput } from "../../../reduxStore/calculator/calculator.slice";
@@ -63,9 +64,9 @@ export const SelectRecipePopup = ({
   currentItem,
   quantity,
   setShowPopup,
-  recipes,
   resetOptions,
 }) => {
+  const recipes = getRecipes(currentItem);
   const [selectedRecipe, setSelectedRecipe] = useState("");
   const [didntSelect, setDidntSelect] = useState(false);
   const dispatch = useDispatch();
