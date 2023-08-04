@@ -119,6 +119,15 @@ export const checkIfMultipleRecipes = (id) => {
   }
 };
 
+export const getRecipeByProduct = (id) => {
+  if (checkIfMultipleRecipes(id)) {
+    return;
+  }
+  return recipes.find((recipe) =>
+    recipe.products.find((product) => product.name === id)
+  );
+};
+
 export const getRecipes = (productId) => {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === productId)
