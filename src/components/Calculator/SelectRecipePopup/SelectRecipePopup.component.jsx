@@ -2,11 +2,15 @@ import styled from "styled-components";
 import { getRecipes } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addToOutput } from "../../../reduxStore/calculator/calculator.slice";
+import {
+  addToOutput,
+  extendElement,
+  extendSameTypeElements,
+} from "../../../reduxStore/calculator/calculator.slice";
 import { SelectButton } from "./SelectButton.component";
 import { Button } from "../../Button/Button.component";
 
-export const Container = styled.div`
+const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +24,7 @@ export const Container = styled.div`
   z-index: 100;
 `;
 
-export const InnerContainer = styled.div`
+const InnerContainer = styled.div`
   border: 2px solid black;
   position: relative;
   padding: 8px;
@@ -29,20 +33,20 @@ export const InnerContainer = styled.div`
   background-color: white;
 `;
 
-export const Header = styled.div`
+const Header = styled.div`
   p {
     margin: 0 0 8px 0;
   }
 `;
 
-export const InputContainer = styled.div`
+const InputContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(8, auto);
   justify-content: center;
   align-items: center;
 `;
 
-export const ButtonsContainer = styled.div`
+const ButtonsContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +55,7 @@ export const ButtonsContainer = styled.div`
   }
 `;
 
-export const Warning = styled.div`
+const Warning = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,43 +64,54 @@ export const Warning = styled.div`
 `;
 
 // refactor
-export const SelectRecipePopup = ({
-  currentItem,
-  quantity,
-  setShowPopup,
-  resetOptions,
-}) => {
-  const recipes = getRecipes(currentItem);
-  const [selectedRecipe, setSelectedRecipe] = useState("");
-  const [didntSelect, setDidntSelect] = useState(false);
+export const SelectRecipePopup = ({ id, setId, uid, addInfo }) => {
   const dispatch = useDispatch();
+  const recipes = getRecipes(id);
+  const [selectedRecipe, setSelectedRecipe] = useState("");
+  const [warning, setWarning] = useState(false);
 
-  const handleSelectRecipe = ({ target }) => {
-    const { id } = target;
-    setSelectedRecipe(id);
+  const resetComponent = () => {
+    setId(null);
+    setWarning(false);
+    setSelectedRecipe("");
   };
 
-  const handleSelect = () => {
-    if (selectedRecipe) {
-      const itemToAdd = {
-        id: currentItem,
+  const handleSelectRecipe = ({ target }) => {
+    setSelectedRecipe(target.id);
+  };
+
+  const handleSubmit = () => {
+    if (selectedRecipe && addInfo) {
+      const { quantity, resetItemSelect } = addInfo;
+      const payload = {
+        id,
         amount: Number(quantity),
         recipe: selectedRecipe,
       };
-      dispatch(addToOutput(itemToAdd));
-      setShowPopup(false);
-      setDidntSelect(false);
-      setSelectedRecipe({});
-      resetOptions();
+      dispatch(addToOutput(payload));
+      resetItemSelect();
+      resetComponent();
+    } else if (selectedRecipe && !uid) {
+      const payload = {
+        id,
+        recipe: selectedRecipe,
+      };
+      dispatch(extendSameTypeElements(payload));
+      resetComponent();
+    } else if (selectedRecipe) {
+      const payload = {
+        uid,
+        recipe: selectedRecipe,
+      };
+      dispatch(extendElement(payload));
+      resetComponent();
     } else {
-      setDidntSelect(true);
+      setWarning(true);
     }
   };
 
   const handleCancel = () => {
-    setShowPopup(false);
-    setSelectedRecipe({});
-    setDidntSelect(false);
+    resetComponent();
   };
 
   return (
@@ -108,16 +123,16 @@ export const SelectRecipePopup = ({
         <InputContainer>
           {recipes.map((recipe, idx) => (
             <SelectButton
-              onClick={handleSelectRecipe}
-              selectedRecipe={selectedRecipe}
-              recipe={recipe}
               key={idx}
+              recipe={recipe}
+              selectedRecipe={selectedRecipe}
+              handleSelectRecipe={handleSelectRecipe}
             />
           ))}
         </InputContainer>
-        {didntSelect && <Warning>Select a recipe to continue!</Warning>}
+        {warning && <Warning>Select a recipe to continue!</Warning>}
         <ButtonsContainer>
-          <Button onClick={handleSelect} buttonType={"green"}>
+          <Button onClick={handleSubmit} buttonType={"green"}>
             [E]nter
           </Button>
           <Button onClick={handleCancel} buttonType={"red"}>

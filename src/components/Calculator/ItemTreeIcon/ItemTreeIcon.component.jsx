@@ -3,7 +3,7 @@ import {
   checkIfMultipleRecipes,
   formatNumber,
   getImageUrlById,
-  getRecipeById,
+  getRecipeByProduct,
 } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,7 @@ import {
   collapseElement,
   collapseSameTypeElements,
 } from "../../../reduxStore/calculator/calculator.slice";
-import { RecipeSelectPopup } from "../RecipeSelectPopup/RecipeSelectPopup.component";
+import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
 
 const Container = styled.div`
   border: 2px solid #b47500;
@@ -65,10 +65,9 @@ const AmountText = styled.p`
     -1px 0px 1px #000;
 `;
 
-// refactor
 export const ItemTreeIcon = ({ outputItem }) => {
   const { uid, id, amount, ingredients } = outputItem;
-  const [showPopup, setShowPopup] = useState(false);
+  const [popupId, setPopupId] = useState(null);
   const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(amount);
@@ -77,9 +76,9 @@ export const ItemTreeIcon = ({ outputItem }) => {
   const handleClick = (event) => {
     if (!ingredients) {
       if (checkIfMultipleRecipes(id)) {
-        setShowPopup(true);
+        setPopupId(id);
       } else {
-        const recipe = getRecipeById(id);
+        const recipe = getRecipeByProduct(id);
         if (event.shiftKey && event.button === 0) {
           const payload = {
             id: id,
@@ -117,8 +116,8 @@ export const ItemTreeIcon = ({ outputItem }) => {
           </ImgContainer>
         </InnerContainer>
       </Container>
-      {showPopup && (
-        <RecipeSelectPopup inputId={id} uid={uid} setShowPopup={setShowPopup} />
+      {popupId && (
+        <SelectRecipePopup id={popupId} setId={setPopupId} uid={uid} />
       )}
     </>
   );

@@ -45,7 +45,11 @@ const ImgContainer = styled.div`
 `;
 
 // refactor
-export const SelectButton = ({ recipe, selectedRecipe, onClick }) => {
+export const SelectButton = ({
+  recipe,
+  selectedRecipe,
+  handleSelectRecipe,
+}) => {
   const [selected, setSelected] = useState(false);
   const { name } = recipe;
   const imgUrl = getImageUrlById(name);
@@ -63,7 +67,11 @@ export const SelectButton = ({ recipe, selectedRecipe, onClick }) => {
       <Tooltip id={name} delayShow={"300"}>
         <SelectButtonTooltip recipe={recipe} />
       </Tooltip>
-      <Container selected={selected} data-tooltip-id={name} onClick={onClick}>
+      <Container
+        selected={selected}
+        data-tooltip-id={name}
+        onClick={handleSelectRecipe}
+      >
         <InnerContainer>
           <ImgContainer>
             <img id={name} src={imgUrl} alt="" />

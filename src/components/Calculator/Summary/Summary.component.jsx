@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { getRecipes, getProducers } from "../../../utils/helperFunctions";
+import {
+  getProducers,
+  checkIfMultipleRecipes,
+  getRecipeById,
+} from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,7 +16,7 @@ import {
   machinesArray,
 } from "../../../reduxStore/calculator/calculator.selector";
 import { ModifyOutputPopup } from "../ModifyOutputPopup/ModifyOutputPopup.component";
-import { RecipeSelectPopup } from "../RecipeSelectPopup/RecipeSelectPopup.component";
+import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
 import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup.component";
 import { Window } from "./Window/Window.component";
 
@@ -39,21 +43,23 @@ export const Summary = () => {
   };
 
   const handleInputClick = (id, event) => {
-    const recipe = getRecipes(id);
     if (event.shiftKey && event.button === 0) {
       const producers = getProducers(output, id);
       producers.forEach((id) => {
         dispatch(collapseSameTypeElements(id));
       });
     } else {
-      if (recipe && recipe.length > 1) {
+      if (checkIfMultipleRecipes(id)) {
         setInputId(id);
-      } else if (recipe) {
-        const payload = {
-          id: id,
-          recipe: recipe.name,
-        };
-        dispatch(extendSameTypeElements(payload));
+      } else {
+        const recipe = getRecipeById(id);
+        if (recipe) {
+          const payload = {
+            id: id,
+            recipe: recipe.name,
+          };
+          dispatch(extendSameTypeElements(payload));
+        }
       }
     }
   };
@@ -77,9 +83,7 @@ export const Summary = () => {
         items={input}
         handleClick={handleInputClick}
       />
-      {inputId && (
-        <RecipeSelectPopup inputId={inputId} setInputId={setInputId} />
-      )}
+      {inputId && <SelectRecipePopup id={inputId} setId={setInputId} />}
       {machines.length > 0 && (
         <Window
           title={"Required Machines / Beacons / Modules"}

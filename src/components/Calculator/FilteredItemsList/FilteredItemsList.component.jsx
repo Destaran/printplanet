@@ -46,6 +46,7 @@ const ItemIcon = styled.img`
   width: auto;
 `;
 
+// bug: fix search string under the hood formatting
 export const FilteredItemsList = ({ selectItem, searchString }) => {
   const filteredItems = useMemo(
     () =>

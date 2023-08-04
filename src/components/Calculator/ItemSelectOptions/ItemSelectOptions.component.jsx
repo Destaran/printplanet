@@ -3,7 +3,11 @@ import {
   UnitSelectContainer,
   AddButtonContainer,
 } from "./ItemSelectOptions.styles";
-import { getRecipes, getNameById } from "../../../utils/helperFunctions";
+import {
+  getNameById,
+  checkIfMultipleRecipes,
+  getRecipeById,
+} from "../../../utils/helperFunctions";
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,11 +15,11 @@ import {
   addToExistingOutput,
 } from "../../../reduxStore/calculator/calculator.slice";
 import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
-import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component.jsx";
 import { SearchBar } from "../SearchBar/SearchBar.component";
 import { QuantitySelect } from "../QuantitySelect/QuantitySelect.component";
 import { FormSelect } from "../FormSelect/FormSelect.component";
 import { Button } from "../../Button/Button.component";
+import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
 
 // refactor
 export const ItemSelectOptions = ({
@@ -28,7 +32,7 @@ export const ItemSelectOptions = ({
 }) => {
   const dispatch = useDispatch();
   const output = useSelector(outputKeys);
-  const [showPopup, setShowPopup] = useState(false);
+  const [popupId, setPopupId] = useState(null);
   const [unit, setUnit] = useState(1);
 
   const handleUnitChange = ({ target }) => {
@@ -43,14 +47,14 @@ export const ItemSelectOptions = ({
     setUnit(1);
   }, [setCurrentItem, setQuantity, setSearchString]);
 
-  const addItemHandler = useCallback(() => {
+  const addHandler = useCallback(() => {
     if (currentItem) {
       const existingItem = output.find((item) => item === currentItem);
       if (!existingItem) {
-        const recipe = getRecipes(currentItem);
-        if (recipe.length > 1) {
-          setShowPopup(true);
-        } else if (recipe) {
+        if (checkIfMultipleRecipes(currentItem)) {
+          setPopupId(currentItem);
+        } else {
+          const recipe = getRecipeById(currentItem);
           const itemToAdd = {
             id: currentItem,
             amount: Number(quantity),
@@ -79,14 +83,19 @@ export const ItemSelectOptions = ({
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "A") {
-        addItemHandler();
+        addHandler();
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [addItemHandler]);
+  }, [addHandler]);
+
+  const addInfo = {
+    quantity,
+    resetItemSelect: resetOptions,
+  };
 
   return (
     <SelectionContainer>
@@ -101,16 +110,11 @@ export const ItemSelectOptions = ({
       <UnitSelectContainer>
         <FormSelect value={unit} onChange={handleUnitChange} />
         <AddButtonContainer>
-          <Button onClick={addItemHandler}>[A]dd</Button>
+          <Button onClick={addHandler}>[A]dd</Button>
         </AddButtonContainer>
       </UnitSelectContainer>
-      {showPopup && (
-        <SelectRecipePopup
-          currentItem={currentItem}
-          quantity={quantity}
-          setShowPopup={setShowPopup}
-          resetOptions={resetOptions}
-        />
+      {popupId && (
+        <SelectRecipePopup id={popupId} setId={setPopupId} addInfo={addInfo} />
       )}
     </SelectionContainer>
   );
