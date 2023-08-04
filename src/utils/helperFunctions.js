@@ -108,6 +108,17 @@ export const getMachineObjectById = (id) => {
   return craftingMachines.find((item) => item.name === id);
 };
 
+export const checkIfMultipleRecipes = (id) => {
+  const matchingObjects = recipes.filter((obj) =>
+    obj.products.some((product) => product.name === id)
+  );
+  if (matchingObjects.length === 1) {
+    return false;
+  } else if (matchingObjects.length > 1) {
+    return true;
+  }
+};
+
 export const getRecipes = (productId) => {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === productId)
