@@ -210,7 +210,7 @@ export const checkIfDefault = (machineId, defaultMachines) => {
   }
 };
 
-export const checkIfUseableModule = (module, recipeId) => {
+const checkIfUseableModule = (module, recipeId) => {
   if (module) {
     let isUseable = false;
     const useableModules = getModulesByRecipeId(recipeId);
@@ -222,6 +222,22 @@ export const checkIfUseableModule = (module, recipeId) => {
     return isUseable;
   } else {
     return true;
+  }
+};
+
+export const checkModulesForBumping = (uid, machine, recipe) => {
+  if (uid && machine) {
+    const { modules: machineModules } = machine;
+    let shouldBump = false;
+    machineModules.forEach((module) => {
+      if (
+        module.includes("productivity") &&
+        !checkIfUseableModule(module, recipe)
+      ) {
+        shouldBump = true;
+      }
+    });
+    return shouldBump;
   }
 };
 
