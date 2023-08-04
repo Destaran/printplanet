@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {
   getProducers,
   checkIfMultipleRecipes,
-  getRecipeById,
+  getRecipeByProduct,
 } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,7 +52,7 @@ export const Summary = () => {
       if (checkIfMultipleRecipes(id)) {
         setInputId(id);
       } else {
-        const recipe = getRecipeById(id);
+        const recipe = getRecipeByProduct(id);
         if (recipe) {
           const payload = {
             id: id,
