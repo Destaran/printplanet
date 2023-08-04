@@ -61,7 +61,7 @@ export const SearchBar = ({
       <SearchBarContainer>
         <FormInput
           autoFocus
-          placeholder="Search item"
+          placeholder="Search Item"
           type="text"
           value={searchString}
           name="item-search"
