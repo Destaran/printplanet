@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import {
+  checkIfMultipleRecipes,
   formatNumber,
   getImageUrlById,
-  getRecipes,
+  getRecipeById,
 } from "../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -74,11 +75,11 @@ export const ItemTreeIcon = ({ outputItem }) => {
   const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
 
   const handleClick = (event) => {
-    const recipe = getRecipes(id);
     if (!ingredients) {
-      if (recipe.length > 1) {
+      if (checkIfMultipleRecipes(id)) {
         setShowPopup(true);
       } else {
+        const recipe = getRecipeById(id);
         if (event.shiftKey && event.button === 0) {
           const payload = {
             id: id,
