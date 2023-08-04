@@ -3,6 +3,7 @@ import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
 import { SelectButtonTooltip } from "./SelectButtonTooltip.component";
+import { useCallback } from "react";
 
 const ppDark = "#313131";
 
@@ -44,15 +45,49 @@ const ImgContainer = styled.div`
   }
 `;
 
+const ShortcutText = styled.p`
+  position: absolute;
+  font-size: 14px;
+  height: 10px;
+  bottom: 7px;
+  right: 0;
+  margin: 0;
+  color: white;
+  text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
+    -1px 0px 1px #000;
+`;
+
 // refactor
 export const SelectButton = ({
   recipe,
   selectedRecipe,
-  handleSelectRecipe,
+  setSelectedRecipe,
+  handleEnter,
+  shortcut,
 }) => {
   const [selected, setSelected] = useState(false);
   const { name } = recipe;
   const imgUrl = getImageUrlById(name);
+
+  const handleClick = () => {
+    setSelectedRecipe(name);
+  };
+
+  const handleShortcut = useCallback(() => {
+    setSelectedRecipe(name);
+  }, [setSelectedRecipe, name]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === shortcut) {
+        handleShortcut();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleEnter, handleShortcut, shortcut]);
 
   useEffect(() => {
     if (selectedRecipe === name) {
@@ -70,11 +105,12 @@ export const SelectButton = ({
       <Container
         selected={selected}
         data-tooltip-id={name}
-        onClick={handleSelectRecipe}
+        onClick={handleClick}
       >
         <InnerContainer>
           <ImgContainer>
             <img id={name} src={imgUrl} alt="" />
+            <ShortcutText>{`[${shortcut}]`}</ShortcutText>
           </ImgContainer>
         </InnerContainer>
       </Container>
