@@ -47,9 +47,8 @@ export const SearchBar = ({
   setSearchString,
 }) => {
   const handleSearchChange = ({ target }) => {
-    const { value } = target;
     setCurrentItem("");
-    setSearchString(value);
+    setSearchString(target.value);
   };
 
   const handleInputFocus = ({ target }) => {
