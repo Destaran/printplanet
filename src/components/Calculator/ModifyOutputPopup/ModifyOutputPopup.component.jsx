@@ -65,12 +65,12 @@ const ButtonsContainer = styled.div`
     margin: 8px;
   }
 `;
-
 export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
   const amount = useSelector(outputObject)[id].amount;
   const [newAmount, setNewAmount] = useState(amount);
   const imgUrl = getImageUrlById(id);
   const dispatch = useDispatch();
+  console.log(id);
 
   const inputHandler = ({ target }) => {
     setNewAmount(target.value);
@@ -120,7 +120,7 @@ export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
     <Container>
       <InnerContainer>
         <Header>
-          <p>Modify / Remove Item</p>
+          <p>Modify / Remove Output Item</p>
         </Header>
         <InputContainer>
           <img src={imgUrl} alt={id} />
