@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { bumpModules } from "../../../../../../../reduxStore/calculator/calculator.slice";
 import { IconTooltip } from "./IconTooltip.component";
+import { useState } from "react";
+import { MachineEditPopup } from "../../../../../MachineEditPopup/MachineEditPopup.component";
 
 const OutterContainer = styled.div`
   border: 2px solid #b47500;
@@ -87,6 +89,7 @@ const BeaconsIcons = styled.div`
 
 export const MachineIcon = ({ outputItem }) => {
   const dispatch = useDispatch();
+  const [machineEditId, setMachineEditId] = useState(null);
   const { recipe, machine, uid } = outputItem;
   const { id, amount, modules, uid: machineUid, beacons } = machine;
   const imgUrl = getImageUrlById(id);
@@ -96,6 +99,10 @@ export const MachineIcon = ({ outputItem }) => {
   const beaconUrl = getImageUrlById("beacon");
   const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
 
+  const handleClick = () => {
+    setMachineEditId(id);
+  };
+
   useEffect(() => {
     if (checkModulesForBumping(uid, machine, recipe)) {
       dispatch(bumpModules(uid));
@@ -104,7 +111,7 @@ export const MachineIcon = ({ outputItem }) => {
 
   return (
     <>
-      <OutterContainer data-tooltip-id={machineUid}>
+      <OutterContainer data-tooltip-id={machineUid} onClick={handleClick}>
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
@@ -125,6 +132,13 @@ export const MachineIcon = ({ outputItem }) => {
         </InnerContainer>
       </OutterContainer>
       <IconTooltip machine={outputItem.machine} />
+      {machineEditId && (
+        <MachineEditPopup
+          machineId={machineEditId}
+          setMachineId={setMachineEditId}
+          uid={uid}
+        />
+      )}
     </>
   );
 };
