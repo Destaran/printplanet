@@ -70,7 +70,6 @@ export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
   const [newAmount, setNewAmount] = useState(amount);
   const imgUrl = getImageUrlById(id);
   const dispatch = useDispatch();
-  console.log(id);
 
   const inputHandler = ({ target }) => {
     setNewAmount(target.value);
