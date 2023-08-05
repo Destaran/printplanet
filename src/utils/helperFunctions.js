@@ -294,9 +294,6 @@ export const summarizeBeacons = (outputItem, machinesArray) => {
       };
       machinesArray.push(objToPush);
     } else if (outputItem.machine.beacons.required > 0) {
-      console.log(
-        `${existingBeacon.amount} + ${outputItem.machine.beacons.required}`
-      );
       existingBeacon.amount += outputItem.machine.beacons.required;
     }
     outputItem.ingredients.forEach((ingredient) => {
