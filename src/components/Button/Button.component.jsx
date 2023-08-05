@@ -9,9 +9,10 @@ export const DefaultButton = styled.button`
   margin: 15px 0;
   background-color: #14213d;
   color: #f4f1de;
+  cursor: pointer;
 
-  &:hover {
-    cursor: pointer;
+  &:hover,
+  :focus {
     background-color: orange;
     color: #14213d;
     border-color: #14213d;
@@ -27,7 +28,8 @@ const RedButton = styled(DefaultButton)`
   background-color: #580000;
   color: white;
 
-  &:hover {
+  &:hover,
+  :focus {
     background-color: red;
     color: black;
   }
@@ -42,7 +44,8 @@ const GreenButton = styled(DefaultButton)`
   background-color: #003f00;
   color: white;
 
-  &:hover {
+  &:hover,
+  :focus {
     background-color: #00c300;
     color: black;
   }
