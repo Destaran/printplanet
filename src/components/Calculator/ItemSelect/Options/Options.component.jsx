@@ -29,7 +29,6 @@ const Container = styled.div`
   }
 `;
 
-// refactor
 export const Options = ({
   searchString,
   setSearchString,

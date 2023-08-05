@@ -69,7 +69,7 @@ const MachineFunctions = styled.div`
   }
 `;
 
-// refactor: much to do here m8
+// refactor: single machine edit compatibility
 export const MachineEditPopup = ({ machineId, setMachineId, uid }) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);

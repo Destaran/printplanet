@@ -57,7 +57,6 @@ const ShortcutText = styled.p`
     -1px 0px 1px #000;
 `;
 
-// refactor
 export const SelectButton = ({
   recipe,
   selectedRecipe,
