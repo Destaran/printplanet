@@ -412,15 +412,15 @@ export const calculateTree = ({
       const ingredientRecipe = recipe.ingredients.find(
         (item) => item.name === ingredient.id
       );
-      if (ingredient.id !== "satellite") {
+      if (ingredient.id === "satellite") {
         ingredient.amount = Number(
-          (ingredientRecipe.amount * (amount / (machine.productivity + 1))) /
+          (ingredientRecipe.amount * amount) /
             product.amount /
             product.probability
         );
       } else {
         ingredient.amount = Number(
-          (ingredientRecipe.amount * amount) /
+          (ingredientRecipe.amount * (amount / (machine.productivity + 1))) /
             product.amount /
             product.probability
         );
