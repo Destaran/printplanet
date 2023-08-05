@@ -70,7 +70,7 @@ const MachineFunctions = styled.div`
 `;
 
 // refactor: much to do here m8
-export const MachineEditPopup = ({ machineId, setMachineId }) => {
+export const MachineEditPopup = ({ machineId, setMachineId, uid }) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
 
@@ -84,21 +84,25 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
   const [modules, setModules] = useState(machine.modules);
   const [beacons, setBeacons] = useState(machine.beacons);
 
-  const saveHandler = () => {
-    const payload = {
-      update: machineId,
-      categories: Object.keys(currentSelected.categories),
-      machineConfig: {
-        id: currentSelected.name,
-        craftingSpeed: currentSelected.craftingSpeed,
-        productivity: 0,
-        modules: modules,
-        beacons: beacons,
-      },
-    };
-    dispatch(saveDefaultMachineConfig(payload));
-    dispatch(swapMachines(payload));
-    setMachineId(null);
+  const enterHandler = () => {
+    if (!uid) {
+      const payload = {
+        update: machineId,
+        categories: Object.keys(currentSelected.categories),
+        machineConfig: {
+          id: currentSelected.name,
+          craftingSpeed: currentSelected.craftingSpeed,
+          productivity: 0,
+          modules: modules,
+          beacons: beacons,
+        },
+      };
+      dispatch(saveDefaultMachineConfig(payload));
+      dispatch(swapMachines(payload));
+      setMachineId(null);
+    } else {
+      // singleMachineEdit
+    }
   };
 
   const changeHandler = useCallback(() => {
@@ -111,11 +115,11 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
     setModules(new Array(currentSelected.moduleSlots).fill(""));
   }, [currentSelected.moduleSlots]);
 
-  const cancelHandler = () => {
+  const backHandler = () => {
     setMachineId(null);
   };
 
-  // ask Guli for best practice
+  // ask Guli for best practice [alt]
   const onBeaconChange = ({ target }) => {
     const { value, alt } = target;
     setBeacons((prevConfig) => ({
@@ -168,11 +172,11 @@ export const MachineEditPopup = ({ machineId, setMachineId }) => {
           </ConfigContainer>
         </MachineSettings>
         <MachineFunctions>
-          <Button buttonType={"green"} onClick={saveHandler}>
-            Save
+          <Button buttonType={"green"} onClick={enterHandler}>
+            [E]nter
           </Button>
-          <Button buttonType={"red"} onClick={cancelHandler}>
-            Cancel
+          <Button buttonType={"red"} onClick={backHandler}>
+            [B]ack
           </Button>
         </MachineFunctions>
       </Container>
