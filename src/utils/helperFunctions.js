@@ -350,20 +350,14 @@ const getReqMachineCount = (
   productivity,
   amount,
   craftingTime,
-  constant,
-  recipeYield
+  constant = 0,
+  recipeYield,
+  probability
 ) => {
-  if (!constant) {
-    return (
-      (amount / recipeYield) *
-      (craftingTime / craftingSpeed / (productivity + 1))
-    );
-  } else {
-    return (
-      (amount / recipeYield) *
-      (craftingTime / craftingSpeed / (productivity + 1) + constant)
-    );
-  }
+  return (
+    (amount / recipeYield / probability) *
+    (craftingTime / craftingSpeed / (productivity + 1) + constant)
+  );
 };
 
 const getReqBeaconCount = (constant, additional, machineAmount) => {
@@ -394,7 +388,8 @@ export const calculateTree = ({
       amount,
       recipe.energy,
       recipe.constant,
-      product.amount
+      product.amount,
+      product.probability
     );
     // refactor: make the beacons calculation below a function
     const beaconsCopy = structuredClone(machine.beacons);
@@ -420,11 +415,14 @@ export const calculateTree = ({
       if (ingredient.id !== "satellite") {
         ingredient.amount = Number(
           (ingredientRecipe.amount * (amount / (machine.productivity + 1))) /
-            product.amount
+            product.amount /
+            product.probability
         );
       } else {
         ingredient.amount = Number(
-          (ingredientRecipe.amount * amount) / product.amount
+          (ingredientRecipe.amount * amount) /
+            product.amount /
+            product.probability
         );
       }
       calculateTree(ingredient);
