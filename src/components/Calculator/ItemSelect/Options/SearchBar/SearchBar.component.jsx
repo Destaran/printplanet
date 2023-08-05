@@ -67,7 +67,7 @@ export const SearchBar = ({
           onChange={handleSearchChange}
           onFocus={handleInputFocus}
         />
-        {searchString && currentItem !== searchString && (
+        {searchString && !currentItem && (
           <FilteredItemsList
             selectItem={selectItem}
             setCurrentItem={setCurrentItem}
