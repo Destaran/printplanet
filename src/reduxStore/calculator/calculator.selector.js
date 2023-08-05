@@ -1,5 +1,6 @@
 import {
   calculateTree,
+  summarizeBeacons,
   summarizeInputs,
   summarizeMachines,
   summarizeModules,
@@ -34,6 +35,7 @@ export const machinesArray = createSelector(calculatedOutput, (output) => {
   output.forEach((item) => {
     summarizeMachines(item, machines);
     summarizeModules(item, machines);
+    summarizeBeacons(item, machines);
   });
   return machines;
 });

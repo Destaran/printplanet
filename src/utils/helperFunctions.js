@@ -282,6 +282,29 @@ export const summarizeMachines = (outputItem, machinesArray) => {
   }
 };
 
+export const summarizeBeacons = (outputItem, machinesArray) => {
+  if (outputItem.ingredients) {
+    const existingBeacon = machinesArray.find(
+      (module) => module.id === "beacon"
+    );
+    if (!existingBeacon && outputItem.machine.beacons.required > 0) {
+      const objToPush = {
+        id: "beacon",
+        amount: outputItem.machine.beacons.required,
+      };
+      machinesArray.push(objToPush);
+    } else if (outputItem.machine.beacons.required > 0) {
+      console.log(
+        `${existingBeacon.amount} + ${outputItem.machine.beacons.required}`
+      );
+      existingBeacon.amount += outputItem.machine.beacons.required;
+    }
+    outputItem.ingredients.forEach((ingredient) => {
+      summarizeBeacons(ingredient, machinesArray);
+    });
+  }
+};
+
 export const countModules = ({ modules, beacons, amount }) => {
   const modulesAcc = {};
   const roundedMachineCount = Math.ceil(amount);
@@ -303,33 +326,24 @@ export const countModules = ({ modules, beacons, amount }) => {
   }
   return modulesAcc;
 };
+
 export const summarizeModules = (outputItem, machinesArray) => {
-  if (outputItem.machine) {
+  if (outputItem.ingredients) {
     const machineModules = countModules(outputItem.machine);
-    const hasBeacons = machinesArray.find((module) => module.id === "beacon");
-    if (!hasBeacons && outputItem.machine.beacons.required > 0) {
-      const objToPush = {
-        id: "beacon",
-        amount: outputItem.machine.beacons.required,
-      };
-      machinesArray.push(objToPush);
-    } else if (outputItem.machine.beacons.required > 0) {
-      hasBeacons.amount += outputItem.machine.beacons.required;
-    }
     Object.keys(machineModules).forEach((key) => {
-      const existingItem = machinesArray.find((module) => module.id === key);
-      if (!existingItem) {
+      const existingModule = machinesArray.find((module) => module.id === key);
+      if (!existingModule) {
         const objToPush = {
           id: key,
           amount: machineModules[key],
         };
         machinesArray.push(objToPush);
       } else {
-        existingItem.amount += machineModules[key];
+        existingModule.amount += machineModules[key];
       }
-      outputItem.ingredients.forEach((ingredient) => {
-        summarizeModules(ingredient, machinesArray);
-      });
+    });
+    outputItem.ingredients.forEach((ingredient) => {
+      summarizeModules(ingredient, machinesArray);
     });
   }
 };
