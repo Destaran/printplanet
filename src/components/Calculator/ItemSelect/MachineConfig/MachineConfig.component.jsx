@@ -22,7 +22,8 @@ const ppBlue = "#14213d";
 const Container = styled.div`
   width: fit-content;
   display: flex;
-  border: 1px solid ${ppBlue};
+  border-top: 1px solid ${ppBlue};
+  border-bottom: 1px solid ${ppBlue};
   padding: 10px;
   width: auto;
   input,

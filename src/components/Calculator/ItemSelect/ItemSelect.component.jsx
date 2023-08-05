@@ -23,7 +23,9 @@ const Container = styled.div`
 
 const OptionsContainer = styled.div`
   display: flex;
-  border: 1px solid ${ppBlue};
+  border-top: 1px solid ${ppBlue};
+  border-bottom: 1px solid ${ppBlue};
+  border-left: 1px solid ${ppBlue};
   padding: 10px;
   width: auto;
   input,
