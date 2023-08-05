@@ -51,7 +51,10 @@ export const FilteredItemsList = ({ selectItem, searchString }) => {
   const filteredItems = useMemo(
     () =>
       getAllProducts.filter((item) =>
-        item.name.toLowerCase().includes(searchString)
+        item.name
+          .toLowerCase()
+          .replace("-", " ")
+          .includes(searchString.toLowerCase())
       ),
     [searchString]
   );
