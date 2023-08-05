@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { ListDiv } from "./ListDiv/ListDiv.component";
+import { outputObject } from "../../../../../reduxStore/calculator/calculator.selector";
 import { IngredientList } from "./IngredientList/IngredientList.component";
+import { useSelector } from "react-redux";
 
 const ListElement = styled.li`
   padding: 0;
@@ -9,10 +11,10 @@ const ListElement = styled.li`
   border-left: 2px solid black;
   padding-left: 50px;
 `;
-// refactor: should be called ListElement and TreeFragment should be ListDiv
 export const TreeFragment = ({ outputItem, pid }) => {
   const { ingredients } = outputItem;
-  const firstRender = outputItem.id !== pid;
+  const output = useSelector(outputObject);
+  const firstRender = outputItem.uid !== output[pid].uid;
 
   return (
     <>
