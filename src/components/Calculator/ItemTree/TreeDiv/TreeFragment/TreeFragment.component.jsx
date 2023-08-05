@@ -12,11 +12,25 @@ const ListElement = styled.li`
 // refactor: should be called ListElement and TreeFragment should be ListDiv
 export const TreeFragment = ({ outputItem, pid }) => {
   const { ingredients } = outputItem;
+  const firstRender = outputItem.id !== pid;
 
   return (
-    <ListElement>
-      <ListDiv outputItem={outputItem} />
-      {ingredients && <IngredientList ingredients={ingredients} pid={pid} />}
-    </ListElement>
+    <>
+      {firstRender ? (
+        <ListElement>
+          <ListDiv outputItem={outputItem} />
+          {ingredients && (
+            <IngredientList ingredients={ingredients} pid={pid} />
+          )}
+        </ListElement>
+      ) : (
+        <>
+          <ListDiv outputItem={outputItem} />
+          {ingredients && (
+            <IngredientList ingredients={ingredients} pid={pid} />
+          )}
+        </>
+      )}
+    </>
   );
 };
