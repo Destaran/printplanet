@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {
   getImageUrlById,
   checkModulesForBumping,
+  formatNumber,
 } from "../../../../../../../utils/helperFunctions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -91,7 +92,7 @@ export const MachineIcon = ({ outputItem }) => {
   const { recipe, machine, uid } = outputItem;
   const { id, amount, modules, uid: machineUid, beacons } = machine;
   const imgUrl = getImageUrlById(id);
-  const displayAmount = Math.ceil(amount);
+  const displayAmount = formatNumber(Math.ceil(amount));
   const fontSize = 14;
   const firstModule = modules.find((module) => module.length > 0);
   const moduleUrl = getImageUrlById(firstModule);
