@@ -16,48 +16,71 @@ const spaceNumber = (numberString, insertIndex) => {
 };
 
 // refactor
-// bug
 export const formatNumber = (number) => {
   if (typeof number !== "number") {
     return;
   }
   let numberString;
   let insertIndex;
-  if (Number.isInteger(number) && number < 10000) {
-    numberString = number.toString();
+  if (number < 0.001) {
+    return number.toFixed(4).toString();
+  } else if (number < 0.01) {
+    return number.toFixed(3).toString();
+  } else if (number < 0.1) {
+    return number.toFixed(2).toString();
+  } else if (number < 100 && !number.toFixed(1).endsWith(0)) {
+    return number.toFixed(1).toString();
+  } else if (number < 10000) {
+    numberString = Math.ceil(number).toString();
     insertIndex = numberString.length - 3;
-  } else if (number >= 10000 && number < 100000) {
-    numberString = (number / 1000).toFixed(2).toString().concat("k");
-    insertIndex = numberString.length - 6;
-    if (numberString.endsWith("0k")) {
+  } else if (number < 100000) {
+    if (!(number / 10).toFixed(1).endsWith(0)) {
+      numberString = (Math.ceil(number / 10) / 100).toString().concat("k");
+      insertIndex = numberString.length - 6;
+    } else if (!(number / 1000).toFixed(2).endsWith(0)) {
+      numberString = (number / 1000).toFixed(2).toString().concat("k");
+      insertIndex = numberString.length - 6;
+    } else if (!(number / 1000).toFixed(1).endsWith(0)) {
       numberString = (number / 1000).toFixed(1).toString().concat("k");
       insertIndex = numberString.length - 5;
-    }
-    if (numberString.endsWith("0k")) {
+    } else {
       numberString = Math.ceil(number / 1000)
         .toString()
         .concat("k");
       insertIndex = numberString.length - 4;
     }
-  } else if (number >= 100000 && number < 10000000) {
+  } else if (number < 1000000) {
     numberString = Math.ceil(number / 1000)
       .toString()
       .concat("k");
     insertIndex = numberString.length - 4;
-  } else if (number >= 10000000) {
+  } else if (number < 100000000) {
+    if (!(number / 10).toFixed(1).endsWith(0)) {
+      numberString = (Math.ceil(number / 10) / 100000)
+        .toFixed(2)
+        .toString()
+        .concat("M");
+      insertIndex = numberString.length - 6;
+    } else if (!(number / 1000000).toFixed(2).endsWith(0)) {
+      numberString = (number / 1000000).toFixed(2).toString().concat("M");
+      insertIndex = numberString.length - 6;
+    } else if (!(number / 1000000).toFixed(1).endsWith(0)) {
+      numberString = (number / 1000000).toFixed(1).toString().concat("M");
+      insertIndex = numberString.length - 5;
+    } else {
+      numberString = Math.ceil(number / 1000000)
+        .toString()
+        .concat("M");
+      insertIndex = numberString.length - 4;
+    }
+  } else if (number < 1000000000) {
     numberString = Math.ceil(number / 1000000)
       .toString()
-      .concat("kk");
+      .concat("M");
     insertIndex = numberString.length - 4;
-  } else if (number >= 100) {
-    numberString = Number(Math.ceil(number)).toString();
-    insertIndex = numberString.length - 3;
-  } else if (number <= 0.009) {
-    return Number(number.toFixed(3)).toString();
-  } else if (number <= 0.09) {
-    return Number(number.toFixed(2)).toString();
   } else {
-    return Number(number.toFixed(1)).toString();
+    numberString = (number / 1000000000).toFixed(2).toString().concat("B");
+    insertIndex = numberString.length - 5;
   }
   return spaceNumber(numberString, insertIndex);
 };
