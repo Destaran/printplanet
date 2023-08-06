@@ -5,19 +5,61 @@ export const recipes = data.recipes;
 export const craftingMachines = data.craftingMachines;
 export const modules = data.modules;
 
+const spaceNumber = (numberString, insertIndex) => {
+  const charArray = Array.from(numberString);
+  while (insertIndex > 0) {
+    charArray.splice(insertIndex, 0, " ");
+    insertIndex -= 3;
+  }
+  const formattedNumber = charArray.join("");
+  return formattedNumber;
+};
+
+// refactor
+// bug
 export const formatNumber = (number) => {
   if (typeof number !== "number") {
     return;
   }
-  if (Number.isInteger(number)) {
-    return number;
+  let numberString;
+  let insertIndex;
+  if (Number.isInteger(number) && number < 10000) {
+    numberString = number.toString();
+    insertIndex = numberString.length - 3;
+  } else if (number >= 10000 && number < 100000) {
+    numberString = (number / 1000).toFixed(2).toString().concat("k");
+    insertIndex = numberString.length - 6;
+    if (numberString.endsWith("0k")) {
+      numberString = (number / 1000).toFixed(1).toString().concat("k");
+      insertIndex = numberString.length - 5;
+    }
+    if (numberString.endsWith("0k")) {
+      numberString = Math.ceil(number / 1000)
+        .toString()
+        .concat("k");
+      insertIndex = numberString.length - 4;
+    }
+  } else if (number >= 100000 && number < 10000000) {
+    numberString = Math.ceil(number / 1000)
+      .toString()
+      .concat("k");
+    insertIndex = numberString.length - 4;
+  } else if (number >= 10000000) {
+    numberString = Math.ceil(number / 1000000)
+      .toString()
+      .concat("kk");
+    insertIndex = numberString.length - 4;
   } else if (number >= 100) {
-    return Number(Math.ceil(number));
+    numberString = Number(Math.ceil(number)).toString();
+    insertIndex = numberString.length - 3;
+  } else if (number <= 0.009) {
+    return Number(number.toFixed(3)).toString();
   } else if (number <= 0.09) {
-    return Number(number.toFixed(2));
+    return Number(number.toFixed(2)).toString();
   } else {
-    return Number(number.toFixed(1));
+    return Number(number.toFixed(1)).toString();
   }
+  return spaceNumber(numberString, insertIndex);
 };
 
 export const getAllProducts = recipes.reduce((accumulator, obj) => {
