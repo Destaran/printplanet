@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
-import { getNameById } from "../../../../../../../utils/helperFunctions";
+import {
+  formatNumber,
+  getNameById,
+} from "../../../../../../../utils/helperFunctions";
 import { ModuleIndicator } from "./ModuleIndicator.component";
 
 const Container = styled.div`
@@ -46,6 +49,7 @@ export const IconTooltip = ({ machine }) => {
   const hasProd = machine.modules.some((module) =>
     module.includes("productivity")
   );
+  const beaconReqShow = formatNumber(machine.beacons.required);
   return (
     <Tooltip
       id={machine.uid}
@@ -70,7 +74,7 @@ export const IconTooltip = ({ machine }) => {
                 ))}
               </BeaconIcons>
               <p>&#x2715;</p>
-              <p>{machine.beacons.required}</p>
+              <p>{beaconReqShow}</p>
               <ModuleIndicator module={"beacon"} />
             </ModulesInner>
           </ModulesContainer>
