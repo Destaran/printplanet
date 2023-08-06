@@ -12,9 +12,9 @@ const OutterContainer = styled.div`
   margin: 1px;
   background-color: #313131;
   user-select: none;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
     background-color: orange;
   }
   &:active {
@@ -52,6 +52,7 @@ const AmountText = styled.p`
     -1px 0px 1px #000;
 `;
 
+// refactor: remove dynamic AmountText sizing
 export const WindowItem = ({ item, handleClick }) => {
   const { amount, id } = item;
   const imgUrl = getImageUrlById(id);
