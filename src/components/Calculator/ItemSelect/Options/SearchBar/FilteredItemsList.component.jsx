@@ -7,8 +7,8 @@ import {
 import { useMemo } from "react";
 
 const Container = styled.div`
-  position: relative;
-  top: -15px;
+  position: absolute;
+  top: 43px;
   width: 100%;
   z-index: 50;
 `;
@@ -28,7 +28,7 @@ const FilteredItem = styled.li`
   align-items: center;
   padding: 5px;
   border: solid black 1px;
-  background-color: #f1f1f1;
+  background-color: white;
   overflow: hidden;
   cursor: pointer;
 

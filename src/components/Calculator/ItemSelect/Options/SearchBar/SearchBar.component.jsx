@@ -14,6 +14,7 @@ const Container = styled.div`
 `;
 
 const SearchBarContainer = styled.div`
+  position: relative;
   width: 100%;
 `;
 
@@ -47,7 +48,9 @@ export const SearchBar = ({
   setSearchString,
 }) => {
   const handleSearchChange = ({ target }) => {
-    setCurrentItem("");
+    if (currentItem) {
+      setCurrentItem("");
+    }
     setSearchString(target.value);
   };
 
