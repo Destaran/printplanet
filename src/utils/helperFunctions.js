@@ -80,7 +80,7 @@ export const formatNumber = (number) => {
     insertIndex = numberString.length - 4;
   } else {
     numberString = (number / 1000000000).toFixed(2).toString().concat("B");
-    insertIndex = numberString.length - 5;
+    insertIndex = numberString.length - 7;
   }
   return spaceNumber(numberString, insertIndex);
 };
