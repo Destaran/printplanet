@@ -6,8 +6,14 @@ import {
   removeFromOutput,
   modifyOutputElement,
 } from "../../../reduxStore/calculator/calculator.slice";
-import { outputObject } from "../../../reduxStore/calculator/calculator.selector";
+import {
+  outputObject,
+  outputKeys,
+} from "../../../reduxStore/calculator/calculator.selector";
 import { Button } from "../../Button/Button.component";
+import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
+import { useRef } from "react";
 
 const Container = styled.div`
   position: fixed;
@@ -55,6 +61,15 @@ const InputContainer = styled.div`
     font-size: 24px;
     width: 80px;
   }
+  svg {
+    margin-left: 15px;
+    margin-right: 15px;
+    transform: scale(2);
+    cursor: pointer;
+    &:hover {
+      color: orange;
+    }
+  }
 `;
 
 const ButtonsContainer = styled.div`
@@ -65,29 +80,47 @@ const ButtonsContainer = styled.div`
     margin: 8px;
   }
 `;
-export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
+
+// refactor
+export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
+  const dispatch = useDispatch();
+  const inputRef = useRef(null);
+  const outputArray = useSelector(outputKeys);
+  const [id, setId] = useState(outputId);
+  const imgUrl = getImageUrlById(id);
   const amount = useSelector(outputObject)[id].amount;
   const [newAmount, setNewAmount] = useState(amount);
-  const imgUrl = getImageUrlById(id);
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setNewAmount(amount);
+  }, [amount]);
 
   const inputHandler = ({ target }) => {
     setNewAmount(target.value);
   };
 
   const enterHandler = useCallback(() => {
+    document.activeElement.blur();
     const newItem = {
       id: id,
       amount: Number(newAmount),
     };
     dispatch(modifyOutputElement(newItem));
-    setOutputId(null);
-  }, [dispatch, id, newAmount, setOutputId]);
+  }, [dispatch, id, newAmount]);
 
   const removeHandler = useCallback(() => {
+    let direction = -1;
+    if (outputArray.indexOf(id) === 0) {
+      direction = 1;
+    }
+    const newIndex = outputArray.indexOf(id) + direction;
+    if (newIndex < 0) {
+      setOutputId(null);
+    } else {
+      setId(outputArray[newIndex]);
+    }
     dispatch(removeFromOutput(id));
-    setOutputId(null);
-  }, [dispatch, id, setOutputId]);
+  }, [dispatch, id, outputArray, setOutputId]);
 
   const backHandler = useCallback(() => {
     setOutputId(null);
@@ -97,23 +130,49 @@ export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
     target.select();
   };
 
+  const nextHandler = useCallback(() => {
+    document.activeElement.blur();
+    const nextIndex = outputArray.indexOf(id) + 1;
+    if (nextIndex < outputArray.length) {
+      setId(outputArray[nextIndex]);
+    }
+    inputRef.current.focus();
+    inputRef.current.select();
+  }, [id, outputArray]);
+
+  const prevHandler = useCallback(() => {
+    document.activeElement.blur();
+    const nextIndex = outputArray.indexOf(id) - 1;
+    if (nextIndex >= 0) {
+      setId(outputArray[nextIndex]);
+    }
+    inputRef.current.focus();
+    inputRef.current.select();
+  }, [id, outputArray]);
+
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key.toLowerCase() === "r") {
+      if (event.key === "r") {
         removeHandler();
       }
-      if (event.key.toLowerCase() === "e") {
+      if (event.key === "e") {
         enterHandler();
       }
-      if (event.key.toLowerCase() === "b") {
+      if (event.key === "b") {
         backHandler();
+      }
+      if (event.key === "a") {
+        prevHandler();
+      }
+      if (event.key === "d") {
+        nextHandler();
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [backHandler, enterHandler, removeHandler]);
+  }, [backHandler, enterHandler, nextHandler, prevHandler, removeHandler]);
 
   return (
     <Container>
@@ -122,14 +181,17 @@ export const ModifyOutputPopup = ({ outputId: id, setOutputId }) => {
           <p>Modify / Remove Output Item</p>
         </Header>
         <InputContainer>
+          <FiArrowLeft onClick={prevHandler} />
           <img src={imgUrl} alt={id} />
           <input
+            ref={inputRef}
             type="number"
             autoFocus
             value={newAmount}
             onChange={inputHandler}
             onFocus={handleInputFocus}
           />
+          <FiArrowRight onClick={nextHandler} />
         </InputContainer>
         <ButtonsContainer>
           <Button onClick={enterHandler} buttonType={"green"}>
