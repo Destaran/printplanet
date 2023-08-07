@@ -10,6 +10,7 @@ import { useCallback, useState } from "react";
 import { craftingMachines } from "../../../reduxStore/calculator/calculator.selector";
 import {
   swapMachines,
+  swapMachine,
   saveDefaultMachineConfig,
 } from "../../../reduxStore/calculator/calculator.slice";
 import { Beacons } from "./Beacons/Beacons.component";
@@ -101,7 +102,17 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid }) => {
       dispatch(swapMachines(payload));
       setMachineId(null);
     } else {
-      // singleMachineEdit
+      const payload = {
+        uid,
+        machineConfig: {
+          id: currentSelected.name,
+          craftingSpeed: currentSelected.craftingSpeed,
+          productivity: 0,
+          modules: modules,
+          beacons: beacons,
+        },
+      };
+      dispatch(swapMachine(payload));
     }
   };
 
@@ -119,7 +130,7 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid }) => {
     setMachineId(null);
   };
 
-  // ask Guli for best practice [alt]
+  // ask Guliver for best practice [alt]
   const onBeaconChange = ({ target }) => {
     const { value, alt } = target;
     setBeacons((prevConfig) => ({
