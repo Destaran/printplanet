@@ -85,13 +85,12 @@ const ArrowContainer = styled.div`
   margin: 0 5px 0 5px;
   border: 1px solid black;
   cursor: pointer;
-  &:hover {
+  transition: all 0.3s;
+  &:active {
+    transition: all 0.1s;
     color: orange;
     border: 1px solid orange;
-  }
-  &:active {
-    color: black;
-    border: 1px solid black;
+    transform: scale(0.9);
   }
 
   p {

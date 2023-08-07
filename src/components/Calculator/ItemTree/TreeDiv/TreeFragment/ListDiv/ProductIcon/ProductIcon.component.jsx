@@ -32,6 +32,9 @@ const Container = styled.div`
   &:active {
     transition: all 0.1s;
     background-color: #313131;
+    img {
+      transform: scale(0.9);
+    }
   }
 `;
 

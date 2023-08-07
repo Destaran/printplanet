@@ -40,6 +40,9 @@ const FilteredItem = styled.li`
   &:hover {
     background-color: orange;
   }
+  &:active {
+    background-color: white;
+  }
 `;
 
 const ItemIcon = styled.img`

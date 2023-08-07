@@ -23,6 +23,7 @@ const ButtonContainer = styled.div`
   padding: 2px;
   border: 2px solid black;
   background-color: ${ppBlue};
+  transition: all 0.3s;
   cursor: pointer;
 
   &:hover {
@@ -30,7 +31,12 @@ const ButtonContainer = styled.div`
   }
 
   &:active {
+    transition: all 0.1s;
     background-color: ${ppBlue};
+
+    img {
+      transform: scale(0.9);
+    }
   }
 `;
 

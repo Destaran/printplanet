@@ -15,13 +15,18 @@ const Container = styled.div`
   margin: 1px;
   background-color: ${(props) => (props.selected ? "orange" : ppDark)};
   user-select: none;
+  cursor: pointer;
+  transition: all 0.3s;
 
   &:hover {
-    cursor: pointer;
     background-color: orange;
   }
   &:active {
+    transition: all 0.1s;
     background-color: #313131;
+    img {
+      transform: scale(0.9);
+    }
   }
 `;
 
