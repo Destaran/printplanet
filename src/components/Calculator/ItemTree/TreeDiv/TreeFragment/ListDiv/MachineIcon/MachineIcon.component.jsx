@@ -95,7 +95,7 @@ export const MachineIcon = ({ outputItem }) => {
   const dispatch = useDispatch();
   const [machineEditId, setMachineEditId] = useState(null);
   const { recipe, machine, uid } = outputItem;
-  const { id, amount, modules, uid: machineUid, beacons } = machine;
+  const { id, amount, modules, beacons } = machine;
   const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(Math.ceil(amount));
   const fontSize = 14;
@@ -116,7 +116,7 @@ export const MachineIcon = ({ outputItem }) => {
 
   return (
     <>
-      <OutterContainer data-tooltip-id={machineUid} onClick={handleClick}>
+      <OutterContainer data-tooltip-id={uid} onClick={handleClick}>
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
@@ -139,7 +139,7 @@ export const MachineIcon = ({ outputItem }) => {
           </ImgContainer>
         </InnerContainer>
       </OutterContainer>
-      <IconTooltip machine={outputItem.machine} />
+      <IconTooltip machine={outputItem.machine} uid={uid} />
       {machineEditId && (
         <MachineEditPopup
           machineId={machineEditId}
