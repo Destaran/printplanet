@@ -25,6 +25,7 @@ const OutterContainer = styled.div`
 
   &:hover {
     background-color: orange;
+    border: 2px solid #fefefe;
   }
   &:active {
     transition: all 0.1s;

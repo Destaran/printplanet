@@ -24,10 +24,11 @@ const Container = styled.div`
   background-color: #313131;
   user-select: none;
   transition: all 0.2s;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
     background-color: orange;
+    border: 2px solid #efefef;
   }
   &:active {
     transition: all 0.1s;
