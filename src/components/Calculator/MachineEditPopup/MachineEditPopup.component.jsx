@@ -85,7 +85,7 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
   const [modules, setModules] = useState(machine.modules);
   const [beacons, setBeacons] = useState(machine.beacons);
 
-  const enterHandler = () => {
+  const enterHandler = useCallback(() => {
     if (!uid) {
       const payload = {
         update: machineId,
@@ -116,7 +116,22 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
       dispatch(swapMachine(payload));
       setMachineId(null);
     }
-  };
+  }, [
+    beacons,
+    currentSelected.categories,
+    currentSelected.craftingSpeed,
+    currentSelected.name,
+    dispatch,
+    machineId,
+    modules,
+    pid,
+    setMachineId,
+    uid,
+  ]);
+
+  const backHandler = useCallback(() => {
+    setMachineId(null);
+  }, [setMachineId]);
 
   const changeHandler = useCallback(() => {
     setBeacons({
@@ -127,10 +142,6 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
     });
     setModules(new Array(currentSelected.moduleSlots).fill(""));
   }, [currentSelected.moduleSlots]);
-
-  const backHandler = () => {
-    setMachineId(null);
-  };
 
   // ask Guliver for best practice [alt]
   const onBeaconChange = ({ target }) => {
@@ -163,6 +174,21 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
       changeHandler();
     }
   }, [changeHandler, currentSelected.name, machineId]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "e") {
+        enterHandler();
+      }
+      if (event.key === "b") {
+        backHandler();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [backHandler, enterHandler]);
 
   return (
     <PopupContainer>
