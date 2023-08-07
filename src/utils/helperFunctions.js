@@ -631,11 +631,11 @@ export const switchMachines = (outputItem, machine, updateId) => {
 };
 
 export const switchMachine = (outputItem, machine, uid) => {
-  if (outputItem.machine) {
-    if (outputItem.uid === uid) {
-      outputItem.machine = structuredClone(machine);
-    }
-  } else if (outputItem.ingredients) {
+  if (outputItem.uid === uid) {
+    outputItem.machine = structuredClone(machine);
+    return;
+  }
+  if (outputItem.ingredients) {
     outputItem.ingredients.forEach((ingredient) => {
       switchMachine(ingredient, machine, uid);
     });
