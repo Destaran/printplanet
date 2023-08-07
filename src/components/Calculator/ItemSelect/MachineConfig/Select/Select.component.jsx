@@ -20,14 +20,14 @@ const SelectedContainer = styled.div`
   margin: 0;
   padding: 5px 0 5px 0;
   // bug: transition not working
-  transition: all 0.3;
+  transition: all 0.3s;
   cursor: pointer;
   :hover {
     background-color: orange;
   }
   :active {
     background-color: white;
-    transition: all 0.1;
+    transition: all 0.1s;
   }
   img {
     height: 31px;
@@ -56,7 +56,7 @@ const ListElement = styled.li`
   align-items: center;
   z-index: 50;
   cursor: pointer;
-  transition: all 0.3;
+  transition: all 0.3s;
 
   :hover {
     background-color: orange;
