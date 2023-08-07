@@ -91,7 +91,7 @@ const BeaconsIcons = styled.div`
   }
 `;
 
-export const MachineIcon = ({ outputItem }) => {
+export const MachineIcon = ({ outputItem, pid }) => {
   const dispatch = useDispatch();
   const [machineEditId, setMachineEditId] = useState(null);
   const { recipe, machine, uid } = outputItem;
@@ -145,6 +145,7 @@ export const MachineIcon = ({ outputItem }) => {
           machineId={machineEditId}
           setMachineId={setMachineEditId}
           uid={uid}
+          pid={pid}
         />
       )}
     </>

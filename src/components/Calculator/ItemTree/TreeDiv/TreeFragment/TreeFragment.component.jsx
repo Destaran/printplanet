@@ -20,14 +20,14 @@ export const TreeFragment = ({ outputItem, pid }) => {
     <>
       {firstRender ? (
         <ListElement>
-          <ListDiv outputItem={outputItem} />
+          <ListDiv outputItem={outputItem} pid={pid} />
           {ingredients && (
             <IngredientList ingredients={ingredients} pid={pid} />
           )}
         </ListElement>
       ) : (
         <>
-          <ListDiv outputItem={outputItem} />
+          <ListDiv outputItem={outputItem} pid={pid} />
           {ingredients && (
             <IngredientList ingredients={ingredients} pid={pid} />
           )}

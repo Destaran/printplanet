@@ -23,12 +23,14 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-export const ListDiv = ({ outputItem }) => {
+export const ListDiv = ({ outputItem, pid }) => {
   return (
     <Wrapper>
       <Container>
         <ProductIcon outputItem={outputItem} />
-        {outputItem.ingredients && <MachineIcon outputItem={outputItem} />}
+        {outputItem.ingredients && (
+          <MachineIcon outputItem={outputItem} pid={pid} />
+        )}
       </Container>
     </Wrapper>
   );

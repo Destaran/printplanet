@@ -71,7 +71,7 @@ const MachineFunctions = styled.div`
 `;
 
 // refactor: single machine edit compatibility
-export const MachineEditPopup = ({ machineId, setMachineId, uid }) => {
+export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
 
@@ -104,6 +104,7 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid }) => {
     } else {
       const payload = {
         uid,
+        pid,
         machineConfig: {
           id: currentSelected.name,
           craftingSpeed: currentSelected.craftingSpeed,
@@ -113,6 +114,7 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid }) => {
         },
       };
       dispatch(swapMachine(payload));
+      setMachineId(null);
     }
   };
 
