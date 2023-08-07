@@ -4,6 +4,7 @@ import {
   getNameById,
   craftingMachines,
 } from "../../../../../utils/helperFunctions";
+import { useState } from "react";
 
 const Container = styled.div`
   width: 100%;
@@ -19,7 +20,6 @@ const SelectedContainer = styled.div`
   width: 100%;
   margin: 0;
   padding: 5px 0 5px 0;
-  // bug: transition not working
   transition: all 0.3s;
   cursor: pointer;
   :hover {
@@ -73,8 +73,6 @@ const ListElement = styled.li`
     margin: 0 5px 0 5px;
   }
 `;
-
-import { useState } from "react";
 
 export const Select = ({ currentSelected, setCurrentSelected }) => {
   const [showList, setShowList] = useState(false);
