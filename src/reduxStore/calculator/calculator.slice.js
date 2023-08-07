@@ -8,6 +8,7 @@ import {
   getRecipeCategory,
   getAllUids,
   switchMachines,
+  switchMachine,
   bumpProdModules,
 } from "../../utils/helperFunctions";
 
@@ -184,6 +185,10 @@ export const calculatorSlice = createSlice({
         switchMachines(output[key], machineConfig, update);
       });
     },
+    swapMachine: ({ output }, { payload }) => {
+      const { uid, pid, machineConfig } = payload;
+      switchMachine(output[pid], machineConfig, uid);
+    },
     bumpModules: ({ output }, { payload }) => {
       Object.keys(output).forEach((key) => {
         bumpProdModules(output[key], payload);
@@ -210,6 +215,7 @@ export const {
   collapseSameTypeElements,
   saveDefaultMachineConfig,
   swapMachines,
+  swapMachine,
   bumpModules,
 } = calculatorSlice.actions;
 
