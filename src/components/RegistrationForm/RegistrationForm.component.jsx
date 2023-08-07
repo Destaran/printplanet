@@ -10,6 +10,7 @@ import {
 } from "../../utils/firestore/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import validator from "validator";
 import { Button } from "../Button/Button.component";
 import FormInput from "../FormInput/FormInput.component";
 
@@ -33,6 +34,11 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validator.isEmail(email)) {
+      alert("Invalid e-mail address!");
+      return;
+    }
 
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
