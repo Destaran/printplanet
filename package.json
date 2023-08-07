@@ -24,7 +24,8 @@
     "reselect": "^4.1.8",
     "sass": "^1.62.1",
     "styled-components": "^5.3.10",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
