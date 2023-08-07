@@ -58,7 +58,7 @@ const ImgContainer = styled.div`
 
 const AmountText = styled.p`
   position: absolute;
-  font-size: ${({ fontSize }) => fontSize}px;
+  font-size: 14px;
   bottom: -3px;
   right: -1px;
   margin: 0;
@@ -99,11 +99,9 @@ export const MachineIcon = ({ outputItem, pid }) => {
   const { id, amount, modules, beacons } = machine;
   const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(Math.ceil(amount));
-  const fontSize = 14;
   const firstModule = modules.find((module) => module.length > 0);
   const moduleUrl = getImageUrlById(firstModule);
   const beaconUrl = getImageUrlById("beacon");
-  const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
 
   const handleClick = () => {
     setMachineEditId(id);
@@ -121,12 +119,7 @@ export const MachineIcon = ({ outputItem, pid }) => {
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
-            <AmountText
-              lengthExceedsLimit={lengthExceedsLimit}
-              fontSize={fontSize}
-            >
-              {displayAmount}
-            </AmountText>
+            <AmountText>{displayAmount}</AmountText>
             {moduleUrl.length > 0 && (
               <ModuleIcons>
                 <img src={moduleUrl} alt={modules[0]} />

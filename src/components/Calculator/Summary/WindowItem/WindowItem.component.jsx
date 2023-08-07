@@ -50,7 +50,7 @@ const ImgContainer = styled.div`
 
 const AmountText = styled.p`
   position: absolute;
-  font-size: ${({ fontSize }) => fontSize}px;
+  font-size: 14px;
   bottom: -3px;
   right: -1px;
   margin: 0;
@@ -64,8 +64,6 @@ export const WindowItem = ({ item, handleClick }) => {
   const { amount, id } = item;
   const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(amount);
-  const fontSize = 14;
-  const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
 
   return (
     <>
@@ -77,12 +75,7 @@ export const WindowItem = ({ item, handleClick }) => {
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
-            <AmountText
-              lengthExceedsLimit={lengthExceedsLimit}
-              fontSize={fontSize}
-            >
-              {displayAmount}
-            </AmountText>
+            <AmountText>{displayAmount}</AmountText>
           </ImgContainer>
         </InnerContainer>
       </OutterContainer>

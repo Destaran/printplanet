@@ -60,7 +60,7 @@ const ImgContainer = styled.div`
 
 const AmountText = styled.p`
   position: absolute;
-  font-size: ${({ fontSize }) => fontSize}px;
+  font-size: 14px;
   bottom: -3px;
   right: -1px;
   margin: 0;
@@ -74,9 +74,7 @@ export const ProductIcon = ({ outputItem }) => {
   const [popupId, setPopupId] = useState(null);
   const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
-  const fontSize = 14;
   const displayAmount = formatNumber(amount);
-  const lengthExceedsLimit = JSON.stringify(displayAmount).length > 5;
 
   const handleClick = (event) => {
     if (!ingredients) {
@@ -114,14 +112,7 @@ export const ProductIcon = ({ outputItem }) => {
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
-            {displayAmount && (
-              <AmountText
-                lengthExceedsLimit={lengthExceedsLimit}
-                fontSize={fontSize}
-              >
-                {displayAmount}
-              </AmountText>
-            )}
+            {displayAmount && <AmountText>{displayAmount}</AmountText>}
           </ImgContainer>
         </InnerContainer>
       </Container>
