@@ -9,7 +9,7 @@ const Container = styled.div`
   }
 `;
 
-const AddButtonContainer = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,9 +26,9 @@ export const UnitSelection = ({ unit, handleUnitChange, addHandler }) => {
   return (
     <Container>
       <UnitSelect value={unit} onChange={handleUnitChange} />
-      <AddButtonContainer>
+      <ButtonContainer>
         <Button onClick={addHandler}>[A]dd</Button>
-      </AddButtonContainer>
+      </ButtonContainer>
     </Container>
   );
 };
