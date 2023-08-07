@@ -8,8 +8,9 @@ export const DefaultButton = styled.button`
   width: 100%;
   margin: 15px 0;
   background-color: #14213d;
-  color: #f4f1de;
+  color: white;
   cursor: pointer;
+  transition: all 0.3s;
 
   &:hover {
     background-color: orange;
@@ -18,8 +19,9 @@ export const DefaultButton = styled.button`
   }
 
   &:active {
+    transition: all 0.1s;
+    color: white;
     background-color: #14213d;
-    color: #f4f1de;
   }
 `;
 
