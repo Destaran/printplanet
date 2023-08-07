@@ -62,13 +62,7 @@ const InputContainer = styled.div`
     width: 80px;
   }
   svg {
-    margin-left: 15px;
-    margin-right: 15px;
     transform: scale(2);
-    cursor: pointer;
-    &:hover {
-      color: orange;
-    }
   }
 `;
 
@@ -79,6 +73,37 @@ const ButtonsContainer = styled.div`
   button {
     margin: 8px;
   }
+`;
+
+const ArrowContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 37px;
+  width: 37px;
+  margin: 0 5px 0 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  &:hover {
+    color: orange;
+    border: 1px solid orange;
+  }
+  &:active {
+    color: black;
+    border: 1px solid black;
+  }
+
+  p {
+    margin: 0;
+  }
+`;
+
+const ArrowBind = styled.p`
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  font-size: 12px;
 `;
 
 // refactor
@@ -181,7 +206,10 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
           <p>Modify / Remove Output Item</p>
         </Header>
         <InputContainer>
-          <FiArrowLeft onClick={prevHandler} />
+          <ArrowContainer onClick={prevHandler}>
+            <FiArrowLeft />
+            <ArrowBind>[A]</ArrowBind>
+          </ArrowContainer>
           <img src={imgUrl} alt={id} />
           <input
             ref={inputRef}
@@ -191,7 +219,10 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
             onChange={inputHandler}
             onFocus={handleInputFocus}
           />
-          <FiArrowRight onClick={nextHandler} />
+          <ArrowContainer onClick={nextHandler}>
+            <FiArrowRight />
+            <ArrowBind>[D]</ArrowBind>
+          </ArrowContainer>
         </InputContainer>
         <ButtonsContainer>
           <Button onClick={enterHandler} buttonType={"green"}>
