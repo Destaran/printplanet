@@ -41,22 +41,16 @@ const BeaconIcons = styled.div`
   object-fit: contain;
 `;
 
-export const IconTooltip = ({ machine }) => {
-  const displayName = getNameById(machine.id);
-  const displaySpeed = (machine.craftingSpeed * 100).toFixed(0);
-  const displayProd = (machine.productivity * 100).toFixed(0);
-  const hasModules = machine.modules.some((module) => module.length > 0);
-  const hasProd = machine.modules.some((module) =>
-    module.includes("productivity")
-  );
-  const beaconReqShow = formatNumber(machine.beacons.required);
+export const IconTooltip = ({ machine, uid }) => {
+  const { id, craftingSpeed, productivity, modules, beacons } = machine;
+  const displayName = getNameById(id);
+  const displaySpeed = (craftingSpeed * 100).toFixed(0);
+  const displayProd = (productivity * 100).toFixed(0);
+  const hasModules = modules.some((module) => module.length > 0);
+  const hasProd = modules.some((module) => module.includes("productivity"));
+  const beaconReqShow = formatNumber(beacons.required);
   return (
-    <Tooltip
-      id={machine.uid}
-      style={{ opacity: 1 }}
-      delayShow={"500"}
-      place="top"
-    >
+    <Tooltip id={uid} style={{ opacity: 1 }} delayShow={"500"} place="top">
       <Container>
         <Title>
           <p>{displayName}</p>
@@ -65,11 +59,11 @@ export const IconTooltip = ({ machine }) => {
           <p>Crafting Speed: {displaySpeed}%</p>
           {hasProd && <p>Productivity: {displayProd}%</p>}
         </Details>
-        {machine.beacons.affecting > 0 && (
+        {beacons.affecting > 0 && (
           <ModulesContainer>
             <ModulesInner>
               <BeaconIcons>
-                {machine.beacons.modules.map((module, key) => (
+                {beacons.modules.map((module, key) => (
                   <ModuleIndicator key={key} module={module} />
                 ))}
               </BeaconIcons>
@@ -82,7 +76,7 @@ export const IconTooltip = ({ machine }) => {
         {hasModules && (
           <ModulesContainer>
             <ModulesInner>
-              {machine.modules.map((module, key) => (
+              {modules.map((module, key) => (
                 <ModuleIndicator key={key} module={module} />
               ))}
             </ModulesInner>
