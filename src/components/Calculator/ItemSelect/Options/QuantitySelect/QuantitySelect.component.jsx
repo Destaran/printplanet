@@ -17,6 +17,7 @@ const BeltsContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,24 +26,30 @@ const ButtonContainer = styled.div`
   background-color: ${ppBlue};
   transition: all 0.3s;
   cursor: pointer;
-
   &:hover {
     background-color: orange;
   }
-
   &:active {
     transition: all 0.1s;
     background-color: ${ppBlue};
-
     img {
       transform: scale(0.9);
     }
   }
+  img {
+    width: 24px;
+    height: auto;
+  }
 `;
 
-const BeltButton = styled.img`
-  width: 24px;
-  height: auto;
+const BeltIndicator = styled.p`
+  position: absolute;
+  font-size: 16px;
+  margin: 0;
+  color: white;
+  text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
+    -1px 0px 1px #000;
+  pointer-events: none;
 `;
 
 const beltImages = {
@@ -50,7 +57,7 @@ const beltImages = {
   fast: getImageUrlById("fast-transport-belt"),
   express: getImageUrlById("express-transport-belt"),
 };
-
+// refactor
 export const QuantitySelect = ({ setQuantity, quantity }) => {
   const [beltPerSec, setBeltPerSec] = useState(0);
 
@@ -95,32 +102,41 @@ export const QuantitySelect = ({ setQuantity, quantity }) => {
         <Tooltip id="transport-belt" delayShow={"1500"} place="bottom">
           15 item/s
         </Tooltip>
-        <ButtonContainer data-tooltip-id="transport-belt">
-          <BeltButton
-            src={beltImages.basic}
-            data-value={15}
-            onClick={handleClick}
-          />
+        <ButtonContainer
+          data-tooltip-id="transport-belt"
+          onClick={handleClick}
+          data-value={15}
+        >
+          <img src={beltImages.basic} data-value={15} />
+          {beltPerSec > 0 && beltPerSec < 16 && (
+            <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
+          )}
         </ButtonContainer>
         <Tooltip id="fast-transport-belt" delayShow={"1500"} place="bottom">
           30 item/s
         </Tooltip>
-        <ButtonContainer data-tooltip-id="fast-transport-belt">
-          <BeltButton
-            src={beltImages.fast}
-            data-value={30}
-            onClick={handleClick}
-          />
+        <ButtonContainer
+          data-tooltip-id="fast-transport-belt"
+          onClick={handleClick}
+          data-value={30}
+        >
+          <img src={beltImages.fast} data-value={30} />
+          {beltPerSec > 15 && beltPerSec < 31 && (
+            <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
+          )}
         </ButtonContainer>
         <Tooltip id="express-transport-belt" delayShow={"1500"} place="bottom">
           45 item/s
         </Tooltip>
-        <ButtonContainer data-tooltip-id="express-transport-belt">
-          <BeltButton
-            src={beltImages.express}
-            data-value={45}
-            onClick={handleClick}
-          />
+        <ButtonContainer
+          data-tooltip-id="express-transport-belt"
+          onClick={handleClick}
+          data-value={45}
+        >
+          <img src={beltImages.express} data-value={45} />
+          {beltPerSec > 30 && (
+            <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
+          )}
         </ButtonContainer>
       </BeltsContainer>
     </Container>
