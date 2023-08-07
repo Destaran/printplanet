@@ -31,6 +31,7 @@ const FilteredItem = styled.li`
   background-color: white;
   overflow: hidden;
   cursor: pointer;
+  transition: all 0.3s;
 
   img {
     margin-right: 5px;
