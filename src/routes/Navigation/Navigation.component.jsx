@@ -37,7 +37,9 @@ const NavLink = styled(Link)`
   transition: all 0.3s;
 
   &:hover {
-    color: orange;
+    color: ${({ color }) => (color ? color : "orange")};
+    text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
+      -1px 0px 1px #000;
   }
 
   &:active {
@@ -65,7 +67,7 @@ const Navigation = () => {
           {currentUser ? (
             <>
               <LinkContainer>
-                <NavLink as="span" onClick={handleLogout}>
+                <NavLink as="span" onClick={handleLogout} color={"red"}>
                   Logout
                 </NavLink>
               </LinkContainer>
