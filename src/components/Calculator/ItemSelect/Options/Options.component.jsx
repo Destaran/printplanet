@@ -90,7 +90,7 @@ export const Options = ({
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "A") {
+      if (event.key === "a" && currentItem) {
         addHandler();
       }
     };
@@ -98,7 +98,7 @@ export const Options = ({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [addHandler]);
+  }, [addHandler, currentItem]);
 
   const addInfo = {
     quantity,
