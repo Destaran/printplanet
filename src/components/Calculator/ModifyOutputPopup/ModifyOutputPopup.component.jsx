@@ -34,7 +34,7 @@ const InnerContainer = styled.div`
   position: relative;
   padding: 8px;
   width: 100%;
-  max-width: 240px;
+  max-width: 340px;
   background-color: white;
 `;
 
@@ -48,14 +48,6 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  img {
-    background-color: #313131;
-    height: 36px;
-    width: auto;
-    padding: 4px;
-    margin: 4px;
-    border: 1px black solid;
-  }
   input {
     height: 40px;
     font-size: 24px;
@@ -101,6 +93,31 @@ const ArrowBind = styled.p`
   bottom: 0px;
   right: 0px;
   font-size: 12px;
+`;
+
+const ImageContainer = styled.div`
+  margin: 0;
+  position: relative;
+  margin: 4px;
+  img {
+    padding: 4px;
+    margin: 0;
+    background-color: #313131;
+    height: 36px;
+    width: 36px;
+    border: 1px black solid;
+  }
+`;
+
+const AmountText = styled.p`
+  position: absolute;
+  font-size: 18px;
+  bottom: 3px;
+  right: 3px;
+  margin: 0;
+  color: white;
+  text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
+    -1px 0px 1px #000;
 `;
 
 // refactor
@@ -208,12 +225,14 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
             <FiArrowLeft />
             <ArrowBind>[A]</ArrowBind>
           </ArrowContainer>
-          <img src={imgUrl} alt={id} />
+          <ImageContainer>
+            <img src={imgUrl} alt={id} />
+            <AmountText>{amount}</AmountText>
+          </ImageContainer>
           <input
             ref={inputRef}
             type="number"
             autoFocus
-            value={newAmount}
             onChange={inputHandler}
             onFocus={handleInputFocus}
           />
