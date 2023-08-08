@@ -83,13 +83,11 @@ const ArrowContainer = styled.div`
   height: 37px;
   width: 37px;
   margin: 0 5px 0 5px;
-  border: 1px solid black;
   cursor: pointer;
   transition: all 0.3s;
   &:active {
     transition: all 0.1s;
     color: orange;
-    border: 1px solid orange;
     transform: scale(0.9);
   }
 
@@ -133,11 +131,12 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   }, [dispatch, id, newAmount]);
 
   const removeHandler = useCallback(() => {
-    let direction = -1;
-    if (outputArray.indexOf(id) === 0) {
-      direction = 1;
+    const currentIndex = outputArray.indexOf(id);
+    let direction = 1;
+    if (currentIndex === outputArray.length - 1) {
+      direction = -1;
     }
-    const newIndex = outputArray.indexOf(id) + direction;
+    const newIndex = currentIndex + direction;
     if (newIndex < 0) {
       setOutputId(null);
     } else {
