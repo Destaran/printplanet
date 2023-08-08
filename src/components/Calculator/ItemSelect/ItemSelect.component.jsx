@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetOutput } from "../../../reduxStore/calculator/calculator.slice";
 import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
 import { Options } from "./Options/Options.component";
-import { MachineConfig } from "./MachineConfig/MachineConfig.component";
+import { DefaultMachineConfig } from "./MachineConfig/DefaultMachineConfig.component";
 import { Menus } from "../Menus/Menus.component";
 
 import styled from "styled-components";
@@ -60,7 +60,7 @@ export const ItemSelect = () => {
         quantity={quantity}
         setQuantity={setQuantity}
       />
-      <MachineConfig />
+      <DefaultMachineConfig />
       <OptionsContainer>Options</OptionsContainer>
       <Menus resetHandler={resetHandler} />
     </Container>

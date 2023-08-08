@@ -58,7 +58,7 @@ const MachineFunctions = styled.div`
   }
 `;
 
-export const MachineConfig = () => {
+export const DefaultMachineConfig = () => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
   const defaultMachine = useSelector(defaultCraftingMachine);
