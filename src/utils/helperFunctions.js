@@ -644,7 +644,6 @@ export const switchMachine = (outputItem, machine, uid) => {
 
 export const bumpProdModules = (outputItem, uid) => {
   if (outputItem.machine) {
-    console.log(uid);
     if (outputItem.uid === uid) {
       const newModules = outputItem.machine.modules.map((module) => {
         if (module.includes("productivity")) {
