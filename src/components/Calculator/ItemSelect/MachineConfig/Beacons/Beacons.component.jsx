@@ -26,12 +26,6 @@ const BeaconsContainer = styled.div`
       margin: 0;
     }
   }
-
-  img {
-    height: 28px;
-    width: 28px;
-    background-color: #313131;
-  }
 `;
 
 const BeaconImgContainer = styled.div`
@@ -43,6 +37,9 @@ const BeaconImgContainer = styled.div`
   img {
     border: 2px solid black;
     margin-right: 5px;
+    height: 28px;
+    width: 28px;
+    background-color: #313131;
   }
 `;
 
