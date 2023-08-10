@@ -190,9 +190,8 @@ export const calculatorSlice = createSlice({
       switchMachine(output[pid], machineConfig, uid);
     },
     bumpModules: ({ output }, { payload }) => {
-      Object.keys(output).forEach((key) => {
-        bumpProdModules(output[key], payload);
-      });
+      const { uid, pid } = payload;
+      bumpProdModules(output[pid], uid);
     },
     saveDefaultMachineConfig: ({ machines }, { payload }) => {
       const { categories, machineConfig } = payload;

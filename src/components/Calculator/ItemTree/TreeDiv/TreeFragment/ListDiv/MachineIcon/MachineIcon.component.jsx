@@ -110,9 +110,13 @@ export const MachineIcon = ({ outputItem, pid }) => {
 
   useEffect(() => {
     if (checkModulesForBumping(uid, machine, recipe)) {
-      dispatch(bumpModules(uid));
+      const payload = {
+        uid,
+        pid,
+      };
+      dispatch(bumpModules(payload));
     }
-  }, [dispatch, machine, recipe, uid]);
+  }, [dispatch, machine, pid, recipe, uid]);
 
   return (
     <>
