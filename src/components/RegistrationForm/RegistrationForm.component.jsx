@@ -1,18 +1,41 @@
-import {
-  RegistrationContainer,
-  InnerRegistrationContainer,
-  Form,
-  ContainerHeader,
-} from "./RegistrationForm.styles";
+import styled from "styled-components";
+import validator from "validator";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firestore/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import validator from "validator";
 import { Button } from "../Button/Button.component";
 import FormInput from "../FormInput/FormInput.component";
+
+const RegistrationContainer = styled.div`
+  margin: 30px auto;
+  padding: 0;
+  width: 300px;
+  border: 1px black solid;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+`;
+
+const InnerRegistrationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+`;
+
+const Form = styled.form`
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ContainerHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const defaultFormFields = {
   displayName: "",
@@ -65,7 +88,7 @@ const RegistrationForm = () => {
     <RegistrationContainer>
       <InnerRegistrationContainer>
         <ContainerHeader>
-          <h3>Register an account</h3>
+          <h3>Register account</h3>
         </ContainerHeader>
         <Form onSubmit={handleSubmit}>
           <FormInput

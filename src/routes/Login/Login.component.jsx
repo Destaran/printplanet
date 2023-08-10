@@ -1,8 +1,28 @@
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import LoginForm from "../../components/LoginForm/LoginForm.component";
 
-import { useNavigate } from "react-router-dom";
+const Container = styled.div`
+  background-color: #f1f1f1;
+  font-size: 16px;
+  margin: 40px auto;
+  padding: 0;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  border: 1px black solid;
+  border-radius: 10px;
 
-import { SignUpContainer } from "./Login.styles";
+  span {
+    color: black;
+    font-weight: 600;
+
+    &:hover {
+      cursor: pointer;
+      color: orange;
+    }
+  }
+`;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,12 +34,12 @@ const Login = () => {
   return (
     <>
       <LoginForm />
-      <SignUpContainer>
+      <Container>
         <p>
           Don&apos;t have an account?{" "}
           <span onClick={navigateHandler}>Register here!</span>
         </p>
-      </SignUpContainer>
+      </Container>
     </>
   );
 };
