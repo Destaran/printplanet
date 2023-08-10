@@ -22,10 +22,10 @@ const OutterContainer = styled.div`
     transform: translateY(-3px);
   }
   &:active {
-    transition: all 0.1s;
+    transition: all 0.2s;
     background-color: #313131;
     img {
-      transform: scale(0.9);
+      transform: scale(0.8);
     }
   }
 `;
