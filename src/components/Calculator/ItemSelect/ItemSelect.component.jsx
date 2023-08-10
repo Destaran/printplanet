@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   justify-content: start;
   height: 112px;
-  margin-bottom: 22.5px;
+  margin-bottom: 20px;
   input,
   select {
     border-radius: 0px;

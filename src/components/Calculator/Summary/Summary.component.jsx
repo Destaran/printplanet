@@ -24,7 +24,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   object-fit: contain;
-  margin-bottom: 22.5px;
+  margin-bottom: 20px;
   justify-content: space-around;
 `;
 

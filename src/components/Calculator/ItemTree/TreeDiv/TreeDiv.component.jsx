@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { TreeFragment } from "./TreeFragment/TreeFragment.component";
 
 const Container = styled.div`
-  margin-bottom: 22.5px;
+  margin-bottom: 20px;
   padding: 5px;
   border: 1px solid grey;
 `;

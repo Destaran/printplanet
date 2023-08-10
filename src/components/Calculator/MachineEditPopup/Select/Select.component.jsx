@@ -30,8 +30,8 @@ const SelectedContainer = styled.div`
   }
 
   img {
-    height: 31px;
-    width: 31px;
+    height: 30px;
+    width: 30px;
     margin: 0 5px 0 5px;
   }
 `;

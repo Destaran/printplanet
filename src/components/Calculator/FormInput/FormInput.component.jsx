@@ -31,6 +31,7 @@ const Input = styled.input`
   border-radius: 5px;
   border: 1px solid ${subColor};
   margin: 15px 0;
+  height: 20px;
   padding: 10px;
 
   &:focus {

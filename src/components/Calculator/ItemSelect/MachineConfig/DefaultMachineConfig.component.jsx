@@ -47,7 +47,7 @@ const MachineFunctions = styled.div`
   margin-left: 10px;
   button {
     margin: 0;
-    height: 43px;
+    height: 42px;
     width: 50px;
     border-radius: 0px;
   }
