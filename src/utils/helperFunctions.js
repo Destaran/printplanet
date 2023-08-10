@@ -644,6 +644,7 @@ export const switchMachine = (outputItem, machine, uid) => {
 
 export const bumpProdModules = (outputItem, uid) => {
   if (outputItem.machine) {
+    console.log(uid);
     if (outputItem.uid === uid) {
       const newModules = outputItem.machine.modules.map((module) => {
         if (module.includes("productivity")) {
@@ -656,6 +657,10 @@ export const bumpProdModules = (outputItem, uid) => {
         }
       });
       outputItem.machine.modules = newModules;
+    } else {
+      outputItem.ingredients.forEach((ingredient) => {
+        bumpProdModules(ingredient, uid);
+      });
     }
   }
 };
