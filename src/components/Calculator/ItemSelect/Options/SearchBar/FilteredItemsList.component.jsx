@@ -8,7 +8,7 @@ import { useMemo } from "react";
 
 const Container = styled.div`
   position: absolute;
-  top: 43px;
+  top: 41px;
   width: 100%;
   z-index: 50;
 `;
@@ -31,7 +31,7 @@ const FilteredItem = styled.li`
   background-color: white;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 1s;
 
   img {
     margin-right: 5px;
@@ -39,9 +39,11 @@ const FilteredItem = styled.li`
 
   &:hover {
     background-color: orange;
+    transition: all 0.3s;
   }
   &:active {
     background-color: white;
+    transition: all 0.2s;
   }
 `;
 

@@ -10,12 +10,13 @@ export const DefaultButton = styled.button`
   background-color: #14213d;
   color: white;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 1s;
 
   &:hover {
     background-color: orange;
     color: #14213d;
     border-color: #14213d;
+    transition: all 0.3s;
   }
 
   &:active {

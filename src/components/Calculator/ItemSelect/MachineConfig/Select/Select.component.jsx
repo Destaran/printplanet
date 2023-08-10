@@ -20,10 +20,11 @@ const SelectedContainer = styled.div`
   width: 100%;
   margin: 0;
   padding: 5px 0 5px 0;
-  transition: all 0.3s;
+  transition: all 1s;
   cursor: pointer;
   :hover {
     background-color: orange;
+    transition: all 0.3s;
   }
   :active {
     background-color: white;
@@ -41,7 +42,7 @@ const UnorderedList = styled.ul`
   background-color: white;
   margin: 0;
   padding: 0;
-  top: 43px;
+  top: 41px;
   left: 0px;
   width: 100%;
   z-index: 50;
@@ -56,10 +57,11 @@ const ListElement = styled.li`
   align-items: center;
   z-index: 50;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 1s;
 
   :hover {
     background-color: orange;
+    transition: all 0.3s;
   }
 
   :active {

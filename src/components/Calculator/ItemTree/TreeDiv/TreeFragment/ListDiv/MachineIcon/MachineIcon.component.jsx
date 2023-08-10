@@ -21,11 +21,12 @@ const OutterContainer = styled.div`
   background-color: #313131;
   user-select: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 1s;
 
   &:hover {
     background-color: orange;
     border: 2px solid #fefefe;
+    transition: all 0.3s;
   }
   &:active {
     transition: all 0.1s;

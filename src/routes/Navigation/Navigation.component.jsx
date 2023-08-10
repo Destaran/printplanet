@@ -34,19 +34,19 @@ const NavLink = styled(Link)`
   text-decoration: none;
   padding: 0px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 1s;
 
   &:hover {
     color: ${({ color }) => (color ? color : "orange")};
     text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
       -1px 0px 1px #000;
+    transition: all 0.3s;
   }
 
   &:active {
-    letter-spacing: 1px;
-    transition: all 0.03s;
+    transform: scale(1.05);
     color: white;
-    font-size: 15px;
+    transition: all 0.03s;
   }
 `;
 
