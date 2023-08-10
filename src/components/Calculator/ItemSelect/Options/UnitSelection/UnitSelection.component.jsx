@@ -4,9 +4,6 @@ import { UnitSelect } from "./UnitSelect.component";
 
 const Container = styled.div`
   width: 15%;
-  select {
-    height: 43px;
-  }
 `;
 
 const ButtonContainer = styled.div`
@@ -27,7 +24,9 @@ export const UnitSelection = ({ unit, handleUnitChange, addHandler }) => {
     <Container>
       <UnitSelect value={unit} onChange={handleUnitChange} />
       <ButtonContainer>
-        <Button onClick={addHandler}>[A]dd</Button>
+        <Button onClick={addHandler}>
+          <u>A</u>dd
+        </Button>
       </ButtonContainer>
     </Container>
   );
