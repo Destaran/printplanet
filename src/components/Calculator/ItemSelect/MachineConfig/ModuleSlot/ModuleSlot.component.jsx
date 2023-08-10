@@ -13,12 +13,20 @@ const Slot = styled.div`
   margin: 1px;
   border: 2px solid black;
   background-color: ${ppBlue};
+  overflow: hidden;
   cursor: pointer;
+  transition: all 1s;
   :hover {
     background-color: orange;
+    transition: all 200ms;
   }
   :active {
     background-color: ${ppBlue};
+    transition: all 100ms;
+    img {
+      transition: all 100ms;
+      transform: scale(0.9);
+    }
   }
 
   img {
@@ -26,15 +34,8 @@ const Slot = styled.div`
     width: 28px;
     margin: 0;
     border: none;
-    background-color: ${ppBlue};
-    :hover {
-      cursor: pointer;
-      background-color: orange;
-    }
-
-    :active {
-      background-color: ${ppBlue};
-    }
+    background-color: none;
+    pointer-events: none;
   }
 `;
 
