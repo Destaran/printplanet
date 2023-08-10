@@ -18,6 +18,7 @@ import { Modules } from "./Modules/Modules.component";
 import { Select } from "./Select/Select.component";
 import { Button } from "../../Button/Button.component";
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const ppBlue = "#14213d";
 
@@ -69,6 +70,10 @@ const MachineFunctions = styled.div`
     margin: 15px 15px 0 15px;
   }
 `;
+
+function PopupPortal({ children }) {
+  return createPortal(children, document.body);
+}
 
 // refactor: single machine edit compatibility
 export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
@@ -191,34 +196,36 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
   }, [backHandler, enterHandler]);
 
   return (
-    <PopupContainer>
-      <Container>
-        <Header>
-          <p>Edit Current Machines & Save to Default</p>
-        </Header>
-        <MachineSettings>
-          <Select
-            currentSelected={currentSelected}
-            setCurrentSelected={setCurrentSelected}
-          />
-          <ConfigContainer>
-            <Beacons
-              beacons={beacons}
-              onModuleChange={onModuleChange}
-              onBeaconChange={onBeaconChange}
+    <PopupPortal>
+      <PopupContainer>
+        <Container>
+          <Header>
+            <p>Edit Current Machines & Save to Default</p>
+          </Header>
+          <MachineSettings>
+            <Select
+              currentSelected={currentSelected}
+              setCurrentSelected={setCurrentSelected}
             />
-            <Modules modules={modules} onModuleChange={onModuleChange} />
-          </ConfigContainer>
-        </MachineSettings>
-        <MachineFunctions>
-          <Button buttonType={"green"} onClick={enterHandler}>
-            [E]nter
-          </Button>
-          <Button buttonType={"red"} onClick={backHandler}>
-            [B]ack
-          </Button>
-        </MachineFunctions>
-      </Container>
-    </PopupContainer>
+            <ConfigContainer>
+              <Beacons
+                beacons={beacons}
+                onModuleChange={onModuleChange}
+                onBeaconChange={onBeaconChange}
+              />
+              <Modules modules={modules} onModuleChange={onModuleChange} />
+            </ConfigContainer>
+          </MachineSettings>
+          <MachineFunctions>
+            <Button buttonType={"green"} onClick={enterHandler}>
+              [E]nter
+            </Button>
+            <Button buttonType={"red"} onClick={backHandler}>
+              [B]ack
+            </Button>
+          </MachineFunctions>
+        </Container>
+      </PopupContainer>
+    </PopupPortal>
   );
 };
