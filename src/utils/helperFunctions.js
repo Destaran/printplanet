@@ -241,7 +241,7 @@ const getBonusProd = (modules) => {
 const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
   const modulesBonus = getBonusSpeed(modules);
   const beaconsBonus = (getBonusSpeed(beacons.modules) * beacons.affecting) / 2;
-  return craftingSpeed * modulesBonus + beaconsBonus + craftingSpeed;
+  return craftingSpeed * (modulesBonus + beaconsBonus) + craftingSpeed;
 };
 
 const getModdedMachineProd = (modules) => {
