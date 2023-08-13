@@ -1,11 +1,10 @@
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { UserProvider } from "./contexts/user.context";
 import { Provider } from "react-redux";
+import { UserProvider } from "./contexts/user.context";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./reduxStore/store";
 import { Routes, Route } from "react-router-dom";
-
 import Navigation from "./routes/Navigation/Navigation.component";
 import Home from "./routes/Home/Home.component";
 import Login from "./routes/Login/Login.component";

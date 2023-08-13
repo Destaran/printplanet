@@ -1,6 +1,7 @@
-import calculatorReducer from "./calculator/calculator.slice";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import localStorage from "redux-persist/es/storage";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import calculatorReducer from "./calculator/calculator.slice";
+import userReducer from "./user/user.slice";
 import {
   persistReducer,
   persistStore,
@@ -15,10 +16,13 @@ import {
 const persistConfig = {
   key: "root",
   storage: localStorage,
-  whitelist: ["calculator"],
+  whitelist: ["calculator", "user"],
 };
 
-const rootReducer = combineReducers({ calculator: calculatorReducer });
+const rootReducer = combineReducers({
+  calculator: calculatorReducer,
+  user: userReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

@@ -13,6 +13,15 @@ const Container = styled.div`
 
 const Profile = () => {
   const { currentUser } = useContext(UserContext);
+
+  if (!currentUser) {
+    return (
+      <Container>
+        <h1>Loading...</h1>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <h1>Welcome {currentUser.displayName}!</h1>

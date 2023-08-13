@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import { Outlet, useNavigate } from "react-router-dom";
-import { UserContext } from "../../contexts/user.context";
-import { useContext } from "react";
+import { useEffect } from "react";
 import { signOutAuthUser } from "../../utils/firestore/firestore";
 import { Link } from "react-router-dom";
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth,
+  getUserDocument,
+} from "../../utils/firestore/firestore";
+import { storeUser } from "../../reduxStore/user/user.slice";
+import { useDispatch, useSelector } from "react-redux";
+import { currentUser } from "../../reduxStore/user/user.selector";
 
 const Container = styled.div``;
 
@@ -52,19 +59,39 @@ const NavLink = styled(Link)`
 
 const Navigation = () => {
   const navigate = useNavigate();
+  const user = useSelector(currentUser);
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     signOutAuthUser();
     navigate("/login");
   };
 
-  const { currentUser } = useContext(UserContext);
+  useEffect(() => {
+    async function dispatchCurrentUser(user) {
+      const userDocument = await getUserDocument(user);
+      const payload = {
+        displayName: userDocument.displayName,
+        email: userDocument.email,
+      };
+      dispatch(storeUser(payload));
+    }
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatchCurrentUser(user);
+    });
+
+    return unsubscribe;
+  }, [dispatch]);
+
   return (
     <>
       <Container>
         <Header>PrintPlanet</Header>
         <NavBar>
-          {currentUser ? (
+          {user ? (
             <>
               <LinkContainer>
                 <NavLink as="span" onClick={handleLogout} color={"red"}>
