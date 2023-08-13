@@ -11,8 +11,11 @@ import {
 import { storeUser } from "../../reduxStore/user/user.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { currentUser } from "../../reduxStore/user/user.selector";
+import { ImExit } from "react-icons/im";
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const Header = styled.h1`
   text-align: center;
@@ -20,19 +23,45 @@ const Header = styled.h1`
 
 const NavBar = styled.div`
   display: flex;
+  padding: 2px 0;
+  width: 100%;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   background-color: #14213d;
-  padding: 2px;
+  justify-content: space-between;
+`;
+
+const NavBarWrapper = styled.div`
+  display: flex;
+  margin: 0 auto;
+  padding: 0;
+  width: 89%;
+  justify-content: space-between;
+`;
+
+const NavBarLeft = styled.div`
+  display: flex;
+  margin: 0;
+  padding: 0;
+`;
+
+const NavBarRight = styled.div`
+  display: flex;
+  margin: 0;
+  padding: 0;
 `;
 
 const LinkContainer = styled.div`
   display: flex;
   justify-content: center;
-  height: 20px;
-  width: 68px;
-  margin: 2px 15px 2px 15px;
   align-items: center;
+  height: 20px;
+  width: auto;
+  margin: 2px 15px 2px 15px;
+
+  span {
+    height: 16px;
+  }
 `;
 
 const NavLink = styled(Link)`
@@ -91,25 +120,37 @@ const Navigation = () => {
       <Container>
         <Header>PrintPlanet</Header>
         <NavBar>
-          {user ? (
-            <>
+          <NavBarWrapper>
+            <NavBarLeft>
               <LinkContainer>
-                <NavLink as="span" onClick={handleLogout} color={"red"}>
-                  Logout
-                </NavLink>
+                <NavLink to="/calculator">Calculator</NavLink>
               </LinkContainer>
               <LinkContainer>
-                <NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/calculator">Guide</NavLink>
               </LinkContainer>
-            </>
-          ) : (
-            <LinkContainer>
-              <NavLink to="/login">Login</NavLink>
-            </LinkContainer>
-          )}
-          <LinkContainer>
-            <NavLink to="/calculator">Calculator</NavLink>
-          </LinkContainer>
+              <LinkContainer>
+                <NavLink to="/calculator">About</NavLink>
+              </LinkContainer>
+            </NavBarLeft>
+            <NavBarRight>
+              {user ? (
+                <>
+                  <NavLink to="/profile">
+                    <LinkContainer>{currentUser.displayName}</LinkContainer>
+                  </NavLink>
+                  <LinkContainer>
+                    <NavLink as="span" onClick={handleLogout} color={"red"}>
+                      <ImExit />
+                    </NavLink>
+                  </LinkContainer>
+                </>
+              ) : (
+                <LinkContainer>
+                  <NavLink to="/login">Login</NavLink>
+                </LinkContainer>
+              )}
+            </NavBarRight>
+          </NavBarWrapper>
         </NavBar>
       </Container>
       <Outlet />
