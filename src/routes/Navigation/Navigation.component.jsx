@@ -93,6 +93,7 @@ const Navigation = () => {
 
   const handleLogout = () => {
     signOutAuthUser();
+    dispatch(storeUser(null));
     navigate("/login");
   };
 
@@ -136,7 +137,7 @@ const Navigation = () => {
               {user ? (
                 <>
                   <NavLink to="/profile">
-                    <LinkContainer>{currentUser.displayName}</LinkContainer>
+                    <LinkContainer>{user.displayName}</LinkContainer>
                   </NavLink>
                   <LinkContainer>
                     <NavLink as="span" onClick={handleLogout} color={"red"}>
