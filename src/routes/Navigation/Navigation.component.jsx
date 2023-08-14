@@ -5,7 +5,7 @@ import {
   getUserDocument,
   signOutAuthUser,
 } from "../../utils/firestore/firestore";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,21 +65,19 @@ const LinkContainer = styled.div`
 
 const NavLink = styled(Link)`
   margin: 0;
-  color: white;
   text-decoration: none;
   padding: 0px;
   cursor: pointer;
   transition: all 1s;
+  color: ${({ isactive }) => (isactive ? "orange" : "white")};
 
   &:hover {
     color: ${({ color }) => (color ? color : "orange")};
-    text-shadow: 0px 1px 1px #000, 0px -1px 1px #000, 1px 0px 1px #000,
-      -1px 0px 1px #000;
     transition: all 0.3s;
   }
 
   &:active {
-    transform: scale(1.05);
+    transform: scale(0.95);
     color: white;
     transition: all 0.03s;
   }
@@ -88,6 +86,7 @@ const NavLink = styled(Link)`
 // refactor
 
 export const Navigation = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(currentUser);
@@ -96,6 +95,14 @@ export const Navigation = () => {
     signOutAuthUser();
     dispatch(storeUser(null));
     navigate("/login");
+  };
+
+  const checkPath = (path) => {
+    if (path === location.pathname) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   useEffect(() => {
@@ -125,19 +132,25 @@ export const Navigation = () => {
           <NavBarWrapper>
             <NavBarLeft>
               <LinkContainer>
-                <NavLink to="/calculator">Calculator</NavLink>
+                <NavLink to="/guide" isactive={checkPath("/guide")}>
+                  Guide
+                </NavLink>
               </LinkContainer>
               <LinkContainer>
-                <NavLink to="/guide">Guide</NavLink>
+                <NavLink to="/calculator" isactive={checkPath("/calculator")}>
+                  Calculator
+                </NavLink>
               </LinkContainer>
               <LinkContainer>
-                <NavLink to="/about">About</NavLink>
+                <NavLink to="/about" isactive={checkPath("/about")}>
+                  About
+                </NavLink>
               </LinkContainer>
             </NavBarLeft>
             <NavBarRight>
               {user ? (
                 <>
-                  <NavLink to="/profile">
+                  <NavLink to="/profile" isactive={checkPath("/profile")}>
                     <LinkContainer>{user.displayName}</LinkContainer>
                   </NavLink>
                   <LinkContainer>
@@ -148,7 +161,9 @@ export const Navigation = () => {
                 </>
               ) : (
                 <LinkContainer>
-                  <NavLink to="/login">Login</NavLink>
+                  <NavLink to="/login" isactive={checkPath("/login")}>
+                    Login
+                  </NavLink>
                 </LinkContainer>
               )}
             </NavBarRight>

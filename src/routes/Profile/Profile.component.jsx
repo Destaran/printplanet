@@ -12,10 +12,14 @@ const Container = styled.div`
   user-select: none;
 `;
 
-const ProfileContainer = styled.div`
+const DataContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 300px;
+`;
+
+const Header = styled.h1`
+  margin: 0 0 50px 0;
 `;
 
 export const Profile = () => {
@@ -25,15 +29,14 @@ export const Profile = () => {
   if (!user) {
     return (
       <Container>
-        <h1>Loading...</h1>
+        <Header>Loading...</Header>
       </Container>
     );
   }
 
   return (
     <Container>
-      <h1>Profile</h1>
-      <ProfileContainer>
+      <DataContainer>
         <FormInput
           label="Display Name"
           name="displayName"
@@ -48,7 +51,7 @@ export const Profile = () => {
           type="text"
           disabled
         />
-      </ProfileContainer>
+      </DataContainer>
     </Container>
   );
 };
