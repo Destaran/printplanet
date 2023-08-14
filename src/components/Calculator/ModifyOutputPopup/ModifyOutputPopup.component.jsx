@@ -14,35 +14,7 @@ import { Button } from "../../Button/Button.component";
 import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
 import { useRef } from "react";
-
-const Container = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-`;
-
-const InnerContainer = styled.div`
-  border: 2px solid black;
-  position: relative;
-  padding: 8px;
-  width: 100%;
-  max-width: 340px;
-  background-color: white;
-`;
-
-const Header = styled.div`
-  p {
-    margin: 0 0 8px 0;
-  }
-`;
+import { Popup } from "../../Popup/Popup.component";
 
 const InputContainer = styled.div`
   display: flex;
@@ -219,43 +191,40 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   }, [backHandler, enterHandler, nextHandler, prevHandler, removeHandler]);
 
   return (
-    <Container>
-      <InnerContainer>
-        <Header>
-          <p>Modify / Remove Output Item</p>
-        </Header>
-        <InputContainer>
-          <ArrowContainer onClick={prevHandler}>
-            <FiArrowLeft />
-            <ArrowBind>[A]</ArrowBind>
-          </ArrowContainer>
-          <ImageContainer>
-            <img src={imgUrl} alt={id} />
-            <AmountText>{amount}</AmountText>
-          </ImageContainer>
-          <input
-            ref={inputRef}
-            type="number"
-            min={1}
-            autoFocus
-            onChange={inputHandler}
-            onFocus={handleInputFocus}
-          />
-          <ArrowContainer onClick={nextHandler}>
-            <FiArrowRight />
-            <ArrowBind>[D]</ArrowBind>
-          </ArrowContainer>
-        </InputContainer>
-        <ButtonsContainer>
-          <Button onClick={enterHandler} buttonType={"green"}>
-            [E]nter
-          </Button>
-          <Button onClick={removeHandler} buttonType={"red"}>
-            [R]emove
-          </Button>
-          <Button onClick={backHandler}>[B]ack</Button>
-        </ButtonsContainer>
-      </InnerContainer>
-    </Container>
+    <Popup title={"Modify / Remove Output Item"}>
+      <InputContainer>
+        <ArrowContainer onClick={prevHandler}>
+          <FiArrowLeft />
+          <ArrowBind>[A]</ArrowBind>
+        </ArrowContainer>
+        <ImageContainer>
+          <img src={imgUrl} alt={id} />
+          <AmountText>{amount}</AmountText>
+        </ImageContainer>
+        <input
+          ref={inputRef}
+          type="number"
+          min={1}
+          autoFocus
+          onChange={inputHandler}
+          onFocus={handleInputFocus}
+        />
+        <ArrowContainer onClick={nextHandler}>
+          <FiArrowRight />
+          <ArrowBind>[D]</ArrowBind>
+        </ArrowContainer>
+      </InputContainer>
+      <ButtonsContainer>
+        <Button onClick={enterHandler} buttonType={"green"}>
+          <u>E</u>nter
+        </Button>
+        <Button onClick={removeHandler} buttonType={"red"}>
+          <u>R</u>emove
+        </Button>
+        <Button onClick={backHandler}>
+          <u>B</u>ack
+        </Button>
+      </ButtonsContainer>
+    </Popup>
   );
 };

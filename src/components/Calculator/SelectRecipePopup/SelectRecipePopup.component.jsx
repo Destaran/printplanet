@@ -10,35 +10,7 @@ import {
 import { SelectButton } from "./SelectButton.component";
 import { Button } from "../../Button/Button.component";
 import { useCallback } from "react";
-
-const Container = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-`;
-
-const InnerContainer = styled.div`
-  border: 2px solid black;
-  position: relative;
-  padding: 8px;
-  width: 100%;
-  max-width: 440px;
-  background-color: white;
-`;
-
-const Header = styled.div`
-  p {
-    margin: 0 0 8px 0;
-  }
-`;
+import { Popup } from "../../Popup/Popup.component";
 
 const InputContainer = styled.div`
   display: grid;
@@ -127,36 +99,31 @@ export const SelectRecipePopup = ({ id, setId, uid, addInfo }) => {
   }, [handleBack, handleEnter]);
 
   return (
-    <Container>
-      <InnerContainer>
-        <Header>
-          <p>Select Recipe</p>
-        </Header>
-        <InputContainer>
-          {recipes.map((recipe, idx) => {
-            const shortcut = JSON.stringify(Number(idx) + 1);
-            return (
-              <SelectButton
-                key={idx}
-                recipe={recipe}
-                selectedRecipe={selectedRecipe}
-                setSelectedRecipe={setSelectedRecipe}
-                handleEnter={handleEnter}
-                shortcut={shortcut}
-              />
-            );
-          })}
-        </InputContainer>
-        {warning && <Warning>Select a recipe to continue!</Warning>}
-        <ButtonsContainer>
-          <Button onClick={handleEnter} buttonType={"green"}>
-            [E]nter
-          </Button>
-          <Button onClick={handleBack} buttonType={"red"}>
-            [B]ack
-          </Button>
-        </ButtonsContainer>
-      </InnerContainer>
-    </Container>
+    <Popup title={"Select Recipe"}>
+      <InputContainer>
+        {recipes.map((recipe, idx) => {
+          const shortcut = JSON.stringify(Number(idx) + 1);
+          return (
+            <SelectButton
+              key={idx}
+              recipe={recipe}
+              selectedRecipe={selectedRecipe}
+              setSelectedRecipe={setSelectedRecipe}
+              handleEnter={handleEnter}
+              shortcut={shortcut}
+            />
+          );
+        })}
+      </InputContainer>
+      {warning && <Warning>Select a recipe to continue!</Warning>}
+      <ButtonsContainer>
+        <Button onClick={handleEnter} buttonType={"green"}>
+          <u>E</u>nter
+        </Button>
+        <Button onClick={handleBack} buttonType={"red"}>
+          <u>B</u>ack
+        </Button>
+      </ButtonsContainer>
+    </Popup>
   );
 };
