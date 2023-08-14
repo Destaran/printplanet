@@ -87,7 +87,6 @@ const NavLink = styled(Link)`
 
 const dispatchCurrentUser = async (user) => {
   const userDocument = await getUserDocument(user);
-  console.log(userDocument);
   store.dispatch(storeUser(userDocument));
 };
 
