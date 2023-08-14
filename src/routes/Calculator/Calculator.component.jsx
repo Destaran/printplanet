@@ -6,7 +6,6 @@ import { Summary } from "../../components/Calculator/Summary/Summary.component";
 import { ItemTree } from "../../components/Calculator/ItemTree/ItemTree.component";
 
 const Container = styled.div`
-  display: flex;
   margin: 0px auto;
   padding: 30px;
   width: 85%;
