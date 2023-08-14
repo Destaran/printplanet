@@ -1,5 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { WindowItem } from "../WindowItem/WindowItem.component";
+import { ppBlue, ppGrey } from "../../../../utils/colors";
+
+const MountAnimation = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
 
 const Container = styled.div`
   min-width: auto;
@@ -14,6 +24,7 @@ const WindowContainer = styled.div`
   min-width: auto;
   height: auto;
   width: auto;
+  animation: ${MountAnimation} 0.5s ease-out;
 `;
 
 const WindowOutter = styled.div`
@@ -23,7 +34,7 @@ const WindowOutter = styled.div`
   align-items: center;
   justify-content: center;
   border: 1px black solid;
-  background-color: #14213d;
+  background-color: ${ppBlue};
   margin: 0;
   padding: 4px;
 `;
@@ -32,7 +43,7 @@ const WindowInner = styled.div`
   display: grid;
   grid-template-columns: repeat(14, auto);
   border: 1px black solid;
-  background-color: #313131;
+  background-color: ${ppGrey};
   width: 100%;
   height: auto;
 `;
