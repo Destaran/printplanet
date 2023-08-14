@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ppGrey } from "../../../utils/colors";
 import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,7 +73,7 @@ const ImageContainer = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
-  background-color: #313131;
+  background-color: ${ppGrey};
   margin: 4px;
   padding: 2px;
   height: 40px;
@@ -102,6 +103,7 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   const inputRef = useRef(null);
   const outputArray = useSelector(outputKeys);
   const [id, setId] = useState(outputId);
+  const currentIdx = outputArray.indexOf(id);
   const imgUrl = getImageUrlById(id);
   const amount = useSelector(outputObject)[id].amount;
   const [newAmount, setNewAmount] = useState(amount);
@@ -124,47 +126,28 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   }, [dispatch, id, newAmount]);
 
   const removeHandler = useCallback(() => {
-    const currentIndex = outputArray.indexOf(id);
-    let direction = 1;
-    if (currentIndex === outputArray.length - 1) {
-      direction = -1;
-    }
-    const newIndex = currentIndex + direction;
-    if (newIndex < 0) {
-      setOutputId(null);
-    } else {
-      setId(outputArray[newIndex]);
-    }
+    let direction = currentIdx === outputArray.length - 1 ? -1 : 1;
+    const newIndex = currentIdx + direction;
+    newIndex < 0 ? setOutputId(null) : setId(outputArray[newIndex]);
     dispatch(removeFromOutput(id));
-  }, [dispatch, id, outputArray, setOutputId]);
+  }, [currentIdx, dispatch, id, outputArray, setOutputId]);
 
   const backHandler = useCallback(() => {
     setOutputId(null);
   }, [setOutputId]);
 
-  const handleInputFocus = ({ target }) => {
-    target.select();
-  };
-
-  const nextHandler = useCallback(() => {
-    document.activeElement.blur();
-    const nextIndex = outputArray.indexOf(id) + 1;
-    if (nextIndex < outputArray.length) {
-      setId(outputArray[nextIndex]);
-    }
-    inputRef.current.focus();
-    inputRef.current.select();
-  }, [id, outputArray]);
-
-  const prevHandler = useCallback(() => {
-    document.activeElement.blur();
-    const nextIndex = outputArray.indexOf(id) - 1;
-    if (nextIndex >= 0) {
-      setId(outputArray[nextIndex]);
-    }
-    inputRef.current.focus();
-    inputRef.current.select();
-  }, [id, outputArray]);
+  const switchHandler = useCallback(
+    (next) => {
+      document.activeElement.blur();
+      let direction = next ? 1 : -1;
+      const idx =
+        (currentIdx + direction + outputArray.length) % outputArray.length;
+      setId(outputArray[idx]);
+      inputRef.current.focus();
+      inputRef.current.select();
+    },
+    [currentIdx, outputArray]
+  );
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -178,24 +161,24 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
         backHandler();
       }
       if (event.key === "a") {
-        prevHandler();
+        switchHandler(false);
       }
       if (event.key === "d") {
-        nextHandler();
+        switchHandler(true);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [backHandler, enterHandler, nextHandler, prevHandler, removeHandler]);
+  }, [backHandler, enterHandler, switchHandler, removeHandler]);
 
   return (
-    <Popup title={"Modify / Remove Output Item"}>
+    <Popup title={"Modify Output"}>
       <InputContainer>
-        <ArrowContainer onClick={prevHandler}>
+        <ArrowContainer onClick={() => switchHandler(false)}>
           <FiArrowLeft />
-          <ArrowBind>[A]</ArrowBind>
+          <ArrowBind>A</ArrowBind>
         </ArrowContainer>
         <ImageContainer>
           <img src={imgUrl} alt={id} />
@@ -207,11 +190,10 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
           min={1}
           autoFocus
           onChange={inputHandler}
-          onFocus={handleInputFocus}
         />
-        <ArrowContainer onClick={nextHandler}>
+        <ArrowContainer onClick={() => switchHandler(true)}>
           <FiArrowRight />
-          <ArrowBind>[D]</ArrowBind>
+          <ArrowBind>D</ArrowBind>
         </ArrowContainer>
       </InputContainer>
       <ButtonsContainer>
