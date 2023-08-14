@@ -7,7 +7,7 @@ import GoogleLogo from "../../assets/GoogleLogo.svg";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
-import FormInput from "../FormInput/FormInput.component";
+import { FormInput } from "../FormInput/FormInput.component";
 import { Button } from "../Button/Button.component";
 import { DefaultButton } from "../Button/Button.component";
 

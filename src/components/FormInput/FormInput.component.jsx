@@ -52,7 +52,7 @@ const Group = styled.div`
   }
 `;
 
-const FormInput = ({ label, ...otherProps }) => {
+export const FormInput = ({ label, ...otherProps }) => {
   return (
     <Group>
       <Input {...otherProps} />
@@ -64,5 +64,3 @@ const FormInput = ({ label, ...otherProps }) => {
     </Group>
   );
 };
-
-export default FormInput;

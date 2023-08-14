@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button/Button.component";
-import FormInput from "../FormInput/FormInput.component";
+import { FormInput } from "../FormInput/FormInput.component";
 
 const RegistrationContainer = styled.div`
   margin: 30px auto;
