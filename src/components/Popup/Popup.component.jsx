@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { createPortal } from "react-dom";
-
-const ppBlue = "#14213d";
+import { ppBlue } from "../../utils/colors";
 
 const PopupContainer = styled.div`
   position: fixed;

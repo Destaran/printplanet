@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../../../../../utils/helperFunctions";
-
-const ppBlue = "#14213d";
+import { ppBlue } from "../../../../../../../utils/colors";
 
 const Container = styled.div`
   height: 28px;

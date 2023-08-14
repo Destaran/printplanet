@@ -12,6 +12,7 @@ import { storeUser } from "../../reduxStore/user/user.slice";
 import { currentUser } from "../../reduxStore/user/user.selector";
 import { ImExit } from "react-icons/im";
 import { store } from "../../reduxStore/store";
+import { ppBlue } from "../../utils/colors";
 
 const Container = styled.div`
   width: 100%;
@@ -27,7 +28,7 @@ const NavBar = styled.div`
   width: 100%;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  background-color: #14213d;
+  background-color: ${ppBlue};
 `;
 
 const NavBarWrapper = styled.div`

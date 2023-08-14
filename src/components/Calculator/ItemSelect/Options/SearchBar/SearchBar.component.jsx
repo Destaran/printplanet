@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { getImageUrlById } from "../../../../../utils/helperFunctions";
 import { FilteredItemsList } from "./FilteredItemsList.component";
 import { FormInput } from "../../../FormInput/FormInput.component";
-
-const ppBlue = "#14213d";
+import { ppBlue } from "../../../../../utils/colors";
+import { ppOrange } from "../../../../../utils/colors";
+import { ppGrey } from "../../../../../utils/colors";
 
 const Container = styled.div`
   width: 305px;
@@ -35,8 +36,8 @@ const CurrentItemContainer = styled.div`
     height: 24px;
     width: auto;
     margin: 0 5px 0 5px;
-    background-color: #313131;
-    border: 1px solid #b47500;
+    background-color: ${ppGrey};
+    border: 1px solid ${ppOrange};
   }
 `;
 

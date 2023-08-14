@@ -4,6 +4,7 @@ import {
   getImageUrlById,
 } from "../../../../../utils/helperFunctions";
 import { ModuleSlot } from "../ModuleSlot/ModuleSlot.component";
+import { ppGrey } from "../../../../../utils/colors";
 
 const BeaconsContainer = styled.div`
   margin: 0;
@@ -39,7 +40,7 @@ const BeaconImgContainer = styled.div`
     margin-right: 5px;
     height: 28px;
     width: 28px;
-    background-color: #313131;
+    background-color: ${ppGrey};
   }
 `;
 

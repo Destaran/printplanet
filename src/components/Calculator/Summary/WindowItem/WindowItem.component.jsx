@@ -3,6 +3,7 @@ import {
   getImageUrlById,
   formatNumber,
 } from "../../../../utils/helperFunctions";
+import { ppOrange, ppGrey } from "../../../../utils/colors";
 
 const MountAnimation = keyframes`
 from {
@@ -20,12 +21,12 @@ to {
 `;
 
 const OutterContainer = styled.div`
-  border: 2px solid #b47500;
+  border: 2px solid ${ppOrange};
   height: 42px;
   width: auto;
   padding: 2px;
   margin: 1px;
-  background-color: #313131;
+  background-color: ${ppGrey};
   user-select: none;
   cursor: pointer;
   transition: all 1s;
@@ -39,7 +40,7 @@ const OutterContainer = styled.div`
   }
   &:active {
     transition: all 0.2s;
-    background-color: #313131;
+    background-color: ${ppGrey};
     img {
       transform: scale(0.8);
     }

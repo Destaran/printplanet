@@ -16,8 +16,7 @@ import { Beacons } from "./Beacons/Beacons.component";
 import { Modules } from "./Modules/Modules.component";
 import { Button } from "../../../Button/Button.component";
 import { Select } from "./Select/Select.component";
-
-const ppBlue = "#14213d";
+import { ppBlue } from "../../../../utils/colors";
 
 const Container = styled.div`
   width: fit-content;

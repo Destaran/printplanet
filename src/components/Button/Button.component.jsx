@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ppBlue } from "../../utils/colors";
 
 export const DefaultButton = styled.button`
   border: 1px solid black;
@@ -6,22 +7,22 @@ export const DefaultButton = styled.button`
   padding: 5px;
   width: 100%;
   margin: 15px 0;
-  background-color: #14213d;
+  background-color: ${ppBlue};
   color: white;
   cursor: pointer;
   transition: all 1s;
 
   &:hover {
     background-color: orange;
-    color: #14213d;
-    border-color: #14213d;
+    color: ${ppBlue};
+    border-color: ${ppBlue};
     transition: all 0.3s;
   }
 
   &:active {
     transition: all 0.1s;
     color: white;
-    background-color: #14213d;
+    background-color: ${ppBlue};
   }
 `;
 

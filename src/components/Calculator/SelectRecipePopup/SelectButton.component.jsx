@@ -1,19 +1,19 @@
 import styled from "styled-components";
+import { ppGrey } from "../../../utils/colors";
 import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
 import { SelectButtonTooltip } from "./SelectButtonTooltip.component";
 import { useCallback } from "react";
-
-const ppDark = "#313131";
+import { ppOrange } from "../../../utils/colors";
 
 const Container = styled.div`
-  border: 2px solid #b47500;
+  border: 2px solid ${ppOrange};
   height: 42px;
   width: auto;
   padding: 2px;
   margin: 1px;
-  background-color: ${(props) => (props.selected ? "orange" : ppDark)};
+  background-color: ${(props) => (props.selected ? "orange" : ppGrey)};
   user-select: none;
   cursor: pointer;
   transition: all 0.3s;
@@ -23,7 +23,7 @@ const Container = styled.div`
   }
   &:active {
     transition: all 0.1s;
-    background-color: #313131;
+    background-color: ${ppGrey};
     img {
       transform: scale(0.9);
     }

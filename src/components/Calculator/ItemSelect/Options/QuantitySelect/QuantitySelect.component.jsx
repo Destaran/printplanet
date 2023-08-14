@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { getImageUrlById } from "../../../../../utils/helperFunctions";
 import { FormInput } from "../../../FormInput/FormInput.component";
 import { useMemo, useState } from "react";
-
-const ppBlue = "#14213d";
+import { ppBlue } from "../../../../../utils/colors";
 
 const Container = styled.div`
   width: 110px;

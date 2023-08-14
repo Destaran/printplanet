@@ -15,8 +15,7 @@ import { SearchBar } from "./SearchBar/SearchBar.component";
 import { QuantitySelect } from "./QuantitySelect/QuantitySelect.component";
 import { SelectRecipePopup } from "../../SelectRecipePopup/SelectRecipePopup.component";
 import { UnitSelection } from "./UnitSelection/UnitSelection.component";
-
-const ppBlue = "#14213d";
+import { ppBlue } from "../../../../utils/colors";
 
 const Container = styled.div`
   display: flex;

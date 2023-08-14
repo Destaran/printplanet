@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ppGrey } from "../../../../utils/colors";
 import {
   getBeaconModules,
   getImageUrlById,
@@ -30,7 +31,7 @@ const BeaconsContainer = styled.div`
   img {
     height: 28px;
     width: 28px;
-    background-color: #313131;
+    background-color: ${ppGrey};
   }
 `;
 

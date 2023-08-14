@@ -14,14 +14,15 @@ import {
   collapseSameTypeElements,
 } from "../../../../../../../reduxStore/calculator/calculator.slice";
 import { SelectRecipePopup } from "../../../../../SelectRecipePopup/SelectRecipePopup.component";
+import { ppOrange, ppGrey } from "../../../../../../../utils/colors";
 
 const Container = styled.div`
-  border: 2px solid #b47500;
+  border: 2px solid ${ppOrange};
   height: 36px;
   width: 36px;
   padding: 2px;
   margin: 1px;
-  background-color: #313131;
+  background-color: ${ppGrey};
   user-select: none;
   cursor: pointer;
   transition: all 1s;
@@ -33,7 +34,7 @@ const Container = styled.div`
   }
   &:active {
     transition: all 0.1s;
-    background-color: #313131;
+    background-color: ${ppGrey};
     img {
       transform: scale(0.9);
     }

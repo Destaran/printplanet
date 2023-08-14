@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { getImageUrlById, formatNumber } from "../../../utils/helperFunctions";
+import { ppOrange, ppGrey } from "../../../utils/colors";
 
 const OutterContainer = styled.div`
-  border: 2px solid #b47500;
+  border: 2px solid ${ppOrange};
   height: 36px;
   width: 36px;
   padding: 2px;
   margin: 1px;
-  background-color: #313131;
+  background-color: ${ppGrey};
   user-select: none;
 
   &:hover {
@@ -15,7 +16,7 @@ const OutterContainer = styled.div`
     background-color: orange;
   }
   &:active {
-    background-color: #313131;
+    background-color: ${ppGrey};
   }
 `;
 

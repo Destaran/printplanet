@@ -5,10 +5,8 @@ import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
 import { Options } from "./Options/Options.component";
 import { DefaultMachineConfig } from "./MachineConfig/DefaultMachineConfig.component";
 import { Menus } from "../Menus/Menus.component";
-
+import { ppBlue } from "../../../utils/colors";
 import styled from "styled-components";
-
-const ppBlue = "#14213d";
 
 const Container = styled.div`
   display: flex;

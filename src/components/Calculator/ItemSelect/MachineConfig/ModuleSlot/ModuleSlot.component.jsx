@@ -4,8 +4,7 @@ import {
   getImageUrlById,
   getNameById,
 } from "../../../../../utils/helperFunctions";
-
-const ppBlue = "#14213d";
+import { ppBlue } from "../../../../../utils/colors";
 
 const Slot = styled.div`
   height: 28px;
