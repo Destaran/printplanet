@@ -28,15 +28,15 @@ const CurrentItemContainer = styled.div`
   background-color: ${ppBlue};
   p {
     margin: 0;
-    color: #f4f1de;
+    color: white;
     font-size: 16px;
   }
   img {
     height: 24px;
     width: auto;
     margin: 0 5px 0 5px;
-    background-color: white;
-    border: 2px solid black;
+    background-color: #313131;
+    border: 1px solid #b47500;
   }
 `;
 
