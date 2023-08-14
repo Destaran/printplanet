@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { currentUser } from "../../reduxStore/user/user.selector";
+import { FormInput } from "../../components/FormInput/FormInput.component";
 
 const Container = styled.div`
-  display: flex;
   margin: 0px auto;
   padding: 30px;
   width: 85%;
@@ -12,8 +12,15 @@ const Container = styled.div`
   user-select: none;
 `;
 
+const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+`;
+
 export const Profile = () => {
   const user = useSelector(currentUser);
+  const { displayName, email } = user;
 
   if (!user) {
     return (
@@ -25,7 +32,23 @@ export const Profile = () => {
 
   return (
     <Container>
-      <h1>Welcome {user.displayName}!</h1>
+      <h1>Profile</h1>
+      <ProfileContainer>
+        <FormInput
+          label="Display Name"
+          name="displayName"
+          value={displayName}
+          type="text"
+          disabled
+        />
+        <FormInput
+          label="E-mail"
+          name="email"
+          value={email}
+          type="text"
+          disabled
+        />
+      </ProfileContainer>
     </Container>
   );
 };
