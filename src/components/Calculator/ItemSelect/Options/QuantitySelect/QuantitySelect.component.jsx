@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../../../utils/helperFunctions";
-import { Tooltip } from "react-tooltip";
 import { FormInput } from "../../../FormInput/FormInput.component";
 import { useMemo, useState } from "react";
 
@@ -24,9 +23,10 @@ const ButtonContainer = styled.div`
   padding: 2px;
   border: 2px solid black;
   background-color: ${ppBlue};
-  transition: all 0.3s;
+  transition: all 1s;
   cursor: pointer;
   &:hover {
+    transition: all 0.3s;
     background-color: orange;
   }
   &:active {
@@ -99,40 +99,19 @@ export const QuantitySelect = ({ setQuantity, quantity }) => {
         onFocus={handleInputFocus}
       />
       <BeltsContainer>
-        <Tooltip id="transport-belt" delayShow={"1500"} place="bottom">
-          15 item/s
-        </Tooltip>
-        <ButtonContainer
-          data-tooltip-id="transport-belt"
-          onClick={handleClick}
-          data-value={15}
-        >
+        <ButtonContainer onClick={handleClick} data-value={15}>
           <img src={beltImages.basic} data-value={15} />
           {beltPerSec > 0 && beltPerSec < 16 && (
             <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
           )}
         </ButtonContainer>
-        <Tooltip id="fast-transport-belt" delayShow={"1500"} place="bottom">
-          30 item/s
-        </Tooltip>
-        <ButtonContainer
-          data-tooltip-id="fast-transport-belt"
-          onClick={handleClick}
-          data-value={30}
-        >
+        <ButtonContainer onClick={handleClick} data-value={30}>
           <img src={beltImages.fast} data-value={30} />
           {beltPerSec > 15 && beltPerSec < 31 && (
             <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
           )}
         </ButtonContainer>
-        <Tooltip id="express-transport-belt" delayShow={"1500"} place="bottom">
-          45 item/s
-        </Tooltip>
-        <ButtonContainer
-          data-tooltip-id="express-transport-belt"
-          onClick={handleClick}
-          data-value={45}
-        >
+        <ButtonContainer onClick={handleClick} data-value={45}>
           <img src={beltImages.express} data-value={45} />
           {beltPerSec > 30 && (
             <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
