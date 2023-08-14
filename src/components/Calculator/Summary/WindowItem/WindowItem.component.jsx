@@ -1,8 +1,23 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import {
   getImageUrlById,
   formatNumber,
 } from "../../../../utils/helperFunctions";
+
+const Animation = keyframes`
+from {
+  width: 0px;
+  border-width: 0px;
+  scale: 0;
+  opacity: 0;
+}
+to {
+  width: 42px;
+  border-width: 2px;
+  scale: 1;
+  opacity: 1;
+}
+`;
 
 const OutterContainer = styled.div`
   border: 2px solid #b47500;
@@ -14,9 +29,11 @@ const OutterContainer = styled.div`
   user-select: none;
   cursor: pointer;
   transition: all 1s;
+  animation: ${Animation} 0.5s ease-out;
 
   &:hover {
     transition: all 0.2s;
+
     background-color: orange;
     border: 2px solid #efefef;
     transform: translateY(-3px);
