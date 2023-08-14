@@ -72,23 +72,15 @@ export const Summary = () => {
 
   return (
     <Container>
-      <Window
-        title={"Desired Output"}
-        items={output}
-        handleClick={handleOutputClick}
-      />
+      <Window title={"Output"} items={output} handleClick={handleOutputClick} />
       {outputId && (
         <ModifyOutputPopup outputId={outputId} setOutputId={setOutputId} />
       )}
-      <Window
-        title={"Required Input"}
-        items={input}
-        handleClick={handleInputClick}
-      />
+      <Window title={"Input"} items={input} handleClick={handleInputClick} />
       {inputId && <SelectRecipePopup id={inputId} setId={setInputId} />}
       {machines.length > 0 && (
         <Window
-          title={"Required Machines / Beacons / Modules"}
+          title={"Machines / Beacons / Modules"}
           items={machines}
           handleClick={handleMachineClick}
         />
