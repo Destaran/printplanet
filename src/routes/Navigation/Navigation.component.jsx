@@ -6,12 +6,12 @@ import {
   signOutAuthUser,
 } from "../../utils/firestore/firestore";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { storeUser } from "../../reduxStore/user/user.slice";
 import { currentUser } from "../../reduxStore/user/user.selector";
 import { ImExit } from "react-icons/im";
+import { store } from "../../reduxStore/store";
 
 const Container = styled.div`
   width: 100%;
@@ -69,7 +69,7 @@ const NavLink = styled(Link)`
   padding: 0px;
   cursor: pointer;
   transition: all 1s;
-  color: ${({ isactive }) => (isactive ? "orange" : "white")};
+  color: ${({ $isactive }) => ($isactive ? "orange" : "white")};
 
   &:hover {
     color: ${({ color }) => (color ? color : "orange")};
@@ -85,15 +85,28 @@ const NavLink = styled(Link)`
 
 // refactor
 
+const dispatchCurrentUser = async (user) => {
+  const userDocument = await getUserDocument(user);
+  console.log(userDocument);
+  store.dispatch(storeUser(userDocument));
+};
+
+onAuthStateChangedListener((user) => {
+  if (user) {
+    createUserDocumentFromAuth(user);
+    dispatchCurrentUser(user);
+  } else {
+    store.dispatch(storeUser(null));
+  }
+});
+
 export const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const user = useSelector(currentUser);
 
   const handleLogout = () => {
     signOutAuthUser();
-    dispatch(storeUser(null));
     navigate("/login");
   };
 
@@ -105,25 +118,6 @@ export const Navigation = () => {
     }
   };
 
-  useEffect(() => {
-    async function dispatchCurrentUser(user) {
-      const userDocument = await getUserDocument(user);
-      const payload = {
-        displayName: userDocument.displayName,
-        email: userDocument.email,
-      };
-      dispatch(storeUser(payload));
-    }
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatchCurrentUser(user);
-    });
-
-    return unsubscribe;
-  }, [dispatch]);
-
   return (
     <>
       <Container>
@@ -132,17 +126,17 @@ export const Navigation = () => {
           <NavBarWrapper>
             <NavBarLeft>
               <LinkContainer>
-                <NavLink to="/guide" isactive={checkPath("/guide")}>
+                <NavLink to="/guide" $isactive={checkPath("/guide")}>
                   Guide
                 </NavLink>
               </LinkContainer>
               <LinkContainer>
-                <NavLink to="/calculator" isactive={checkPath("/calculator")}>
+                <NavLink to="/calculator" $isactive={checkPath("/calculator")}>
                   Calculator
                 </NavLink>
               </LinkContainer>
               <LinkContainer>
-                <NavLink to="/about" isactive={checkPath("/about")}>
+                <NavLink to="/about" $isactive={checkPath("/about")}>
                   About
                 </NavLink>
               </LinkContainer>
@@ -150,7 +144,7 @@ export const Navigation = () => {
             <NavBarRight>
               {user ? (
                 <>
-                  <NavLink to="/profile" isactive={checkPath("/profile")}>
+                  <NavLink to="/profile" $isactive={checkPath("/profile")}>
                     <LinkContainer>{user.displayName}</LinkContainer>
                   </NavLink>
                   <LinkContainer>
@@ -161,7 +155,7 @@ export const Navigation = () => {
                 </>
               ) : (
                 <LinkContainer>
-                  <NavLink to="/login" isactive={checkPath("/login")}>
+                  <NavLink to="/login" $isactive={checkPath("/login")}>
                     Login
                   </NavLink>
                 </LinkContainer>

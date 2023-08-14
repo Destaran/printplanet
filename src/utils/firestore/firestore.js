@@ -108,7 +108,9 @@ export const getUserDocument = async (userAuth) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    return docSnap.data();
+    const user = docSnap.data();
+    user.createdAt = user.createdAt.toMillis();
+    return user;
   } else {
     console.log("No such document!");
   }
