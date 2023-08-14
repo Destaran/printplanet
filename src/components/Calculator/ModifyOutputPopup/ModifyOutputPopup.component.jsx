@@ -236,6 +236,7 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
           <input
             ref={inputRef}
             type="number"
+            min={1}
             autoFocus
             onChange={inputHandler}
             onFocus={handleInputFocus}
