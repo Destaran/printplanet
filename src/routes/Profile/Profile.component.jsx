@@ -42,6 +42,7 @@ export const Profile = () => {
           name="displayName"
           value={displayName}
           type="text"
+          color="grey"
           disabled
         />
         <FormInput
@@ -49,6 +50,7 @@ export const Profile = () => {
           name="email"
           value={email}
           type="text"
+          color="grey"
           disabled
         />
       </DataContainer>
