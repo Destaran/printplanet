@@ -4,7 +4,7 @@ import {
   formatNumber,
 } from "../../../../utils/helperFunctions";
 
-const Animation = keyframes`
+const MountAnimation = keyframes`
 from {
   width: 0px;
   border-width: 0px;
@@ -29,8 +29,7 @@ const OutterContainer = styled.div`
   user-select: none;
   cursor: pointer;
   transition: all 1s;
-  animation: ${Animation} 0.5s ease-out;
-
+  animation: ${MountAnimation} 0.5s ease-out;
   &:hover {
     transition: all 0.2s;
 
