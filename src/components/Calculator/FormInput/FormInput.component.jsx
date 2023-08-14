@@ -28,7 +28,6 @@ const Input = styled.input`
   font-size: 18px;
   display: block;
   width: 100%;
-  border-radius: 5px;
   border: 1px solid ${subColor};
   margin: 15px 0;
   height: 20px;

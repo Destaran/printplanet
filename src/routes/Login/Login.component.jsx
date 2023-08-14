@@ -11,7 +11,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   border: 1px black solid;
-  border-radius: 10px;
 
   span {
     color: black;

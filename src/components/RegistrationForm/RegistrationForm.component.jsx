@@ -15,7 +15,6 @@ const RegistrationContainer = styled.div`
   width: 300px;
   border: 1px black solid;
   background-color: #f1f1f1;
-  border-radius: 10px;
 `;
 
 const InnerRegistrationContainer = styled.div`

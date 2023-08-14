@@ -17,7 +17,6 @@ const Container = styled.div`
   width: 300px;
   border: 1px black solid;
   background-color: #f1f1f1;
-  border-radius: 10px;
 `;
 
 const InnerLoginContainer = styled.div`
@@ -137,6 +136,7 @@ const LoginForm = () => {
             value={email}
             name="email"
             onChange={handleChange}
+            autoComplete="username"
           />
           <FormInput
             label="Password"
@@ -145,6 +145,7 @@ const LoginForm = () => {
             value={password}
             name="password"
             onChange={handleChange}
+            autoComplete="current-password"
           />
           <Button onClick={handleSubmit}>Login</Button>
         </Form>
