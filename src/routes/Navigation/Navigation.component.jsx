@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import { Outlet, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { signOutAuthUser } from "../../utils/firestore/firestore";
-import { Link } from "react-router-dom";
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
   getUserDocument,
+  signOutAuthUser,
 } from "../../utils/firestore/firestore";
-import { storeUser } from "../../reduxStore/user/user.slice";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { storeUser } from "../../reduxStore/user/user.slice";
 import { currentUser } from "../../reduxStore/user/user.selector";
 import { ImExit } from "react-icons/im";
 
@@ -28,7 +28,6 @@ const NavBar = styled.div`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   background-color: #14213d;
-  justify-content: space-between;
 `;
 
 const NavBarWrapper = styled.div`
@@ -86,10 +85,12 @@ const NavLink = styled(Link)`
   }
 `;
 
-const Navigation = () => {
+// refactor
+
+export const Navigation = () => {
   const navigate = useNavigate();
-  const user = useSelector(currentUser);
   const dispatch = useDispatch();
+  const user = useSelector(currentUser);
 
   const handleLogout = () => {
     signOutAuthUser();
@@ -127,10 +128,10 @@ const Navigation = () => {
                 <NavLink to="/calculator">Calculator</NavLink>
               </LinkContainer>
               <LinkContainer>
-                <NavLink to="/calculator">Guide</NavLink>
+                <NavLink to="/guide">Guide</NavLink>
               </LinkContainer>
               <LinkContainer>
-                <NavLink to="/calculator">About</NavLink>
+                <NavLink to="/about">About</NavLink>
               </LinkContainer>
             </NavBarLeft>
             <NavBarRight>
@@ -158,5 +159,3 @@ const Navigation = () => {
     </>
   );
 };
-
-export default Navigation;

@@ -5,7 +5,8 @@ import { ItemSelect } from "../../components/Calculator/ItemSelect/ItemSelect.co
 import { Summary } from "../../components/Calculator/Summary/Summary.component";
 import { ItemTree } from "../../components/Calculator/ItemTree/ItemTree.component";
 
-export const Container = styled.div`
+const Container = styled.div`
+  display: flex;
   margin: 0px auto;
   padding: 30px;
   width: 85%;
@@ -14,7 +15,7 @@ export const Container = styled.div`
   user-select: none;
 `;
 
-const Calculator = () => {
+export const Calculator = () => {
   const output = useSelector(outputValues);
   return (
     <Container>
@@ -24,5 +25,3 @@ const Calculator = () => {
     </Container>
   );
 };
-
-export default Calculator;

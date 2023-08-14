@@ -5,13 +5,15 @@ import { UserProvider } from "./contexts/user.context";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./reduxStore/store";
 import { Routes, Route } from "react-router-dom";
-import Navigation from "./routes/Navigation/Navigation.component";
-import Home from "./routes/Home/Home.component";
-import Login from "./routes/Login/Login.component";
-import Registration from "./routes/Register/Registration.component";
-import ForgotPassword from "./routes/ForgotPassword/ForgotPassword.component";
-import Profile from "./routes/Profile/Profile.component";
-import Calculator from "./routes/Calculator/Calculator.component";
+import { Navigation } from "./routes/Navigation/Navigation.component";
+import { Home } from "./routes/Home/Home.component";
+import { Login } from "./routes/Login/Login.component";
+import { Registration } from "./routes/Register/Registration.component";
+import { ForgotPassword } from "./routes/ForgotPassword/ForgotPassword.component";
+import { Profile } from "./routes/Profile/Profile.component";
+import { Calculator } from "./routes/Calculator/Calculator.component";
+import { Guide } from "./routes/Guide/Guide.component";
+import { About } from "./routes/About/About.component";
 
 const App = () => {
   return (
@@ -27,6 +29,8 @@ const App = () => {
                 <Route path="forgot-password" element={<ForgotPassword />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="calculator" element={<Calculator />} />
+                <Route path="guide" element={<Guide />} />
+                <Route path="about" element={<About />} />
               </Route>
             </Routes>
           </PersistGate>

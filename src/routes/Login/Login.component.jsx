@@ -24,9 +24,8 @@ const Container = styled.div`
   }
 `;
 
-const Login = () => {
+export const Login = () => {
   const navigate = useNavigate();
-
   const navigateHandler = () => {
     navigate("/registration");
   };
@@ -43,5 +42,3 @@ const Login = () => {
     </>
   );
 };
-
-export default Login;
