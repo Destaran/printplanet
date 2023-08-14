@@ -13,7 +13,7 @@ const Container = styled.div`
 export const Guide = () => {
   return (
     <Container>
-      <h1>This is the Guide page</h1>
+      <h1>Guide</h1>
     </Container>
   );
 };
