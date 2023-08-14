@@ -1,15 +1,12 @@
 import styled, { css } from "styled-components";
 
-const subColor = "black";
-const mainColor = "black";
-
 const shrinkLabelStyles = css`
   top: 0px;
   font-size: 12px;
-  color: ${mainColor};
+  color: "black";
 `;
 const FormInputLabel = styled.label`
-  color: ${subColor};
+  color: "black";
   font-size: 16px;
   font-weight: normal;
   position: absolute;
@@ -24,11 +21,11 @@ const FormInputLabel = styled.label`
 const Input = styled.input`
   background: none;
   background-color: white;
-  color: ${subColor};
+  color: ${({ color }) => (color ? color : "black")};
   font-size: 18px;
   display: block;
   width: 100%;
-  border: 1px solid ${subColor};
+  border: 1px solid "black";
   margin: 15px 0;
   padding: 10px;
 
@@ -47,8 +44,6 @@ const Group = styled.div`
   position: relative;
   width: 100%;
   margin: 0;
-  input[type="password"] {
-  }
 `;
 
 export const FormInput = ({ label, ...otherProps }) => {
