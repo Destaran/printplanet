@@ -4,7 +4,7 @@ import { currentUser } from "../../reduxStore/user/user.selector";
 import { FormInput } from "../../components/FormInput/FormInput.component";
 import { Button } from "../../components/Button/Button.component";
 import { useState } from "react";
-import { ResetPassPopup } from "../../components/Profile/ResetPassPopup/ResetPassPopup.component";
+import { ChangePassPopup } from "../../components/Profile/ChangePassPopup/ChangePassPopup.component";
 
 const Container = styled.div`
   margin: 0px auto;
@@ -66,7 +66,7 @@ export const Profile = () => {
         />
         <Button>Change E-mail</Button>
         <Button onClick={handlePassPopup}>Change Password</Button>
-        {popup && <ResetPassPopup setPopup={setPopup} />}
+        {popup && <ChangePassPopup setPopup={setPopup} />}
       </DataContainer>
     </Container>
   );
