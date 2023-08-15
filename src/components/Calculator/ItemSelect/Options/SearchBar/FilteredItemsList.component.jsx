@@ -58,8 +58,7 @@ export const FilteredItemsList = ({ selectItem, searchString }) => {
       getAllProducts.filter((item) =>
         item.name
           .toLowerCase()
-          .replace("-", " ")
-          .includes(searchString.toLowerCase())
+          .includes(searchString.toLowerCase().replace(" ", "-"))
       ),
     [searchString]
   );
