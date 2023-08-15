@@ -35,7 +35,7 @@ const NavBarWrapper = styled.div`
   display: flex;
   margin: 0 auto;
   padding: 0;
-  width: 89%;
+  width: 68%;
   justify-content: space-between;
 `;
 

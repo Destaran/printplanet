@@ -9,7 +9,7 @@ import { ResetPassPopup } from "../../components/Profile/ResetPassPopup/ResetPas
 const Container = styled.div`
   margin: 0px auto;
   padding: 30px;
-  width: 85%;
+  width: 65%;
   height: 100%;
   background-color: #f1f1f1;
   user-select: none;
@@ -19,10 +19,14 @@ const DataContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 300px;
+
+  button {
+    margin: 10px 0 10px 0;
+  }
 `;
 
 const Header = styled.h1`
-  margin: 0 0 50px 0;
+  margin: 0 0 25px 0;
 `;
 
 export const Profile = () => {
@@ -45,16 +49,23 @@ export const Profile = () => {
   return (
     <Container>
       <DataContainer>
-        <Header>{displayName}</Header>
+        <Header>Profile</Header>
+        <FormInput
+          label="Display Name"
+          value={displayName}
+          type="text"
+          color="grey"
+          disabled
+        />
         <FormInput
           label="E-mail"
-          name="email"
           value={email}
           type="text"
           color="grey"
           disabled
         />
-        <Button onClick={handlePassPopup}>Set new password</Button>
+        <Button>Change E-mail</Button>
+        <Button onClick={handlePassPopup}>Change Password</Button>
         {popup && <ResetPassPopup setPopup={setPopup} />}
       </DataContainer>
     </Container>

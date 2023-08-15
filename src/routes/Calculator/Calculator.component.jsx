@@ -8,7 +8,7 @@ import { ItemTree } from "../../components/Calculator/ItemTree/ItemTree.componen
 const Container = styled.div`
   margin: 0px auto;
   padding: 30px;
-  width: 85%;
+  width: 65%;
   height: 100%;
   background-color: #f1f1f1;
   user-select: none;
