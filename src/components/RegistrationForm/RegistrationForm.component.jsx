@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../Button/Button.component";
 import { FormInput } from "../FormInput/FormInput.component";
 
-const RegistrationContainer = styled.div`
+const Container = styled.div`
   margin: 30px auto;
   padding: 0;
   width: 300px;
@@ -17,7 +17,7 @@ const RegistrationContainer = styled.div`
   background-color: #f1f1f1;
 `;
 
-const InnerRegistrationContainer = styled.div`
+const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 25px;
@@ -30,10 +30,22 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const ContainerHeader = styled.div`
+const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Error = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  margin: 0;
+  p {
+    text-align: center;
+    margin: 0;
+  }
 `;
 
 const defaultFormFields = {
@@ -45,8 +57,8 @@ const defaultFormFields = {
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
-
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const [error, setError] = useState(false);
   const { displayName, email, password, confirmPassword } = formFields;
 
   const handleChange = (event) => {
@@ -58,12 +70,12 @@ const RegistrationForm = () => {
     event.preventDefault();
 
     if (!validator.isEmail(email)) {
-      alert("Invalid e-mail address!");
+      setError("Invalid e-mail address!");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
       return;
     }
 
@@ -76,7 +88,7 @@ const RegistrationForm = () => {
       navigate("/calculator");
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {
-        alert("Email already in use!");
+        setError("E-mail already in use!");
       } else {
         console.log("User creation encountered an error!", error);
       }
@@ -84,11 +96,11 @@ const RegistrationForm = () => {
   };
 
   return (
-    <RegistrationContainer>
-      <InnerRegistrationContainer>
-        <ContainerHeader>
+    <Container>
+      <InnerContainer>
+        <Header>
           <h3>Register account</h3>
-        </ContainerHeader>
+        </Header>
         <Form onSubmit={handleSubmit}>
           <FormInput
             label="Display Name"
@@ -122,10 +134,15 @@ const RegistrationForm = () => {
             name="confirmPassword"
             onChange={handleChange}
           />
+          {error && (
+            <Error>
+              <p>{error}</p>
+            </Error>
+          )}
           <Button>Register</Button>
         </Form>
-      </InnerRegistrationContainer>
-    </RegistrationContainer>
+      </InnerContainer>
+    </Container>
   );
 };
 

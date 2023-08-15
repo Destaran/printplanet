@@ -4,9 +4,8 @@ import {
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firestore/firestore";
 import GoogleLogo from "../../assets/GoogleLogo.svg";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../contexts/user.context";
 import { FormInput } from "../FormInput/FormInput.component";
 import { Button } from "../Button/Button.component";
 import { DefaultButton } from "../Button/Button.component";
@@ -73,6 +72,18 @@ const PasswordReset = styled.div`
   }
 `;
 
+const Error = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  margin: 0;
+  p {
+    text-align: center;
+    margin: 0;
+  }
+`;
+
 const defaultFormFields = {
   email: "",
   password: "",
@@ -81,37 +92,36 @@ const defaultFormFields = {
 // refactor: into multiple components
 const LoginForm = () => {
   const navigate = useNavigate();
-
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
     navigate("/calculator");
   };
 
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const [loginErr, setLoginErr] = useState(null);
   const { email, password } = formFields;
-
-  const { setCurrentUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      setCurrentUser(user);
+      await signInAuthUserWithEmailAndPassword(email, password);
       navigate("/calculator");
+      setLoginErr(null);
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
-          alert("Incorrect password");
+          setLoginErr("Incorrect e-mail or password!");
           break;
         case "auth/user-not-found":
-          alert("No user associated with this email");
+          setLoginErr("Incorrect e-mail or password!");
+          break;
+        case "auth/invalid-email":
+          setLoginErr("Invalid e-mail!");
           break;
         default:
-          console.log(error);
+          // remove
+          console.log(error.code);
       }
     }
   };
@@ -147,6 +157,11 @@ const LoginForm = () => {
             onChange={handleChange}
             autoComplete="current-password"
           />
+          {loginErr && (
+            <Error>
+              <p>{loginErr}</p>
+            </Error>
+          )}
           <Button onClick={handleSubmit}>Login</Button>
         </Form>
         <OrContainer>
