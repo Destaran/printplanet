@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { currentUser } from "../../reduxStore/user/user.selector";
 import { FormInput } from "../../components/FormInput/FormInput.component";
+import { Button } from "../../components/Button/Button.component";
+import { useState } from "react";
+import { ResetPassPopup } from "../../components/Profile/ResetPassPopup/ResetPassPopup.component";
 
 const Container = styled.div`
   margin: 0px auto;
@@ -25,6 +28,11 @@ const Header = styled.h1`
 export const Profile = () => {
   const user = useSelector(currentUser);
   const { displayName, email } = user;
+  const [popup, setPopup] = useState(null);
+
+  const handlePassPopup = () => {
+    setPopup(true);
+  };
 
   if (!user) {
     return (
@@ -37,14 +45,7 @@ export const Profile = () => {
   return (
     <Container>
       <DataContainer>
-        <FormInput
-          label="Display Name"
-          name="displayName"
-          value={displayName}
-          type="text"
-          color="grey"
-          disabled
-        />
+        <Header>{displayName}</Header>
         <FormInput
           label="E-mail"
           name="email"
@@ -53,6 +54,8 @@ export const Profile = () => {
           color="grey"
           disabled
         />
+        <Button onClick={handlePassPopup}>Set new password</Button>
+        {popup && <ResetPassPopup setPopup={setPopup} />}
       </DataContainer>
     </Container>
   );
