@@ -67,7 +67,9 @@ export const Summary = () => {
   };
 
   const handleMachineClick = (id) => {
-    setMachineId(id);
+    if (!id.includes("module") && !id.includes("beacon")) {
+      setMachineId(id);
+    }
   };
 
   return (
