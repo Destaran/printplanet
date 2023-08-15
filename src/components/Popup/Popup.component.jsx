@@ -22,10 +22,12 @@ const Header = styled.div`
 
 const Container = styled.div`
   background-color: white;
+  min-width: 300px;
   width: auto;
   display: block;
   border: 2px solid ${ppBlue};
   padding: 15px;
+  user-select: none;
 `;
 
 const PopupPortal = ({ children }) => {
@@ -37,7 +39,9 @@ export const Popup = ({ children, title }) => {
     <PopupPortal>
       <PopupContainer>
         <Container>
-          <Header>{title}</Header>
+          <Header>
+            <u>{title}</u>
+          </Header>
           {children}
         </Container>
       </PopupContainer>
