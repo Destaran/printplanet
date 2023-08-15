@@ -13,7 +13,7 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-export const ResetPassPopup = ({ setPopup }) => {
+export const ChangePassPopup = ({ setPopup }) => {
   const [formFields, setFormFields] = useState({
     newPass: "",
     newConfirm: "",
@@ -26,7 +26,7 @@ export const ResetPassPopup = ({ setPopup }) => {
   };
 
   const handleSubmit = () => {
-    console.log("fuck ye");
+    console.log("Submit");
   };
 
   const handleCancel = () => {
@@ -37,15 +37,15 @@ export const ResetPassPopup = ({ setPopup }) => {
     <Popup title="Set New Password">
       <FormInput
         required
-        type="text"
+        type="password"
         value={newPass}
         onChange={handleChange}
-        label="Password"
+        label="New Password"
         name="newPass"
       />
       <FormInput
         required
-        type="text"
+        type="password"
         value={newConfirm}
         onChange={handleChange}
         label="Confirm Password"
@@ -53,10 +53,10 @@ export const ResetPassPopup = ({ setPopup }) => {
       />
       <ButtonsContainer>
         <Button buttonType={"green"} onClick={handleSubmit}>
-          Submit
+          <u>E</u>nter
         </Button>
         <Button buttonType={"red"} onClick={handleCancel}>
-          Cancel
+          <u>B</u>ack
         </Button>
       </ButtonsContainer>
     </Popup>
