@@ -41,7 +41,7 @@ const WindowOutter = styled.div`
 
 const WindowInner = styled.div`
   display: grid;
-  grid-template-columns: repeat(14, auto);
+  grid-template-columns: repeat(10, auto);
   border: 1px black solid;
   background-color: ${ppGrey};
   width: 100%;
