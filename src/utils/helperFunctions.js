@@ -173,6 +173,9 @@ export const getMachineObjectById = (id) => {
   return craftingMachines.find((item) => item.name === id);
 };
 
+export const getMachineCategories = (id) =>
+  Object.keys(getMachineObjectById(id).categories);
+
 export const checkIfMultipleRecipes = (id) => {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === id)
