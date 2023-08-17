@@ -5,7 +5,6 @@ import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
 import { Options } from "./Options/Options.component";
 import { DefaultMachineConfig } from "./MachineConfig/DefaultMachineConfig.component";
 import { Menus } from "../Menus/Menus.component";
-import { ppBlue } from "../../../utils/colors";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -16,19 +15,6 @@ const Container = styled.div`
   input,
   select {
     border-radius: 0px;
-  }
-`;
-
-const OptionsContainer = styled.div`
-  display: flex;
-  border-top: 1px solid ${ppBlue};
-  border-bottom: 1px solid ${ppBlue};
-  border-left: 1px solid ${ppBlue};
-  padding: 10px;
-  width: auto;
-  input,
-  select {
-    margin-top: 0;
   }
 `;
 
@@ -59,7 +45,6 @@ export const ItemSelect = () => {
         setQuantity={setQuantity}
       />
       <DefaultMachineConfig />
-      <OptionsContainer>Options</OptionsContainer>
       <Menus resetHandler={resetHandler} />
     </Container>
   );
