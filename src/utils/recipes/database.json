@@ -5871,108 +5871,83 @@
   "craftingMachines": [
     {
       "name": "stone-furnace",
-      "categories": {
-        "smelting": true
-      },
+      "categories": ["smelting"],
       "craftingSpeed": 1,
       "ingredientCount": 1,
       "moduleSlots": 0
     },
     {
       "name": "steel-furnace",
-      "categories": {
-        "smelting": true
-      },
+      "categories": ["smelting"],
       "craftingSpeed": 2,
       "ingredientCount": 1,
       "moduleSlots": 0
     },
     {
       "name": "electric-furnace",
-      "categories": {
-        "smelting": true
-      },
+      "categories": ["smelting"],
       "craftingSpeed": 2,
       "ingredientCount": 1,
       "moduleSlots": 2
     },
     {
       "name": "assembling-machine-1",
-      "categories": {
-        "crafting": true,
-        "basic-crafting": true,
-        "advanced-crafting": true
-      },
+      "categories": ["crafting", "basic-crafting", "advanced-crafting"],
       "craftingSpeed": 0.5,
       "ingredientCount": 255,
       "moduleSlots": 0
     },
     {
       "name": "assembling-machine-2",
-      "categories": {
-        "basic-crafting": true,
-        "crafting": true,
-        "advanced-crafting": true,
-        "crafting-with-fluid": true
-      },
+      "categories": [
+        "basic-crafting",
+        "crafting",
+        "advanced-crafting",
+        "crafting-with-fluid"
+      ],
       "craftingSpeed": 0.75,
       "ingredientCount": 255,
       "moduleSlots": 2
     },
     {
       "name": "assembling-machine-3",
-      "categories": {
-        "basic-crafting": true,
-        "crafting": true,
-        "advanced-crafting": true,
-        "crafting-with-fluid": true
-      },
+      "categories": [
+        "basic-crafting",
+        "crafting",
+        "advanced-crafting",
+        "crafting-with-fluid"
+      ],
       "craftingSpeed": 1.25,
       "ingredientCount": 255,
       "moduleSlots": 4
     },
     {
       "name": "oil-refinery",
-      "categories": {
-        "oil-processing": true
-      },
+      "categories": ["oil-processing"],
       "craftingSpeed": 1,
       "ingredientCount": 255,
       "moduleSlots": 3
     },
     {
       "name": "chemical-plant",
-      "categories": {
-        "chemistry": true
-      },
+      "categories": ["chemistry"],
       "craftingSpeed": 1,
       "ingredientCount": 255,
       "moduleSlots": 3
     },
     {
       "name": "centrifuge",
-      "categories": {
-        "centrifuging": true
-      },
+      "categories": ["centrifuging"],
       "craftingSpeed": 1,
       "ingredientCount": 255,
       "moduleSlots": 2
     },
     {
       "name": "rocket-silo",
-      "categories": {
-        "rocket-building": true
-      },
+      "categories": ["rocket-building"],
       "craftingSpeed": 1,
       "ingredientCount": 255,
       "moduleSlots": 4
-    },
-    {
-      "name": "character",
-      "categories": {
-        "crafting": true
-      },
-      "moduleSlots": 0
     }
   ],
   "modules": [
@@ -6119,16 +6094,16 @@
       "name": "productivity-module-2",
       "effects": {
         "consumption": {
-          "bonus": 0.60000002384186
+          "bonus": 0.6
         },
         "speed": {
-          "bonus": -0.10000000149012
+          "bonus": -0.1
         },
         "productivity": {
           "bonus": 0.059999998658895
         },
         "pollution": {
-          "bonus": 0.070000000298023
+          "bonus": 0.07
         }
       },
       "category": "productivity",
