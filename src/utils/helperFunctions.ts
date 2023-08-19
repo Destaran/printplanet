@@ -1,11 +1,89 @@
+import data from "./recipes/database.json";
 import { v4 as uuidv4 } from "uuid";
-import data from "../../src/utils/recipes/database.json";
 
-export const recipes = data.recipes;
-export const craftingMachines = data.craftingMachines;
-export const modules = data.modules;
+interface RecipeIngredient {
+  type: string
+  amount: number
+  name: string
+}
 
-const spaceNumber = (numberString, insertIndex) => {
+interface RecipeProduct {
+  type: string;
+  name: string;
+  probability: number;
+  amount: number;
+}
+
+interface Recipe {
+  name: string
+  category: MachineCategory
+  ingredients: RecipeIngredient[]
+  products: RecipeProduct[]
+  energy: number
+  constant?: number
+}
+
+type MachineCategory = "crafting" | "chemistry" | "crafting-with-fluid" | "smelting" | "advanced-crafting" | "centrifuging" | "rocket-building" | "oil-processing" | "basic-crafting"
+type MachineCategories = MachineCategory[]
+
+interface Machine {
+  name: string;
+  categories: MachineCategories,
+  craftingSpeed: number;
+  ingredientCount: number;
+  moduleSlots: number;
+}
+
+interface ModuleEffects {
+  speed?: {bonus: number}
+  productivity?: {bonus: number}
+  consumption?: {bonus: number}
+  pollution?: {bonus: number}
+}
+
+interface Module {
+  name: string
+  effects: ModuleEffects
+  category: string
+  tier: number
+  limitations: string[]
+}
+
+interface OutputItem  {
+    id: string;
+  amount: number;
+  uid: string;
+  recipe?: string
+  ingredients?: OutputItem[]
+  machine?: OwnMachine
+}
+
+type ReduxIngredient = Pick<OutputItem, "id" | "uid"> 
+type SummaryItem = Pick<OutputItem, "id" | "amount">
+
+interface Beacons {
+  modules: string[]
+  affecting: number
+  required: number
+  additional: number
+  constant: number
+}
+
+interface OwnMachine {
+  id: string
+  uid: string
+  modules: string[]
+  beacons: Beacons
+  amount: number
+  craftingSpeed: number
+  productivity: number
+}
+
+export const recipes = data.recipes as Recipe[];
+export const craftingMachines = data.craftingMachines as Machine[];
+export const modules = data.modules as Module[];
+
+const spaceNumber = (numberString: string, insertIndex: number) => {
   const charArray = Array.from(numberString);
   while (insertIndex > 0) {
     charArray.splice(insertIndex, 0, " ");
@@ -16,10 +94,7 @@ const spaceNumber = (numberString, insertIndex) => {
 };
 
 // refactor
-export const formatNumber = (number) => {
-  if (typeof number !== "number") {
-    return;
-  }
+export const formatNumber = (number: number) => {
   let numberString;
   let insertIndex;
   if (number < 0.001) {
@@ -28,19 +103,19 @@ export const formatNumber = (number) => {
     return number.toFixed(3).toString();
   } else if (number < 0.1) {
     return number.toFixed(2).toString();
-  } else if (number < 100 && !number.toFixed(1).endsWith(0)) {
+  } else if (number < 100 && !number.toFixed(1).endsWith('0')) {
     return number.toFixed(1).toString();
   } else if (number < 10000) {
     numberString = Math.ceil(number).toString();
     insertIndex = numberString.length - 3;
   } else if (number < 100000) {
-    if (!(number / 10).toFixed(1).endsWith(0)) {
+    if (!(number / 10).toFixed(1).endsWith('0')) {
       numberString = (Math.ceil(number / 10) / 100).toString().concat("k");
       insertIndex = numberString.length - 6;
-    } else if (!(number / 1000).toFixed(2).endsWith(0)) {
+    } else if (!(number / 1000).toFixed(2).endsWith('0')) {
       numberString = (number / 1000).toFixed(2).toString().concat("k");
       insertIndex = numberString.length - 6;
-    } else if (!(number / 1000).toFixed(1).endsWith(0)) {
+    } else if (!(number / 1000).toFixed(1).endsWith('0')) {
       numberString = (number / 1000).toFixed(1).toString().concat("k");
       insertIndex = numberString.length - 5;
     } else {
@@ -55,16 +130,16 @@ export const formatNumber = (number) => {
       .concat("k");
     insertIndex = numberString.length - 4;
   } else if (number < 100000000) {
-    if (!(number / 10).toFixed(1).endsWith(0)) {
+    if (!(number / 10).toFixed(1).endsWith('0')) {
       numberString = (Math.ceil(number / 10) / 100000)
         .toFixed(2)
         .toString()
         .concat("M");
       insertIndex = numberString.length - 6;
-    } else if (!(number / 1000000).toFixed(2).endsWith(0)) {
+    } else if (!(number / 1000000).toFixed(2).endsWith('0')) {
       numberString = (number / 1000000).toFixed(2).toString().concat("M");
       insertIndex = numberString.length - 6;
-    } else if (!(number / 1000000).toFixed(1).endsWith(0)) {
+    } else if (!(number / 1000000).toFixed(1).endsWith('0')) {
       numberString = (number / 1000000).toFixed(1).toString().concat("M");
       insertIndex = numberString.length - 5;
     } else {
@@ -85,11 +160,11 @@ export const formatNumber = (number) => {
   return spaceNumber(numberString, insertIndex);
 };
 
-export const getAllProducts = recipes.reduce((accumulator, obj) => {
-  const { products } = obj;
+export const getAllProducts = () => 
+recipes.reduce<RecipeProduct[]>((accumulator, object) => {
+  const { products } = object;
   products.forEach((product) => {
-    const { name } = product;
-    const existingProduct = accumulator.find((p) => p.name === name);
+    const existingProduct = accumulator.find((p) => p.name === product.name);
     if (!existingProduct) {
       accumulator.push(product);
     }
@@ -97,20 +172,23 @@ export const getAllProducts = recipes.reduce((accumulator, obj) => {
   return accumulator;
 }, []);
 
-export const getMachinesById = (id) => {
+export const getMachinesById = (id: string) => {
   const recipe = recipes.find((recipe) => recipe.name === id);
-  const category = recipe.category;
-  const machinesArray = [];
+  if(!recipe) {
+    throw new Error('Could not find machine by ID')
+  }
+  const category: MachineCategory = recipe.category;
+  const machinesArray: Machine[] = [];
   craftingMachines.forEach((machine) => {
-    if (machine.categories[category] === true) {
+    if (machine.categories.includes(category)) {
       machinesArray.push(machine);
     }
   });
   return machinesArray;
 };
 
-export const getModulesByRecipeId = (id) => {
-  const modulesArray = [];
+export const getModulesByRecipeId = (id: string) => {
+  const modulesArray: Module[] = [];
   modules.forEach((module) => {
     if (module.limitations.length < 1) {
       modulesArray.push(module);
@@ -126,20 +204,23 @@ export const getModulesByRecipeId = (id) => {
   return modulesArray;
 };
 
-export const getNameById = (id) => {
-  if (typeof id !== "string") {
-    return;
-  }
+export const getNameById = (id: string) => {
   const words = id.split("-");
   words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
   const result = words.join(" ");
   return result;
 };
 
-export const getRecipeById = (id) =>
-  recipes.find((recipe) => recipe.name === id);
+export const getRecipeById = (id: string) => {
+  const recipe = recipes.find((recipe) => recipe.name === id);
+      if(!recipe) {
+      throw new Error("Could not find recipe by ID")
+    }
 
-export const getImageUrlById = (id) => {
+    return recipe
+}
+
+export const getImageUrlById = (id: string) => {
   if (id) {
     return `./new-icons/${id}.png`;
   } else {
@@ -147,36 +228,43 @@ export const getImageUrlById = (id) => {
   }
 };
 
-export const getRecipeCategory = (id) => {
+export const getRecipeCategory = (id: string) => {
   const item = recipes.find((item) => item.name === id);
+  if(!item) {
+    throw new Error("Could not find recipe by ID");
+  }
   return item.category;
 };
 
-export const getIngredients = (id) => {
-  const recipe = getRecipeById(id);
-  if (recipe) {
-    const array = [];
-    recipe.ingredients.forEach((ingredient) => {
-      const obj = {
-        id: ingredient.name,
-        uid: uuidv4(),
-      };
-      array.push(obj);
-    });
-    return array;
-  } else {
+export const getIngredients = (id: string) => {
+  try {
+    const recipe = getRecipeById(id);
+      const array: ReduxIngredient[] = [];
+      recipe.ingredients.forEach((ingredient) => {
+        const obj = {
+          id: ingredient.name,
+          uid: uuidv4(),
+        };
+        array.push(obj);
+      });
+      return array;
+  } catch {
     return [];
   }
 };
 
-export const getMachineObjectById = (id) => {
-  return craftingMachines.find((item) => item.name === id);
+export const getMachineObjectById = (id: string) => {
+  const machine = craftingMachines.find((item) => item.name === id);
+  if(!machine) {
+    throw new Error("Could not find machine object by ID");
+  }
+  return machine;
 };
 
-export const getMachineCategories = (id) =>
+export const getMachineCategories = (id: string) =>
   Object.keys(getMachineObjectById(id).categories);
 
-export const checkIfMultipleRecipes = (id) => {
+export const checkIfMultipleRecipes = (id: string) => {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === id)
   );
@@ -187,7 +275,7 @@ export const checkIfMultipleRecipes = (id) => {
   }
 };
 
-export const getRecipeByProduct = (id) => {
+export const getRecipeByProduct = (id: string) => {
   if (checkIfMultipleRecipes(id)) {
     return;
   }
@@ -196,7 +284,7 @@ export const getRecipeByProduct = (id) => {
   );
 };
 
-export const getRecipes = (productId) => {
+export const getRecipes = (productId: string) => {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === productId)
   );
@@ -207,7 +295,7 @@ export const getRecipes = (productId) => {
   }
 };
 
-const getModuleSpeedBonus = (id) => {
+const getModuleSpeedBonus = (id: string) => {
   if (!id) {
     return 0;
   }
@@ -218,7 +306,7 @@ const getModuleSpeedBonus = (id) => {
   return 0;
 };
 
-const getModuleProdBonus = (id) => {
+const getModuleProdBonus = (id: string) => {
   if (!id) {
     return 0;
   }
@@ -229,29 +317,29 @@ const getModuleProdBonus = (id) => {
   return 0;
 };
 
-const getBonusSpeed = (modules) => {
+const getBonusSpeed = (modules: string[]) => {
   return modules.reduce((sum, module) => {
     return sum + getModuleSpeedBonus(module);
   }, 0);
 };
 
-const getBonusProd = (modules) => {
+const getBonusProd = (modules: string[]) => {
   return modules.reduce((sum, module) => {
     return sum + getModuleProdBonus(module);
   }, 0);
 };
 
-const getModdedMachineSpeed = (modules, beacons, craftingSpeed) => {
+const getModdedMachineSpeed = (modules: string[], beacons: Beacons, craftingSpeed: number) => {
   const modulesBonus = getBonusSpeed(modules);
   const beaconsBonus = (getBonusSpeed(beacons.modules) * beacons.affecting) / 2;
   return craftingSpeed * (modulesBonus + beaconsBonus) + craftingSpeed;
 };
 
-const getModdedMachineProd = (modules) => {
+const getModdedMachineProd = (modules: string[]) => {
   return getBonusProd(modules);
 };
 
-export const summarizeInputs = (outputItem, inputArray) => {
+export const summarizeInputs = (outputItem: OutputItem, inputArray: SummaryItem[]) => {
   if (!outputItem.ingredients) {
     const existingItem = inputArray.find((item) => item.id === outputItem.id);
     if (!existingItem) {
@@ -270,7 +358,7 @@ export const summarizeInputs = (outputItem, inputArray) => {
   }
 };
 
-export const getEmptyMachine = (id) => {
+export const getEmptyMachine = (id: string) => {
   const machine = getMachineObjectById(id);
   return {
     id: id,
@@ -286,19 +374,14 @@ export const getEmptyMachine = (id) => {
   };
 };
 
-export const checkIfDefault = (machineId, defaultMachines) => {
+export const checkIfDefault = (machineId: string, defaultMachines: Record<MachineCategory, OwnMachine>) => {
   const defMachinesArray = Object.values(defaultMachines);
-  const existingItem = defMachinesArray.find(
+  return defMachinesArray.some(
     (machine) => machine.id === machineId
   );
-  if (existingItem) {
-    return true;
-  } else {
-    return false;
-  }
 };
 
-const checkIfUseableModule = (module, recipeId) => {
+const checkIfUseableModule = (module: string, recipeId: string) => {
   if (module) {
     let isUseable = false;
     const useableModules = getModulesByRecipeId(recipeId);
@@ -313,7 +396,7 @@ const checkIfUseableModule = (module, recipeId) => {
   }
 };
 
-export const checkModulesForBumping = (uid, machine, recipe) => {
+export const checkModulesForBumping = (uid: string, machine: OwnMachine, recipe: string) => {
   if (uid && machine) {
     const { modules: machineModules } = machine;
     let shouldBump = false;
@@ -330,19 +413,20 @@ export const checkModulesForBumping = (uid, machine, recipe) => {
 };
 
 // refactor: look into rounding
-export const summarizeMachines = (outputItem, machinesArray) => {
-  if (outputItem.ingredients) {
+export const summarizeMachines = (outputItem: OutputItem, machinesArray: SummaryItem[]) => {
+  const machine = outputItem.machine
+  if (outputItem.ingredients && machine) {
     const existingItem = machinesArray.find(
-      (machine) => machine.id === outputItem.machine.id
+      (machine) => machine.id === machine.id
     );
     if (!existingItem) {
       const objToPush = {
-        id: outputItem.machine.id,
-        amount: Math.ceil(outputItem.machine.amount),
+        id: machine.id,
+        amount: Math.ceil(machine.amount),
       };
       machinesArray.push(objToPush);
     } else {
-      existingItem.amount += Math.ceil(outputItem.machine.amount);
+      existingItem.amount += Math.ceil(machine.amount);
     }
     outputItem.ingredients.forEach((ingredient) => {
       summarizeMachines(ingredient, machinesArray);
@@ -350,19 +434,22 @@ export const summarizeMachines = (outputItem, machinesArray) => {
   }
 };
 
-export const summarizeBeacons = (outputItem, machinesArray) => {
-  if (outputItem.ingredients) {
+export const summarizeBeacons = (outputItem: OutputItem, machinesArray: SummaryItem[]) => {
+  const machine = outputItem.machine;
+  if (outputItem.ingredients && machine) {
     const existingBeacon = machinesArray.find(
       (module) => module.id === "beacon"
     );
-    if (!existingBeacon && outputItem.machine.beacons.required > 0) {
-      const objToPush = {
-        id: "beacon",
-        amount: outputItem.machine.beacons.required,
-      };
-      machinesArray.push(objToPush);
-    } else if (outputItem.machine.beacons.required > 0) {
-      existingBeacon.amount += outputItem.machine.beacons.required;
+    if(machine.beacons.required > 0) {
+      if (!existingBeacon) {
+        const objToPush = {
+          id: "beacon",
+          amount: machine.beacons.required,
+        };
+        machinesArray.push(objToPush);
+      } else {
+        existingBeacon.amount += machine.beacons.required;
+      }
     }
     outputItem.ingredients.forEach((ingredient) => {
       summarizeBeacons(ingredient, machinesArray);
@@ -370,11 +457,12 @@ export const summarizeBeacons = (outputItem, machinesArray) => {
   }
 };
 
-export const countModules = ({ modules, beacons, amount }) => {
-  const modulesAcc = {};
+export const countModules = ({ modules, beacons, amount }: OwnMachine) => {
+  const modulesAcc: Record<string, number> = {};
   const roundedMachineCount = Math.ceil(amount);
   modules.forEach((module) => {
     if (module.length > 0) {
+      
       modulesAcc[module]
         ? (modulesAcc[module] += roundedMachineCount)
         : (modulesAcc[module] = roundedMachineCount);
@@ -392,9 +480,10 @@ export const countModules = ({ modules, beacons, amount }) => {
   return modulesAcc;
 };
 
-export const summarizeModules = (outputItem, machinesArray) => {
-  if (outputItem.ingredients) {
-    const machineModules = countModules(outputItem.machine);
+export const summarizeModules = (outputItem: OutputItem, machinesArray: SummaryItem[]) => {
+  const machine = outputItem.machine
+  if (outputItem.ingredients && machine) {
+    const machineModules = countModules(machine);
     Object.keys(machineModules).forEach((key) => {
       const existingModule = machinesArray.find((module) => module.id === key);
       if (!existingModule) {
@@ -414,13 +503,13 @@ export const summarizeModules = (outputItem, machinesArray) => {
 };
 
 const getReqMachineCount = (
-  craftingSpeed,
-  productivity,
-  amount,
-  craftingTime,
+  craftingSpeed: number,
+  productivity: number,
+  amount: number,
+  craftingTime: number,
   constant = 0,
-  recipeYield,
-  probability
+  recipeYield: number,
+  probability: number
 ) => {
   return (
     (amount / recipeYield / probability) *
@@ -428,10 +517,8 @@ const getReqMachineCount = (
   );
 };
 
-const getReqBeaconCount = (constant, additional, machineAmount) => {
-  return (
-    Number(constant) + Number(additional) * Number(Math.ceil(machineAmount))
-  );
+const getReqBeaconCount = (constant: number, additional: number, machineAmount: number) => {
+  return constant + additional * Math.ceil(machineAmount);
 };
 
 export const calculateTree = ({
@@ -440,10 +527,15 @@ export const calculateTree = ({
   id,
   machine,
   amount,
-}) => {
-  if (ingredients && machine) {
+}: OutputItem) => {
+  if (ingredients && machine && recipeId) {
     const recipe = getRecipeById(recipeId);
     const product = recipe.products.find((item) => item.name === id);
+
+    if(!product) {
+      throw new Error("Could not find product by ID")
+    }
+
     machine.craftingSpeed = getModdedMachineSpeed(
       machine.modules,
       machine.beacons,
@@ -480,6 +572,11 @@ export const calculateTree = ({
       const ingredientRecipe = recipe.ingredients.find(
         (item) => item.name === ingredient.id
       );
+
+      if(!ingredientRecipe) {
+        throw new Error("Could not find ingredient recipe by ID")
+      }
+
       if (ingredient.id === "satellite") {
         ingredient.amount = Number(
           (ingredientRecipe.amount * amount) /
@@ -500,7 +597,7 @@ export const calculateTree = ({
 
 // Search for recipes producing product based on id
 // Returns array of multiple ids or single id
-export const lookUpProducers = (resultArray, outputItem, lookUpId) => {
+export const lookUpProducers = (resultArray: string[], outputItem: OutputItem, lookUpId: string) => {
   if (outputItem.ingredients) {
     const existingItem = resultArray.find((item) => item === outputItem.id);
     outputItem.ingredients.forEach((ingredient) => {
@@ -514,8 +611,8 @@ export const lookUpProducers = (resultArray, outputItem, lookUpId) => {
   }
 };
 
-export const getProducers = (output, id) => {
-  const resultArray = [];
+export const getProducers = (output: OutputItem[], id: string) => {
+  const resultArray: string[] = [];
   output.forEach((element) => {
     lookUpProducers(resultArray, element, id);
   });
@@ -537,25 +634,25 @@ export const getBeaconModules = () => {
   );
 };
 
-export const getDefaultMachine = (id, machines) => {
+export const getDefaultMachine = (id: string, machines: Record<string, OwnMachine>) => {
   const machinesArray = Object.values(machines);
   return machinesArray.find((category) => category.id === id);
 };
 
-export const compareObjects = (obj1, obj2) => {
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
+export const compareCategories = (original: MachineCategories, compared: MachineCategories) => {
 
-  for (let key of keys1) {
-    if (!keys2.includes(key) || obj1[key] !== obj2[key]) {
-      return false;
-    }
-  }
+  original.forEach((og: MachineCategory) => {
+    compared.forEach((comp: MachineCategory) => {
+      if (comp !== og) {
+        return false;
+      }
+    })
+  })
   return true;
 };
 
 // Redux functions
-export const extendElementByUid = (item, uid, recipe, machine) => {
+export const extendElementByUid = (item: OutputItem, uid: string, recipe: string, machine: OwnMachine) => {
   if (typeof item !== "object") {
     return;
   }
@@ -563,7 +660,10 @@ export const extendElementByUid = (item, uid, recipe, machine) => {
   if (item.uid === uid) {
     const newIngredients = getIngredients(recipe);
     if (newIngredients.length > 0) {
-      item.ingredients = newIngredients;
+      item.ingredients = newIngredients.map(ingredient => ({
+        ...ingredient,
+        amount: 0,
+      }));
       item.recipe = recipe;
       item.machine = { ...machine, uid: uuidv4() };
     }
@@ -574,7 +674,7 @@ export const extendElementByUid = (item, uid, recipe, machine) => {
   }
 };
 
-export const collapseElementByUid = (obj, uid) => {
+export const collapseElementByUid = (obj: OutputItem, uid: string) => {
   if (obj.uid === uid) {
     delete obj.ingredients;
     delete obj.recipe;
@@ -586,7 +686,7 @@ export const collapseElementByUid = (obj, uid) => {
   }
 };
 
-export const collapseElementsById = (obj, id) => {
+export const collapseElementsById = (obj: OutputItem, id: string) => {
   if (typeof obj !== "object") {
     return;
   }
@@ -601,7 +701,7 @@ export const collapseElementsById = (obj, id) => {
   }
 };
 
-const getTreeUids = (outputItem, id, allUids) => {
+const getTreeUids = (outputItem: OutputItem, id: string, allUids: string[]) => {
   if (outputItem.id === id) {
     allUids.push(outputItem.uid);
   }
@@ -612,15 +712,15 @@ const getTreeUids = (outputItem, id, allUids) => {
   }
 };
 
-export const getAllUids = (output, id) => {
-  const allUids = [];
+export const getAllUids = (output: OutputItem[], id: string) => {
+  const allUids: string[] = [];
   output.forEach((outputItem) => {
     getTreeUids(outputItem, id, allUids);
   });
   return allUids;
 };
 
-export const switchMachines = (outputItem, machine, updateId) => {
+export const switchMachines = (outputItem: OutputItem, machine: OwnMachine, updateId: string) => {
   if (outputItem.machine) {
     if (outputItem.machine.id === updateId) {
       outputItem.machine = structuredClone(machine);
@@ -633,7 +733,7 @@ export const switchMachines = (outputItem, machine, updateId) => {
   }
 };
 
-export const switchMachine = (outputItem, machine, uid) => {
+export const switchMachine = (outputItem: OutputItem, machine: OwnMachine, uid: string) => {
   if (outputItem.uid === uid) {
     outputItem.machine = structuredClone(machine);
     return;
@@ -645,7 +745,7 @@ export const switchMachine = (outputItem, machine, uid) => {
   }
 };
 
-export const bumpProdModules = (outputItem, uid) => {
+export const bumpProdModules = (outputItem: OutputItem, uid: string) => {
   if (outputItem.machine) {
     if (outputItem.uid === uid) {
       const newModules = outputItem.machine.modules.map((module) => {
@@ -660,9 +760,10 @@ export const bumpProdModules = (outputItem, uid) => {
       });
       outputItem.machine.modules = newModules;
     } else {
-      outputItem.ingredients.forEach((ingredient) => {
+      outputItem.ingredients?.forEach((ingredient) => {
         bumpProdModules(ingredient, uid);
       });
     }
   }
 };
+ 
