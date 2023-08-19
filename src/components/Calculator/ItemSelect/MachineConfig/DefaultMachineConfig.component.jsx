@@ -103,7 +103,7 @@ export const DefaultMachineConfig = () => {
     const { value, alt } = target;
     setBeacons((prevConfig) => ({
       ...prevConfig,
-      [alt]: value,
+      [alt]: Number(value),
     }));
   };
 
