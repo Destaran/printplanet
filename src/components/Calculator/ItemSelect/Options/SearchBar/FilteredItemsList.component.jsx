@@ -53,9 +53,10 @@ const ItemIcon = styled.img`
 `;
 
 export const FilteredItemsList = ({ selectItem, searchString }) => {
+  console.log(getAllProducts());
   const filteredItems = useMemo(
     () =>
-      getAllProducts.filter((item) =>
+      getAllProducts().filter((item) =>
         item.name
           .toLowerCase()
           .includes(searchString.toLowerCase().replace(" ", "-"))
