@@ -55,7 +55,7 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
     if (!uid) {
       const payload = {
         update: machineId,
-        categories: Object.keys(currentSelected.categories),
+        categories: currentSelected.categories,
         machineConfig: {
           id: currentSelected.name,
           craftingSpeed: currentSelected.craftingSpeed,
