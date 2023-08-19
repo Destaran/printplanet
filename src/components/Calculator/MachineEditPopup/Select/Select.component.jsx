@@ -3,7 +3,7 @@ import {
   getImageUrlById,
   getNameById,
   craftingMachines,
-  compareObjects,
+  compareCategories,
 } from "../../../../utils/helperFunctions";
 
 const Container = styled.div`
@@ -79,7 +79,7 @@ export const Select = ({ currentSelected, setCurrentSelected }) => {
   const displayName = getNameById(currentSelected.name);
   const imgUrl = getImageUrlById(currentSelected.name);
   const availableMachines = craftingMachines.filter((machine) => {
-    if (compareObjects(currentSelected.categories, machine.categories)) {
+    if (compareCategories(currentSelected.categories, machine.categories)) {
       return machine;
     }
   });
