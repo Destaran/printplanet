@@ -417,8 +417,10 @@ export const summarizeMachines = (outputItem: OutputItem, machinesArray: Summary
   const machine = outputItem.machine
   if (outputItem.ingredients && machine) {
     const existingItem = machinesArray.find(
-      (machine) => machine.id === machine.id
+      (existingMachine) => existingMachine.id === machine.id
     );
+    console.log(existingItem);
+    
     if (!existingItem) {
       const objToPush = {
         id: machine.id,
