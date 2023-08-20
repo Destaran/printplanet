@@ -38,13 +38,21 @@ const Slot = styled.div`
   }
 `;
 
+interface Props {
+  slotIdx: number
+  modules: string[]
+  module: string
+  onModuleChange: (modules: string[], slotIdx: number, moduleIdx: number, beaconModule?: boolean) => void
+  beaconModule?: boolean
+}
+
 export const ModuleSlot = ({
   slotIdx,
   modules,
   module,
   onModuleChange,
   beaconModule,
-}) => {
+}: Props) => {
   const [moduleIdx, setModuleIdx] = useState(modules.indexOf(module));
 
   useEffect(() => {
@@ -55,7 +63,7 @@ export const ModuleSlot = ({
     onModuleChange(modules, slotIdx, moduleIdx, beaconModule);
   }, [onModuleChange, modules, slotIdx, moduleIdx, beaconModule]);
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent) => {
     let direction = event.shiftKey && event.button === 0 ? -1 : 1;
     setModuleIdx((moduleIdx + direction + modules.length) % modules.length);
   };
