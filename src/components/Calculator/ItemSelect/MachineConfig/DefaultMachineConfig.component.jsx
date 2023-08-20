@@ -69,7 +69,7 @@ export const DefaultMachineConfig = () => {
 
   const saveHandler = () => {
     const payload = {
-      categories: Object.keys(currentSelected.categories),
+      categories: currentSelected.categories,
       machineConfig: {
         id: currentSelected.name,
         craftingSpeed: currentSelected.craftingSpeed,
