@@ -114,7 +114,7 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
     const { value, alt } = target;
     setBeacons((prevConfig) => ({
       ...prevConfig,
-      [alt]: value,
+      [alt]: Number(value),
     }));
   };
 
