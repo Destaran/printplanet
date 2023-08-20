@@ -53,7 +53,6 @@ const ItemIcon = styled.img`
 `;
 
 export const FilteredItemsList = ({ selectItem, searchString }) => {
-  console.log(getAllProducts());
   const filteredItems = useMemo(
     () =>
       getAllProducts().filter((item) =>
