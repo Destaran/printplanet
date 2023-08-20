@@ -458,14 +458,13 @@ export const summarizeBeacons = (outputItem: OutputItem, machinesArray: SummaryI
 };
 
 export const countModules = ({ modules, beacons, amount }: OwnMachine) => {
+  const ceiledAmount = Math.ceil(amount);
   const modulesAcc: Record<string, number> = {};
-  const roundedMachineCount = Math.ceil(amount);
   modules.forEach((module) => {
     if (module.length > 0) {
-      
       modulesAcc[module]
-        ? (modulesAcc[module] += roundedMachineCount)
-        : (modulesAcc[module] = roundedMachineCount);
+      ? (modulesAcc[module] += ceiledAmount)
+      : (modulesAcc[module] = ceiledAmount);
     }
   });
   if (beacons.required > 0) {
@@ -477,6 +476,7 @@ export const countModules = ({ modules, beacons, amount }: OwnMachine) => {
       }
     });
   }
+  
   return modulesAcc;
 };
 
