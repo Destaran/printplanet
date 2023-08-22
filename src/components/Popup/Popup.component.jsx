@@ -1,19 +1,41 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { createPortal } from "react-dom";
 import { ppBlue } from "../../utils/colors";
 
+const PopupContainerAnimation = keyframes`
+from {
+  opacity: 0;
+}
+
+to {
+  opacity: 100;
+}
+`;
+
+const ContainerAnimation = keyframes`
+from {
+  opacity: 0;
+  scale: 0;
+}
+
+to {
+  opacity: 100;
+  scale: 1;
+}
+`;
+
 const PopupContainer = styled.div`
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-
-  display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
+  animation: ${PopupContainerAnimation} 200ms ease-out;
 `;
 
 const Header = styled.div`
@@ -28,6 +50,7 @@ const Container = styled.div`
   border: 2px solid ${ppBlue};
   padding: 15px;
   user-select: none;
+  animation: ${ContainerAnimation} 200ms ease-out;
 `;
 
 const PopupPortal = ({ children }) => {
