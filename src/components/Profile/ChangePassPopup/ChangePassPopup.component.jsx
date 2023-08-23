@@ -26,7 +26,7 @@ export const ChangePassPopup = ({ setPopup }) => {
   };
 
   const handleSubmit = () => {
-    console.log("Submit");
+    //
   };
 
   const handleCancel = () => {
