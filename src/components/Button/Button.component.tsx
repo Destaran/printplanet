@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ppBlue } from "../../utils/colors";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
 export const DefaultButton = styled.button`
   border: 1px solid black;
@@ -69,7 +70,12 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.default) =>
     [BUTTON_TYPE_CLASSES.green]: GreenButton,
   }[buttonType]);
 
-export const Button = ({ children, buttonType, ...otherProps }) => {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  buttonType?: keyof typeof BUTTON_TYPE_CLASSES;
+}
+
+export const Button = ({ children, buttonType, ...otherProps }: Props) => {
   const CustomButton = getButton(buttonType);
   return <CustomButton {...otherProps}>{children}</CustomButton>;
 };
