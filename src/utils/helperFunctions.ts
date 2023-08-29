@@ -1,92 +1,19 @@
 import data from "./recipes/database.json";
 import { v4 as uuidv4 } from "uuid";
 
-interface RecipeIngredient {
-  type: string;
-  amount: number;
-  name: string;
-}
-
-interface RecipeProduct {
-  type: string;
-  name: string;
-  probability: number;
-  amount: number;
-}
-
-interface Recipe {
-  name: string;
-  category: MachineCategory;
-  ingredients: RecipeIngredient[];
-  products: RecipeProduct[];
-  energy: number;
-  constant?: number;
-}
-
-type MachineCategory =
-  | "crafting"
-  | "chemistry"
-  | "crafting-with-fluid"
-  | "smelting"
-  | "advanced-crafting"
-  | "centrifuging"
-  | "rocket-building"
-  | "oil-processing"
-  | "basic-crafting";
-type MachineCategories = MachineCategory[];
-
-interface Machine {
-  name: string;
-  categories: MachineCategories;
-  craftingSpeed: number;
-  ingredientCount: number;
-  moduleSlots: number;
-}
-
-interface ModuleEffects {
-  speed?: { bonus: number };
-  productivity?: { bonus: number };
-  consumption?: { bonus: number };
-  pollution?: { bonus: number };
-}
-
-interface Module {
-  name: string;
-  effects: ModuleEffects;
-  category: string;
-  tier: number;
-  limitations: string[];
-}
-
-interface OutputItem {
-  id: string;
-  amount: number;
-  uid: string;
-  recipe?: string;
-  ingredients?: OutputItem[];
-  machine?: OwnMachine;
-}
-
-type ReduxIngredient = Pick<OutputItem, "id" | "uid">;
-type SummaryItem = Pick<OutputItem, "id" | "amount">;
-
-interface Beacons {
-  modules: string[];
-  affecting: number;
-  required: number;
-  additional: number;
-  constant: number;
-}
-
-interface OwnMachine {
-  id: string;
-  uid: string;
-  modules: string[];
-  beacons: Beacons;
-  amount: number;
-  craftingSpeed: number;
-  productivity: number;
-}
+import {
+  Recipe,
+  Machine,
+  Module,
+  RecipeProduct,
+  MachineCategory,
+  MachineCategories,
+  ReduxIngredient,
+  Beacons,
+  OutputItem,
+  SummaryItem,
+  OwnMachine,
+} from "./types";
 
 export const recipes = data.recipes as Recipe[];
 export const craftingMachines = data.craftingMachines as Machine[];
