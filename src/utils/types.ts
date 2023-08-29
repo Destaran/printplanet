@@ -77,10 +77,9 @@ export interface Beacons {
 
 export interface OwnMachine {
   id: string;
-  uid: string;
+  amount?: number;
   modules: string[];
   beacons: Beacons;
-  amount: number;
   craftingSpeed: number;
   productivity: number;
 }

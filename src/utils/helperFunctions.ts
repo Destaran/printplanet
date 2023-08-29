@@ -303,7 +303,7 @@ export const summarizeInputs = (
 
 export const getEmptyMachine = (id: string) => {
   const machine = getMachineObjectById(id);
-  return {
+  return <OwnMachine>{
     id: id,
     craftingSpeed: machine.craftingSpeed,
     productivity: 0,
@@ -370,14 +370,16 @@ export const summarizeMachines = (
     const existingItem = machinesArray.find(
       (existingMachine) => existingMachine.id === machine.id
     );
-    if (!existingItem) {
-      const objToPush = {
-        id: machine.id,
-        amount: Math.ceil(machine.amount),
-      };
-      machinesArray.push(objToPush);
-    } else {
-      existingItem.amount += Math.ceil(machine.amount);
+    if (machine.amount) {
+      if (!existingItem) {
+        const objToPush = {
+          id: machine.id,
+          amount: Math.ceil(machine.amount),
+        };
+        machinesArray.push(objToPush);
+      } else {
+        existingItem.amount += Math.ceil(machine.amount);
+      }
     }
     outputItem.ingredients.forEach((ingredient) => {
       summarizeMachines(ingredient, machinesArray);
@@ -412,26 +414,28 @@ export const summarizeBeacons = (
 };
 
 export const countModules = ({ modules, beacons, amount }: OwnMachine) => {
-  const ceiledAmount = Math.ceil(amount);
-  const modulesAcc: Record<string, number> = {};
-  modules.forEach((module) => {
-    if (module.length > 0) {
-      modulesAcc[module]
-        ? (modulesAcc[module] += ceiledAmount)
-        : (modulesAcc[module] = ceiledAmount);
-    }
-  });
-  if (beacons.required > 0) {
-    beacons.modules.forEach((module) => {
+  if (amount) {
+    const ceiledAmount = Math.ceil(amount);
+    const modulesAcc: Record<string, number> = {};
+    modules.forEach((module) => {
       if (module.length > 0) {
         modulesAcc[module]
-          ? (modulesAcc[module] += beacons.required)
-          : (modulesAcc[module] = beacons.required);
+          ? (modulesAcc[module] += ceiledAmount)
+          : (modulesAcc[module] = ceiledAmount);
       }
     });
-  }
+    if (beacons.required > 0) {
+      beacons.modules.forEach((module) => {
+        if (module.length > 0) {
+          modulesAcc[module]
+            ? (modulesAcc[module] += beacons.required)
+            : (modulesAcc[module] = beacons.required);
+        }
+      });
+    }
 
-  return modulesAcc;
+    return modulesAcc;
+  }
 };
 
 export const summarizeModules = (
@@ -441,21 +445,25 @@ export const summarizeModules = (
   const machine = outputItem.machine;
   if (outputItem.ingredients && machine) {
     const machineModules = countModules(machine);
-    Object.keys(machineModules).forEach((key) => {
-      const existingModule = machinesArray.find((module) => module.id === key);
-      if (!existingModule) {
-        const objToPush = {
-          id: key,
-          amount: machineModules[key],
-        };
-        machinesArray.push(objToPush);
-      } else {
-        existingModule.amount += machineModules[key];
-      }
-    });
-    outputItem.ingredients.forEach((ingredient) => {
-      summarizeModules(ingredient, machinesArray);
-    });
+    if (machineModules) {
+      Object.keys(machineModules).forEach((key) => {
+        const existingModule = machinesArray.find(
+          (module) => module.id === key
+        );
+        if (!existingModule) {
+          const objToPush = {
+            id: key,
+            amount: machineModules[key],
+          };
+          machinesArray.push(objToPush);
+        } else {
+          existingModule.amount += machineModules[key];
+        }
+      });
+      outputItem.ingredients.forEach((ingredient) => {
+        summarizeModules(ingredient, machinesArray);
+      });
+    }
   }
 };
 
@@ -640,7 +648,7 @@ export const extendElementByUid = (
         amount: 0,
       }));
       item.recipe = recipe;
-      item.machine = { ...machine, uid: uuidv4() };
+      item.machine = { ...machine };
     }
   } else if (item.ingredients) {
     item.ingredients.forEach((object) => {
