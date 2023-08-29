@@ -198,7 +198,7 @@ export const getMachineObjectById = (id: string) => {
 };
 
 export const getMachineCategories = (id: string) =>
-  Object.keys(getMachineObjectById(id).categories);
+  getMachineObjectById(id).categories;
 
 export const checkIfMultipleRecipes = (id: string) => {
   const matchingObjects = recipes.filter((obj) =>
@@ -612,7 +612,7 @@ export const getDefaultMachine = (
   machines: Record<string, OwnMachine>
 ) => {
   const machinesArray = Object.values(machines);
-  return machinesArray.find((category) => category.id === id);
+  return <OwnMachine>machinesArray.find((category) => category.id === id);
 };
 
 export const compareCategories = (
