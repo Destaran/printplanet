@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Select } from "../MachineEditPopup/Select/Select.component";
+import { Select } from "./Select.component";
 import { ModuleConfig } from "./ModuleConfig.component";
 import {
   checkIfDefault,
@@ -14,6 +14,7 @@ import { saveDefaultMachineConfig } from "../../../reduxStore/calculator/calcula
 import { Button } from "../../Button/Button.component";
 import { ppBlue } from "../../../utils/colors";
 import { useEffect } from "react";
+import { OwnMachine } from "../../../utils/types";
 
 const Container = styled.div`
   width: fit-content;
@@ -49,11 +50,17 @@ const FunctionsContainer = styled.div`
   }
 `;
 
-export const MachineConfig = ({ config, setConfig }) => {
+interface Props {
+  machineConfig: OwnMachine;
+  setMachineConfig: React.Dispatch<React.SetStateAction<OwnMachine>>;
+}
+
+export const MachineConfig = ({ machineConfig, setMachineConfig }: Props) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
-  const [machineConfig, setMachineConfig] = useState(config);
-  const [currentSelected, setCurrentSelected] = useState(machineConfig.id);
+  const [currentSelected, setCurrentSelected] = useState<string>(
+    machineConfig.id
+  );
 
   const handleSave = () => {
     const payload = {
@@ -84,21 +91,22 @@ export const MachineConfig = ({ config, setConfig }) => {
   }, [currentSelected, defaultMachines, handleReset, machineConfig.id]);
 
   useEffect(() => {
-    if (setConfig) {
-      setConfig({
+    if (setMachineConfig) {
+      const machine: OwnMachine = {
         id: machineConfig.id,
         craftingSpeed: machineConfig.craftingSpeed,
         productivity: 0,
         modules: machineConfig.modules,
         beacons: machineConfig.beacons,
-      });
+      };
+      setMachineConfig(machine);
     }
   }, [
     machineConfig.beacons,
     machineConfig.craftingSpeed,
     machineConfig.id,
     machineConfig.modules,
-    setConfig,
+    setMachineConfig,
   ]);
 
   return (

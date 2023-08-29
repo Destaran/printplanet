@@ -1,23 +1,29 @@
 import styled from "styled-components";
 import { useState, useCallback } from "react";
-import { Beacons } from "../MachineEditPopup/Beacons/Beacons.component";
-import { Modules } from "../MachineEditPopup/Modules/Modules.component";
+import { Beacons } from "./Beacons.component";
+import { Modules } from "./Modules.component";
 import { useEffect } from "react";
+import { OwnMachine } from "../../../utils/types";
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-export const ModuleConfig = ({ machine, setMachine }) => {
-  const [beacons, setBeacons] = useState(machine.beacons);
-  const [modules, setModules] = useState(machine.modules);
+interface Props {
+  machineConfig: OwnMachine;
+  setMachineConfig: React.Dispatch<React.SetStateAction<OwnMachine>>;
+}
+
+export const ModuleConfig = ({ machineConfig, setMachineConfig }: Props) => {
+  const [beacons, setBeacons] = useState(machineConfig.beacons);
+  const [modules, setModules] = useState(machineConfig.modules);
 
   useEffect(() => {
-    setMachine((prevConfig) => ({ ...prevConfig, beacons, modules }));
-  }, [beacons, modules, setMachine]);
+    setMachineConfig((prevConfig) => ({ ...prevConfig, beacons, modules }));
+  }, [beacons, modules, setMachineConfig]);
 
-  const onBeaconChange = ({ target }) => {
+  const onBeaconChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const { value, alt } = target;
     setBeacons((prevConfig) => ({
       ...prevConfig,
@@ -26,7 +32,12 @@ export const ModuleConfig = ({ machine, setMachine }) => {
   };
 
   const onModuleChange = useCallback(
-    (modules, slotIdx, moduleIdx, isBeaconModule) => {
+    (
+      modules: string[],
+      slotIdx: number,
+      moduleIdx: number,
+      isBeaconModule: boolean | undefined
+    ) => {
       isBeaconModule
         ? setBeacons((prevModules) => {
             const newModules = structuredClone(prevModules);

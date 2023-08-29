@@ -3,7 +3,7 @@ import {
   getImageUrlById,
   getNameById,
   craftingMachines,
-} from "../../../../../utils/helperFunctions";
+} from "../../../utils/helperFunctions";
 import { useState } from "react";
 
 const Container = styled.div`
@@ -74,12 +74,17 @@ const ListElement = styled.li`
   }
 `;
 
-export const Select = ({ currentSelected, setCurrentSelected }) => {
-  const [showList, setShowList] = useState(false);
-  const displayName = getNameById(currentSelected.name);
-  const imgUrl = getImageUrlById(currentSelected.name);
+interface Props {
+  currentSelected: string;
+  setCurrentSelected: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const liClick = (machine) => {
+export const Select = ({ currentSelected, setCurrentSelected }: Props) => {
+  const [showList, setShowList] = useState(false);
+  const displayName = getNameById(currentSelected);
+  const imgUrl = getImageUrlById(currentSelected);
+
+  const liClick = (machine: string) => {
     setCurrentSelected(machine);
     setShowList(false);
   };
@@ -99,16 +104,9 @@ export const Select = ({ currentSelected, setCurrentSelected }) => {
           craftingMachines.map((machine, idx) => {
             const displayName = getNameById(machine.name);
             const imgUrl = getImageUrlById(machine.name);
-            if (
-              machine.name !== currentSelected.name &&
-              machine.name !== "character"
-            )
+            if (machine.name !== currentSelected)
               return (
-                <ListElement
-                  onClick={() => liClick(machine)}
-                  key={idx}
-                  machine={machine}
-                >
+                <ListElement onClick={() => liClick(machine.name)} key={idx}>
                   <img src={imgUrl} alt={displayName} /> {displayName}
                 </ListElement>
               );
