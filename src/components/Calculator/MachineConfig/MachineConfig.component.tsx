@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Select } from "./Select.component";
 import { ModuleConfig } from "./ModuleConfig.component";
 import {
   checkIfDefault,
+  getDefaultMachine,
   getEmptyMachine,
   getMachineCategories,
 } from "../../../utils/helperFunctions";
@@ -13,7 +14,6 @@ import { useMemo, useCallback } from "react";
 import { saveDefaultMachineConfig } from "../../../reduxStore/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
 import { ppBlue } from "../../../utils/colors";
-import { useEffect } from "react";
 import { OwnMachine } from "../../../utils/types";
 
 const Container = styled.div`
@@ -40,7 +40,7 @@ const FunctionsContainer = styled.div`
   button {
     margin: 0;
     height: 42px;
-    width: 50px;
+    width: 48px;
     border-radius: 0px;
   }
 
@@ -51,13 +51,17 @@ const FunctionsContainer = styled.div`
 `;
 
 interface Props {
-  machineConfig: OwnMachine;
-  setMachineConfig: React.Dispatch<React.SetStateAction<OwnMachine>>;
+  config?: OwnMachine;
+  setConfig?: React.Dispatch<React.SetStateAction<OwnMachine>>;
 }
 
-export const MachineConfig = ({ machineConfig, setMachineConfig }: Props) => {
+export const MachineConfig = ({ config, setConfig }: Props) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
+  const initialMachine = config
+    ? config
+    : getEmptyMachine("assembling-machine-1");
+  const [machineConfig, setMachineConfig] = useState(initialMachine);
   const [currentSelected, setCurrentSelected] = useState<string>(
     machineConfig.id
   );
@@ -83,15 +87,13 @@ export const MachineConfig = ({ machineConfig, setMachineConfig }: Props) => {
   useMemo(() => {
     if (machineConfig.id !== currentSelected) {
       checkIfDefault(currentSelected, defaultMachines)
-        ? setMachineConfig(
-            defaultMachines[getMachineCategories(machineConfig.id)[0]]
-          )
+        ? setMachineConfig(getDefaultMachine(currentSelected, defaultMachines))
         : handleReset();
     }
   }, [currentSelected, defaultMachines, handleReset, machineConfig.id]);
 
   useEffect(() => {
-    if (setMachineConfig) {
+    if (setConfig) {
       const machine: OwnMachine = {
         id: machineConfig.id,
         craftingSpeed: machineConfig.craftingSpeed,
@@ -99,7 +101,7 @@ export const MachineConfig = ({ machineConfig, setMachineConfig }: Props) => {
         modules: machineConfig.modules,
         beacons: machineConfig.beacons,
       };
-      setMachineConfig(machine);
+      setConfig(machine);
     }
   }, [
     machineConfig.beacons,
@@ -123,7 +125,7 @@ export const MachineConfig = ({ machineConfig, setMachineConfig }: Props) => {
       </SettingsContainer>
       <FunctionsContainer>
         <Button buttonType={"green"} onClick={handleSave}>
-          Set Default
+          &#10033;
         </Button>
         <Button id="second" buttonType={"red"} onClick={handleReset}>
           Reset

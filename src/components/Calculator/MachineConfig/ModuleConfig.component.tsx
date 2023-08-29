@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { Beacons } from "./Beacons.component";
 import { Modules } from "./Modules.component";
-import { useEffect } from "react";
 import { OwnMachine } from "../../../utils/types";
 
 const Container = styled.div`
@@ -21,7 +20,12 @@ export const ModuleConfig = ({ machineConfig, setMachineConfig }: Props) => {
 
   useEffect(() => {
     setMachineConfig((prevConfig) => ({ ...prevConfig, beacons, modules }));
-  }, [beacons, modules, setMachineConfig]);
+  }, [beacons, modules]);
+
+  useMemo(() => {
+    setBeacons(machineConfig.beacons);
+    setModules(machineConfig.modules);
+  }, [machineConfig]);
 
   const onBeaconChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const { value, alt } = target;
