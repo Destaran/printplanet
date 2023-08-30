@@ -108,10 +108,10 @@ export const getAllProducts = () =>
     return accumulator;
   }, []);
 
-export const getMachinesById = (id: string) => {
-  const recipe = recipes.find((recipe) => recipe.name === id);
+export const getMachinesById = (recipeId: string) => {
+  const recipe = recipes.find((recipe) => recipe.name === recipeId);
   if (!recipe) {
-    throw new Error("Could not find machine by ID");
+    throw new Error("Could not find machine by recipe ID");
   }
   const category: MachineCategory = recipe.category;
   const machinesArray: Machine[] = [];
