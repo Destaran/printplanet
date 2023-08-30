@@ -5,7 +5,12 @@ const shrinkLabelStyles = css`
   font-size: 12px;
   color: "black";
 `;
-const FormInputLabel = styled.label`
+
+interface FormInputLabelProps {
+  shrink: boolean;
+}
+
+const FormInputLabel = styled.label<FormInputLabelProps>`
   color: "black";
   font-size: 16px;
   font-weight: normal;
@@ -46,7 +51,13 @@ const Group = styled.div`
   margin: 0;
 `;
 
-export const FormInput = ({ label, ...otherProps }) => {
+interface Props {
+  label: string;
+  value: string;
+}
+
+// TS error
+export const FormInput = ({ label, ...otherProps }: Props) => {
   return (
     <Group>
       <Input {...otherProps} />
