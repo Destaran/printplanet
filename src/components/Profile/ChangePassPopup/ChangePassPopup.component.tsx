@@ -13,14 +13,18 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-export const ChangePassPopup = ({ setPopup }) => {
+interface Props {
+  setPopup: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ChangePassPopup = ({ setPopup }: Props) => {
   const [formFields, setFormFields] = useState({
     newPass: "",
     newConfirm: "",
   });
   const { newPass, newConfirm } = formFields;
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
@@ -30,7 +34,7 @@ export const ChangePassPopup = ({ setPopup }) => {
   };
 
   const handleCancel = () => {
-    setPopup(null);
+    setPopup(false);
   };
 
   return (
