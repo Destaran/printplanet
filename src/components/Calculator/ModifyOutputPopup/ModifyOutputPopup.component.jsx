@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ppGrey } from "../../../utils/colors";
-import { getImageUrlById } from "../../../utils/helperFunctions";
+import { getImageUrlById, formatNumber } from "../../../utils/helperFunctions";
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -182,7 +182,7 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
         </ArrowContainer>
         <ImageContainer>
           <img src={imgUrl} alt={id} />
-          <AmountText>{amount}</AmountText>
+          <AmountText>{formatNumber(amount)}</AmountText>
         </ImageContainer>
         <input
           ref={inputRef}
