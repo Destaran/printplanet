@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { createPortal } from "react-dom";
 import { ppBlue } from "../../utils/colors";
+import { ReactNode } from "react";
 
 const PopupContainerAnimation = keyframes`
 from {
@@ -53,11 +54,20 @@ const Container = styled.div`
   animation: ${ContainerAnimation} 200ms ease-out;
 `;
 
-const PopupPortal = ({ children }) => {
+interface PortalProps {
+  children: ReactNode;
+}
+
+interface PopupProps {
+  children: ReactNode;
+  title: string;
+}
+
+const PopupPortal = ({ children }: PortalProps) => {
   return createPortal(children, document.body);
 };
 
-export const Popup = ({ children, title }) => {
+export const Popup = ({ children, title }: PopupProps) => {
   return (
     <PopupPortal>
       <PopupContainer>
