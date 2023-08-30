@@ -31,7 +31,7 @@ export const ModuleConfig = ({ machineConfig, setMachineConfig }: Props) => {
     const { value, alt } = target;
     setBeacons((prevConfig) => ({
       ...prevConfig,
-      [alt]: value,
+      [alt]: Number(value),
     }));
   };
 
