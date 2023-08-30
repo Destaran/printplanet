@@ -18,6 +18,10 @@ const Container = styled.div`
   button {
     width: 10%;
   }
+
+  ul {
+    margin-top: 0;
+  }
 `;
 
 const DonateQR = styled.img`
