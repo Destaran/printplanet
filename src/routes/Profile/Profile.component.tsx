@@ -29,10 +29,31 @@ const Header = styled.h1`
   margin: 0 0 25px 0;
 `;
 
+const MemberSince = styled.p`
+  margin: 0;
+`;
+
+interface User {
+  displayName: string;
+  email: string;
+  createdAt: number;
+}
+
+type Popup = boolean | null;
+
 export const Profile = () => {
-  const user = useSelector(currentUser);
-  const { displayName, email } = user;
-  const [popup, setPopup] = useState(null);
+  const user: User = useSelector(currentUser);
+  const { displayName, email, createdAt } = user;
+  const [popup, setPopup] = useState<Popup>(null);
+
+  const getMemberSince = (unixTimestamp: number) => {
+    const date = new Date(unixTimestamp);
+    return date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   const handlePassPopup = () => {
     setPopup(true);
@@ -64,6 +85,7 @@ export const Profile = () => {
           color="grey"
           disabled
         />
+        <MemberSince>Member since: {getMemberSince(createdAt)}</MemberSince>
         <Button>Change E-mail</Button>
         <Button onClick={handlePassPopup}>Change Password</Button>
         {popup && <ChangePassPopup setPopup={setPopup} />}
