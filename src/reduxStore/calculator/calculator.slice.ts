@@ -11,6 +11,8 @@ import {
   switchMachine,
   bumpProdModules,
 } from "../../utils/helperFunctions";
+import { MachineCategory } from "../../utils/types";
+import { RootState } from "../store";
 
 const initialState = {
   output: {},
@@ -121,7 +123,7 @@ export const calculatorSlice = createSlice({
   name: "calculator",
   initialState,
   reducers: {
-    addToOutput: (state, { payload }) => {
+    addToOutput: (state: RootState, { payload }) => {
       const { id, amount, recipe } = payload;
       const recipeCategory = getRecipeCategory(recipe);
       state.output[id] = {
@@ -133,14 +135,14 @@ export const calculatorSlice = createSlice({
         machine: { ...state.machines[recipeCategory], uid: uuidv4() },
       };
     },
-    addToExistingOutput: ({ output }, { payload }) => {
+    addToExistingOutput: ({ output }: RootState, { payload }) => {
       const { id, amount } = payload;
       output[id].amount += amount;
     },
-    removeFromOutput: ({ output }, { payload }) => {
+    removeFromOutput: ({ output }: RootState, { payload }) => {
       delete output[payload];
     },
-    modifyOutputElement: ({ output }, { payload }) => {
+    modifyOutputElement: ({ output }: RootState, { payload }) => {
       const { id, amount } = payload;
       output[id] = {
         ...output[id],
@@ -150,14 +152,14 @@ export const calculatorSlice = createSlice({
     resetOutput: (state) => {
       state.output = {};
     },
-    extendElement: (state, { payload }) => {
+    extendElement: (state: RootState, { payload }) => {
       const { uid, recipe } = payload;
       const machine = state.machines[getRecipeCategory(recipe)];
       Object.keys(state.output).forEach((item) => {
         extendElementByUid(state.output[item], uid, recipe, machine);
       });
     },
-    extendSameTypeElements: (state, { payload }) => {
+    extendSameTypeElements: (state: RootState, { payload }) => {
       const { id, recipe } = payload;
       const machine = state.machines[getRecipeCategory(recipe)];
       const uids = getAllUids(Object.values(state.output), id);
@@ -167,35 +169,35 @@ export const calculatorSlice = createSlice({
         });
       });
     },
-    collapseElement: ({ output }, { payload }) => {
+    collapseElement: ({ output }: RootState, { payload }) => {
       const uid = payload;
       Object.keys(output).forEach((key) => {
         collapseElementByUid(output[key], uid);
       });
     },
-    collapseSameTypeElements: ({ output }, { payload }) => {
+    collapseSameTypeElements: ({ output }: RootState, { payload }) => {
       const id = payload;
       Object.keys(output).forEach((key) => {
         collapseElementsById(output[key], id);
       });
     },
-    swapMachines: ({ output }, { payload }) => {
+    swapMachines: ({ output }: RootState, { payload }) => {
       const { update, machineConfig } = payload;
       Object.keys(output).forEach((key) => {
         switchMachines(output[key], machineConfig, update);
       });
     },
-    swapMachine: ({ output }, { payload }) => {
+    swapMachine: ({ output }: RootState, { payload }) => {
       const { uid, pid, machineConfig } = payload;
       switchMachine(output[pid], machineConfig, uid);
     },
-    bumpModules: ({ output }, { payload }) => {
+    bumpModules: ({ output }: RootState, { payload }) => {
       const { uid, pid } = payload;
       bumpProdModules(output[pid], uid);
     },
     saveDefaultMachineConfig: ({ machines }, { payload }) => {
       const { categories, machineConfig } = payload;
-      categories.forEach((category) => {
+      categories.forEach((category: MachineCategory) => {
         machines[category] = machineConfig;
       });
     },
