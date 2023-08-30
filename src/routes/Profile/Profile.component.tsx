@@ -39,12 +39,12 @@ interface User {
   createdAt: number;
 }
 
-type Popup = boolean | null;
+type Popup = boolean;
 
 export const Profile = () => {
   const user: User = useSelector(currentUser);
   const { displayName, email, createdAt } = user;
-  const [popup, setPopup] = useState<Popup>(null);
+  const [popup, setPopup] = useState<Popup>(false);
 
   const getMemberSince = (unixTimestamp: number) => {
     const date = new Date(unixTimestamp);
