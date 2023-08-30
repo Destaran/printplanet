@@ -56,17 +56,19 @@ export const About = () => {
       <h2>Why PrintPlanet?</h2>
       <p>
         PrintPlanet aims to combine the perks of all available calculators and
-        even more: simple, configurable, accurate and transparent. <br /> Most
-        of the calculators are overcomplicated, or if not, they are not so
-        useable.
+        even more: simple, configurable, accurate and transparent while feature
+        rich. <br /> Most of the calculators are overcomplicated, or if not,
+        they are not so useable.
         <br /> I would like to provide a calculator to my fellow engineers, that
-        can be utilized by new players and veterans alike.
+        can be utilized for any challenge Factorio can bring for new players and
+        veterans alike.
       </p>
       <h2>Feature Roadmap</h2>
       <p>
         First I would like to estabilish a robust backend for the many features
-        I will be implementing, so <br /> these features won't be implemented
-        rapidly, but I'm planning to start writing a DevLog to keep you updated.
+        I will be implementing, <br /> so these features won't be implemented
+        rapidly, but if people like the project, I will be writing devlogs to
+        keep you updated.
       </p>
       <ul>
         <li>Adding energy consumption and pollution data</li>
@@ -77,8 +79,8 @@ export const About = () => {
       <h2>Let me know what you think</h2>
       <p>
         While the list isn't long, these features are complex and were never
-        been implemented on the same site before. <br /> <br /> Reach out to me
-        and let me know what you think about this project:{" "}
+        been implemented all-in-one on the same site before. <br /> <br /> Reach
+        out to me and let me know what you think about this project:{" "}
       </p>
       <LogoContainer>
         <SocialLogo
