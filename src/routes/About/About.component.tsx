@@ -47,9 +47,6 @@ export const About = () => {
   const redirectToDiscord = () => {
     window.location.href = "https://discordapp.com/users/.balagee";
   };
-  const redirectToReddit = () => {
-    window.location.href = "https://www.reddit.com/user/Destaran";
-  };
 
   return (
     <Container>
@@ -87,10 +84,6 @@ export const About = () => {
         <SocialLogo
           onClick={redirectToDiscord}
           src="./src/assets/discord-icon.svg"
-        />
-        <SocialLogo
-          onClick={redirectToReddit}
-          src="./src/assets/Reddit_Logo_Icon.png"
         />
       </LogoContainer>
       <p>If you would like to show appreciation, consider donating:</p>
