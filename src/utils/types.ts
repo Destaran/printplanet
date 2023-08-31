@@ -83,3 +83,9 @@ export interface OwnMachine {
   craftingSpeed: number;
   productivity: number;
 }
+
+export interface User {
+  displayName: string;
+  email: string;
+  createdAt: number;
+}
