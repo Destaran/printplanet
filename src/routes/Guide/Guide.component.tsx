@@ -11,5 +11,9 @@ const Container = styled.div`
 `;
 
 export const Guide = () => {
-  return <Container></Container>;
+  return (
+    <Container>
+      <h1>Coming soon</h1>
+    </Container>
+  );
 };
