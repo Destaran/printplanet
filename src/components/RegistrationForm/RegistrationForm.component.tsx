@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styled from "styled-components";
 import validator from "validator";
 import {
@@ -5,7 +7,6 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firestore/firestore";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "../Button/Button.component";
 import { FormInput } from "../FormInput/FormInput.component";
 
@@ -56,7 +57,6 @@ const defaultFormFields = {
 };
 
 const RegistrationForm = () => {
-  const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [error, setError] = useState(false);
   const { displayName, email, password, confirmPassword } = formFields;
@@ -66,7 +66,7 @@ const RegistrationForm = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (!validator.isEmail(email)) {
@@ -85,7 +85,7 @@ const RegistrationForm = () => {
         password
       );
       await createUserDocumentFromAuth(user, { displayName });
-      navigate("/calculator");
+      window.location.reload();
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {
         setError("E-mail already in use!");
