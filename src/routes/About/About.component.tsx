@@ -11,7 +11,7 @@ const Container = styled.div`
   background-color: #f1f1f1;
   user-select: none;
 
-  h2 {
+  h1 {
     margin: 0;
   }
 
@@ -53,7 +53,7 @@ export const About = () => {
 
   return (
     <Container>
-      <h2>Why PrintPlanet?</h2>
+      <h1>Why PrintPlanet?</h1>
       <p>
         PrintPlanet aims to combine the perks of all available calculators and
         even more: simple, configurable, accurate and transparent while feature
@@ -63,20 +63,21 @@ export const About = () => {
         can be utilized for any challenge Factorio can bring for new players and
         veterans alike.
       </p>
-      <h2>Feature Roadmap</h2>
-      <p>
-        First I would like to estabilish a robust backend for the many features
-        I will be implementing, <br /> so these features won't be implemented
-        rapidly, but if people like the project, I will be writing devlogs to
-        keep you updated.
-      </p>
+      <h1>Feature Roadmap</h1>
+      <h3>Backend</h3>
+      <ul>
+        <li>Switching from Firestore to Express.js, later Nest.js</li>
+        <li>Full TypeScript migration</li>
+        <li>Automated server-side mod data scraping</li>
+      </ul>
+      <h3>Frontend</h3>
       <ul>
         <li>Adding energy consumption and pollution data</li>
         <li>Calculation browser: share your calculations and browse others'</li>
         <li>Attachable and viewable blueprints</li>
         <li>Compatibility with all mods</li>
       </ul>
-      <h2>Let me know what you think</h2>
+      <h1>Let me know what you think</h1>
       <p>
         While the list isn't long, these features are complex and were never
         been implemented all-in-one on the same site before. <br /> <br /> Reach
