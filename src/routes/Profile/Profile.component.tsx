@@ -5,6 +5,7 @@ import { FormInput } from "../../components/FormInput/FormInput.component";
 import { Button } from "../../components/Button/Button.component";
 import { useState } from "react";
 import { ChangePassPopup } from "../../components/Profile/ChangePassPopup/ChangePassPopup.component";
+import { User } from "../../utils/types";
 
 const Container = styled.div`
   margin: 0px auto;
@@ -32,12 +33,6 @@ const Header = styled.h1`
 const MemberSince = styled.p`
   margin: 0;
 `;
-
-interface User {
-  displayName: string;
-  email: string;
-  createdAt: number;
-}
 
 type Popup = boolean;
 
