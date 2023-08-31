@@ -56,16 +56,13 @@ interface Props {
   value: string;
 }
 
-// TS error
 export const FormInput = ({ label, ...otherProps }: Props) => {
+  const hasText = otherProps.value.length > 0;
+
   return (
     <Group>
       <Input {...otherProps} />
-      {label && (
-        <FormInputLabel shrink={otherProps.value.length}>
-          {label}
-        </FormInputLabel>
-      )}
+      {label && <FormInputLabel shrink={hasText}>{label}</FormInputLabel>}
     </Group>
   );
 };
