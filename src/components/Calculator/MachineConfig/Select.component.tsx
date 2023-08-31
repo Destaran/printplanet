@@ -3,6 +3,8 @@ import {
   getImageUrlById,
   getNameById,
   craftingMachines,
+  compareCategories,
+  getMachineCategories,
 } from "../../../utils/helperFunctions";
 import { useState } from "react";
 
@@ -41,7 +43,7 @@ const UnorderedList = styled.ul`
   background-color: white;
   margin: 0;
   padding: 0;
-  top: 43px;
+  top: 41px;
   left: 0px;
   width: 100%;
   z-index: 50;
@@ -77,12 +79,29 @@ const ListElement = styled.li`
 interface Props {
   currentSelected: string;
   setCurrentSelected: React.Dispatch<React.SetStateAction<string>>;
+  edit?: boolean;
 }
 
-export const Select = ({ currentSelected, setCurrentSelected }: Props) => {
+export const Select = ({
+  currentSelected,
+  setCurrentSelected,
+  edit,
+}: Props) => {
   const [showList, setShowList] = useState(false);
   const displayName = getNameById(currentSelected);
   const imgUrl = getImageUrlById(currentSelected);
+  const availableMachines = edit
+    ? craftingMachines.filter((machine) => {
+        if (
+          compareCategories(
+            getMachineCategories(currentSelected),
+            machine.categories
+          )
+        ) {
+          return machine;
+        }
+      })
+    : craftingMachines;
 
   const liClick = (machine: string) => {
     setCurrentSelected(machine);
@@ -101,7 +120,7 @@ export const Select = ({ currentSelected, setCurrentSelected }: Props) => {
       </SelectedContainer>
       <UnorderedList>
         {showList &&
-          craftingMachines.map((machine, idx) => {
+          availableMachines.map((machine, idx) => {
             const displayName = getNameById(machine.name);
             const imgUrl = getImageUrlById(machine.name);
             if (machine.name !== currentSelected)

@@ -53,9 +53,10 @@ const FunctionsContainer = styled.div`
 interface Props {
   config?: OwnMachine;
   setConfig?: React.Dispatch<React.SetStateAction<OwnMachine>>;
+  edit?: boolean;
 }
 
-export const MachineConfig = ({ config, setConfig }: Props) => {
+export const MachineConfig = ({ config, setConfig, edit }: Props) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
   const initialMachine = config
@@ -117,6 +118,7 @@ export const MachineConfig = ({ config, setConfig }: Props) => {
         <Select
           currentSelected={currentSelected}
           setCurrentSelected={setCurrentSelected}
+          edit={edit}
         />
         <ModuleConfig
           machineConfig={machineConfig}

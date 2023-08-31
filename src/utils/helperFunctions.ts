@@ -619,14 +619,7 @@ export const compareCategories = (
   original: MachineCategories,
   compared: MachineCategories
 ) => {
-  original.forEach((og: MachineCategory) => {
-    compared.forEach((comp: MachineCategory) => {
-      if (comp !== og) {
-        return false;
-      }
-    });
-  });
-  return true;
+  return original.every((og: MachineCategory) => compared.includes(og));
 };
 
 // Redux functions

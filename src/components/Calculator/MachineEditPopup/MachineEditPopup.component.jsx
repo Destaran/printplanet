@@ -76,7 +76,7 @@ export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
 
   return (
     <Popup title={uid ? "Edit Machine" : "Edit Machines"}>
-      <MachineConfig config={config} setConfig={setConfig} />
+      <MachineConfig config={config} setConfig={setConfig} edit={true} />
       <MachineFunctions>
         <Button buttonType={"green"} onClick={enterHandler}>
           <u>E</u>nter
