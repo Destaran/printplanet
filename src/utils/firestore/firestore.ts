@@ -159,3 +159,10 @@ export const setNewPassword = async (newPassword: string) => {
   }
   await updatePassword(auth.currentUser, newPassword);
 };
+
+export const setNewEmail = async (newEmail: string) => {
+  if (!auth.currentUser) {
+    return;
+  }
+  await updatePassword(auth.currentUser, newEmail);
+};
