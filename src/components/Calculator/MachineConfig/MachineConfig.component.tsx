@@ -59,9 +59,7 @@ interface Props {
 export const MachineConfig = ({ config, setConfig, edit }: Props) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
-  const initialMachine = config
-    ? config
-    : getEmptyMachine("assembling-machine-1");
+  const initialMachine = config ? config : defaultMachines.crafting;
   const [machineConfig, setMachineConfig] = useState(initialMachine);
   const [currentSelected, setCurrentSelected] = useState<string>(
     machineConfig.id
