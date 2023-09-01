@@ -4,9 +4,10 @@ import { FormInput } from "../../FormInput/FormInput.component";
 import { Button } from "../../Button/Button.component";
 import { useState } from "react";
 import {
-  setNewPassword,
+  setNewEmail,
   signInAuthUserWithEmailAndPassword,
 } from "../../../utils/firestore/firestore";
+import validator from "validator";
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -31,18 +32,17 @@ const Form = styled.form`
 `;
 
 interface Props {
+  setEmailPopup: React.Dispatch<React.SetStateAction<boolean>>;
   email: string;
-  setPassPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ChangePassPopup = ({ email, setPassPopup }: Props) => {
+export const ChangeEmailPopup = ({ setEmailPopup, email }: Props) => {
   const [formFields, setFormFields] = useState({
-    oldPass: "",
-    newPass: "",
-    newConfirm: "",
+    newEmail: "",
+    password: "",
   });
   const [error, setError] = useState<string | null>(null);
-  const { oldPass, newPass, newConfirm } = formFields;
+  const { newEmail, password } = formFields;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -51,62 +51,48 @@ export const ChangePassPopup = ({ email, setPassPopup }: Props) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (newPass !== newConfirm) {
-      setError("Passwords do not match!");
+
+    if (!validator.isEmail(newEmail)) {
+      setError("Invalid e-mail address!");
       return;
     }
-    if (newPass.length < 6) {
-      setError("Password should be at least 6 characters long!");
-      return;
-    }
+
     try {
-      await signInAuthUserWithEmailAndPassword(email, oldPass);
-      await setNewPassword(newPass);
+      await signInAuthUserWithEmailAndPassword(email, password);
+      await setNewEmail(newEmail);
       setError(null);
-      setPassPopup(false);
+      setEmailPopup(false);
     } catch (error: any) {
-      if (error.code == "auth/wrong-password") {
-        setError("Wrong password!");
-        return;
-      }
+      console.log(error.code);
+
       setError("An error occured!");
     }
   };
 
   const handleCancel = () => {
     setError(null);
-    setPassPopup(false);
+    setEmailPopup(false);
   };
 
   return (
-    <Popup title="Set New Password">
+    <Popup title="Update e-mail address">
       <Form>
         <FormInput
           required
-          type="password"
-          value={oldPass}
+          type="text"
+          value={newEmail}
           onChange={handleChange}
-          label="Old Password"
-          name="oldPass"
-          autoComplete="current-password"
+          label="New e-mail address"
+          name="newEmail"
         />
         <FormInput
           required
           type="password"
-          value={newPass}
-          onChange={handleChange}
-          label="New Password"
-          name="newPass"
-          autoComplete="new-password"
-        />
-        <FormInput
-          required
-          type="password"
-          value={newConfirm}
+          value={password}
           onChange={handleChange}
           label="Confirm Password"
-          name="newConfirm"
-          autoComplete="new-password"
+          name="password"
+          autoComplete="current-password"
         />
       </Form>
       {error && <ErrorMessage>{error}</ErrorMessage>}

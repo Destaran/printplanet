@@ -8,6 +8,7 @@ import { Button } from "../../components/Button/Button.component";
 import { useState } from "react";
 import { ChangePassPopup } from "../../components/Profile/ChangePassPopup/ChangePassPopup.component";
 import { User } from "../../utils/types";
+import { ChangeEmailPopup } from "../../components/Profile/ChangeEmailPopup/ChangeEmailPopup.component";
 
 const Container = styled.div`
   margin: 0px auto;
@@ -40,10 +41,19 @@ type Popup = boolean;
 
 export const Profile = () => {
   const user: User = useSelector(currentUser);
-  const { displayName, email, createdAt } = user;
-  const [popup, setPopup] = useState<Popup>(false);
+  if (!user) {
+    return (
+      <Container>
+        <Header>Loading...</Header>
+      </Container>
+    );
+  }
 
-  const getMemberSince = (unixTimestamp: number) => {
+  const { displayName, email, createdAt } = user;
+  const [passPopup, setPassPopup] = useState<Popup>(false);
+  const [emailPopup, setEmailPopup] = useState<Popup>(false);
+
+  const getCreationDate = (unixTimestamp: number) => {
     const date = new Date(unixTimestamp);
     return date.toLocaleDateString(undefined, {
       year: "numeric",
@@ -52,17 +62,13 @@ export const Profile = () => {
     });
   };
 
-  const handlePassPopup = () => {
-    setPopup(true);
+  const handleEmailPopup = () => {
+    setEmailPopup(true);
   };
 
-  if (!user) {
-    return (
-      <Container>
-        <Header>Loading...</Header>
-      </Container>
-    );
-  }
+  const handlePassPopup = () => {
+    setPassPopup(true);
+  };
 
   return (
     <Container>
@@ -82,10 +88,15 @@ export const Profile = () => {
           color="grey"
           disabled
         />
-        <MemberSince>Member since: {getMemberSince(createdAt)}</MemberSince>
-        <Button>Change E-mail</Button>
+        <MemberSince>Member since: {getCreationDate(createdAt)}</MemberSince>
+        <Button onClick={handleEmailPopup}>Change E-mail</Button>
+        {emailPopup && (
+          <ChangeEmailPopup setEmailPopup={setEmailPopup} email={email} />
+        )}
         <Button onClick={handlePassPopup}>Change Password</Button>
-        {popup && <ChangePassPopup setPopup={setPopup} email={email} />}
+        {passPopup && (
+          <ChangePassPopup setPassPopup={setPassPopup} email={email} />
+        )}
       </DataContainer>
     </Container>
   );
