@@ -85,7 +85,7 @@ export const Profile = () => {
         <MemberSince>Member since: {getMemberSince(createdAt)}</MemberSince>
         <Button>Change E-mail</Button>
         <Button onClick={handlePassPopup}>Change Password</Button>
-        {popup && <ChangePassPopup setPopup={setPopup} />}
+        {popup && <ChangePassPopup setPopup={setPopup} email={email} />}
       </DataContainer>
     </Container>
   );
