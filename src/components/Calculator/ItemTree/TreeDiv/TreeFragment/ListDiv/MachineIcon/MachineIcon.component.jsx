@@ -147,6 +147,7 @@ export const MachineIcon = ({ outputItem, pid }) => {
           setMachineId={setMachineEditId}
           uid={uid}
           pid={pid}
+          singleMachine={machine}
         />
       )}
     </>

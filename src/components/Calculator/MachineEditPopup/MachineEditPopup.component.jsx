@@ -26,14 +26,20 @@ const MachineFunctions = styled.div`
   }
 `;
 
-export const MachineEditPopup = ({ machineId, setMachineId, uid, pid }) => {
+export const MachineEditPopup = ({
+  machineId,
+  setMachineId,
+  uid,
+  pid,
+  singleMachine,
+}) => {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
 
   const machine = checkIfDefault(machineId, defaultMachines)
     ? getDefaultMachine(machineId, defaultMachines)
     : getEmptyMachine(machineId);
-  const [config, setConfig] = useState(machine);
+  const [config, setConfig] = useState(uid ? singleMachine : machine);
 
   const enterHandler = useCallback(() => {
     if (!uid) {
