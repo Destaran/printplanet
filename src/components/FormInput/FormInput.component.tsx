@@ -60,6 +60,7 @@ interface Props {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   color?: string;
+  autoComplete?: string;
 }
 
 export const FormInput = ({ label, ...otherProps }: Props) => {
