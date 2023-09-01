@@ -2,7 +2,7 @@
 
 PrintPlanet aims to combine the perks of all available calculators and even more: simple, configurable, accurate and transparent while feature rich. Most of the calculators are overcomplicated, or if not, they are not so useable. I would like to provide a calculator to my fellow engineers, that can be utilized for any challenge Factorio can bring for new players and veterans alike. The project is in beta right now, so many functionalities like saving calculations to your profile is not available yet.
 
-![](https://i.imgur.com/UbxFRcc.png)
+![](https://i.imgur.com/zmlWDFt.png)
 
 # Tech Stack:
 
@@ -11,7 +11,7 @@ PrintPlanet aims to combine the perks of all available calculators and even more
 - Redux Toolkit for advanced state management with reselect for selector reusability
 - styled for flexible and convinient CSS
 
-![](https://i.imgur.com/ChsuCZx.png)
+![](https://i.imgur.com/hWkZOHZ.png)
 
 # Features:
 
@@ -20,7 +20,7 @@ PrintPlanet aims to combine the perks of all available calculators and even more
 - Use any machine configuration that is available in-game
 - Quick and flexible way of calculating with hotkeys and macros
 
-![](https://i.imgur.com/m80fylw.png)
+![](https://i.imgur.com/yDPlM5L.png)
 
 # Roadmap:
 
