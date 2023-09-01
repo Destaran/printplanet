@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../../../utils/helperFunctions";
-import { FormInput } from "../../../FormInput/FormInput.component";
+import { FormInput } from "../../../../FormInput/FormInput.component";
 import { useMemo, useState } from "react";
 import { ppBlue } from "../../../../../utils/colors";
 

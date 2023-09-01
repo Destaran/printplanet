@@ -30,8 +30,9 @@ const Input = styled.input`
   font-size: 18px;
   display: block;
   width: 100%;
-  border: 1px solid "black";
+  border: 1px solid black;
   margin: 15px 0;
+  height: 20px;
   padding: 10px;
 
   &:focus {
@@ -52,8 +53,13 @@ const Group = styled.div`
 `;
 
 interface Props {
-  label: string;
   value: string;
+  label?: string;
+  required?: boolean;
+  type?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  color?: string;
 }
 
 export const FormInput = ({ label, ...otherProps }: Props) => {
