@@ -58,7 +58,7 @@ const defaultFormFields = {
 
 const RegistrationForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const { displayName, email, password, confirmPassword } = formFields;
 
   const handleChange = (event) => {
