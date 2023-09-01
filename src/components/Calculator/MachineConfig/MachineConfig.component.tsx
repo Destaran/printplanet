@@ -13,14 +13,11 @@ import { craftingMachines } from "../../../reduxStore/calculator/calculator.sele
 import { useMemo, useCallback } from "react";
 import { saveDefaultMachineConfig } from "../../../reduxStore/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
-import { ppBlue } from "../../../utils/colors";
 import { OwnMachine } from "../../../utils/types";
 
 const Container = styled.div`
   width: fit-content;
   display: flex;
-  border-top: 1px solid ${ppBlue};
-  border-bottom: 1px solid ${ppBlue};
   padding: 10px;
   width: auto;
   input,
