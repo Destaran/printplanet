@@ -13,7 +13,7 @@ const Container = styled.div`
 export const ForgotPassword = () => {
   return (
     <Container>
-      <h1>This is the forgot password page</h1>
+      <h1>Coming soon</h1>
     </Container>
   );
 };
