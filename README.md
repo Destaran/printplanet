@@ -2,6 +2,8 @@
 
 PrintPlanet aims to combine the perks of all available calculators and even more: simple, configurable, accurate and transparent while feature rich. Most of the calculators are overcomplicated, or if not, they are not so useable. I would like to provide a calculator to my fellow engineers, that can be utilized for any challenge Factorio can bring for new players and veterans alike. The project is in beta right now, so many functionalities like saving calculations to your profile is not available yet.
 
+Try it out [here](https://main--timely-genie-5cbea4.netlify.app/calculator)
+
 ![](https://i.imgur.com/zmlWDFt.png)
 
 # Tech Stack:
