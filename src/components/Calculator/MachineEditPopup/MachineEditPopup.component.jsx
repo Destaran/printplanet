@@ -42,21 +42,21 @@ export const MachineEditPopup = ({
   const [config, setConfig] = useState(uid ? singleMachine : machine);
 
   const enterHandler = useCallback(() => {
-    if (!uid) {
-      const payload = {
-        update: machineId,
-        categories: getMachineCategories(machineId),
-        machineConfig: config,
-      };
-      dispatch(swapMachines(payload));
-      setMachineId(null);
-    } else {
+    if (uid) {
       const payload = {
         uid,
         pid,
         machineConfig: config,
       };
       dispatch(swapMachine(payload));
+      setMachineId(null);
+    } else {
+      const payload = {
+        update: machineId,
+        categories: getMachineCategories(machineId),
+        machineConfig: config,
+      };
+      dispatch(swapMachines(payload));
       setMachineId(null);
     }
   }, [config, dispatch, machineId, pid, setMachineId, uid]);
