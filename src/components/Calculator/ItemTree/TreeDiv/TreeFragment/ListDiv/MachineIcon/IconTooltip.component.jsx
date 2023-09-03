@@ -48,7 +48,7 @@ export const IconTooltip = ({ machine, uid }) => {
   const displayProd = (productivity * 100).toFixed(0);
   const hasModules = modules.some((module) => module.length > 0);
   const hasProd = modules.some((module) => module.includes("productivity"));
-  const beaconReqShow = formatNumber(beacons.required);
+  const beaconAffShow = formatNumber(beacons.affecting);
   return (
     <Tooltip id={uid} style={{ opacity: 1 }} delayShow={"500"} place="top">
       <Container>
@@ -68,7 +68,7 @@ export const IconTooltip = ({ machine, uid }) => {
                 ))}
               </BeaconIcons>
               <p>&#x2715;</p>
-              <p>{beaconReqShow}</p>
+              <p>{beaconAffShow}</p>
               <ModuleIndicator module={"beacon"} />
             </ModulesInner>
           </ModulesContainer>
