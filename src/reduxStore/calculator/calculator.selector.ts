@@ -41,7 +41,6 @@ export const machinesArray = createSelector(calculatedOutput, (output) => {
     summarizeModules(item, machines);
     summarizeBeacons(item, machines);
   });
-  console.log(machines);
 
   return machines;
 });

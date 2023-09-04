@@ -287,7 +287,7 @@ export const summarizeInputs = (
         amount: outputItem.amount,
       };
       inputArray.push(objToPush);
-    } else {
+    } else if (existingItem.amount && outputItem.amount) {
       existingItem.amount += outputItem.amount;
     }
   } else {
@@ -373,7 +373,7 @@ export const summarizeMachines = (
           amount: Math.ceil(machine.amount),
         };
         machinesArray.push(objToPush);
-      } else {
+      } else if (existingItem.amount) {
         existingItem.amount += Math.ceil(machine.amount);
       }
     }
@@ -399,7 +399,7 @@ export const summarizeBeacons = (
           amount: machine.beacons.required,
         };
         machinesArray.push(objToPush);
-      } else {
+      } else if (existingBeacon.amount) {
         existingBeacon.amount += machine.beacons.required;
       }
     }
@@ -452,7 +452,7 @@ export const summarizeModules = (
             amount: machineModules[key],
           };
           machinesArray.push(objToPush);
-        } else {
+        } else if (existingModule.amount) {
           existingModule.amount += machineModules[key];
         }
       });
@@ -655,6 +655,8 @@ export const extendElementByUid = (
     if (newIngredients.length > 0) {
       item.ingredients = newIngredients.map((ingredient) => ({
         ...ingredient,
+        // refactor: should not get amount: 0
+        amount: 0,
       }));
       item.recipe = recipe;
       item.machine = { ...machine };
