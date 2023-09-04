@@ -84,8 +84,26 @@ export interface OwnMachine {
   productivity: number;
 }
 
+export interface CalculatedMachine {
+  id: string;
+  amount: number;
+  modules: string[];
+  beacons: Beacons;
+  craftingSpeed: number;
+  productivity: number;
+}
+
 export interface User {
   displayName: string;
   email: string;
   createdAt: number;
+}
+
+export interface CalculatedItem {
+  id: string;
+  amount: number;
+  uid: string;
+  recipe?: string;
+  ingredients?: CalculatedItem[];
+  machine?: CalculatedMachine;
 }
