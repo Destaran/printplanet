@@ -36,8 +36,15 @@ const Warning = styled.div`
   color: red;
 `;
 
-// refactor
-export const SelectRecipePopup = ({ id, setId, uid, addInfo }) => {
+// refactor please
+export const SelectRecipePopup = ({
+  id,
+  setId,
+  uid,
+  addInfo,
+  selectMultiple,
+  setSelectMultiple,
+}) => {
   const dispatch = useDispatch();
   const recipes = getRecipes(id);
   const [selectedRecipe, setSelectedRecipe] = useState("");
@@ -47,7 +54,8 @@ export const SelectRecipePopup = ({ id, setId, uid, addInfo }) => {
     setId(null);
     setWarning(false);
     setSelectedRecipe("");
-  }, [setId]);
+    setSelectMultiple(false);
+  }, [setId, setSelectMultiple]);
 
   const handleEnter = useCallback(() => {
     if (selectedRecipe && addInfo) {
@@ -60,14 +68,14 @@ export const SelectRecipePopup = ({ id, setId, uid, addInfo }) => {
       dispatch(addToOutput(payload));
       resetItemSelect();
       resetComponent();
-    } else if (selectedRecipe && !uid) {
+    } else if (selectedRecipe && selectMultiple) {
       const payload = {
         id,
         recipe: selectedRecipe,
       };
       dispatch(extendSameTypeElements(payload));
       resetComponent();
-    } else if (selectedRecipe) {
+    } else if (selectedRecipe && !selectMultiple) {
       const payload = {
         uid,
         recipe: selectedRecipe,
@@ -77,7 +85,15 @@ export const SelectRecipePopup = ({ id, setId, uid, addInfo }) => {
     } else {
       setWarning(true);
     }
-  }, [addInfo, dispatch, id, resetComponent, selectedRecipe, uid]);
+  }, [
+    addInfo,
+    dispatch,
+    id,
+    resetComponent,
+    selectMultiple,
+    selectedRecipe,
+    uid,
+  ]);
 
   const handleBack = useCallback(() => {
     resetComponent();

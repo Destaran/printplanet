@@ -74,6 +74,7 @@ const AmountText = styled.p`
 export const ProductIcon = ({ outputItem }) => {
   const { uid, id, amount, ingredients } = outputItem;
   const [popupId, setPopupId] = useState(null);
+  const [selectMultiple, setSelectMultiple] = useState(false);
   const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
   const displayAmount = formatNumber(amount);
@@ -81,6 +82,9 @@ export const ProductIcon = ({ outputItem }) => {
   const handleClick = (event) => {
     if (!ingredients) {
       if (checkIfMultipleRecipes(id)) {
+        if (event.shiftKey && event.button === 0) {
+          setSelectMultiple(true);
+        }
         document.activeElement.blur();
         setPopupId(id);
       } else {
@@ -119,7 +123,13 @@ export const ProductIcon = ({ outputItem }) => {
         </InnerContainer>
       </Container>
       {popupId && (
-        <SelectRecipePopup id={popupId} setId={setPopupId} uid={uid} />
+        <SelectRecipePopup
+          id={popupId}
+          setId={setPopupId}
+          uid={uid}
+          selectMultiple={selectMultiple}
+          setSelectMultiple={setSelectMultiple}
+        />
       )}
     </>
   );
