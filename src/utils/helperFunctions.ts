@@ -13,6 +13,8 @@ import {
   OutputItem,
   SummaryItem,
   OwnMachine,
+  CalculatedItem,
+  CalculatedMachine,
 } from "./types";
 
 export const recipes = data.recipes as Recipe[];
@@ -232,25 +234,19 @@ export const getRecipes = (productId: string) => {
 };
 
 const getModuleSpeedBonus = (id: string) => {
-  if (!id) {
+  const module = modules.find((module) => id === module.name);
+  if (!module || !module.effects.speed) {
     return 0;
   }
-  const module = modules.find((module) => id === module.name);
-  if (module && module.effects.speed) {
-    return module.effects.speed.bonus;
-  }
-  return 0;
+  return module.effects.speed.bonus;
 };
 
 const getModuleProdBonus = (id: string) => {
-  if (!id) {
+  const module = modules.find((module) => id === module.name);
+  if (!module || !module.effects.productivity) {
     return 0;
   }
-  const module = modules.find((module) => id === module.name);
-  if (module && module.effects.productivity) {
-    return module.effects.productivity.bonus;
-  }
-  return 0;
+  return module.effects.productivity.bonus;
 };
 
 const getBonusSpeed = (modules: string[]) => {
@@ -490,78 +486,99 @@ const getReqBeaconCount = (
   return constant + additional * Math.ceil(machineAmount);
 };
 
-export const calculateTree = ({
-  ingredients,
-  recipe: recipeId,
-  id,
-  machine,
-  amount,
-}: OutputItem) => {
-  if (ingredients && machine && recipeId) {
-    const recipe = getRecipeById(recipeId);
-    const product = recipe.products.find((item) => item.name === id);
+export const calculateTree = (item: OutputItem): CalculatedItem => {
+  const { ingredients, recipe: recipeId, id, uid, machine, amount } = item;
 
-    if (!product) {
-      throw new Error("Could not find product by ID");
+  if (!ingredients || !machine || !recipeId) {
+    return {
+      ...structuredClone(item),
+      recipe: undefined,
+      ingredients: undefined,
+      machine: undefined,
+    };
+  }
+
+  const recipe = getRecipeById(recipeId);
+  const product = recipe.products.find((item) => item.name === id);
+
+  if (!product) {
+    throw new Error("Could not find product by ID");
+  }
+
+  const craftingSpeed = getModdedMachineSpeed(
+    machine.modules,
+    machine.beacons,
+    machine.craftingSpeed
+  );
+  const productivity = getModdedMachineProd(machine.modules);
+
+  const machineAmount = getReqMachineCount(
+    craftingSpeed,
+    productivity,
+    amount,
+    recipe.energy,
+    recipe.constant,
+    product.amount,
+    product.probability
+  );
+  // refactor: make the beacons calculation below a function
+  const beacons = structuredClone(machine.beacons);
+  if (
+    beacons.modules.some((module) => module.length > 0) &&
+    beacons.affecting > 0
+  ) {
+    beacons.required = getReqBeaconCount(
+      machine.beacons.constant,
+      machine.beacons.additional,
+      machineAmount
+    );
+  } else {
+    beacons.required = 0;
+  }
+
+  const newIngredients = ingredients.map((ingredient) => {
+    const newIngredient = structuredClone(ingredient);
+    const ingredientRecipe = recipe.ingredients.find(
+      (item) => item.name === newIngredient.id
+    );
+
+    if (!ingredientRecipe) {
+      throw new Error("Could not find ingredient recipe by ID");
     }
 
-    machine.craftingSpeed = getModdedMachineSpeed(
-      machine.modules,
-      machine.beacons,
-      machine.craftingSpeed
-    );
-    machine.productivity = getModdedMachineProd(machine.modules);
-    machine.amount = getReqMachineCount(
-      machine.craftingSpeed,
-      machine.productivity,
-      amount,
-      recipe.energy,
-      recipe.constant,
-      product.amount,
-      product.probability
-    );
-    // refactor: make the beacons calculation below a function
-    const beaconsCopy = structuredClone(machine.beacons);
-    if (
-      beaconsCopy.modules.some((module) => module.length > 0) &&
-      beaconsCopy.affecting > 0
-    ) {
-      beaconsCopy.required = getReqBeaconCount(
-        machine.beacons.constant,
-        machine.beacons.additional,
-        machine.amount
+    if (newIngredient.id === "satellite") {
+      newIngredient.amount = Number(
+        (ingredientRecipe.amount * amount) /
+          product.amount /
+          product.probability
       );
     } else {
-      beaconsCopy.required = 0;
-    }
-    machine.beacons = beaconsCopy;
-
-    // refactor: make children amount calc a function
-    ingredients.forEach((ingredient) => {
-      const ingredientRecipe = recipe.ingredients.find(
-        (item) => item.name === ingredient.id
+      newIngredient.amount = Number(
+        (ingredientRecipe.amount * (amount / (productivity + 1))) /
+          product.amount /
+          product.probability
       );
+    }
 
-      if (!ingredientRecipe) {
-        throw new Error("Could not find ingredient recipe by ID");
-      }
+    return calculateTree(newIngredient);
+  });
 
-      if (ingredient.id === "satellite") {
-        ingredient.amount = Number(
-          (ingredientRecipe.amount * amount) /
-            product.amount /
-            product.probability
-        );
-      } else {
-        ingredient.amount = Number(
-          (ingredientRecipe.amount * (amount / (machine.productivity + 1))) /
-            product.amount /
-            product.probability
-        );
-      }
-      calculateTree(ingredient);
-    });
-  }
+  const calculatedMachine: CalculatedMachine = {
+    ...structuredClone(machine),
+    amount: machineAmount,
+    craftingSpeed,
+    productivity,
+    beacons,
+  };
+
+  return {
+    ingredients: newIngredients,
+    recipe: recipeId,
+    id,
+    uid,
+    machine: calculatedMachine,
+    amount,
+  };
 };
 
 // Search for recipes producing product based on id
@@ -638,7 +655,6 @@ export const extendElementByUid = (
     if (newIngredients.length > 0) {
       item.ingredients = newIngredients.map((ingredient) => ({
         ...ingredient,
-        amount: 0,
       }));
       item.recipe = recipe;
       item.machine = { ...machine };

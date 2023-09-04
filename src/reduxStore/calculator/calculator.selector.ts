@@ -20,12 +20,9 @@ export const outputKeys = (state: RootState) =>
 export const calculatedOutput = (state: RootState) => {
   const output = Object.values(state.calculator.output);
   const calcOutput: OutputItem[] = [];
-  output.forEach((item) => {
-    const itemCopy = structuredClone(item);
-    calculateTree(itemCopy);
-    calcOutput.push(itemCopy);
+  return output.map((item) => {
+    return calculateTree(item);
   });
-  return calcOutput;
 };
 
 export const inputArray = createSelector(calculatedOutput, (output) => {
@@ -33,6 +30,7 @@ export const inputArray = createSelector(calculatedOutput, (output) => {
   output.forEach((item) => {
     summarizeInputs(item, input);
   });
+
   return input;
 });
 
@@ -43,6 +41,8 @@ export const machinesArray = createSelector(calculatedOutput, (output) => {
     summarizeModules(item, machines);
     summarizeBeacons(item, machines);
   });
+  console.log(machines);
+
   return machines;
 });
 
