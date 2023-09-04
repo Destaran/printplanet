@@ -68,7 +68,7 @@ export const SelectRecipePopup = ({
       dispatch(addToOutput(payload));
       resetItemSelect();
       resetComponent();
-    } else if (selectedRecipe && selectMultiple) {
+    } else if ((selectedRecipe && selectMultiple) || !uid) {
       const payload = {
         id,
         recipe: selectedRecipe,
