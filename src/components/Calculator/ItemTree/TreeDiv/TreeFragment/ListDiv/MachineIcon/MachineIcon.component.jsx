@@ -3,6 +3,7 @@ import {
   getImageUrlById,
   checkModulesForBumping,
   formatNumber,
+  getEmptyMachine,
 } from "../../../../../../../utils/helperFunctions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -105,6 +106,12 @@ export const MachineIcon = ({ outputItem, pid }) => {
   const firstModule = modules.find((module) => module.length > 0);
   const moduleUrl = getImageUrlById(firstModule);
   const beaconUrl = getImageUrlById("beacon");
+  const emptyMachine = getEmptyMachine(machine.id);
+  const reduxMachine = {
+    ...emptyMachine,
+    modules: machine.modules,
+    beacons: machine.beacons,
+  };
 
   const handleClick = () => {
     setMachineEditId(id);
@@ -147,7 +154,7 @@ export const MachineIcon = ({ outputItem, pid }) => {
           setMachineId={setMachineEditId}
           uid={uid}
           pid={pid}
-          singleMachine={machine}
+          singleMachine={reduxMachine}
         />
       )}
     </>
