@@ -83,11 +83,11 @@ export const About = () => {
       <LogoContainer>
         <SocialLogo
           onClick={redirectToDiscord}
-          src="./src/assets/discord-icon.svg"
+          src="./assets/discord-icon.svg"
         />
       </LogoContainer>
       <p>If you would like to show appreciation, consider donating:</p>
-      <DonateQR src="/src/assets/donateQR.png" alt="" />
+      <DonateQR src="./assets/donateQR.png" alt="" />
       <Button buttonType="green" onClick={redirectToPaypal}>
         Donate
       </Button>
