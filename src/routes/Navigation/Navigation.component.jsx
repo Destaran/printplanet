@@ -16,6 +16,7 @@ import { ppBlue } from "../../utils/colors";
 
 const Container = styled.div`
   width: 100%;
+  user-select: none;
 `;
 
 const Header = styled.h1`
