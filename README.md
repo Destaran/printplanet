@@ -29,7 +29,7 @@ PrintPlanet aims to combine the perks of all available calculators and even more
 ## Backend:
 
 - Finish TypeScript migration
-- Switching from Firestore to Express.js, later Nest.js
+- Switching from Firestore to Nest.js
 - Automated server-side data scraping for mods with Python
 
 ## Frontend:
