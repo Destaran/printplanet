@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  site:
+    build:
+      context: site
+      # target: dev
+    volumes:
+      - ./site/index.html:/app/index.html
+      - ./site/vite.config.ts:/app/vite.config.ts
+      - ./site/tsconfig.json:/app/tsconfig.json
+      - ./site/public:/app/public
+      - ./site/src:/app/src
+    ports:
+      - 5173:5173
+    # depends_on:
+    #   - api
