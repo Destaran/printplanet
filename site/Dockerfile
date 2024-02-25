@@ -3,6 +3,7 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
+# dont copy everything / check dockerignore mechanics
 COPY . .
 EXPOSE 5173
-CMD ["npm", "run", "dev"]
+ENTRYPOINT ["npm", "run", "dev"]
