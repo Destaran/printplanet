@@ -1,9 +1,7 @@
 version: "3.8"
 services:
   site:
-    build:
-      site
-      # target: dev
+    build: site
     volumes:
       - ./site/index.html:/app/index.html
       - ./site/vite.config.ts:/app/vite.config.ts
