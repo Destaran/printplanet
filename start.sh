@@ -4,5 +4,5 @@ yarn install
 yarn install --cwd ./backend
 yarn install --cwd ./site
 
-docker-compose up --build --force-recreate
+docker-compose up --build
 
