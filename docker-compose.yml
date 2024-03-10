@@ -15,7 +15,7 @@ services:
   backend:
     build: backend
     volumes:
-      - ./backend/src:/app/src
+      - ./backend/src:/backend/src
     ports:
       - 3000:3000
     environment:
