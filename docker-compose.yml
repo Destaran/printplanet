@@ -1,7 +1,10 @@
 version: "3.8"
 services:
   site:
-    build: site
+    image: site
+    build:
+      context: site
+      target: dev
     volumes:
       - ./site/index.html:/app/index.html
       - ./site/vite.config.ts:/app/vite.config.ts
@@ -13,9 +16,13 @@ services:
     depends_on:
       - backend
   backend:
-    build: backend
+    image: backend
+    build:
+      context: backend
+      target: dev
     volumes:
       - ./backend/src:/backend/src
+    restart: always
     ports:
       - 3000:3000
     environment:

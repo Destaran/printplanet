@@ -1,9 +1,24 @@
-FROM node:20
+FROM node:20 as base
+
+FROM base as builder
+
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
-# dont copy everything / check dockerignore mechanics
-COPY . .
-EXPOSE 5173
-ENTRYPOINT ["npm", "run", "dev"]
+COPY package.json /app
+COPY yarn.lock /app
+
+RUN yarn
+
+FROM builder as source
+
+COPY vite.config.ts /app
+COPY tsconfig.json /app
+COPY tsconfig.node.json /app
+COPY index.html /app
+COPY index.css /app
+COPY public /app
+COPY src /app
+
+FROM source as dev
+
+ENTRYPOINT ["yarn", "run", "dev"]

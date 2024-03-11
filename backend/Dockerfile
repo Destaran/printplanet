@@ -1,12 +1,18 @@
-FROM node:20
-WORKDIR /backend
+FROM node:20 as base
 
-RUN ["npm", "install", "yarn"]
+# RUN npm install -g yarn@1.22.19
+
+FROM base as builder
+
+WORKDIR /backend
 
 COPY package.json /backend
 COPY yarn.lock /backend
 
-RUN ["yarn"]
+RUN yarn
+
+FROM builder as source
+
 COPY start.sh /backend
 COPY nest-cli.json /backend
 COPY tsconfig.json /backend
@@ -16,9 +22,7 @@ COPY .eslintrc.js /backend
 COPY seeding /backend
 COPY src /backend
 COPY test /backend
-# COPY vitest.config.mts /backend
-# COPY .prettierignore /backend
-# COPY .swcrc /backend
-# COPY test_assets /backend
 
-ENTRYPOINT ["./start.sh"]
+FROM source as dev
+
+CMD ["yarn", "start:dev"]
