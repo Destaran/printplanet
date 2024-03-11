@@ -25,6 +25,9 @@ services:
       POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_DATABASE: pp-dev
       ENVIRONMENT: dev
+      PORT: 3000
+      AUTH0_ISSUER_URL: https://dev-7mjq6hdbmvzm1sfu.us.auth0.com/
+      AUTH0_AUDIENCE: https://pp-dev.demo.com
     depends_on:
       - db
   db:
