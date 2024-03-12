@@ -1,7 +1,5 @@
 FROM node:20 as base
 
-# RUN npm install -g yarn@1.22.19
-
 FROM base as builder
 
 WORKDIR /backend
