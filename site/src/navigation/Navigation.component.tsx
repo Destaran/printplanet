@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ppBlue } from "../utils/colors";
-import { useAuth0 } from "@auth0/auth0-react";
 import { LoginLogout } from "./LoginLogout";
 
 const Container = styled.div`
@@ -80,19 +79,7 @@ const NavLink = styled(Link)<NavlinkProps>`
   }
 `;
 
-const LoginButton = () => {
-  const { loginWithRedirect } = useAuth0();
-  return <button onClick={() => loginWithRedirect()}>Log In</button>;
-};
-
-const LogoutButton = () => {
-  const { logout } = useAuth0();
-
-  return <button onClick={() => logout()}>Log Out</button>;
-};
-
 export function Navigation() {
-  const { isAuthenticated } = useAuth0();
   const location = useLocation();
 
   const checkPath = (path: string) => {
