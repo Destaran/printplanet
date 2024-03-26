@@ -13,6 +13,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/uuid": "^9.0.2",
     "firebase": "^9.20.0",
