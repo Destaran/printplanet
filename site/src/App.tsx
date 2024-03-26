@@ -8,9 +8,9 @@ import { LandingPage } from "./landing-page/LandingPage.component";
 import { Calculator } from "./calculator/Calculator";
 import { Guide } from "./guide/Guide";
 import { About } from "./about/About.component";
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { Profile } from "./profile/Profile";
+import { AuthGuard } from "./AuthGuard";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -19,15 +19,6 @@ const Wrapper = styled.div`
 `;
 
 export const App = () => {
-  const { isLoading } = useAuth0();
-
-  if (isLoading) {
-    return (
-      <div className="page-layout">
-        <h1>Loading</h1>
-      </div>
-    );
-  }
   return (
     <BrowserRouter>
       <Provider store={store}>
@@ -39,7 +30,10 @@ export const App = () => {
                 <Route path="calculator" element={<Calculator />} />
                 <Route path="guide" element={<Guide />} />
                 <Route path="about" element={<About />} />
-                <Route path="profile" element={<Profile />} />
+                <Route
+                  path="profile"
+                  element={<AuthGuard component={Profile} />}
+                />
               </Route>
             </Routes>
           </Wrapper>
