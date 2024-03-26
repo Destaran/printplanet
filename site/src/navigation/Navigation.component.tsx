@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ppBlue } from "../utils/colors";
 import { useAuth0 } from "@auth0/auth0-react";
+import { LoginLogout } from "./LoginLogout";
 
 const Container = styled.div`
   width: 100%;
@@ -127,7 +128,7 @@ export function Navigation() {
             </NavBarLeft>
             <NavBarRight>
               <LinkContainer>
-                {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+                <LoginLogout />
               </LinkContainer>
             </NavBarRight>
           </NavBarWrapper>
