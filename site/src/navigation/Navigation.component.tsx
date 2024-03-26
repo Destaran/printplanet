@@ -49,10 +49,6 @@ const LinkContainer = styled.div`
   height: 20px;
   width: auto;
   margin: 2px 15px 2px 15px;
-
-  span {
-    height: 16px;
-  }
 `;
 
 interface NavlinkProps {
