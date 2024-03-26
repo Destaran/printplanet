@@ -65,7 +65,11 @@ const LinkContainer = styled.div`
   }
 `;
 
-const NavLink = styled(Link)`
+interface NavlinkProps {
+  $isactive: boolean;
+}
+
+const NavLink = styled(Link)<NavlinkProps>`
   margin: 0;
   text-decoration: none;
   padding: 0px;
@@ -87,21 +91,21 @@ const NavLink = styled(Link)`
 
 // refactor
 
-const dispatchCurrentUser = async (user) => {
-  const userDocument = await getUserDocument(user);
-  store.dispatch(storeUser(userDocument));
-};
+// const dispatchCurrentUser = async (user) => {
+//   const userDocument = await getUserDocument(user);
+//   store.dispatch(storeUser(userDocument));
+// };
 
-onAuthStateChangedListener((user) => {
-  if (user) {
-    createUserDocumentFromAuth(user);
-    dispatchCurrentUser(user);
-  } else {
-    store.dispatch(storeUser(null));
-  }
-});
+// onAuthStateChangedListener((user) => {
+//   if (user) {
+//     createUserDocumentFromAuth(user);
+//     dispatchCurrentUser(user);
+//   } else {
+//     store.dispatch(storeUser(null));
+//   }
+// });
 
-export const Navigation = () => {
+export function Navigation() {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector(currentUser);
@@ -111,7 +115,7 @@ export const Navigation = () => {
     navigate("/login");
   };
 
-  const checkPath = (path) => {
+  const checkPath = (path: string) => {
     if (path === location.pathname) {
       return true;
     } else {
@@ -143,7 +147,7 @@ export const Navigation = () => {
               </LinkContainer>
             </NavBarLeft>
             <NavBarRight>
-              {user ? (
+              {/* {user ? (
                 <>
                   <NavLink to="/profile" $isactive={checkPath("/profile")}>
                     <LinkContainer>{user.displayName}</LinkContainer>
@@ -160,7 +164,7 @@ export const Navigation = () => {
                     Login
                   </NavLink>
                 </LinkContainer>
-              )}
+              )} */}
             </NavBarRight>
           </NavBarWrapper>
         </NavBar>
@@ -168,4 +172,4 @@ export const Navigation = () => {
       <Outlet />
     </>
   );
-};
+}

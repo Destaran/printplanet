@@ -23,7 +23,7 @@ const Container = styled.div`
   }
 `;
 
-export const Login = () => {
+export function Login() {
   const navigate = useNavigate();
   const navigateHandler = () => {
     navigate("/registration");
@@ -40,4 +40,4 @@ export const Login = () => {
       </Container>
     </>
   );
-};
+}
