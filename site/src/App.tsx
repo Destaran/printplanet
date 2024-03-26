@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const App = () => {
+export const App = () => {
   const { isLoading } = useAuth0();
 
   if (isLoading) {
@@ -46,5 +46,3 @@ const App = () => {
     </BrowserRouter>
   );
 };
-
-export default App;
