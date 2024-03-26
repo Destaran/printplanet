@@ -10,7 +10,7 @@ const Button = styled.p`
   color: white;
 
   &:hover {
-    color: orange;
+    color: red;
     transition: all 0.3s;
   }
 
@@ -21,12 +21,21 @@ const Button = styled.p`
   }
 `;
 
-export function LoginLogout() {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: auto;
+  margin: 2px 15px 2px 15px;
+`;
 
-  if (isAuthenticated) {
-    return <Button onClick={() => logout()}>Logout</Button>;
-  }
+export function LogoutButton() {
+  const { logout } = useAuth0();
 
-  return <Button onClick={() => loginWithRedirect()}>Login</Button>;
+  return (
+    <Wrapper>
+      <Button onClick={() => logout()}>Logout</Button>
+    </Wrapper>
+  );
 }
