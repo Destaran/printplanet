@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,23 +36,23 @@ const NavLink = styled(Link)<NavlinkProps>`
 
 interface Props {
   destination: string;
-  children: React.ReactNode;
 }
 
-const checkPath = (path: string) => {
+function checkPath(path: string) {
   if (path === location.pathname) {
     return true;
   } else {
     return false;
   }
-};
+}
 
-export function NavButton({ destination, children }: Props) {
+export function NavButton({ destination }: Props) {
+  const title = destination.charAt(0).toUpperCase() + destination.slice(1);
   return (
-    <Container>
+    <Wrapper>
       <NavLink to={`/${destination}`} $isactive={checkPath(`/${destination}`)}>
-        {children}
+        {title}
       </NavLink>
-    </Container>
+    </Wrapper>
   );
 }

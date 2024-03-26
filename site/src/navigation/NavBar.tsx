@@ -42,14 +42,14 @@ export function NavBar() {
     <Container>
       <Wrapper>
         <LeftSide>
-          <NavButton destination="guide">Guide</NavButton>
-          <NavButton destination="calculator">Calculator</NavButton>
-          <NavButton destination="about">About</NavButton>
+          <NavButton destination="guide" />
+          <NavButton destination="calculator" />
+          <NavButton destination="about" />
         </LeftSide>
         <RightSide>
           {isAuthenticated ? (
             <>
-              <NavButton destination="profile">Profile</NavButton>
+              <NavButton destination="profile" />
               <LogoutButton />
             </>
           ) : (
