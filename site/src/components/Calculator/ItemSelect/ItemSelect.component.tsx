@@ -12,10 +12,6 @@ const Container = styled.div`
   justify-content: start;
   height: 112px;
   margin-bottom: 20px;
-  input,
-  select {
-    border-radius: 0px;
-  }
 `;
 
 export const ItemSelect = () => {
