@@ -10,7 +10,7 @@ const Button = styled.p`
   color: white;
 
   &:hover {
-    color: "orange";
+    color: orange;
     transition: all 0.3s;
   }
 
