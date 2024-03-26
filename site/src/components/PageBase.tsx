@@ -4,6 +4,7 @@ import { ppLightGrey } from "../utils/colors";
 
 const Container = styled.div`
   background-color: ${ppLightGrey};
+  box-sizing: border-box;
   margin: auto;
   justify-content: center;
   width: 65%;
