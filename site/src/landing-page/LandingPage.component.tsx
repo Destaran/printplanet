@@ -46,7 +46,7 @@ const Header = styled.h1`
   margin: 0 0 30px 0;
 `;
 
-export const Home = () => {
+export const LandingPage = () => {
   const navigate = useNavigate();
   const handleClick = (path: string) => {
     navigate(path);
