@@ -2,19 +2,12 @@ import styled from "styled-components";
 import { Button } from "../components/Button/Button.component";
 import { PageBase } from "../components/PageBase";
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: start;
-`;
-
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: center;
-  text-align: center;
-  width: 45%;
+  align-items: start;
+  text-align: justify;
 
   button {
     width: 150px;
@@ -37,38 +30,34 @@ export const About = () => {
 
   return (
     <PageBase>
-      <Container>
-        <TextWrapper>
-          <h1>Why PrintPlanet?</h1>
-          <p>
-            PrintPlanet aims to combine the perks of all available calculators
-            and even more: simple, configurable, accurate and transparent while
-            feature rich. Most of the calculators are overcomplicated, or if
-            not, they are not so useable. I would like to provide a calculator
-            to my fellow engineers, that can be utilized for any challenge
-            Factorio can bring for new players and veterans alike.
-          </p>
-          <h1>Feature Roadmap</h1>
-          <h4>Plan hub: save and share your calculations or browse others'</h4>
-          <h4>Plan blueprints: attachable and viewable blueprints</h4>
-          <h4>
-            More data: add energy consumption, pollution and side products
-          </h4>
-          <h4>Compatibility: support all mods</h4>
-          <h1>Your help matters</h1>
-          <p>If you enjoy the site, consider donating:</p>
-          <DonateQR src="./assets/donateQR.png" alt="" />
-          <Button buttonType="green" onClick={redirectToPaypal}>
-            Donate
-          </Button>
-          <p>
-            Have any ideas for the site?{" "}
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">
-              Reach out to me!
-            </a>
-          </p>
-        </TextWrapper>
-      </Container>
+      <TextWrapper>
+        <h1>Why PrintPlanet?</h1>
+        <p>
+          PrintPlanet aims to combine the perks of all available calculators and
+          even more: simple, configurable, accurate and transparent while
+          feature rich. Most of the calculators are overcomplicated, or if not,
+          they are not so useable. I would like to provide a calculator to my
+          fellow engineers, that can be utilized for any challenge Factorio can
+          bring for new players and veterans alike.
+        </p>
+        <h1>Feature Roadmap</h1>
+        <h4>Plan hub: save and share your calculations or browse others'</h4>
+        <h4>Plan blueprints: attachable and viewable blueprints</h4>
+        <h4>More data: add energy consumption, pollution and side products</h4>
+        <h4>Compatibility: support all mods</h4>
+        <h1>Your help matters</h1>
+        <p>If you enjoy the site, consider donating:</p>
+        <DonateQR src="./assets/donateQR.png" alt="" />
+        <Button buttonType="green" onClick={redirectToPaypal}>
+          Donate
+        </Button>
+        <p>
+          Have any ideas for the site?{" "}
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">
+            Reach out to me!
+          </a>
+        </p>
+      </TextWrapper>
     </PageBase>
   );
 };
