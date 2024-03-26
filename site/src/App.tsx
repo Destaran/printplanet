@@ -3,13 +3,14 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./redux/store";
 import { Routes, Route } from "react-router-dom";
-import { Navigation } from "./navigation/Navigation.component";
+import { Navigation } from "./navigation/Navigation";
 import { LandingPage } from "./landing-page/LandingPage.component";
 import { Calculator } from "./calculator/Calculator.component";
 import { Guide } from "./guide/Guide.component";
 import { About } from "./about/About.component";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
+import { Profile } from "./profile/Profile";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -38,6 +39,7 @@ export const App = () => {
                 <Route path="calculator" element={<Calculator />} />
                 <Route path="guide" element={<Guide />} />
                 <Route path="about" element={<About />} />
+                <Route path="profile" element={<Profile />} />
               </Route>
             </Routes>
           </Wrapper>
