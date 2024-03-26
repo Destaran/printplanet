@@ -1,18 +1,8 @@
 import styled from "styled-components";
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth,
-  getUserDocument,
-  signOutAuthUser,
-} from "../../utils/firestore/firestore";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { storeUser } from "../../reduxStore/user/user.slice";
-import { currentUser } from "../../reduxStore/user/user.selector";
-import { ImExit } from "react-icons/im";
-import { store } from "../../reduxStore/store";
 import { ppBlue } from "../../utils/colors";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Container = styled.div`
   width: 100%;
@@ -89,31 +79,20 @@ const NavLink = styled(Link)<NavlinkProps>`
   }
 `;
 
-// refactor
+const LoginButton = () => {
+  const { loginWithRedirect } = useAuth0();
+  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+};
 
-// const dispatchCurrentUser = async (user) => {
-//   const userDocument = await getUserDocument(user);
-//   store.dispatch(storeUser(userDocument));
-// };
+const LogoutButton = () => {
+  const { logout } = useAuth0();
 
-// onAuthStateChangedListener((user) => {
-//   if (user) {
-//     createUserDocumentFromAuth(user);
-//     dispatchCurrentUser(user);
-//   } else {
-//     store.dispatch(storeUser(null));
-//   }
-// });
+  return <button onClick={() => logout()}>Log Out</button>;
+};
 
 export function Navigation() {
+  const { isAuthenticated } = useAuth0();
   const location = useLocation();
-  const navigate = useNavigate();
-  const user = useSelector(currentUser);
-
-  const handleLogout = () => {
-    signOutAuthUser();
-    navigate("/login");
-  };
 
   const checkPath = (path: string) => {
     if (path === location.pathname) {
@@ -147,24 +126,9 @@ export function Navigation() {
               </LinkContainer>
             </NavBarLeft>
             <NavBarRight>
-              {/* {user ? (
-                <>
-                  <NavLink to="/profile" $isactive={checkPath("/profile")}>
-                    <LinkContainer>{user.displayName}</LinkContainer>
-                  </NavLink>
-                  <LinkContainer>
-                    <NavLink as="span" onClick={handleLogout} color={"red"}>
-                      <ImExit />
-                    </NavLink>
-                  </LinkContainer>
-                </>
-              ) : (
-                <LinkContainer>
-                  <NavLink to="/login" $isactive={checkPath("/login")}>
-                    Login
-                  </NavLink>
-                </LinkContainer>
-              )} */}
+              <LinkContainer>
+                {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+              </LinkContainer>
             </NavBarRight>
           </NavBarWrapper>
         </NavBar>
