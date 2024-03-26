@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { outputValues } from "../reduxStore/calculator/calculator.selector";
+import { outputValues } from "../redux/calculator/calculator.selector";
 import { ItemSelect } from "../components/Calculator/ItemSelect/ItemSelect.component";
 import { Summary } from "../components/Calculator/Summary/Summary.component";
 import { ItemTree } from "../components/Calculator/ItemTree/ItemTree.component";

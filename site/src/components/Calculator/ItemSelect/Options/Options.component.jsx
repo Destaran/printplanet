@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addToOutput,
   addToExistingOutput,
-} from "../../../../reduxStore/calculator/calculator.slice";
-import { outputKeys } from "../../../../reduxStore/calculator/calculator.selector";
+} from "../../../../redux/calculator/calculator.slice";
+import { outputKeys } from "../../../../redux/calculator/calculator.selector";
 import { SearchBar } from "./SearchBar/SearchBar.component";
 import { QuantitySelect } from "./QuantitySelect/QuantitySelect.component";
 import { SelectRecipePopup } from "../../SelectRecipePopup/SelectRecipePopup.component";

@@ -7,7 +7,7 @@ import {
 } from "../../../../../../../utils/helperFunctions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { bumpModules } from "../../../../../../../reduxStore/calculator/calculator.slice";
+import { bumpModules } from "../../../../../../../redux/calculator/calculator.slice";
 import { IconTooltip } from "./IconTooltip.component";
 import { useState } from "react";
 import { MachineEditPopup } from "../../../../../MachineEditPopup/MachineEditPopup.component";

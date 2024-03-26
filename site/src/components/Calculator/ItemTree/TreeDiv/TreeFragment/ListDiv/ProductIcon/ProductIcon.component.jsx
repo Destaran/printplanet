@@ -12,7 +12,7 @@ import {
   extendSameTypeElements,
   collapseElement,
   collapseSameTypeElements,
-} from "../../../../../../../reduxStore/calculator/calculator.slice";
+} from "../../../../../../../redux/calculator/calculator.slice";
 import { SelectRecipePopup } from "../../../../../SelectRecipePopup/SelectRecipePopup.component";
 import { ppOrange, ppGrey } from "../../../../../../../utils/colors";
 

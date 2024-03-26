@@ -9,9 +9,9 @@ import {
   getMachineCategories,
 } from "../../../utils/helperFunctions";
 import { useDispatch, useSelector } from "react-redux";
-import { craftingMachines } from "../../../reduxStore/calculator/calculator.selector";
+import { craftingMachines } from "../../../redux/calculator/calculator.selector";
 import { useMemo, useCallback } from "react";
-import { saveDefaultMachineConfig } from "../../../reduxStore/calculator/calculator.slice";
+import { saveDefaultMachineConfig } from "../../../redux/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
 import { OwnMachine } from "../../../utils/types";
 

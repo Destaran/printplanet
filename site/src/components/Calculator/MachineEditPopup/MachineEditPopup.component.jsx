@@ -7,11 +7,11 @@ import {
 } from "../../../utils/helperFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useState } from "react";
-import { craftingMachines } from "../../../reduxStore/calculator/calculator.selector";
+import { craftingMachines } from "../../../redux/calculator/calculator.selector";
 import {
   swapMachines,
   swapMachine,
-} from "../../../reduxStore/calculator/calculator.slice";
+} from "../../../redux/calculator/calculator.slice";
 import { Button } from "../../Button/Button.component";
 import { useEffect } from "react";
 import { Popup } from "../../Popup/Popup.component";

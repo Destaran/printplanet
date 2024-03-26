@@ -6,7 +6,7 @@ import {
   addToOutput,
   extendElement,
   extendSameTypeElements,
-} from "../../../reduxStore/calculator/calculator.slice";
+} from "../../../redux/calculator/calculator.slice";
 import { SelectButton } from "./SelectButton.component";
 import { Button } from "../../Button/Button.component";
 import { useCallback } from "react";

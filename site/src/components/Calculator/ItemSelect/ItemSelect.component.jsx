@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetOutput } from "../../../reduxStore/calculator/calculator.slice";
-import { outputKeys } from "../../../reduxStore/calculator/calculator.selector";
+import { resetOutput } from "../../../redux/calculator/calculator.slice";
+import { outputKeys } from "../../../redux/calculator/calculator.selector";
 import { Options } from "./Options/Options.component";
 import { DefaultMachineConfig } from "../DefaultMachineConfig/DefaultMachineConfig.component";
 import { Menus } from "../Menus/Menus.component";

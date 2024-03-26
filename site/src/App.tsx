@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./reduxStore/store";
+import { store, persistor } from "./redux/store";
 import { Routes, Route } from "react-router-dom";
 import { Navigation } from "./navigation/Navigation.component";
 import { LandingPage } from "./landing-page/LandingPage.component";

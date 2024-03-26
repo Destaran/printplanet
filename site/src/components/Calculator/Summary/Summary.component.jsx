@@ -9,12 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   collapseSameTypeElements,
   extendSameTypeElements,
-} from "../../../reduxStore/calculator/calculator.slice";
+} from "../../../redux/calculator/calculator.slice";
 import {
   outputValues,
   inputArray,
   machinesArray,
-} from "../../../reduxStore/calculator/calculator.selector";
+} from "../../../redux/calculator/calculator.selector";
 import { ModifyOutputPopup } from "../ModifyOutputPopup/ModifyOutputPopup.component";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
 import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup.component";

@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromOutput,
   modifyOutputElement,
-} from "../../../reduxStore/calculator/calculator.slice";
+} from "../../../redux/calculator/calculator.slice";
 import {
   outputObject,
   outputKeys,
-} from "../../../reduxStore/calculator/calculator.selector";
+} from "../../../redux/calculator/calculator.selector";
 import { Button } from "../../Button/Button.component";
 import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
