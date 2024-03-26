@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import { NavBar } from "./NavBar";
 import { Header } from "./Header";
