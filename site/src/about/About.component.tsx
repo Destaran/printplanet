@@ -1,28 +1,6 @@
 import styled from "styled-components";
 import { Button } from "../components/Button/Button.component";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0px auto;
-  padding: 30px;
-  width: 65%;
-  height: 100%;
-  background-color: #f1f1f1;
-  user-select: none;
-
-  h1 {
-    margin: 0;
-  }
-
-  button {
-    width: 10%;
-  }
-
-  ul {
-    margin-top: 0;
-  }
-`;
+import { PageBase } from "../components/PageBase";
 
 const DonateQR = styled.img`
   width: 10%;
@@ -49,7 +27,7 @@ export const About = () => {
   };
 
   return (
-    <Container>
+    <PageBase>
       <h1>Why PrintPlanet?</h1>
       <p>
         PrintPlanet aims to combine the perks of all available calculators and
@@ -91,6 +69,6 @@ export const About = () => {
       <Button buttonType="green" onClick={redirectToPaypal}>
         Donate
       </Button>
-    </Container>
+    </PageBase>
   );
 };

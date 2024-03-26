@@ -9,6 +9,13 @@ import { Calculator } from "./calculator/Calculator.component";
 import { Guide } from "./guide/Guide.component";
 import { About } from "./about/About.component";
 import { useAuth0 } from "@auth0/auth0-react";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -24,14 +31,16 @@ const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Routes>
-            <Route path="/" element={<Navigation />}>
-              <Route index element={<LandingPage />} />
-              <Route path="calculator" element={<Calculator />} />
-              <Route path="guide" element={<Guide />} />
-              <Route path="about" element={<About />} />
-            </Route>
-          </Routes>
+          <Wrapper>
+            <Routes>
+              <Route path="/" element={<Navigation />}>
+                <Route index element={<LandingPage />} />
+                <Route path="calculator" element={<Calculator />} />
+                <Route path="guide" element={<Guide />} />
+                <Route path="about" element={<About />} />
+              </Route>
+            </Routes>
+          </Wrapper>
         </PersistGate>
       </Provider>
     </BrowserRouter>

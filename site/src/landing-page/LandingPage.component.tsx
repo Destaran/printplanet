@@ -4,17 +4,7 @@ import { AiFillStar } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { FaInfoCircle } from "react-icons/fa";
 import { BsArrowReturnRight } from "react-icons/bs";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0px auto;
-  padding: 30px;
-  width: 65%;
-  height: 100%;
-  background-color: #f1f1f1;
-  user-select: none;
-`;
+import { PageBase } from "../components/PageBase";
 
 const Segment = styled.div`
   display: flex;
@@ -53,7 +43,7 @@ export const LandingPage = () => {
   };
 
   return (
-    <Container>
+    <PageBase>
       <Header>Welcome Fellow Engineer,</Header>
       <Segment onClick={() => handleClick("/about")}>
         <AiFillStar />
@@ -76,6 +66,6 @@ export const LandingPage = () => {
         <BsArrowReturnRight />
         <p>Or just skip straight to the Calculator!</p>
       </Segment>
-    </Container>
+    </PageBase>
   );
 };
