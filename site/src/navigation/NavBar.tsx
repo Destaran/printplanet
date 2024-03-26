@@ -22,13 +22,7 @@ const Wrapper = styled.div`
   width: 65%;
 `;
 
-const LeftSide = styled.div`
-  display: flex;
-  margin: 0;
-  padding: 0;
-`;
-
-const RightSide = styled.div`
+const SideWrapper = styled.div`
   display: flex;
   margin: 0;
   padding: 0;
@@ -41,12 +35,12 @@ export function NavBar() {
   return (
     <Container>
       <Wrapper>
-        <LeftSide>
+        <SideWrapper>
           <NavButton destination="guide" />
           <NavButton destination="calculator" />
           <NavButton destination="about" />
-        </LeftSide>
-        <RightSide>
+        </SideWrapper>
+        <SideWrapper>
           {isAuthenticated ? (
             <>
               <NavButton destination="profile" />
@@ -55,7 +49,7 @@ export function NavBar() {
           ) : (
             <LoginButton />
           )}
-        </RightSide>
+        </SideWrapper>
       </Wrapper>
     </Container>
   );
