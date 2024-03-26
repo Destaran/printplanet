@@ -14,18 +14,14 @@ const TextWrapper = styled.div`
   }
 `;
 
-const DonateQR = styled.img`
-  width: 10%;
-`;
-
 export const About = () => {
   const redirectToPaypal = () => {
     window.location.href =
       "https://www.paypal.com/donate/?hosted_button_id=7YCG2SZ42CZ54";
   };
-
-  const redirectToDiscord = () => {
-    window.location.href = "https://discordapp.com/users/.balagee";
+  const handleEmail = () => {
+    window.location.href =
+      "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
   };
 
   return (
@@ -47,16 +43,11 @@ export const About = () => {
         <h4>Compatibility: support all mods</h4>
         <h1>Your help matters</h1>
         <p>If you enjoy the site, consider donating:</p>
-        <DonateQR src="./assets/donateQR.png" alt="" />
         <Button buttonType="green" onClick={redirectToPaypal}>
           Donate
         </Button>
-        <p>
-          Have any ideas for the site?{" "}
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">
-            Reach out to me!
-          </a>
-        </p>
+        <p>Have any ideas for the site? </p>
+        <Button onClick={handleEmail}>Send feedback</Button>
       </TextWrapper>
     </PageBase>
   );
