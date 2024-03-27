@@ -9,7 +9,7 @@ const Container = styled.div`
   box-sizing: border-box;
   margin: auto;
   justify-content: center;
-  width: 65%;
+  width: 80%;
   align-items: start;
   flex-grow: 1;
   padding: 20px;

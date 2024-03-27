@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   display: flex;
   margin: 0 auto;
   justify-content: space-between;
-  width: 65%;
+  width: 80%;
 `;
 
 const SideWrapper = styled.div`
