@@ -23,7 +23,11 @@ export function PageBase({ children }: PageBaseProps) {
   const { isLoading } = useAuth0();
 
   if (isLoading) {
-    return <PageLoader />;
+    return (
+      <Container>
+        <PageLoader />
+      </Container>
+    );
   }
 
   return <Container>{children}</Container>;
