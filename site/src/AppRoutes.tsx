@@ -13,7 +13,7 @@ export function AppRoutes() {
       <Route path="/" element={<Navigation />}>
         <Route index element={<LandingPage />} />
         <Route path="guide" element={<Guide />} />
-        <Route path="calculator" element={<Calculator />} />
+        <Route path="planner" element={<Calculator />} />
         <Route path="about" element={<About />} />
         <Route path="profile" element={<AuthGuard component={Profile} />} />
       </Route>

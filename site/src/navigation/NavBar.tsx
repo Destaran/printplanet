@@ -32,7 +32,7 @@ export function NavBar() {
       <Wrapper>
         <SideWrapper>
           <NavButton destination="guide" />
-          <NavButton destination="calculator" />
+          <NavButton destination="planner" />
           <NavButton destination="about" />
         </SideWrapper>
         <SideWrapper>

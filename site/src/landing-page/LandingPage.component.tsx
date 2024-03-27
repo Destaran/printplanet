@@ -62,9 +62,9 @@ export const LandingPage = () => {
           this calculator can bring to you!
         </p>
       </Segment>
-      <Segment onClick={() => handleClick("/calculator")}>
+      <Segment onClick={() => handleClick("/planner")}>
         <BsArrowReturnRight />
-        <p>Or just skip straight to the Calculator!</p>
+        <p>Or just skip straight to the Planner!</p>
       </Segment>
     </PageBase>
   );
