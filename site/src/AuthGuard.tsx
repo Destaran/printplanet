@@ -1,5 +1,6 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { ComponentType } from "react";
+import { PageBase } from "./components/PageBase";
 
 interface Props {
   component: ComponentType<any>;
@@ -7,12 +8,7 @@ interface Props {
 
 export const AuthGuard = ({ component }: Props) => {
   const Component = withAuthenticationRequired(component, {
-    onRedirecting: () => (
-      // TODO: add loader
-      <div className="page-layout">
-        <h1>Loading</h1>
-      </div>
-    ),
+    onRedirecting: () => <PageBase />,
   });
 
   return <Component />;
