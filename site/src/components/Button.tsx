@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ppBlue } from "../utils/colors";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
 export const DefaultButton = styled.button`
@@ -8,22 +7,22 @@ export const DefaultButton = styled.button`
   padding: 5px;
   width: 100%;
   margin: 15px 0;
-  background-color: ${ppBlue};
-  color: white;
+  background-color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
   transition: all 1s;
 
   &:hover {
-    background-color: orange;
-    color: ${ppBlue};
-    border-color: ${ppBlue};
+    background-color: ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.blue};
+    border-color: ${({ theme }) => theme.colors.blue};
     transition: all 0.3s;
   }
 
   &:active {
     transition: all 0.1s;
-    color: white;
-    background-color: ${ppBlue};
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.blue};
   }
 `;
 
