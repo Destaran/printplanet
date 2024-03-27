@@ -18,7 +18,8 @@ const FilteredItems = styled.ul`
   width: 100%;
   margin: 0;
   padding: 0;
-  max-height: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
 `;
 
 const FilteredItem = styled.li`
