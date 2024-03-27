@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../../../utils/helperFunctions";
 import { FilteredItemsList } from "./FilteredItemsList.component";
-import { FormInput } from "../../../../FormInput/FormInput.component";
+import { FormInput } from "../../../../FormInput";
 import { ppBlue } from "../../../../../utils/colors";
 import { ppOrange } from "../../../../../utils/colors";
 import { ppGrey } from "../../../../../utils/colors";

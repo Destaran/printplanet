@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { createPortal } from "react-dom";
-import { ppBlue } from "../../utils/colors";
+import { ppBlue } from "../utils/colors";
 import { ReactNode } from "react";
 
 const PopupContainerAnimation = keyframes`

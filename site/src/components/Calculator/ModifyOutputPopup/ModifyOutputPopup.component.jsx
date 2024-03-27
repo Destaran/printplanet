@@ -11,11 +11,11 @@ import {
   outputObject,
   outputKeys,
 } from "../../../redux/calculator/calculator.selector";
-import { Button } from "../../Button/Button.component";
+import { Button } from "../../Button";
 import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
 import { useRef } from "react";
-import { Popup } from "../../Popup/Popup.component";
+import { Popup } from "../../Popup";
 
 const InputContainer = styled.div`
   display: flex;

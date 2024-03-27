@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ppBlue } from "../../utils/colors";
+import { ppBlue } from "../utils/colors";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
 export const DefaultButton = styled.button`

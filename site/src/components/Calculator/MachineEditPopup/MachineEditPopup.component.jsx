@@ -12,9 +12,9 @@ import {
   swapMachines,
   swapMachine,
 } from "../../../redux/calculator/calculator.slice";
-import { Button } from "../../Button/Button.component";
+import { Button } from "../../Button";
 import { useEffect } from "react";
-import { Popup } from "../../Popup/Popup.component";
+import { Popup } from "../../Popup";
 import { MachineConfig } from "../MachineConfig/MachineConfig.component";
 
 const MachineFunctions = styled.div`

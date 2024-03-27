@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { craftingMachines } from "../../../redux/calculator/calculator.selector";
 import { useMemo, useCallback } from "react";
 import { saveDefaultMachineConfig } from "../../../redux/calculator/calculator.slice";
-import { Button } from "../../Button/Button.component";
+import { Button } from "../../Button";
 import { OwnMachine } from "../../../utils/types";
 
 const Container = styled.div`

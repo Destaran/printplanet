@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "../components/Button/Button.component";
+import { Button } from "../components/Button";
 import { PageBase } from "../components/PageBase";
 
 const TextWrapper = styled.div`

@@ -8,9 +8,9 @@ import {
   extendSameTypeElements,
 } from "../../../redux/calculator/calculator.slice";
 import { SelectButton } from "./SelectButton.component";
-import { Button } from "../../Button/Button.component";
+import { Button } from "../../Button";
 import { useCallback } from "react";
-import { Popup } from "../../Popup/Popup.component";
+import { Popup } from "../../Popup";
 
 const InputContainer = styled.div`
   display: grid;
