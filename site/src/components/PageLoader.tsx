@@ -9,8 +9,8 @@ const Container = styled.div`
 `;
 
 const Loader = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 6vw;
+  height: 6vw;
   border: 3px solid #14213d;
   border-radius: 50%;
   display: inline-block;
@@ -24,8 +24,8 @@ const Loader = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 56px;
-    height: 56px;
+    width: 7vw;
+    height: 7vw;
     border-radius: 50%;
     border: 3px solid;
     border-color: orange transparent;
