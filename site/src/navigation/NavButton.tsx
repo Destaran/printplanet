@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -36,6 +36,7 @@ const NavLink = styled(Link)<NavlinkProps>`
 
 interface Props {
   destination: string;
+  title: string;
 }
 
 function checkPath(path: string) {
@@ -46,8 +47,7 @@ function checkPath(path: string) {
   }
 }
 
-export function NavButton({ destination }: Props) {
-  const title = destination.charAt(0).toUpperCase() + destination.slice(1);
+export function NavButton({ destination, title }: Props) {
   return (
     <Wrapper>
       <NavLink to={`/${destination}`} $isactive={checkPath(`/${destination}`)}>

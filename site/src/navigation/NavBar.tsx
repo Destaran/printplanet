@@ -31,14 +31,15 @@ export function NavBar() {
     <Container>
       <Wrapper>
         <SideWrapper>
-          <NavButton destination="guide" />
-          <NavButton destination="planner" />
-          <NavButton destination="about" />
+          <NavButton destination="configurator" title="Configurator" />
+          <NavButton destination="calculator" title="Calculator" />
         </SideWrapper>
         <SideWrapper>
+          <NavButton destination="guide" title="Guide" />
+          <NavButton destination="about" title="About" />
           {isAuthenticated ? (
             <>
-              <NavButton destination="profile" />
+              <NavButton destination="profile" title="Profile" />
               <LogoutButton />
             </>
           ) : (
