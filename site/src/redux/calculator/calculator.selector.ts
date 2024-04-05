@@ -1,12 +1,12 @@
 // @ts-nocheck
 
 import {
-  calculateTree,
   summarizeBeacons,
   summarizeInputs,
   summarizeMachines,
   summarizeModules,
-} from "../../utils/helperFunctions";
+  calculateTree,
+} from "./calculator.utils";
 import { createSelector } from "reselect";
 import { RootState } from "../store";
 import { OutputItem, SummaryItem } from "../../utils/types";

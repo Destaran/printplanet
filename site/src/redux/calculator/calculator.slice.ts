@@ -3,18 +3,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import {
-  getIngredients,
   extendElementByUid,
   collapseElementByUid,
   collapseElementsById,
-  getRecipeCategory,
   getAllUids,
   switchMachines,
   switchMachine,
   bumpProdModules,
-} from "../../utils/helperFunctions";
+} from "./calculator.utils";
 import { MachineCategory } from "../../utils/types";
 import { RootState } from "../store";
+import { getRecipeCategory, getIngredients } from "utils/helperFunctions";
 
 const initialState = {
   output: {},
