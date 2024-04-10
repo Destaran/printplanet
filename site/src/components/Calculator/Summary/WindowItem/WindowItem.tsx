@@ -1,9 +1,7 @@
 import styled, { keyframes } from "styled-components";
-import {
-  getImageUrlById,
-  formatNumber,
-} from "../../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../../utils/helperFunctions";
 import { ppOrange, ppGrey } from "../../../../utils/colors";
+import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const MountAnimation = keyframes`
 from {
@@ -77,11 +75,15 @@ const AmountText = styled.p`
     -1px 0px 1px #000;
 `;
 
-// refactor: remove dynamic AmountText sizing
-export const WindowItem = ({ item, handleClick }) => {
+interface Props {
+  item: { amount: number; id: string };
+  handleClick: (id: string, event: React.MouseEvent) => void;
+}
+
+export function WindowItem({ item, handleClick }: Props) {
   const { amount, id } = item;
   const imgUrl = getImageUrlById(id);
-  const displayAmount = formatNumber(amount);
+  const displayAmount = useDisplayNumber(amount);
 
   return (
     <>
@@ -99,4 +101,4 @@ export const WindowItem = ({ item, handleClick }) => {
       </OutterContainer>
     </>
   );
-};
+}

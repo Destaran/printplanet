@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import {
   checkIfMultipleRecipes,
-  formatNumber,
   getImageUrlById,
   getRecipeByProduct,
 } from "../../../../../../../utils/helperFunctions";
@@ -15,6 +14,7 @@ import {
 } from "../../../../../../../redux/calculator/calculator.slice";
 import { SelectRecipePopup } from "../../../../../SelectRecipePopup/SelectRecipePopup.component";
 import { ppOrange, ppGrey } from "../../../../../../../utils/colors";
+import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const Container = styled.div`
   border: 2px solid ${ppOrange};
@@ -71,20 +71,23 @@ const AmountText = styled.p`
     -1px 0px 1px #000;
 `;
 
+// @ts-expect-error
 export const ProductIcon = ({ outputItem }) => {
   const { uid, id, amount, ingredients } = outputItem;
   const [popupId, setPopupId] = useState(null);
   const [selectMultiple, setSelectMultiple] = useState(false);
   const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
-  const displayAmount = formatNumber(amount);
+  const displayAmount = useDisplayNumber(amount);
 
+  // @ts-expect-error
   const handleClick = (event) => {
     if (!ingredients) {
       if (checkIfMultipleRecipes(id)) {
         if (event.shiftKey && event.button === 0) {
           setSelectMultiple(true);
         }
+        // @ts-expect-error
         document.activeElement.blur();
         setPopupId(id);
       } else {
@@ -92,12 +95,14 @@ export const ProductIcon = ({ outputItem }) => {
         if (event.shiftKey && event.button === 0) {
           const payload = {
             id: id,
+            // @ts-expect-error
             recipe: recipe.name,
           };
           dispatch(extendSameTypeElements(payload));
         } else {
           const payload = {
             uid: uid,
+            // @ts-expect-error
             recipe: recipe.name,
           };
           dispatch(extendElement(payload));
@@ -123,6 +128,7 @@ export const ProductIcon = ({ outputItem }) => {
         </InnerContainer>
       </Container>
       {popupId && (
+        // @ts-expect-error
         <SelectRecipePopup
           id={popupId}
           setId={setPopupId}

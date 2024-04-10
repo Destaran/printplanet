@@ -17,83 +17,6 @@ export const recipes = data.recipes as Recipe[];
 export const craftingMachines = data.craftingMachines as Machine[];
 export const modules = data.modules as Module[];
 
-const spaceNumber = (numberString: string, insertIndex: number) => {
-  const charArray = Array.from(numberString);
-  while (insertIndex > 0) {
-    charArray.splice(insertIndex, 0, " ");
-    insertIndex -= 3;
-  }
-  const formattedNumber = charArray.join("");
-  return formattedNumber;
-};
-
-// refactor
-export const formatNumber = (number: number) => {
-  let numberString;
-  let insertIndex;
-  if (number < 0.001) {
-    return number.toFixed(4).toString();
-  } else if (number < 0.01) {
-    return number.toFixed(3).toString();
-  } else if (number < 0.1) {
-    return number.toFixed(2).toString();
-  } else if (number < 100 && !number.toFixed(1).endsWith("0")) {
-    return number.toFixed(1).toString();
-  } else if (number < 10000) {
-    numberString = Math.ceil(number).toString();
-    insertIndex = numberString.length - 3;
-  } else if (number < 100000) {
-    if (!(number / 10).toFixed(1).endsWith("0")) {
-      numberString = (Math.ceil(number / 10) / 100).toString().concat("k");
-      insertIndex = numberString.length - 6;
-    } else if (!(number / 1000).toFixed(2).endsWith("0")) {
-      numberString = (number / 1000).toFixed(2).toString().concat("k");
-      insertIndex = numberString.length - 6;
-    } else if (!(number / 1000).toFixed(1).endsWith("0")) {
-      numberString = (number / 1000).toFixed(1).toString().concat("k");
-      insertIndex = numberString.length - 5;
-    } else {
-      numberString = Math.ceil(number / 1000)
-        .toString()
-        .concat("k");
-      insertIndex = numberString.length - 4;
-    }
-  } else if (number < 1000000) {
-    numberString = Math.ceil(number / 1000)
-      .toString()
-      .concat("k");
-    insertIndex = numberString.length - 4;
-  } else if (number < 100000000) {
-    if (!(number / 10).toFixed(1).endsWith("0")) {
-      numberString = (Math.ceil(number / 10) / 100000)
-        .toFixed(2)
-        .toString()
-        .concat("M");
-      insertIndex = numberString.length - 6;
-    } else if (!(number / 1000000).toFixed(2).endsWith("0")) {
-      numberString = (number / 1000000).toFixed(2).toString().concat("M");
-      insertIndex = numberString.length - 6;
-    } else if (!(number / 1000000).toFixed(1).endsWith("0")) {
-      numberString = (number / 1000000).toFixed(1).toString().concat("M");
-      insertIndex = numberString.length - 5;
-    } else {
-      numberString = Math.ceil(number / 1000000)
-        .toString()
-        .concat("M");
-      insertIndex = numberString.length - 4;
-    }
-  } else if (number < 1000000000) {
-    numberString = Math.ceil(number / 1000000)
-      .toString()
-      .concat("M");
-    insertIndex = numberString.length - 4;
-  } else {
-    numberString = (number / 1000000000).toFixed(2).toString().concat("B");
-    insertIndex = numberString.length - 7;
-  }
-  return spaceNumber(numberString, insertIndex);
-};
-
 export const getAllProducts = () =>
   recipes.reduce<RecipeProduct[]>((accumulator, object) => {
     const { products } = object;
@@ -347,5 +270,3 @@ export const compareCategories = (
 ) => {
   return original.every((og: MachineCategory) => compared.includes(og));
 };
-
-// Redux functions

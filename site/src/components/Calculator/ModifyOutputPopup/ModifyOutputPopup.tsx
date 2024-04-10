@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ppGrey } from "../../../utils/colors";
-import { getImageUrlById, formatNumber } from "../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,6 +16,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
 import { useRef } from "react";
 import { Popup } from "../../Popup";
+import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const InputContainer = styled.div`
   display: flex;
@@ -98,6 +99,7 @@ const AmountText = styled.p`
 `;
 
 // refactor
+// @ts-expect-error
 export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
@@ -111,12 +113,13 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   useEffect(() => {
     setNewAmount(amount);
   }, [amount]);
-
+  // @ts-expect-error
   const inputHandler = ({ target }) => {
     setNewAmount(target.value);
   };
 
   const enterHandler = useCallback(() => {
+    // @ts-expect-error
     document.activeElement.blur();
     const newItem = {
       id: id,
@@ -137,19 +140,24 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   }, [setOutputId]);
 
   const switchHandler = useCallback(
+    // @ts-expect-error
     (next) => {
+      // @ts-expect-error
       document.activeElement.blur();
       let direction = next ? 1 : -1;
       const idx =
         (currentIdx + direction + outputArray.length) % outputArray.length;
       setId(outputArray[idx]);
+      // @ts-expect-error
       inputRef.current.focus();
+      // @ts-expect-error
       inputRef.current.select();
     },
     [currentIdx, outputArray]
   );
 
   useEffect(() => {
+    // @ts-expect-error
     const handleKeyDown = (event) => {
       if (event.key === "r") {
         removeHandler();
@@ -182,7 +190,7 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
         </ArrowContainer>
         <ImageContainer>
           <img src={imgUrl} alt={id} />
-          <AmountText>{formatNumber(amount)}</AmountText>
+          <AmountText>{useDisplayNumber(amount)}</AmountText>
         </ImageContainer>
         <input
           ref={inputRef}

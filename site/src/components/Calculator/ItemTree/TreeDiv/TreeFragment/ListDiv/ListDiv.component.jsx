@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { ProductIcon } from "./ProductIcon/ProductIcon.component";
-import { MachineIcon } from "./MachineIcon/MachineIcon.component";
+import { ProductIcon } from "./ProductIcon/ProductIcon";
+import { MachineIcon } from "./MachineIcon/MachineIcon";
 
 const Wrapper = styled.div`
   margin: 0;

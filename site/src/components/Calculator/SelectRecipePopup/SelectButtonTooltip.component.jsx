@@ -4,7 +4,7 @@ import {
   getMachinesById,
   getModulesByRecipeId,
 } from "../../../utils/helperFunctions";
-import { TooltipElement } from "./TooltipElement.component";
+import { TooltipElement } from "./TooltipElement";
 
 const Container = styled.div`
   p {

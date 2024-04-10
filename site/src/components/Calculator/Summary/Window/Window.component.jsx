@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { WindowItem } from "../WindowItem/WindowItem.component";
+import { WindowItem } from "../WindowItem/WindowItem";
 import { ppBlue, ppGrey } from "../../../../utils/colors";
 
 const MountAnimation = keyframes`

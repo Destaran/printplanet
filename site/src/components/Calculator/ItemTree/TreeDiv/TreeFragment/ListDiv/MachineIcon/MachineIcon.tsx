@@ -2,17 +2,17 @@ import styled from "styled-components";
 import {
   getImageUrlById,
   checkModulesForBumping,
-  formatNumber,
   getEmptyMachine,
-} from "../../../../../../../utils/helperFunctions";
+} from "utils/helperFunctions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { bumpModules } from "../../../../../../../redux/calculator/calculator.slice";
-import { IconTooltip } from "./IconTooltip.component";
+import { bumpModules } from "redux/calculator/calculator.slice";
+import { IconTooltip } from "./IconTooltip";
 import { useState } from "react";
 import { MachineEditPopup } from "../../../../../MachineEditPopup/MachineEditPopup.component";
-import { ppOrange } from "../../../../../../../utils/colors";
-import { ppGrey } from "../../../../../../../utils/colors";
+import { ppOrange } from "utils/colors";
+import { ppGrey } from "utils/colors";
+import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const OutterContainer = styled.div`
   border: 2px solid ${ppOrange};
@@ -27,8 +27,8 @@ const OutterContainer = styled.div`
   transition: all 1s;
 
   &:hover {
-    background-color: orange;
-    border: 2px solid #fefefe;
+    background-color: ${({ theme }) => theme.colors.orange};
+    border: 2px solid ${({ theme }) => theme.colors.lightGrey};
     transition: all 0.3s;
   }
   &:active {
@@ -96,13 +96,15 @@ const BeaconsIcons = styled.div`
   }
 `;
 
+// @ts-expect-error
 export const MachineIcon = ({ outputItem, pid }) => {
   const dispatch = useDispatch();
   const [machineEditId, setMachineEditId] = useState(null);
   const { recipe, machine, uid } = outputItem;
   const { id, amount, modules, beacons } = machine;
   const imgUrl = getImageUrlById(id);
-  const displayAmount = formatNumber(Math.ceil(amount));
+  const displayAmount = useDisplayNumber(Math.ceil(amount));
+  // @ts-expect-error
   const firstModule = modules.find((module) => module.length > 0);
   const moduleUrl = getImageUrlById(firstModule);
   const beaconUrl = getImageUrlById("beacon");

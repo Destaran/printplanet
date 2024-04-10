@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { getImageUrlById, formatNumber } from "../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 import { ppOrange, ppGrey } from "../../../utils/colors";
+import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const OutterContainer = styled.div`
   border: 2px solid ${ppOrange};
@@ -49,6 +50,7 @@ const ImgContainer = styled.div`
   }
 `;
 
+// @ts-expect-error
 export const TooltipElement = ({ object }) => {
   const { amount, name } = object;
   const imgUrl = getImageUrlById(name);
@@ -58,7 +60,7 @@ export const TooltipElement = ({ object }) => {
       <InnerContainer>
         <ImgContainer>
           <img src={imgUrl} />
-          {amount && <p>{formatNumber(amount)}</p>}
+          {amount && <p>{useDisplayNumber(amount)}</p>}
         </ImgContainer>
       </InnerContainer>
     </OutterContainer>
