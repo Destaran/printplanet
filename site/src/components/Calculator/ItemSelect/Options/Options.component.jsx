@@ -11,7 +11,7 @@ import {
   addToExistingOutput,
 } from "../../../../redux/calculator/calculator.slice";
 import { outputKeys } from "../../../../redux/calculator/calculator.selector";
-import { SearchBar } from "./SearchBar/SearchBar.component";
+import { SearchBar } from "./SearchBar/SearchBar";
 import { QuantitySelect } from "./QuantitySelect/QuantitySelect.component";
 import { SelectRecipePopup } from "../../SelectRecipePopup/SelectRecipePopup.component";
 import { UnitSelection } from "./UnitSelection/UnitSelection.component";

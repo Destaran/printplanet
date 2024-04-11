@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import {
   getImageUrlById,
-  getAllProducts,
   getNameById,
 } from "../../../../../utils/helperFunctions";
 import { useMemo } from "react";
+import { useAllProducts } from "./useAllProducts";
 
 const Container = styled.div`
   position: absolute;
@@ -53,10 +53,12 @@ const ItemIcon = styled.img`
   width: auto;
 `;
 
+// @ts-expect-error
 export const FilteredItemsList = ({ selectItem, searchString }) => {
+  const allItems = useAllProducts();
   const filteredItems = useMemo(
     () =>
-      getAllProducts().filter((item) =>
+      allItems.filter((item) =>
         item.name
           .toLowerCase()
           .includes(searchString.toLowerCase().replace(" ", "-"))

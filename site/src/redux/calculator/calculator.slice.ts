@@ -10,10 +10,11 @@ import {
   switchMachines,
   switchMachine,
   bumpProdModules,
+  getRecipeCategory,
 } from "./calculator.utils";
 import { MachineCategory } from "../../utils/types";
 import { RootState } from "../store";
-import { getRecipeCategory, getIngredients } from "utils/helperFunctions";
+import { getIngredients } from "utils/helperFunctions";
 
 const initialState = {
   output: {},

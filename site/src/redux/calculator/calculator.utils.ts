@@ -1,10 +1,12 @@
-import { getIngredients, getRecipeById, modules } from "utils/helperFunctions";
+import { v4 as uuidv4 } from "uuid";
+import { getRecipeById, modules, recipes } from "utils/helperFunctions";
 import {
   Beacons,
   CalculatedItem,
   CalculatedMachine,
   OutputItem,
   OwnMachine,
+  ReduxIngredient,
   SummaryItem,
 } from "utils/types";
 
@@ -424,3 +426,28 @@ function countModules({ modules, beacons, amount }: OwnMachine) {
     return modulesAcc;
   }
 }
+
+export const getRecipeCategory = (id: string) => {
+  const item = recipes.find((item) => item.name === id);
+  if (!item) {
+    throw new Error("Could not find recipe by ID");
+  }
+  return item.category;
+};
+
+export const getIngredients = (id: string) => {
+  try {
+    const recipe = getRecipeById(id);
+    const array: ReduxIngredient[] = [];
+    recipe.ingredients.forEach((ingredient) => {
+      const obj = {
+        id: ingredient.name,
+        uid: uuidv4(),
+      };
+      array.push(obj);
+    });
+    return array;
+  } catch {
+    return [];
+  }
+};

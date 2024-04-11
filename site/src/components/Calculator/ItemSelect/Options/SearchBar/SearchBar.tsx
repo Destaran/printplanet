@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../../../utils/helperFunctions";
-import { FilteredItemsList } from "./FilteredItemsList.component";
+import { FilteredItemsList } from "./FilteredItemsList";
 import { FormInput } from "../../../../FormInput";
 import { ppBlue } from "../../../../../utils/colors";
 import { ppOrange } from "../../../../../utils/colors";
@@ -42,12 +42,18 @@ const CurrentItemContainer = styled.div`
 `;
 
 export const SearchBar = ({
+  // @ts-expect-error
   selectItem,
+  // @ts-expect-error
   currentItem,
+  // @ts-expect-error
   setCurrentItem,
+  // @ts-expect-error
   searchString,
+  // @ts-expect-error
   setSearchString,
 }) => {
+  // @ts-expect-error
   const handleSearchChange = ({ target }) => {
     if (currentItem) {
       setCurrentItem("");
@@ -55,6 +61,7 @@ export const SearchBar = ({
     setSearchString(target.value);
   };
 
+  // @ts-expect-error
   const handleInputFocus = ({ target }) => {
     target.select();
   };
@@ -63,6 +70,7 @@ export const SearchBar = ({
     <Container>
       <SearchBarContainer>
         <FormInput
+          // @ts-expect-error
           autoFocus
           placeholder="Search Item"
           type="text"
@@ -74,6 +82,7 @@ export const SearchBar = ({
         {searchString && !currentItem && (
           <FilteredItemsList
             selectItem={selectItem}
+            // @ts-expect-error
             setCurrentItem={setCurrentItem}
             setSearchString={setSearchString}
             searchString={searchString}

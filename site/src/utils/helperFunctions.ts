@@ -1,14 +1,11 @@
 import data from "./recipes/database.json";
-import { v4 as uuidv4 } from "uuid";
 
 import {
   Recipe,
   Machine,
   Module,
-  RecipeProduct,
   MachineCategory,
   MachineCategories,
-  ReduxIngredient,
   OutputItem,
   OwnMachine,
 } from "./types";
@@ -16,18 +13,6 @@ import {
 export const recipes = data.recipes as Recipe[];
 export const craftingMachines = data.craftingMachines as Machine[];
 export const modules = data.modules as Module[];
-
-export const getAllProducts = () =>
-  recipes.reduce<RecipeProduct[]>((accumulator, object) => {
-    const { products } = object;
-    products.forEach((product) => {
-      const existingProduct = accumulator.find((p) => p.name === product.name);
-      if (!existingProduct) {
-        accumulator.push(product);
-      }
-    });
-    return accumulator;
-  }, []);
 
 export const getMachinesById = (recipeId: string) => {
   const recipe = recipes.find((recipe) => recipe.name === recipeId);
@@ -85,32 +70,7 @@ export const getImageUrlById = (id: string) => {
   }
 };
 
-export const getRecipeCategory = (id: string) => {
-  const item = recipes.find((item) => item.name === id);
-  if (!item) {
-    throw new Error("Could not find recipe by ID");
-  }
-  return item.category;
-};
-
-export const getIngredients = (id: string) => {
-  try {
-    const recipe = getRecipeById(id);
-    const array: ReduxIngredient[] = [];
-    recipe.ingredients.forEach((ingredient) => {
-      const obj = {
-        id: ingredient.name,
-        uid: uuidv4(),
-      };
-      array.push(obj);
-    });
-    return array;
-  } catch {
-    return [];
-  }
-};
-
-export const getMachineObjectById = (id: string) => {
+const getMachineObjectById = (id: string) => {
   const machine = craftingMachines.find((item) => item.name === id);
   if (!machine) {
     throw new Error("Could not find machine object by ID");
@@ -215,7 +175,7 @@ export const checkModulesForBumping = (
 
 // Search for recipes producing product based on id
 // Returns array of multiple ids or single id
-export const lookUpProducers = (
+const lookUpProducers = (
   resultArray: string[],
   outputItem: OutputItem,
   lookUpId: string
