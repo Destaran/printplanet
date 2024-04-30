@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import { getImageUrlById } from "../../../../utils/helperFunctions";
-import { ppOrange, ppGrey } from "../../../../utils/colors";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const MountAnimation = keyframes`
@@ -19,12 +18,12 @@ to {
 `;
 
 const OutterContainer = styled.div`
-  border: 2px solid ${ppOrange};
+  border: 2px solid ${({ theme }) => theme.colors.darkOrange};
   height: 42px;
   width: auto;
   padding: 2px;
   margin: 1px;
-  background-color: ${ppGrey};
+  background-color: ${({ theme }) => theme.colors.grey};
   user-select: none;
   cursor: pointer;
   transition: all 1s;
@@ -38,7 +37,7 @@ const OutterContainer = styled.div`
   }
   &:active {
     transition: all 0.2s;
-    background-color: ${ppGrey};
+    background-color: ${({ theme }) => theme.colors.grey};
     img {
       transform: scale(0.8);
     }

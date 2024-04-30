@@ -1,27 +1,26 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../../../../../utils/helperFunctions";
-import { ppBlue } from "../../../../../../../utils/colors";
 
 const Container = styled.div`
   height: 28px;
   width: 28px;
   margin: 1px;
   border: 1px solid #864c00;
-  background-color: ${ppBlue};
+  background-color: ${({ theme }) => theme.colors.blue};
 
   img {
     height: 28px;
     width: 28px;
     margin: 0;
     border: none;
-    background-color: ${ppBlue};
+    background-color: ${({ theme }) => theme.colors.blue};
     :hover {
       cursor: pointer;
       background-color: orange;
     }
 
     :active {
-      background-color: ${ppBlue};
+      background-color: ${({ theme }) => theme.colors.blue};
     }
   }
 `;

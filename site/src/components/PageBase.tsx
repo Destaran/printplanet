@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { ReactNode } from "react";
-import { ppLightGrey } from "../utils/colors";
 import { useAuth0 } from "@auth0/auth0-react";
 import { PageLoader } from "./PageLoader";
 
 const Container = styled.div`
-  background-color: ${ppLightGrey};
+  background-color: ${({ theme }) => theme.colors.lightGrey};
   box-sizing: border-box;
   margin: auto;
   justify-content: center;

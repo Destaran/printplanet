@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { getImageUrlById, getNameById } from "../../../utils/helperFunctions";
-import { ppBlue } from "../../../utils/colors";
 
 const Slot = styled.div`
   height: 28px;
   width: 28px;
   margin: 1px;
   border: 2px solid black;
-  background-color: ${ppBlue};
+  background-color: ${({ theme }) => theme.colors.blue};
   overflow: hidden;
   cursor: pointer;
   transition: all 1s;
@@ -17,7 +16,7 @@ const Slot = styled.div`
     transition: all 200ms;
   }
   :active {
-    background-color: ${ppBlue};
+    background-color: ${({ theme }) => theme.colors.blue};
     transition: all 100ms;
     img {
       transition: all 100ms;

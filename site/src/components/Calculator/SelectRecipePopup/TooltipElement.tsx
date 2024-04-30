@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../utils/helperFunctions";
-import { ppOrange, ppGrey } from "../../../utils/colors";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const OutterContainer = styled.div`
-  border: 2px solid ${ppOrange};
+  border: 2px solid ${({ theme }) => theme.colors.blue};
   height: 36px;
   width: 36px;
   padding: 2px;
   margin: 1px;
-  background-color: ${ppGrey};
+  background-color: ${({ theme }) => theme.colors.grey};
   user-select: none;
 
   &:hover {
@@ -17,7 +16,7 @@ const OutterContainer = styled.div`
     background-color: orange;
   }
   &:active {
-    background-color: ${ppGrey};
+    background-color: ${({ theme }) => theme.colors.grey};
   }
 `;
 

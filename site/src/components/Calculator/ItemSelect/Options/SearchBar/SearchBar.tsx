@@ -2,9 +2,6 @@ import styled from "styled-components";
 import { getImageUrlById } from "../../../../../utils/helperFunctions";
 import { FilteredItemsList } from "./FilteredItemsList";
 import { FormInput } from "../../../../FormInput";
-import { ppBlue } from "../../../../../utils/colors";
-import { ppOrange } from "../../../../../utils/colors";
-import { ppGrey } from "../../../../../utils/colors";
 
 const Container = styled.div`
   width: 305px;
@@ -26,7 +23,7 @@ const CurrentItemContainer = styled.div`
   border: 1px solid black;
   width: 100%;
   height: 30px;
-  background-color: ${ppBlue};
+  background-color: ${({ theme }) => theme.colors.blue};
   p {
     margin: 0;
     color: white;
@@ -36,8 +33,8 @@ const CurrentItemContainer = styled.div`
     height: 24px;
     width: auto;
     margin: 0 5px 0 5px;
-    background-color: ${ppGrey};
-    border: 1px solid ${ppOrange};
+    background-color: ${({ theme }) => theme.colors.grey};
+    border: 1px solid ${({ theme }) => theme.colors.orange};
   }
 `;
 

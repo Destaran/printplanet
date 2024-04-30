@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { getImageUrlById } from "../../../../../utils/helperFunctions";
 import { FormInput } from "../../../../FormInput";
 import { useMemo, useState } from "react";
-import { ppBlue } from "../../../../../utils/colors";
 
 const Container = styled.div`
   width: 110px;
@@ -21,7 +20,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
   padding: 2px;
   border: 2px solid black;
-  background-color: ${ppBlue};
+  background-color: ${({ theme }) => theme.colors.blue};
   transition: all 1s;
   cursor: pointer;
   &:hover {
@@ -30,7 +29,7 @@ const ButtonContainer = styled.div`
   }
   &:active {
     transition: all 0.1s;
-    background-color: ${ppBlue};
+    background-color: ${({ theme }) => theme.colors.blue};
     img {
       transform: scale(0.9);
     }

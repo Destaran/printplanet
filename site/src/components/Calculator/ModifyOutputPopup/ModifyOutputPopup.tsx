@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ppGrey } from "../../../utils/colors";
 import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,7 +73,7 @@ const ImageContainer = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
-  background-color: ${ppGrey};
+  background-color: ${({ theme }) => theme.colors.grey};
   margin: 4px;
   padding: 2px;
   height: 40px;

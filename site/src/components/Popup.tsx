@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import { createPortal } from "react-dom";
-import { ppBlue } from "../utils/colors";
 import { ReactNode } from "react";
 
 const PopupContainerAnimation = keyframes`
@@ -48,7 +47,7 @@ const Container = styled.div`
   min-width: 300px;
   width: auto;
   display: block;
-  border: 2px solid ${ppBlue};
+  border: 2px solid ${({ theme }) => theme.colors.blue};
   padding: 15px;
   user-select: none;
   animation: ${ContainerAnimation} 200ms ease-out;

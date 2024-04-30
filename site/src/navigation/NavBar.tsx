@@ -1,6 +1,5 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { ppBlue } from "../utils/colors";
 import { NavButton } from "./NavButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { LoginButton } from "./LoginButton";
@@ -9,7 +8,7 @@ import { LogoutButton } from "./LogoutButton";
 const Container = styled.div`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  background-color: ${ppBlue};
+  background-color: ${({ theme }) => theme.colors.blue};
   padding: 2px 0 2px 0;
 `;
 

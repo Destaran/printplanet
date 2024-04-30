@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import { WindowItem } from "../WindowItem/WindowItem";
-import { ppBlue, ppGrey } from "../../../../utils/colors";
 
 const MountAnimation = keyframes`
 from {
@@ -34,7 +33,7 @@ const WindowOutter = styled.div`
   align-items: center;
   justify-content: center;
   border: 1px black solid;
-  background-color: ${ppBlue};
+  background-color: ${({ theme }) => theme.colors.blue};
   margin: 0;
   padding: 4px;
 `;
@@ -43,7 +42,7 @@ const WindowInner = styled.div`
   display: grid;
   grid-template-columns: repeat(10, auto);
   border: 1px black solid;
-  background-color: ${ppGrey};
+  background-color: ${({ theme }) => theme.colors.grey};
   width: 100%;
   height: auto;
 `;
