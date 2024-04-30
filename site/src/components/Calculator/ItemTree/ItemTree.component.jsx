@@ -16,9 +16,7 @@ const Container = styled.div`
   animation: ${MountAnimation} 0.5s ease-out;
 `;
 
-const Title = styled.p`
-  margin: 0 0 1px 6px;
-`;
+const Title = styled.p``;
 
 export const ItemTree = () => {
   const output = useSelector(calculatedOutput);
