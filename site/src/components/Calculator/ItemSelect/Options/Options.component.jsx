@@ -19,13 +19,7 @@ import { ppBlue } from "../../../../utils/colors";
 
 const Container = styled.div`
   display: flex;
-  border: 1px solid ${ppBlue};
-  padding: 10px;
   width: auto;
-  input,
-  select {
-    margin-top: 0;
-  }
 `;
 
 export const Options = ({

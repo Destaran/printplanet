@@ -4,7 +4,7 @@ import { MachineIcon } from "./MachineIcon/MachineIcon";
 
 const Wrapper = styled.div`
   margin: 0;
-  padding: 0 0 0 0;
+  padding: 0;
   list-style: none;
 
   position: sticky;

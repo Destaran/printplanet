@@ -3,30 +3,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetOutput } from "../../../redux/calculator/calculator.slice";
 import { outputKeys } from "../../../redux/calculator/calculator.selector";
 import { Options } from "./Options/Options.component";
-import { DefaultMachineConfig } from "../DefaultMachineConfig/DefaultMachineConfig.component";
-import { Menus } from "../Menus/Menus.component";
 import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
   justify-content: start;
-  height: 112px;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid black;
 `;
 
 export const ItemSelect = () => {
   const dispatch = useDispatch();
   const output = useSelector(outputKeys);
-  const [searchString, setSearchString] = useState("");
-  const [currentItem, setCurrentItem] = useState("");
-  const [quantity, setQuantity] = useState(1);
+  const [searchString, setSearchString] = useState<string>("");
+  const [currentItem, setCurrentItem] = useState<string>("");
+  const [quantity, setQuantity] = useState<number>(1);
 
   const resetHandler = () => {
     setSearchString("");
     setCurrentItem("");
     setQuantity(1);
     if (output.length > 0) {
-      dispatch(resetOutput());
+      dispatch(resetOutput({}));
     }
   };
 
@@ -40,8 +39,6 @@ export const ItemSelect = () => {
         quantity={quantity}
         setQuantity={setQuantity}
       />
-      <DefaultMachineConfig />
-      <Menus resetHandler={resetHandler} />
     </Container>
   );
 };

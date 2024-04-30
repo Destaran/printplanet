@@ -7,7 +7,6 @@ export const Profile = () => {
   if (!user) {
     return null;
   }
-  console.log(user);
 
   return (
     <PageBase>

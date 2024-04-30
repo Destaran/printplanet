@@ -31,7 +31,7 @@ const Select = styled.select`
   border: 1px solid ${subColor};
   margin: 15px 0;
   padding: 10px;
-  height: 42px;
+  height: 22px;
 
   &:focus {
     outline: none;
