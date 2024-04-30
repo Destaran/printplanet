@@ -10,6 +10,7 @@ const Container = styled.div`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   background-color: ${ppBlue};
+  padding: 2px 0 2px 0;
 `;
 
 const Wrapper = styled.div`
@@ -31,7 +32,7 @@ export function NavBar() {
     <Container>
       <Wrapper>
         <SideWrapper>
-          <NavButton destination="configurator" title="Configurator" />
+          <NavButton destination="configurator" title="Config" />
           <NavButton destination="calculator" title="Calculator" />
         </SideWrapper>
         <SideWrapper>
