@@ -4,8 +4,13 @@ import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
 import { SelectButtonTooltip } from "./SelectButtonTooltip.component";
 import { useCallback } from "react";
+import { Recipe } from "utils/types";
 
-const Container = styled.div`
+interface ContainerProps {
+  selected: boolean;
+}
+
+const Container = styled.div<ContainerProps>`
   border: 2px solid ${({ theme }) => theme.colors.blue};
   height: 42px;
   width: auto;
@@ -61,13 +66,21 @@ const ShortcutText = styled.p`
     -1px 0px 1px #000;
 `;
 
+interface Props {
+  recipe: Recipe;
+  selectedRecipe: string;
+  setSelectedRecipe: (recipe: string) => void;
+  handleEnter: () => void;
+  shortcut: string;
+}
+
 export const SelectButton = ({
   recipe,
   selectedRecipe,
   setSelectedRecipe,
   handleEnter,
   shortcut,
-}) => {
+}: Props) => {
   const [selected, setSelected] = useState(false);
   const { name } = recipe;
   const imgUrl = getImageUrlById(name);
@@ -81,7 +94,7 @@ export const SelectButton = ({
   }, [setSelectedRecipe, name]);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === shortcut) {
         handleShortcut();
       }
@@ -102,7 +115,7 @@ export const SelectButton = ({
 
   return (
     <>
-      <Tooltip id={name} delayShow={"300"}>
+      <Tooltip id={name} delayShow={300}>
         <SelectButtonTooltip recipe={recipe} />
       </Tooltip>
       <Container
