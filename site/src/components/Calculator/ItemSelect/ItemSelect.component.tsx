@@ -23,7 +23,7 @@ const Container = styled.div`
   margin-bottom: 10px;
 `;
 
-export const ItemSelect = () => {
+export function ItemSelect() {
   const [searchString, setSearchString] = useState<string>("");
   const [currentItem, setCurrentItem] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
@@ -81,11 +81,11 @@ export const ItemSelect = () => {
   };
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "a" && currentItem) {
         addHandler();
       }
-    };
+    }
 
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -125,4 +125,4 @@ export const ItemSelect = () => {
       )}
     </Container>
   );
-};
+}
