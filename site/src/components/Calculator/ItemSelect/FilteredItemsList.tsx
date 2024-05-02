@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  getImageUrlById,
-  getNameById,
-} from "../../../../../utils/helperFunctions";
+import { getImageUrlById, getNameById } from "../../../utils/helperFunctions";
 import { useMemo } from "react";
 import { useAllProducts } from "./useAllProducts";
 

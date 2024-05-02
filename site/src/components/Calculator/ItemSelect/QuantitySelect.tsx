@@ -1,19 +1,19 @@
 import styled from "styled-components";
-import { getImageUrlById } from "../../../../../utils/helperFunctions";
-import { FormInput } from "../../../../FormInput";
-import { useMemo, useState } from "react";
+import { getImageUrlById } from "../../../utils/helperFunctions";
+import { FormInput } from "../../FormInput";
+import React, { ChangeEvent, useMemo, useState } from "react";
 
 const Container = styled.div`
   width: 110px;
   margin-right: 10px;
 `;
 
-const BeltsContainer = styled.div`
+const BeltsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const ButtonContainer = styled.div`
+const Button = styled.div`
   position: relative;
   display: flex;
   align-items: center;
@@ -23,6 +23,7 @@ const ButtonContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.blue};
   transition: all 1s;
   cursor: pointer;
+
   &:hover {
     transition: all 0.3s;
     background-color: orange;
@@ -34,13 +35,14 @@ const ButtonContainer = styled.div`
       transform: scale(0.9);
     }
   }
+
   img {
     width: 24px;
     height: auto;
   }
 `;
 
-const BeltIndicator = styled.p`
+const Indicator = styled.p`
   position: absolute;
   font-size: 16px;
   margin: 0;
@@ -55,9 +57,15 @@ const beltImages = {
   fast: getImageUrlById("fast-transport-belt"),
   express: getImageUrlById("express-transport-belt"),
 };
-// refactor
-export const QuantitySelect = ({ setQuantity, quantity }) => {
+
+interface Props {
+  setQuantity: (value: number) => void;
+  quantity: number;
+}
+
+export function QuantitySelect({ setQuantity, quantity }: Props) {
   const [beltPerSec, setBeltPerSec] = useState(0);
+  const quantityString = quantity.toString();
 
   useMemo(() => {
     if (quantity % beltPerSec !== 0) {
@@ -65,13 +73,12 @@ export const QuantitySelect = ({ setQuantity, quantity }) => {
     }
   }, [beltPerSec, quantity]);
 
-  const onQuantityChange = ({ target }) => {
+  function onQuantityChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     const { value } = target;
-    setQuantity(value);
-  };
+    setQuantity(Number(value));
+  }
 
-  const handleClick = ({ target }) => {
-    const value = target.getAttribute("data-value");
+  function handleClick(value: number) {
     if (value !== beltPerSec) {
       setBeltPerSec(value);
     }
@@ -80,42 +87,34 @@ export const QuantitySelect = ({ setQuantity, quantity }) => {
     } else {
       setQuantity(value);
     }
-  };
-
-  const handleInputFocus = ({ target }) => {
-    target.select();
-  };
+  }
 
   return (
     <Container>
       <FormInput
-        placeholder="Quantity"
         type="number"
-        value={quantity}
+        value={quantityString}
         name="quantity"
         onChange={onQuantityChange}
-        onFocus={handleInputFocus}
       />
-      <BeltsContainer>
-        <ButtonContainer onClick={handleClick} data-value={15}>
-          <img src={beltImages.basic} data-value={15} />
+      <BeltsWrapper>
+        <Button onClick={() => handleClick(15)}>
+          <img src={beltImages.basic} />
           {beltPerSec > 0 && beltPerSec < 16 && (
-            <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
+            <Indicator>{quantity / beltPerSec}</Indicator>
           )}
-        </ButtonContainer>
-        <ButtonContainer onClick={handleClick} data-value={30}>
-          <img src={beltImages.fast} data-value={30} />
+        </Button>
+        <Button onClick={() => handleClick(30)}>
+          <img src={beltImages.fast} />
           {beltPerSec > 15 && beltPerSec < 31 && (
-            <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
+            <Indicator>{quantity / beltPerSec}</Indicator>
           )}
-        </ButtonContainer>
-        <ButtonContainer onClick={handleClick} data-value={45}>
-          <img src={beltImages.express} data-value={45} />
-          {beltPerSec > 30 && (
-            <BeltIndicator>{quantity / beltPerSec}</BeltIndicator>
-          )}
-        </ButtonContainer>
-      </BeltsContainer>
+        </Button>
+        <Button onClick={() => handleClick(45)}>
+          <img src={beltImages.express} />
+          {beltPerSec > 30 && <Indicator>{quantity / beltPerSec}</Indicator>}
+        </Button>
+      </BeltsWrapper>
     </Container>
   );
-};
+}

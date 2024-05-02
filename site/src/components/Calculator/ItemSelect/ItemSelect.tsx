@@ -12,9 +12,9 @@ import {
   getNameById,
 } from "utils/helperFunctions";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
-import { QuantitySelect } from "./Options/QuantitySelect/QuantitySelect.component";
-import { SearchBar } from "./Options/SearchBar/SearchBar";
-import { UnitSelection } from "./Options/UnitSelection/UnitSelection.component";
+import { QuantitySelect } from "./QuantitySelect";
+import { SearchBar } from "./SearchBar";
+import { UnitSelection } from "./UnitSelection.component";
 
 const Container = styled.div`
   display: flex;

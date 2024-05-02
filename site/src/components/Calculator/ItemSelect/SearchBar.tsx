@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { getImageUrlById } from "../../../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 import { FilteredItemsList } from "./FilteredItemsList";
-import { FormInput } from "../../../../FormInput";
+import { FormInput } from "../../FormInput";
 
 const Container = styled.div`
   width: 305px;
