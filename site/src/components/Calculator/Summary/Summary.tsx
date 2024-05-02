@@ -18,7 +18,8 @@ import {
 import { ModifyOutputPopup } from "../ModifyOutputPopup/ModifyOutputPopup";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
 import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup.component";
-import { Window } from "./Window.component";
+import { Window } from "./Window";
+import { OutputItem, OwnMachine, SummaryItem } from "utils/types";
 
 const Container = styled.div`
   display: grid;
@@ -28,36 +29,31 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-export const Summary = () => {
+export function Summary() {
   const dispatch = useDispatch();
-  const output = useSelector(outputValues);
-  const input = useSelector(inputArray);
-  const machines = useSelector(machinesArray);
-  // @ts-expect-error
-  const additionalOutput = [];
-  const [outputId, setOutputId] = useState(null);
-  const [inputId, setInputId] = useState(null);
-  const [machineId, setMachineId] = useState(null);
+  const output: OutputItem[] = useSelector(outputValues);
+  const input: SummaryItem[] = useSelector(inputArray);
+  const machines: SummaryItem[] = useSelector(machinesArray);
+  const [outputId, setOutputId] = useState<null | string>(null);
+  const [inputId, setInputId] = useState<null | string>(null);
+  const [machineId, setMachineId] = useState<null | string>(null);
 
-  // @ts-expect-error
-  const handleOutputClick = (id) => {
-    // @ts-expect-error
-    document.activeElement.blur();
+  function handleOutputClick(id: string) {
+    const divElement = document.activeElement as HTMLDivElement;
+    divElement.blur();
     setOutputId(id);
-  };
+  }
 
-  // @ts-expect-error
-  const handleInputClick = (id, event) => {
+  function handleInputClick(id: string, event: MouseEvent) {
     if (event.shiftKey && event.button === 0) {
-      // @ts-expect-error
       const producers = getProducers(output, id);
       producers.forEach((id) => {
         dispatch(collapseSameTypeElements(id));
       });
     } else {
       if (checkIfMultipleRecipes(id)) {
-        // @ts-expect-error
-        document.activeElement.blur();
+        const divElement = document.activeElement as HTMLDivElement;
+        divElement.blur();
         setInputId(id);
       } else {
         const recipe = getRecipeByProduct(id);
@@ -70,14 +66,13 @@ export const Summary = () => {
         }
       }
     }
-  };
+  }
 
-  // @ts-expect-error
-  const handleMachineClick = (id) => {
+  function handleMachineClick(id: string) {
     if (!id.includes("module") && !id.includes("beacon")) {
       setMachineId(id);
     }
-  };
+  }
 
   return (
     <Container>
@@ -87,8 +82,15 @@ export const Summary = () => {
       )}
       <Window title={"Input"} items={input} handleClick={handleInputClick} />
       {inputId && (
-        // @ts-expect-error
-        <SelectRecipePopup id={inputId} setId={setInputId} />
+        // refactor SelectRecipePopup
+        <SelectRecipePopup
+          id={inputId}
+          setId={setInputId}
+          uid={undefined}
+          addInfo={undefined}
+          selectMultiple={undefined}
+          setSelectMultiple={undefined}
+        />
       )}
       {machines.length > 0 && (
         <Window
@@ -98,13 +100,15 @@ export const Summary = () => {
         />
       )}
       {machineId && (
-        // @ts-expect-error
-        <MachineEditPopup machineId={machineId} setMachineId={setMachineId} />
-      )}
-      {additionalOutput.length > 0 && (
-        // @ts-expect-error
-        <Window title={"Additional Output"} items={additionalOutput} />
+        // refactor MachineEditPopup
+        <MachineEditPopup
+          machineId={machineId}
+          setMachineId={setMachineId}
+          uid={undefined}
+          pid={undefined}
+          singleMachine={undefined}
+        />
       )}
     </Container>
   );
-};
+}

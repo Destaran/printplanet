@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { WindowItem } from "./WindowItem";
+import { OutputItem, SummaryItem } from "utils/types";
 
 const MountAnimation = keyframes`
 from {
@@ -51,7 +52,13 @@ const Title = styled.p`
   margin: 0;
 `;
 
-export const Window = ({ title, items, handleClick }) => {
+interface Props {
+  title: string;
+  items: OutputItem[] | SummaryItem[];
+  handleClick: any;
+}
+
+export const Window = ({ title, items, handleClick }: Props) => {
   return (
     <Container>
       <WindowContainer>
