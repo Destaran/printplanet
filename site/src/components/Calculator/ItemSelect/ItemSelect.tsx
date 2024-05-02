@@ -14,7 +14,7 @@ import {
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
 import { QuantitySelect } from "./QuantitySelect";
 import { SearchBar } from "./SearchBar";
-import { UnitSelection } from "./UnitSelection.component";
+import { UnitSelection } from "./UnitSelection";
 
 const Container = styled.div`
   display: flex;

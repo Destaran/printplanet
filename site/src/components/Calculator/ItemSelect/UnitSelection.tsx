@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { Button } from "../../Button";
-import { UnitSelect } from "./UnitSelect.component";
+import { UnitSelect } from "./UnitSelect";
 
 const Container = styled.div`
   width: 15%;
 `;
 
-const ButtonContainer = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
+
   button {
     margin: 0;
     height: 32px;
@@ -19,15 +20,21 @@ const ButtonContainer = styled.div`
   }
 `;
 
-export const UnitSelection = ({ unit, handleUnitChange, addHandler }) => {
+interface Props {
+  unit: number;
+  handleUnitChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  addHandler: () => void;
+}
+
+export function UnitSelection({ unit, handleUnitChange, addHandler }: Props) {
   return (
     <Container>
       <UnitSelect value={unit} onChange={handleUnitChange} />
-      <ButtonContainer>
+      <ButtonWrapper>
         <Button onClick={addHandler}>
           <u>A</u>dd
         </Button>
-      </ButtonContainer>
+      </ButtonWrapper>
     </Container>
   );
-};
+}

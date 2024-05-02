@@ -8,7 +8,12 @@ const shrinkLabelStyles = css`
   font-size: 12px;
   color: ${mainColor};
 `;
-const FormInputLabel = styled.label`
+
+interface InputProps {
+  shrink: boolean;
+}
+
+const FormInputLabel = styled.label<InputProps>`
   color: ${subColor};
   font-size: 16px;
   font-weight: normal;
@@ -48,11 +53,9 @@ const Group = styled.div`
   position: relative;
   width: 100%;
   margin: 0;
-  input[type="password"] {
-  }
 `;
 
-export const UnitSelect = ({ ...otherProps }) => {
+export function UnitSelect({ ...otherProps }) {
   return (
     <Group>
       <Select {...otherProps}>
@@ -62,4 +65,4 @@ export const UnitSelect = ({ ...otherProps }) => {
       </Select>
     </Group>
   );
-};
+}
