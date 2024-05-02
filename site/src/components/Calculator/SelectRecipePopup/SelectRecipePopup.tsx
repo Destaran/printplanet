@@ -36,15 +36,23 @@ const Warning = styled.div`
   color: red;
 `;
 
-// refactor please
-export const SelectRecipePopup = ({
+interface Props {
+  id: string;
+  setId: (id: string | null) => void;
+  uid?: string | null;
+  addInfo?: { quantity: number; resetItemSelect: () => void };
+  selectMultiple?: boolean;
+  setSelectMultiple?: (bool: boolean) => void;
+}
+
+export function SelectRecipePopup({
   id,
   setId,
   uid,
   addInfo,
   selectMultiple,
   setSelectMultiple,
-}) => {
+}: Props) {
   const dispatch = useDispatch();
   const recipes = getRecipes(id);
   const [selectedRecipe, setSelectedRecipe] = useState("");
@@ -54,7 +62,10 @@ export const SelectRecipePopup = ({
     setId(null);
     setWarning(false);
     setSelectedRecipe("");
-    setSelectMultiple(false);
+
+    if (setSelectMultiple) {
+      setSelectMultiple(false);
+    }
   }, [setId, setSelectMultiple]);
 
   const handleEnter = useCallback(() => {
@@ -100,7 +111,7 @@ export const SelectRecipePopup = ({
   }, [resetComponent]);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "e") {
         handleEnter();
       }
@@ -142,4 +153,4 @@ export const SelectRecipePopup = ({
       </ButtonsContainer>
     </Popup>
   );
-};
+}

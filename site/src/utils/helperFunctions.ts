@@ -101,16 +101,12 @@ export const getRecipeByProduct = (id: string) => {
   );
 };
 
-export const getRecipes = (productId: string) => {
+export function getRecipes(productId: string): Recipe[] {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === productId)
   );
-  if (matchingObjects.length === 1) {
-    return matchingObjects[0];
-  } else if (matchingObjects.length > 1) {
-    return matchingObjects;
-  }
-};
+  return matchingObjects;
+}
 
 export const getEmptyMachine = (id: string) => {
   const machine = getMachineObjectById(id);

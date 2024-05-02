@@ -16,7 +16,7 @@ import {
   machinesArray,
 } from "../../../redux/calculator/calculator.selector";
 import { ModifyOutputPopup } from "../ModifyOutputPopup/ModifyOutputPopup";
-import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
+import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup";
 import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup.component";
 import { Window } from "./Window";
 import { OutputItem, OwnMachine, SummaryItem } from "utils/types";
@@ -81,17 +81,7 @@ export function Summary() {
         <ModifyOutputPopup outputId={outputId} setOutputId={setOutputId} />
       )}
       <Window title={"Input"} items={input} handleClick={handleInputClick} />
-      {inputId && (
-        // refactor SelectRecipePopup
-        <SelectRecipePopup
-          id={inputId}
-          setId={setInputId}
-          uid={undefined}
-          addInfo={undefined}
-          selectMultiple={undefined}
-          setSelectMultiple={undefined}
-        />
-      )}
+      {inputId && <SelectRecipePopup id={inputId} setId={setInputId} />}
       {machines.length > 0 && (
         <Window
           title={"Machines / Beacons / Modules"}

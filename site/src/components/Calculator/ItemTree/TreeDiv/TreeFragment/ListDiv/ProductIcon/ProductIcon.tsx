@@ -12,7 +12,7 @@ import {
   collapseElement,
   collapseSameTypeElements,
 } from "../../../../../../../redux/calculator/calculator.slice";
-import { SelectRecipePopup } from "../../../../../SelectRecipePopup/SelectRecipePopup.component";
+import { SelectRecipePopup } from "../../../../../SelectRecipePopup/SelectRecipePopup";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const Container = styled.div`

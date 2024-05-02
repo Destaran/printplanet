@@ -11,7 +11,7 @@ import {
   getRecipeById,
   getNameById,
 } from "utils/helperFunctions";
-import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
+import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup";
 import { QuantitySelect } from "./QuantitySelect";
 import { SearchBar } from "./SearchBar";
 import { UnitSelection } from "./UnitSelection";
@@ -93,11 +93,6 @@ export function ItemSelect() {
     };
   }, [addHandler, currentItem]);
 
-  const addInfo = {
-    quantity,
-    resetItemSelect: resetOptions,
-  };
-
   return (
     <Container>
       <SearchBar
@@ -117,7 +112,10 @@ export function ItemSelect() {
         <SelectRecipePopup
           id={popupId}
           setId={setPopupId}
-          addInfo={addInfo}
+          addInfo={{
+            quantity,
+            resetItemSelect: resetOptions,
+          }}
           uid={undefined}
           selectMultiple={undefined}
           setSelectMultiple={undefined}
