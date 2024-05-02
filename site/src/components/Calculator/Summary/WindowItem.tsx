@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { getImageUrlById } from "../../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const MountAnimation = keyframes`

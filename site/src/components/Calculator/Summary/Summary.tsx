@@ -18,7 +18,7 @@ import {
 import { ModifyOutputPopup } from "../ModifyOutputPopup/ModifyOutputPopup";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup.component";
 import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup.component";
-import { Window } from "./Window/Window.component";
+import { Window } from "./Window.component";
 
 const Container = styled.div`
   display: grid;

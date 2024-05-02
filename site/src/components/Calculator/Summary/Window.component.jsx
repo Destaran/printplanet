@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { WindowItem } from "../WindowItem/WindowItem";
+import { WindowItem } from "./WindowItem";
 
 const MountAnimation = keyframes`
 from {
