@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { bumpModules } from "redux/calculator/calculator.slice";
 import { IconTooltip } from "./IconTooltip";
 import { useState } from "react";
-import { MachineEditPopup } from "../../../../../MachineEditPopup/MachineEditPopup.component";
+import { MachineEditPopup } from "../../../../../MachineEditPopup/MachineEditPopup";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const OutterContainer = styled.div`
@@ -97,7 +97,7 @@ const BeaconsIcons = styled.div`
 // @ts-expect-error
 export const MachineIcon = ({ outputItem, pid }) => {
   const dispatch = useDispatch();
-  const [machineEditId, setMachineEditId] = useState(null);
+  const [machineEditId, setMachineEditId] = useState<null | string>(null);
   const { recipe, machine, uid } = outputItem;
   const { id, amount, modules, beacons } = machine;
   const imgUrl = getImageUrlById(id);

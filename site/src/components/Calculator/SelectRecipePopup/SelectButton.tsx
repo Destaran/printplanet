@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { getImageUrlById } from "../../../utils/helperFunctions";
 import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
-import { SelectButtonTooltip } from "./SelectButtonTooltip.component";
+import { RecipeTooltip } from "./Tooltip";
 import { useCallback } from "react";
 import { Recipe } from "utils/types";
 
@@ -74,20 +74,20 @@ interface Props {
   shortcut: string;
 }
 
-export const SelectButton = ({
+export function SelectButton({
   recipe,
   selectedRecipe,
   setSelectedRecipe,
   handleEnter,
   shortcut,
-}: Props) => {
+}: Props) {
   const [selected, setSelected] = useState(false);
   const { name } = recipe;
   const imgUrl = getImageUrlById(name);
 
-  const handleClick = () => {
+  function handleClick() {
     setSelectedRecipe(name);
-  };
+  }
 
   const handleShortcut = useCallback(() => {
     setSelectedRecipe(name);
@@ -116,7 +116,7 @@ export const SelectButton = ({
   return (
     <>
       <Tooltip id={name} delayShow={300}>
-        <SelectButtonTooltip recipe={recipe} />
+        <RecipeTooltip recipe={recipe} />
       </Tooltip>
       <Container
         selected={selected}
@@ -132,4 +132,4 @@ export const SelectButton = ({
       </Container>
     </>
   );
-};
+}

@@ -49,8 +49,11 @@ const ImgContainer = styled.div`
   }
 `;
 
-// @ts-expect-error
-export const TooltipElement = ({ object }) => {
+interface Props {
+  object: { amount?: number; name: string };
+}
+
+export const TooltipElement = ({ object }: Props) => {
   const { amount, name } = object;
   const imgUrl = getImageUrlById(name);
 

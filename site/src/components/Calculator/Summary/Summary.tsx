@@ -17,7 +17,7 @@ import {
 } from "../../../redux/calculator/calculator.selector";
 import { ModifyOutputPopup } from "../ModifyOutputPopup/ModifyOutputPopup";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup";
-import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup.component";
+import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup";
 import { Window } from "./Window";
 import { OutputItem, OwnMachine, SummaryItem } from "utils/types";
 
@@ -90,14 +90,7 @@ export function Summary() {
         />
       )}
       {machineId && (
-        // refactor MachineEditPopup
-        <MachineEditPopup
-          machineId={machineId}
-          setMachineId={setMachineId}
-          uid={undefined}
-          pid={undefined}
-          singleMachine={undefined}
-        />
+        <MachineEditPopup machineId={machineId} setMachineId={setMachineId} />
       )}
     </Container>
   );

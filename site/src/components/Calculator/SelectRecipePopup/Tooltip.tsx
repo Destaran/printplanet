@@ -5,6 +5,7 @@ import {
   getModulesByRecipeId,
 } from "../../../utils/helperFunctions";
 import { TooltipElement } from "./TooltipElement";
+import { Recipe } from "utils/types";
 
 const Container = styled.div`
   p {
@@ -29,7 +30,11 @@ const ListContainer = styled.div`
   width: fit-content;
 `;
 
-export const SelectButtonTooltip = ({ recipe }) => {
+interface Props {
+  recipe: Recipe;
+}
+
+export function RecipeTooltip({ recipe }: Props) {
   const name = getNameById(recipe.name);
   const time = {
     name: "clock",
@@ -78,4 +83,4 @@ export const SelectButtonTooltip = ({ recipe }) => {
       </DetailContainer>
     </Container>
   );
-};
+}

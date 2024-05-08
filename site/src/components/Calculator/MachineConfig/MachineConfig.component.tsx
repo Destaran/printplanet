@@ -49,7 +49,7 @@ const FunctionsContainer = styled.div`
 
 interface Props {
   config?: OwnMachine;
-  setConfig?: React.Dispatch<React.SetStateAction<OwnMachine>>;
+  setConfig?: (config: OwnMachine) => void;
   edit?: boolean;
 }
 

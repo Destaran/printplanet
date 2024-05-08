@@ -16,6 +16,7 @@ import { Button } from "../../Button";
 import { useEffect } from "react";
 import { Popup } from "../../Popup";
 import { MachineConfig } from "../MachineConfig/MachineConfig.component";
+import { OwnMachine } from "utils/types";
 
 const MachineFunctions = styled.div`
   display: flex;
@@ -26,13 +27,21 @@ const MachineFunctions = styled.div`
   }
 `;
 
-export const MachineEditPopup = ({
+interface Props {
+  machineId: string;
+  setMachineId: (id: string | null) => void;
+  uid?: string;
+  pid?: string;
+  singleMachine?: OwnMachine;
+}
+
+export function MachineEditPopup({
   machineId,
   setMachineId,
   uid,
   pid,
   singleMachine,
-}) => {
+}: Props) {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
 
@@ -65,15 +74,16 @@ export const MachineEditPopup = ({
     setMachineId(null);
   }, [setMachineId]);
 
+  // refactor: move to custom hook
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "e") {
         enterHandler();
       }
       if (event.key === "b") {
         backHandler();
       }
-    };
+    }
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
@@ -93,4 +103,4 @@ export const MachineEditPopup = ({
       </MachineFunctions>
     </Popup>
   );
-};
+}
