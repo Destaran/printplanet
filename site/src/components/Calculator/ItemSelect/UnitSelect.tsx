@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const shrinkLabelStyles = css`
   top: 0px;
   font-size: 12px;
-  color: "black";
+  color: black;
 `;
 
 interface InputProps {
@@ -11,7 +11,7 @@ interface InputProps {
 }
 
 const FormInputLabel = styled.label<InputProps>`
-  color: "black";
+  color: black;
   font-size: 16px;
   font-weight: normal;
   position: absolute;
@@ -26,13 +26,12 @@ const FormInputLabel = styled.label<InputProps>`
 const Select = styled.select`
   background: none;
   background-color: white;
-  color: "black";
+  color: ${({ color }) => (color ? color : "black")};
   font-size: 18px;
   display: block;
   width: 100%;
-  border: 1px solid "black";
-  margin: 15px 0;
-  padding: 10px;
+  border: 1px solid black;
+  margin-bottom: 15px;
   height: 22px;
 
   &:focus {

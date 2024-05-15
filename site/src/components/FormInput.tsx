@@ -31,9 +31,8 @@ const Input = styled.input`
   display: block;
   width: 100%;
   border: 1px solid black;
-  margin: 15px 0;
-  height: 20px;
-  padding: 10px;
+  margin-bottom: 15px;
+  height: 22px;
 
   &:focus {
     outline: none;
