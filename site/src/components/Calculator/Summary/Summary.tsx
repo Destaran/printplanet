@@ -84,7 +84,7 @@ export function Summary() {
       {inputId && <SelectRecipePopup id={inputId} setId={setInputId} />}
       {machines.length > 0 && (
         <Window
-          title={"Machines / Beacons / Modules"}
+          title={"Machinery"}
           items={machines}
           handleClick={handleMachineClick}
         />
