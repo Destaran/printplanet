@@ -3,7 +3,7 @@ import { Button } from "../../Button";
 import { UnitSelect } from "./UnitSelect";
 
 const Container = styled.div`
-  width: 15%;
+  width: 5%;
 `;
 
 const ButtonWrapper = styled.div`
