@@ -3,6 +3,7 @@ import { Tooltip } from "react-tooltip";
 import { getNameById } from "../../../../../../../utils/helperFunctions";
 import { ModuleIndicator } from "./ModuleIndicator.component";
 import { useDisplayNumber } from "utils/useDisplayNumber";
+import { OwnMachine } from "utils/types";
 
 const Container = styled.div`
   display: block;
@@ -39,20 +40,21 @@ const BeaconIcons = styled.div`
   object-fit: contain;
 `;
 
-// @ts-expect-error
-export const IconTooltip = ({ machine, uid }) => {
+interface Props {
+  machine: OwnMachine;
+  uid: string;
+}
+
+export function IconTooltip({ machine, uid }: Props) {
   const { id, craftingSpeed, productivity, modules, beacons } = machine;
   const displayName = getNameById(id);
   const displaySpeed = (craftingSpeed * 100).toFixed(0);
   const displayProd = (productivity * 100).toFixed(0);
-  // @ts-expect-error
   const hasModules = modules.some((module) => module.length > 0);
-  // @ts-expect-error
   const hasProd = modules.some((module) => module.includes("productivity"));
   const beaconAffShow = useDisplayNumber(beacons.affecting);
   return (
-    // @ts-expect-error
-    <Tooltip id={uid} style={{ opacity: 1 }} delayShow={"500"} place="top">
+    <Tooltip id={uid} style={{ opacity: 1 }} delayShow={500} place="top">
       <Container>
         <Title>
           <p>{displayName}</p>
@@ -65,12 +67,9 @@ export const IconTooltip = ({ machine, uid }) => {
           <ModulesContainer>
             <ModulesInner>
               <BeaconIcons>
-                {beacons.modules.map(
-                  // @ts-expect-error
-                  (module, key) => (
-                    <ModuleIndicator key={key} module={module} />
-                  )
-                )}
+                {beacons.modules.map((module, key) => (
+                  <ModuleIndicator key={key} module={module} />
+                ))}
               </BeaconIcons>
               <p>&#x2715;</p>
               <p>{beaconAffShow}</p>
@@ -81,16 +80,13 @@ export const IconTooltip = ({ machine, uid }) => {
         {hasModules && (
           <ModulesContainer>
             <ModulesInner>
-              {modules.map(
-                // @ts-expect-error
-                (module, key) => (
-                  <ModuleIndicator key={key} module={module} />
-                )
-              )}
+              {modules.map((module, key) => (
+                <ModuleIndicator key={key} module={module} />
+              ))}
             </ModulesInner>
           </ModulesContainer>
         )}
       </Container>
     </Tooltip>
   );
-};
+}

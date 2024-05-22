@@ -157,7 +157,7 @@ export function MachineIcon({ outputItem, pid }: Props) {
           </ImgContainer>
         </InnerContainer>
       </OutterContainer>
-      <IconTooltip machine={outputItem.machine} uid={uid} />
+      <IconTooltip machine={machine} uid={uid} />
       {machineEditId && (
         <MachineEditPopup
           machineId={machineEditId}
