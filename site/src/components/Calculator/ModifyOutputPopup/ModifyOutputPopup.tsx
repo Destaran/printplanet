@@ -98,8 +98,12 @@ const AmountText = styled.p`
 `;
 
 // refactor
-// @ts-expect-error
-export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
+interface Props {
+  outputId: string;
+  setOutputId: (id: string | null) => void;
+}
+
+export function ModifyOutputPopup({ outputId, setOutputId }: Props) {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const outputArray = useSelector(outputKeys);
@@ -112,19 +116,20 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   useEffect(() => {
     setNewAmount(amount);
   }, [amount]);
-  // @ts-expect-error
-  const inputHandler = ({ target }) => {
+
+  function inputHandler({ target }: React.ChangeEvent<HTMLInputElement>) {
     setNewAmount(target.value);
-  };
+  }
 
   const enterHandler = useCallback(() => {
-    // @ts-expect-error
-    document.activeElement.blur();
-    const newItem = {
+    const div = document.activeElement as HTMLDivElement;
+    div.blur();
+
+    const item = {
       id: id,
       amount: Number(newAmount),
     };
-    dispatch(modifyOutputElement(newItem));
+    dispatch(modifyOutputElement(item));
   }, [dispatch, id, newAmount]);
 
   const removeHandler = useCallback(() => {
@@ -139,25 +144,24 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
   }, [setOutputId]);
 
   const switchHandler = useCallback(
-    // @ts-expect-error
-    (next) => {
-      // @ts-expect-error
-      document.activeElement.blur();
+    (next: boolean) => {
+      const div = document.activeElement as HTMLDivElement;
+      div.blur();
       let direction = next ? 1 : -1;
       const idx =
         (currentIdx + direction + outputArray.length) % outputArray.length;
       setId(outputArray[idx]);
-      // @ts-expect-error
-      inputRef.current.focus();
-      // @ts-expect-error
-      inputRef.current.select();
+      if (inputRef.current) {
+        const input = inputRef.current as HTMLInputElement;
+        input.focus();
+        input.select();
+      }
     },
     [currentIdx, outputArray]
   );
 
   useEffect(() => {
-    // @ts-expect-error
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "r") {
         removeHandler();
       }
@@ -216,4 +220,4 @@ export const ModifyOutputPopup = ({ outputId, setOutputId }) => {
       </ButtonsContainer>
     </Popup>
   );
-};
+}
