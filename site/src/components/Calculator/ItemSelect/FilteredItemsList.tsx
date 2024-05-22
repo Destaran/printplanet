@@ -50,8 +50,12 @@ const ItemIcon = styled.img`
   width: auto;
 `;
 
-// @ts-expect-error
-export const FilteredItemsList = ({ selectItem, searchString }) => {
+interface Props {
+  selectItem: (id: React.MouseEvent<HTMLLIElement>) => void;
+  searchString: string;
+}
+
+export function FilteredItemsList({ selectItem, searchString }: Props) {
   const allItems = useAllProducts();
   const filteredItems = useMemo(
     () =>
@@ -71,7 +75,11 @@ export const FilteredItemsList = ({ selectItem, searchString }) => {
           const name = getNameById(item.name);
 
           return (
-            <FilteredItem onClick={selectItem} key={idx} id={item.name}>
+            <FilteredItem
+              onClick={(e: React.MouseEvent<HTMLLIElement>) => selectItem(e)}
+              key={item.name}
+              id={item.name}
+            >
               <ItemIcon src={imgSrc} alt={name} />
               {name}
             </FilteredItem>
@@ -80,4 +88,4 @@ export const FilteredItemsList = ({ selectItem, searchString }) => {
       </FilteredItems>
     </Container>
   );
-};
+}
