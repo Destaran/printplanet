@@ -38,50 +38,47 @@ const CurrentItemContainer = styled.div`
   }
 `;
 
-export const SearchBar = ({
-  // @ts-expect-error
+interface Props {
+  selectItem: (id: React.MouseEvent<HTMLInputElement>) => void;
+  currentItem: string;
+  setCurrentItem: (id: string) => void;
+  searchString: string;
+  setSearchString: (searchString: string) => void;
+}
+
+export function SearchBar({
   selectItem,
-  // @ts-expect-error
   currentItem,
-  // @ts-expect-error
   setCurrentItem,
-  // @ts-expect-error
   searchString,
-  // @ts-expect-error
   setSearchString,
-}) => {
-  // @ts-expect-error
-  const handleSearchChange = ({ target }) => {
+}: Props) {
+  function handleSearchChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     if (currentItem) {
       setCurrentItem("");
     }
     setSearchString(target.value);
-  };
+  }
 
-  // @ts-expect-error
-  const handleInputFocus = ({ target }) => {
+  function handleSearchFocus({ target }: React.FocusEvent<HTMLInputElement>) {
     target.select();
-  };
+  }
 
   return (
     <Container>
       <SearchBarContainer>
         <FormInput
-          // @ts-expect-error
           autoFocus
           placeholder="Search Item"
           type="text"
           value={searchString}
           name="item-search"
           onChange={handleSearchChange}
-          onFocus={handleInputFocus}
+          onFocus={handleSearchFocus}
         />
         {searchString && !currentItem && (
           <FilteredItemsList
             selectItem={selectItem}
-            // @ts-expect-error
-            setCurrentItem={setCurrentItem}
-            setSearchString={setSearchString}
             searchString={searchString}
           />
         )}
@@ -98,4 +95,4 @@ export const SearchBar = ({
       </CurrentItemContainer>
     </Container>
   );
-};
+}
