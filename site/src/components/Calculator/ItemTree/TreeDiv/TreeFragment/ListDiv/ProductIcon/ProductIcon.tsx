@@ -14,6 +14,7 @@ import {
 } from "../../../../../../../redux/calculator/calculator.slice";
 import { SelectRecipePopup } from "../../../../../SelectRecipePopup/SelectRecipePopup";
 import { useDisplayNumber } from "utils/useDisplayNumber";
+import { OutputItem } from "utils/types";
 
 const Container = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
@@ -34,6 +35,7 @@ const Container = styled.div`
   &:active {
     transition: all 0.1s;
     background-color: ${({ theme }) => theme.colors.grey};
+
     img {
       transform: scale(0.9);
     }
@@ -70,38 +72,41 @@ const AmountText = styled.p`
     -1px 0px 1px #000;
 `;
 
-// @ts-expect-error
-export const ProductIcon = ({ outputItem }) => {
+interface Props {
+  outputItem: OutputItem;
+}
+
+export function ProductIcon({ outputItem }: Props) {
   const { uid, id, amount, ingredients } = outputItem;
-  const [popupId, setPopupId] = useState(null);
+  const [popupId, setPopupId] = useState<string | null>(null);
   const [selectMultiple, setSelectMultiple] = useState(false);
   const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
   const displayAmount = useDisplayNumber(amount);
 
-  // @ts-expect-error
-  const handleClick = (event) => {
+  function handleClick(event: React.MouseEvent<HTMLDivElement>) {
     if (!ingredients) {
       if (checkIfMultipleRecipes(id)) {
         if (event.shiftKey && event.button === 0) {
           setSelectMultiple(true);
         }
-        // @ts-expect-error
-        document.activeElement.blur();
+        (document.activeElement as HTMLDivElement).blur();
         setPopupId(id);
       } else {
         const recipe = getRecipeByProduct(id);
+        if (!recipe) {
+          return;
+        }
+
         if (event.shiftKey && event.button === 0) {
           const payload = {
             id: id,
-            // @ts-expect-error
             recipe: recipe.name,
           };
           dispatch(extendSameTypeElements(payload));
         } else {
           const payload = {
             uid: uid,
-            // @ts-expect-error
             recipe: recipe.name,
           };
           dispatch(extendElement(payload));
@@ -114,7 +119,7 @@ export const ProductIcon = ({ outputItem }) => {
         dispatch(collapseElement(uid));
       }
     }
-  };
+  }
 
   return (
     <>
@@ -127,7 +132,6 @@ export const ProductIcon = ({ outputItem }) => {
         </InnerContainer>
       </Container>
       {popupId && (
-        // @ts-expect-error
         <SelectRecipePopup
           id={popupId}
           setId={setPopupId}
@@ -138,4 +142,4 @@ export const ProductIcon = ({ outputItem }) => {
       )}
     </>
   );
-};
+}
