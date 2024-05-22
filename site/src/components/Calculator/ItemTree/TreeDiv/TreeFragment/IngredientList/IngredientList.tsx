@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { TreeFragment } from "../TreeFragment.component";
+import { TreeFragment } from "../TreeFragment";
+import { OutputItem } from "utils/types";
 
 const UnorderedList = styled.ul`
   margin: 0;
@@ -35,7 +36,12 @@ const UnorderedList = styled.ul`
   }
 `;
 
-export const IngredientList = ({ ingredients, pid }) => {
+interface Props {
+  ingredients: OutputItem[];
+  pid: string;
+}
+
+export function IngredientList({ ingredients, pid }: Props) {
   return (
     <UnorderedList>
       {ingredients.map((outputItem, idx) => {
@@ -45,4 +51,4 @@ export const IngredientList = ({ ingredients, pid }) => {
       })}
     </UnorderedList>
   );
-};
+}

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { ListDiv } from "./ListDiv/ListDiv.component";
 import { outputObject } from "../../../../../redux/calculator/calculator.selector";
-import { IngredientList } from "./IngredientList/IngredientList.component";
+import { IngredientList } from "./IngredientList/IngredientList";
 import { useSelector } from "react-redux";
+import { OutputItem } from "utils/types";
 
 const ListElement = styled.li`
   padding: 0;
@@ -11,7 +12,13 @@ const ListElement = styled.li`
   border-left: 2px solid black;
   padding-left: 50px;
 `;
-export const TreeFragment = ({ outputItem, pid }) => {
+
+interface Props {
+  outputItem: OutputItem;
+  pid: string;
+}
+
+export function TreeFragment({ outputItem, pid }: Props) {
   const { ingredients } = outputItem;
   const output = useSelector(outputObject);
   const firstRender = outputItem.uid !== output[pid].uid;
@@ -35,4 +42,4 @@ export const TreeFragment = ({ outputItem, pid }) => {
       )}
     </>
   );
-};
+}

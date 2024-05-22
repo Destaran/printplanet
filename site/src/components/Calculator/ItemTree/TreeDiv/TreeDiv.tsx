@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TreeFragment } from "./TreeFragment/TreeFragment.component";
+import { TreeFragment } from "./TreeFragment/TreeFragment";
 import { OutputItem } from "utils/types";
 
 const Container = styled.div`
