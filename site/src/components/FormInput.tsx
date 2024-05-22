@@ -60,6 +60,9 @@ interface Props {
   name?: string;
   color?: string;
   autoComplete?: string;
+  autoFocus?: boolean;
+  placeholder?: string;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const FormInput = ({ label, ...otherProps }: Props) => {
