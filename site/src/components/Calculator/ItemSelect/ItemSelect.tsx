@@ -24,20 +24,18 @@ const Container = styled.div`
 `;
 
 export function ItemSelect() {
+  const [popupId, setPopupId] = useState<null | string>(null);
   const [searchString, setSearchString] = useState<string>("");
   const [currentItem, setCurrentItem] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
+  const [unit, setUnit] = useState<number>(1);
   const dispatch = useDispatch();
   const output = useSelector(outputKeys);
-  const [popupId, setPopupId] = useState<null | string>(null);
-  const [unit, setUnit] = useState(1);
 
-  const handleUnitChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  function handleUnitChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     const { value } = target;
     setUnit(Number(value));
-  };
+  }
 
   const resetOptions = useCallback(() => {
     setSearchString("");
@@ -74,11 +72,14 @@ export function ItemSelect() {
     }
   }, [currentItem, dispatch, output, quantity, resetOptions]);
 
-  const selectItem = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedItem = target.id;
-    setSearchString(getNameById(selectedItem));
-    setCurrentItem(selectedItem);
-  };
+  function selectItem(event: React.MouseEvent<HTMLInputElement>) {
+    const target = event.target as HTMLInputElement;
+    const id = target.id;
+    const name = getNameById(id);
+
+    setCurrentItem(id);
+    setSearchString(name);
+  }
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
