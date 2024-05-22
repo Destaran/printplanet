@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { useSelector } from "react-redux";
 import { calculatedOutput } from "../../../redux/calculator/calculator.selector";
-import { TreeDiv } from "./TreeDiv/TreeDiv.component";
+import { TreeDiv } from "./TreeDiv/TreeDiv";
 
 const MountAnimation = keyframes`
 from {
@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const Title = styled.p``;
 
-export const ItemTree = () => {
+export function ItemTree() {
   const output = useSelector(calculatedOutput);
 
   return (
@@ -29,4 +29,4 @@ export const ItemTree = () => {
       ))}
     </Container>
   );
-};
+}

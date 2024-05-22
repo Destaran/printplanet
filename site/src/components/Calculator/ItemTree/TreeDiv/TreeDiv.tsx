@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { TreeFragment } from "./TreeFragment/TreeFragment.component";
+import { OutputItem } from "utils/types";
 
 const Container = styled.div`
   margin-bottom: 20px;
@@ -7,7 +8,11 @@ const Container = styled.div`
   border: 1px solid grey;
 `;
 
-export const TreeDiv = ({ outputItem }) => {
+interface Props {
+  outputItem: OutputItem;
+}
+
+export function TreeDiv({ outputItem }: Props) {
   const { id: pid } = outputItem;
 
   return (
@@ -15,4 +20,4 @@ export const TreeDiv = ({ outputItem }) => {
       <TreeFragment outputItem={outputItem} pid={pid} />
     </Container>
   );
-};
+}
