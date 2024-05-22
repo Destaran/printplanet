@@ -11,6 +11,7 @@ import { IconTooltip } from "./IconTooltip";
 import { useState } from "react";
 import { MachineEditPopup } from "../../../../../MachineEditPopup/MachineEditPopup";
 import { useDisplayNumber } from "utils/useDisplayNumber";
+import { CalculatedMachine, OutputItem } from "utils/types";
 
 const OutterContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
@@ -94,28 +95,37 @@ const BeaconsIcons = styled.div`
   }
 `;
 
-// @ts-expect-error
-export const MachineIcon = ({ outputItem, pid }) => {
+interface Props {
+  outputItem: OutputItem;
+  pid: string;
+}
+
+export function MachineIcon({ outputItem, pid }: Props) {
   const dispatch = useDispatch();
   const [machineEditId, setMachineEditId] = useState<null | string>(null);
+
   const { recipe, machine, uid } = outputItem;
-  const { id, amount, modules, beacons } = machine;
+  const { id, amount, modules, beacons } = machine as CalculatedMachine;
+
+  if (!machine || !recipe) {
+    return;
+  }
+
   const imgUrl = getImageUrlById(id);
   const displayAmount = useDisplayNumber(Math.ceil(amount));
-  // @ts-expect-error
-  const firstModule = modules.find((module) => module.length > 0);
-  const moduleUrl = getImageUrlById(firstModule);
+  const hasModules = modules.find((module) => module.length > 0);
   const beaconUrl = getImageUrlById("beacon");
-  const emptyMachine = getEmptyMachine(machine.id);
+  const moduleUrl = hasModules ? getImageUrlById(hasModules) : null;
+
   const reduxMachine = {
-    ...emptyMachine,
+    ...getEmptyMachine(machine.id),
     modules: machine.modules,
     beacons: machine.beacons,
   };
 
-  const handleClick = () => {
+  function handleClick() {
     setMachineEditId(id);
-  };
+  }
 
   useEffect(() => {
     if (checkModulesForBumping(uid, machine, recipe)) {
@@ -134,7 +144,7 @@ export const MachineIcon = ({ outputItem, pid }) => {
           <ImgContainer>
             <img src={imgUrl} />
             <AmountText>{displayAmount}</AmountText>
-            {moduleUrl.length > 0 && (
+            {moduleUrl && (
               <ModuleIcons>
                 <img src={moduleUrl} alt={modules[0]} />
               </ModuleIcons>
@@ -159,4 +169,4 @@ export const MachineIcon = ({ outputItem, pid }) => {
       )}
     </>
   );
-};
+}
