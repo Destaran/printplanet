@@ -6,10 +6,10 @@ const Container = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.blue};
 `;
 
-export const DefaultMachineConfig = () => {
+export function DefaultMachineConfig() {
   return (
     <Container>
       <MachineConfig />
     </Container>
   );
-};
+}
