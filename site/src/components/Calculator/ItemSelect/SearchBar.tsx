@@ -39,7 +39,7 @@ const CurrentItemContainer = styled.div`
 `;
 
 interface Props {
-  selectItem: (id: React.MouseEvent<HTMLInputElement>) => void;
+  selectItem: (id: React.MouseEvent<HTMLLIElement>) => void;
   currentItem: string;
   setCurrentItem: (id: string) => void;
   searchString: string;

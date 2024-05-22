@@ -72,8 +72,8 @@ export function ItemSelect() {
     }
   }, [currentItem, dispatch, output, quantity, resetOptions]);
 
-  function selectItem(event: React.MouseEvent<HTMLInputElement>) {
-    const target = event.target as HTMLInputElement;
+  function selectItem(event: React.MouseEvent<HTMLLIElement>) {
+    const target = event.target as HTMLLIElement;
     const id = target.id;
     const name = getNameById(id);
 
