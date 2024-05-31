@@ -20,7 +20,7 @@ to {
 const OutterContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
   height: 42px;
-  width: auto;
+  width: 42px;
   padding: 2px;
   margin: 1px;
   background-color: ${({ theme }) => theme.colors.grey};
