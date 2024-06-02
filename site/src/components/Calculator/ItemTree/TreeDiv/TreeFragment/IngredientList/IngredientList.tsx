@@ -17,7 +17,7 @@ const UnorderedList = styled.ul`
     content: "";
     position: absolute;
     display: flex;
-    height: 28px;
+    height: 22px;
     left: -2px;
     border-left: 2px solid black;
     top: 0px;
@@ -29,7 +29,7 @@ const UnorderedList = styled.ul`
     content: "";
     display: block;
     position: relative;
-    top: 26px;
+    top: 20px;
     left: -50px;
     width: 75px;
     border: solid black 1px;
