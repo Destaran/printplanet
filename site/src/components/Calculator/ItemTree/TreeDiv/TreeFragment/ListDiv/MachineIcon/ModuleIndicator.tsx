@@ -7,27 +7,32 @@ const Container = styled.div`
   margin: 1px;
   border: 1px solid #864c00;
   background-color: ${({ theme }) => theme.colors.blue};
+`;
 
-  img {
-    height: 28px;
-    width: 28px;
-    margin: 0;
-    border: none;
+const Image = styled.img`
+  height: 28px;
+  width: 28px;
+  margin: 0;
+  border: none;
+  background-color: ${({ theme }) => theme.colors.blue};
+
+  :hover {
+    cursor: pointer;
+    background-color: orange;
+  }
+
+  :active {
     background-color: ${({ theme }) => theme.colors.blue};
-    :hover {
-      cursor: pointer;
-      background-color: orange;
-    }
-
-    :active {
-      background-color: ${({ theme }) => theme.colors.blue};
-    }
   }
 `;
 
-export const ModuleIndicator = ({ module }) => {
+interface Props {
+  module: string;
+}
+
+export function ModuleIndicator({ module }: Props) {
   const imgUrl = getImageUrlById(module);
   return (
-    <Container>{module.length > 0 && <img src={imgUrl} alt="" />}</Container>
+    <Container>{module.length > 0 && <Image src={imgUrl} alt="" />}</Container>
   );
-};
+}

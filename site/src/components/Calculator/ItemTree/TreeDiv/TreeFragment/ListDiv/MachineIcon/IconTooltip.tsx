@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
 import { getNameById } from "../../../../../../../utils/helperFunctions";
-import { ModuleIndicator } from "./ModuleIndicator.component";
+import { ModuleIndicator } from "./ModuleIndicator";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 import { OwnMachine } from "utils/types";
 

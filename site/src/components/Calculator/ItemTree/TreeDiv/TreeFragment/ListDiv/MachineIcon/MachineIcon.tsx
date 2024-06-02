@@ -11,7 +11,7 @@ import { IconTooltip } from "./IconTooltip";
 import { useState } from "react";
 import { MachineEditPopup } from "../../../../../MachineEditPopup/MachineEditPopup";
 import { useDisplayNumber } from "utils/useDisplayNumber";
-import { CalculatedMachine, OutputItem } from "utils/types";
+import { OutputItem, OwnMachine } from "utils/types";
 
 const OutterContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
@@ -101,14 +101,18 @@ interface Props {
 }
 
 export function MachineIcon({ outputItem, pid }: Props) {
+  if (!outputItem.machine) {
+    throw new Error("MachineIcon: outputItem.machine is undefined");
+  }
+
   const dispatch = useDispatch();
   const [machineEditId, setMachineEditId] = useState<null | string>(null);
 
   const { recipe, machine, uid } = outputItem;
-  const { id, amount, modules, beacons } = machine as CalculatedMachine;
+  const { id, amount, modules, beacons } = machine as OwnMachine;
 
-  if (!machine || !recipe) {
-    return;
+  if (!amount || !recipe) {
+    throw new Error("MachineIcon: amount or recipe is undefined");
   }
 
   const imgUrl = getImageUrlById(id);
@@ -157,7 +161,7 @@ export function MachineIcon({ outputItem, pid }: Props) {
           </ImgContainer>
         </InnerContainer>
       </OutterContainer>
-      <IconTooltip machine={machine} uid={uid} />
+      {machine && <IconTooltip machine={machine} uid={uid} />}
       {machineEditId && (
         <MachineEditPopup
           machineId={machineEditId}

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ProductIcon } from "./ProductIcon/ProductIcon";
 import { MachineIcon } from "./MachineIcon/MachineIcon";
+import { OutputItem } from "utils/types";
 
 const Wrapper = styled.div`
   margin: 0;
@@ -23,7 +24,12 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-export const ListDiv = ({ outputItem, pid }) => {
+interface Props {
+  outputItem: OutputItem;
+  pid: string;
+}
+
+export function ListDiv({ outputItem, pid }: Props) {
   return (
     <Wrapper>
       <Container>
@@ -34,4 +40,4 @@ export const ListDiv = ({ outputItem, pid }) => {
       </Container>
     </Wrapper>
   );
-};
+}

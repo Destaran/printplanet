@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ListDiv } from "./ListDiv/ListDiv.component";
+import { ListDiv } from "./ListDiv/ListDiv";
 import { outputObject } from "../../../../../redux/calculator/calculator.selector";
 import { IngredientList } from "./IngredientList/IngredientList";
 import { useSelector } from "react-redux";
