@@ -13,7 +13,7 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
   border: 2px solid ${({ theme }) => theme.colors.blue};
   height: 42px;
-  width: auto;
+  width: 42px;
   padding: 2px;
   margin: 1px;
   background-color: ${(props) =>
