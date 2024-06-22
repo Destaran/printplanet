@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
+import { User } from './user.entity';
 
 @Controller('user')
 export class UserController {
@@ -27,13 +28,13 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Body('user') user) {
+  create(@Body('user') user: User) {
     return this.userService.create(user);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put(':id')
-  update(@Param('id') id, @Body('user') user) {
+  update(@Param('id') id, @Body('user') user: User) {
     return this.userService.update(id, user);
   }
 
