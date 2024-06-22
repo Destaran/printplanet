@@ -21,13 +21,13 @@ export class UserController {
   }
 
   @Get(':id')
-  find(@Param('id') id: number) {
-    return this.userService.find(id);
+  find(@Param('id') id: string) {
+    return this.userService.findUserById(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Body('plan') user) {
+  create(@Body('user') user) {
     return this.userService.create(user);
   }
 
@@ -39,7 +39,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
-  delete(@Param('id') id: number) {
+  delete(@Param('id') id: string) {
     return this.userService.delete(id);
   }
 }

@@ -1,13 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('admin')
 export class User {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryColumn('varchar', { length: 255, nullable: false })
   id: string;
 
-  @Column()
-  email: string;
-
   @Column('varchar', { length: 255, nullable: true })
-  generatedString: string | null;
+  email: string | null;
+
+  @Column('varchar', { length: 255, nullable: false })
+  nickname: string;
 }
