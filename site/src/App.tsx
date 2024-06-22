@@ -6,12 +6,15 @@ import { store, persistor } from "./redux/store";
 import { AppRoutes } from "./AppRoutes";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { theme } from "./styles/theme";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const PageWrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 `;
+
+const queryClient = new QueryClient();
 
 export const App = () => {
   return (
@@ -21,9 +24,11 @@ export const App = () => {
         <BrowserRouter>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <PageWrapper>
-                <AppRoutes />
-              </PageWrapper>
+              <QueryClientProvider client={queryClient}>
+                <PageWrapper>
+                  <AppRoutes />
+                </PageWrapper>
+              </QueryClientProvider>
             </PersistGate>
           </Provider>
         </BrowserRouter>
