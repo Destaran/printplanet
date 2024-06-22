@@ -12,11 +12,13 @@ export class User1707760816786 implements MigrationInterface {
             length: '255',
             isPrimary: true,
             isUnique: true,
+            isNullable: false,
           },
           {
             name: 'email',
             type: 'varchar',
             length: '255',
+            isNullable: true,
           },
           {
             name: 'nickname',
