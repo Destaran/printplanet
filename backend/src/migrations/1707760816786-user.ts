@@ -1,29 +1,28 @@
 import { type MigrationInterface, type QueryRunner, Table } from 'typeorm';
 
-export class Admin1707760816786 implements MigrationInterface {
+export class User1707760816786 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'admin',
+        name: 'user',
         columns: [
           {
             name: 'id',
-            type: 'bigint',
+            type: 'varchar',
+            length: '255',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+            isUnique: true,
           },
           {
             name: 'email',
             type: 'varchar',
             length: '255',
-            isUnique: true,
           },
           {
-            name: 'generated_string',
+            name: 'nickname',
             type: 'varchar',
             length: '255',
-            isNullable: true,
+            isNullable: false,
           },
         ],
       }),
@@ -32,6 +31,6 @@ export class Admin1707760816786 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('admin');
+    await queryRunner.dropTable('user');
   }
 }

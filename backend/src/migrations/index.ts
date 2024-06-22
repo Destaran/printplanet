@@ -1,3 +1,3 @@
-import { Admin1707760816786 } from './1707760816786-admin';
+import { User1707760816786 } from './1707760816786-user';
 
-export const migrations = [Admin1707760816786];
+export const migrations = [User1707760816786];
