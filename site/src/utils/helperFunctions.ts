@@ -14,7 +14,7 @@ export const recipes = data.recipes as Recipe[];
 export const craftingMachines = data.craftingMachines as Machine[];
 export const modules = data.modules as Module[];
 
-export const getMachinesById = (recipeId: string) => {
+export function getMachinesById(recipeId: string) {
   const recipe = recipes.find((recipe) => recipe.name === recipeId);
   if (!recipe) {
     throw new Error("Could not find machine by recipe ID");
@@ -27,9 +27,9 @@ export const getMachinesById = (recipeId: string) => {
     }
   });
   return machinesArray;
-};
+}
 
-export const getModulesByRecipeId = (id: string) => {
+export function getModulesByRecipeId(id: string) {
   const modulesArray: Module[] = [];
   modules.forEach((module) => {
     if (module.limitations.length < 1) {
@@ -44,44 +44,45 @@ export const getModulesByRecipeId = (id: string) => {
     }
   });
   return modulesArray;
-};
+}
 
-export const getNameById = (id: string) => {
+export function getNameById(id: string) {
   const words = id.split("-");
   words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
   const result = words.join(" ");
   return result;
-};
+}
 
-export const getRecipeById = (id: string) => {
+export function getRecipeById(id: string) {
   const recipe = recipes.find((recipe) => recipe.name === id);
   if (!recipe) {
     throw new Error("Could not find recipe by ID");
   }
 
   return recipe;
-};
+}
 
-export const getImageUrlById = (id: string) => {
+export function getImageUrlById(id: string) {
   if (id) {
     return `./new-icons/${id}.png`;
   } else {
     return "";
   }
-};
+}
 
-const getMachineObjectById = (id: string) => {
+function getMachineObjectById(id: string) {
   const machine = craftingMachines.find((item) => item.name === id);
   if (!machine) {
     throw new Error("Could not find machine object by ID");
   }
   return machine;
-};
+}
 
-export const getMachineCategories = (id: string) =>
-  getMachineObjectById(id).categories;
+export function getMachineCategories(id: string) {
+  return getMachineObjectById(id).categories;
+}
 
-export const checkIfMultipleRecipes = (id: string) => {
+export function checkIfMultipleRecipes(id: string) {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === id)
   );
@@ -90,16 +91,16 @@ export const checkIfMultipleRecipes = (id: string) => {
   } else if (matchingObjects.length > 1) {
     return true;
   }
-};
+}
 
-export const getRecipeByProduct = (id: string) => {
+export function getRecipeByProduct(id: string) {
   if (checkIfMultipleRecipes(id)) {
     return;
   }
   return recipes.find((recipe) =>
     recipe.products.find((product) => product.name === id)
   );
-};
+}
 
 export function getRecipes(productId: string): Recipe[] {
   const matchingObjects = recipes.filter((obj) =>
@@ -108,7 +109,7 @@ export function getRecipes(productId: string): Recipe[] {
   return matchingObjects;
 }
 
-export const getEmptyMachine = (id: string) => {
+export function getEmptyMachine(id: string) {
   const machine = getMachineObjectById(id);
   return <OwnMachine>{
     id: id,
@@ -122,17 +123,17 @@ export const getEmptyMachine = (id: string) => {
     },
     modules: new Array(machine.moduleSlots).fill(""),
   };
-};
+}
 
-export const checkIfDefault = (
+export function checkIfDefault(
   machineId: string,
   defaultMachines: Record<MachineCategory, OwnMachine>
-) => {
+) {
   const defMachinesArray = Object.values(defaultMachines);
   return defMachinesArray.some((machine) => machine.id === machineId);
-};
+}
 
-const checkIfUseableModule = (module: string, recipeId: string) => {
+function checkIfUseableModule(module: string, recipeId: string) {
   if (module) {
     let isUseable = false;
     const useableModules = getModulesByRecipeId(recipeId);
@@ -145,13 +146,13 @@ const checkIfUseableModule = (module: string, recipeId: string) => {
   } else {
     return true;
   }
-};
+}
 
-export const checkModulesForBumping = (
+export function checkModulesForBumping(
   uid: string,
   machine: OwnMachine,
   recipe: string
-) => {
+) {
   if (uid && machine) {
     const { modules: machineModules } = machine;
     let shouldBump = false;
@@ -165,17 +166,17 @@ export const checkModulesForBumping = (
     });
     return shouldBump;
   }
-};
+}
 
 // refactor: look into rounding
 
 // Search for recipes producing product based on id
 // Returns array of multiple ids or single id
-const lookUpProducers = (
+function lookUpProducers(
   resultArray: string[],
   outputItem: OutputItem,
   lookUpId: string
-) => {
+) {
   if (outputItem.ingredients) {
     const existingItem = resultArray.find((item) => item === outputItem.id);
     outputItem.ingredients.forEach((ingredient) => {
@@ -187,42 +188,42 @@ const lookUpProducers = (
       }
     });
   }
-};
+}
 
-export const getProducers = (output: OutputItem[], id: string) => {
+export function getProducers(output: OutputItem[], id: string) {
   const resultArray: string[] = [];
   output.forEach((element) => {
     lookUpProducers(resultArray, element, id);
   });
   return resultArray;
-};
+}
 
-export const getModules = () => {
+export function getModules() {
   const modulNames = [""];
   modules.forEach((module) => {
     modulNames.push(module.name);
   });
   return modulNames;
-};
+}
 
-export const getBeaconModules = () => {
+export function getBeaconModules() {
   const moduleNames = getModules();
   return moduleNames.filter(
     (moduleName) => !moduleName.includes("productivity")
   );
-};
+}
 
-export const getDefaultMachine = (
+export function getDefaultMachine(
   id: string,
   machines: Record<string, OwnMachine>
-) => {
+) {
   const machinesArray = Object.values(machines);
   return <OwnMachine>machinesArray.find((category) => category.id === id);
-};
+}
 
-export const compareCategories = (
+export function compareCategories(
   original: MachineCategories,
   compared: MachineCategories
-) => {
+) {
   return original.every((og: MachineCategory) => compared.includes(og));
-};
+}
