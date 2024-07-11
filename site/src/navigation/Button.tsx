@@ -47,7 +47,7 @@ function checkPath(path: string) {
   }
 }
 
-export function NavButton({ destination, title }: Props) {
+export function Button({ destination, title }: Props) {
   return (
     <Wrapper>
       <NavLink to={`/${destination}`} $isactive={checkPath(`/${destination}`)}>

@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { NavButton } from "./NavButton";
+import { Button } from "./Button";
 import { useAuth0 } from "@auth0/auth0-react";
 import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
@@ -31,15 +31,15 @@ export function NavBar() {
     <Container>
       <Wrapper>
         <SideWrapper>
-          <NavButton destination="configurator" title="Config" />
-          <NavButton destination="calculator" title="Calculator" />
+          <Button destination="configurator" title="Config" />
+          <Button destination="calculator" title="Calculator" />
         </SideWrapper>
         <SideWrapper>
-          <NavButton destination="guide" title="Guide" />
-          <NavButton destination="about" title="About" />
+          <Button destination="guide" title="Guide" />
+          <Button destination="about" title="About" />
           {isAuthenticated ? (
             <>
-              <NavButton destination="profile" title="Profile" />
+              <Button destination="profile" title="Profile" />
               <LogoutButton />
             </>
           ) : (
