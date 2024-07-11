@@ -1,14 +1,15 @@
 import { useCallback } from "react";
 import { put } from "../API";
 import { useMutation } from "@tanstack/react-query";
+import { Plan } from "./Plan";
 
-async function updatePlan(plan: any, id: string) {
-  return await put<any>(`/plans/${id}`, plan);
+async function updatePlan(plan: Plan, id: string) {
+  return await put<Plan>(`/plans/${id}`, plan);
 }
 
 export function useUpdatePlan(id: string) {
   const updateCurrentPlan = useCallback(
-    async (plan: any) => await updatePlan(plan, id),
+    async (plan: Plan) => await updatePlan(plan, id),
     [id]
   );
 
