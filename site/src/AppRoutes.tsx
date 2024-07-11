@@ -1,6 +1,6 @@
 import { Configurator } from "./configurator/Configurator";
 import { AuthGuard } from "./AuthGuard";
-import { About } from "./about/About.component";
+import { About } from "./about/About";
 import { Calculator } from "./calculator/Calculator";
 import { Guide } from "./guide/Guide";
 import { LandingPage } from "./landing-page/LandingPage";
