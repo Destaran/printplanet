@@ -65,7 +65,7 @@ export function ModuleSlot({
   }, [onModuleChange, modules, slotIdx, moduleIdx, beaconModule]);
 
   const handleClick = (event: React.MouseEvent) => {
-    let direction = event.shiftKey && event.button === 0 ? -1 : 1;
+    const direction = event.shiftKey && event.button === 0 ? -1 : 1;
     setModuleIdx((moduleIdx + direction + modules.length) % modules.length);
   };
 

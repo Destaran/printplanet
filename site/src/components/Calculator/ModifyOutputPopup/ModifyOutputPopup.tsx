@@ -133,7 +133,7 @@ export function ModifyOutputPopup({ outputId, setOutputId }: Props) {
   }, [dispatch, id, newAmount]);
 
   const removeHandler = useCallback(() => {
-    let direction = currentIdx === outputArray.length - 1 ? -1 : 1;
+    const direction = currentIdx === outputArray.length - 1 ? -1 : 1;
     const newIndex = currentIdx + direction;
     newIndex < 0 ? setOutputId(null) : setId(outputArray[newIndex]);
     dispatch(removeFromOutput(id));
@@ -147,7 +147,7 @@ export function ModifyOutputPopup({ outputId, setOutputId }: Props) {
     (next: boolean) => {
       const div = document.activeElement as HTMLDivElement;
       div.blur();
-      let direction = next ? 1 : -1;
+      const direction = next ? 1 : -1;
       const idx =
         (currentIdx + direction + outputArray.length) % outputArray.length;
       setId(outputArray[idx]);
