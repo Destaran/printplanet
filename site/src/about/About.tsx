@@ -14,7 +14,7 @@ const TextWrapper = styled.div`
   }
 `;
 
-export const About = () => {
+export function About() {
   const redirectToPaypal = () => {
     window.location.href =
       "https://www.paypal.com/donate/?hosted_button_id=7YCG2SZ42CZ54";
@@ -51,4 +51,4 @@ export const About = () => {
       </TextWrapper>
     </PageBase>
   );
-};
+}
