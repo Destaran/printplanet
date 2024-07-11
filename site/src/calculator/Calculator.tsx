@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { outputValues } from "../redux/calculator/calculator.selector";
-import { ItemSelect } from "../components/Calculator/ItemSelect/ItemSelect";
-import { Summary } from "../components/Calculator/Summary/Summary";
-import { ItemTree } from "../components/Calculator/ItemTree/ItemTree";
+import { ItemSelect } from "./ItemSelect/ItemSelect";
+import { Summary } from "./Summary/Summary";
+import { ItemTree } from "./ItemTree/ItemTree";
 import { PageBase } from "../components/PageBase";
 
 export const Calculator = () => {
