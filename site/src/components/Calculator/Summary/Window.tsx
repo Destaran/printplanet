@@ -55,7 +55,7 @@ const Title = styled.p`
 interface Props {
   title: string;
   items: OutputItem[] | SummaryItem[];
-  handleClick: any;
+  handleClick: (id: string, event: React.MouseEvent) => void;
 }
 
 export const Window = ({ title, items, handleClick }: Props) => {

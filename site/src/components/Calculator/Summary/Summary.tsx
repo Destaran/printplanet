@@ -19,7 +19,7 @@ import { ModifyOutputPopup } from "../ModifyOutputPopup/ModifyOutputPopup";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup";
 import { MachineEditPopup } from "../MachineEditPopup/MachineEditPopup";
 import { Window } from "./Window";
-import { OutputItem, OwnMachine, SummaryItem } from "utils/types";
+import { OutputItem, SummaryItem } from "utils/types";
 
 const Container = styled.div`
   display: grid;
@@ -44,7 +44,7 @@ export function Summary() {
     setOutputId(id);
   }
 
-  function handleInputClick(id: string, event: MouseEvent) {
+  function handleInputClick(id: string, event: React.MouseEvent) {
     if (event.shiftKey && event.button === 0) {
       const producers = getProducers(output, id);
       producers.forEach((id) => {
