@@ -19,7 +19,6 @@ export const outputKeys = (state: RootState) =>
 
 export const calculatedOutput = (state: RootState) => {
   const output = Object.values(state.calculator.output);
-  const calcOutput: OutputItem[] = [];
   return output.map((item) => {
     return calculateTree(item);
   });
