@@ -25,7 +25,7 @@ interface Props {
   outputItem: OutputItem;
 }
 
-export const ProductTooltip = ({ outputItem }: Props) => {
+export function ProductTooltip({ outputItem }: Props) {
   const displayName = getNameById(outputItem.id);
   return (
     <Tooltip
@@ -44,4 +44,4 @@ export const ProductTooltip = ({ outputItem }: Props) => {
       </Container>
     </Tooltip>
   );
-};
+}

@@ -16,7 +16,7 @@ const PageWrapper = styled.div`
 
 const queryClient = new QueryClient();
 
-export const App = () => {
+export function App() {
   return (
     <>
       <GlobalStyle />
@@ -35,4 +35,4 @@ export const App = () => {
       </ThemeProvider>
     </>
   );
-};
+}

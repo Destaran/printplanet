@@ -66,7 +66,7 @@ const PopupPortal = ({ children }: PortalProps) => {
   return createPortal(children, document.body);
 };
 
-export const Popup = ({ children, title }: PopupProps) => {
+export function Popup({ children, title }: PopupProps) {
   return (
     <PopupPortal>
       <PopupContainer>
@@ -79,4 +79,4 @@ export const Popup = ({ children, title }: PopupProps) => {
       </PopupContainer>
     </PopupPortal>
   );
-};
+}

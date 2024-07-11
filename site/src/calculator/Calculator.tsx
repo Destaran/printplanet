@@ -5,7 +5,7 @@ import { Summary } from "./Summary/Summary";
 import { ItemTree } from "./ItemTree/ItemTree";
 import { PageBase } from "../components/PageBase";
 
-export const Calculator = () => {
+export function Calculator() {
   const output = useSelector(outputValues);
   return (
     <PageBase>
@@ -14,4 +14,4 @@ export const Calculator = () => {
       {output.length > 0 && <ItemTree />}
     </PageBase>
   );
-};
+}

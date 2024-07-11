@@ -6,10 +6,10 @@ interface Props {
   component: ComponentType<unknown>;
 }
 
-export const AuthGuard = ({ component }: Props) => {
+export function AuthGuard({ component }: Props) {
   const Component = withAuthenticationRequired(component, {
     onRedirecting: () => <PageBase />,
   });
 
   return <Component />;
-};
+}

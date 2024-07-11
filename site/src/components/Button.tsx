@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
-export const DefaultButton = styled.button`
+const DefaultButton = styled.button`
   border: 1px solid black;
   font-size: 16px;
   padding: 5px;
@@ -74,7 +74,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType?: keyof typeof BUTTON_TYPE_CLASSES;
 }
 
-export const Button = ({ children, buttonType, ...otherProps }: Props) => {
+export function Button({ children, buttonType, ...otherProps }: Props) {
   const CustomButton = getButton(buttonType);
   return <CustomButton {...otherProps}>{children}</CustomButton>;
-};
+}

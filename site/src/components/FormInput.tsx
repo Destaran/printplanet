@@ -65,7 +65,7 @@ interface Props {
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export const FormInput = ({ label, ...otherProps }: Props) => {
+export function FormInput({ label, ...otherProps }: Props) {
   const hasText = otherProps.value.length > 0;
 
   return (
@@ -74,4 +74,4 @@ export const FormInput = ({ label, ...otherProps }: Props) => {
       {label && <FormInputLabel shrink={hasText}>{label}</FormInputLabel>}
     </Group>
   );
-};
+}

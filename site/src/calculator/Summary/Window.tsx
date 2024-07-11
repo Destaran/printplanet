@@ -58,7 +58,7 @@ interface Props {
   handleClick: (id: string, event: React.MouseEvent) => void;
 }
 
-export const Window = ({ title, items, handleClick }: Props) => {
+export function Window({ title, items, handleClick }: Props) {
   return (
     <Container>
       <WindowContainer>
@@ -75,4 +75,4 @@ export const Window = ({ title, items, handleClick }: Props) => {
       </WindowContainer>
     </Container>
   );
-};
+}
