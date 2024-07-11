@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TreeFragment } from "../TreeFragment";
+import { TreeFragment } from "./TreeFragment";
 import { OutputItem } from "utils/types";
 
 const UnorderedList = styled.ul`

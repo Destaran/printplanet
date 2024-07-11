@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { useSelector } from "react-redux";
 import { calculatedOutput } from "../../../redux/calculator/calculator.selector";
-import { TreeDiv } from "./TreeDiv/TreeDiv";
+import { TreeDiv } from "./TreeDiv";
 
 const MountAnimation = keyframes`
 from {

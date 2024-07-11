@@ -3,7 +3,7 @@ import {
   checkIfMultipleRecipes,
   getImageUrlById,
   getRecipeByProduct,
-} from "../../../../../../../utils/helperFunctions";
+} from "../../../../utils/helperFunctions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -11,10 +11,11 @@ import {
   extendSameTypeElements,
   collapseElement,
   collapseSameTypeElements,
-} from "../../../../../../../redux/calculator/calculator.slice";
-import { SelectRecipePopup } from "../../../../../SelectRecipePopup/SelectRecipePopup";
+} from "../../../../redux/calculator/calculator.slice";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 import { OutputItem } from "utils/types";
+import { ProductTooltip } from "./ProductTooltip";
+import { SelectRecipePopup } from "components/Calculator/SelectRecipePopup/SelectRecipePopup";
 
 const Container = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
@@ -131,6 +132,7 @@ export function ProductIcon({ outputItem }: Props) {
           </ImgContainer>
         </InnerContainer>
       </Container>
+      <ProductTooltip outputItem={outputItem} />
       {popupId && (
         <SelectRecipePopup
           id={popupId}

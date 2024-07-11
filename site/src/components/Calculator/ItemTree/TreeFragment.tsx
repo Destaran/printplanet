@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { ListDiv } from "./ListDiv/ListDiv";
-import { outputObject } from "../../../../../redux/calculator/calculator.selector";
-import { IngredientList } from "./IngredientList/IngredientList";
+import { Group } from "./Group/Group";
+import { outputObject } from "../../../redux/calculator/calculator.selector";
+import { IngredientList } from "./IngredientList";
 import { useSelector } from "react-redux";
 import { OutputItem } from "utils/types";
 
@@ -27,14 +27,14 @@ export function TreeFragment({ outputItem, pid }: Props) {
     <>
       {firstRender ? (
         <ListElement>
-          <ListDiv outputItem={outputItem} pid={pid} />
+          <Group outputItem={outputItem} pid={pid} />
           {ingredients && (
             <IngredientList ingredients={ingredients} pid={pid} />
           )}
         </ListElement>
       ) : (
         <>
-          <ListDiv outputItem={outputItem} pid={pid} />
+          <Group outputItem={outputItem} pid={pid} />
           {ingredients && (
             <IngredientList ingredients={ingredients} pid={pid} />
           )}

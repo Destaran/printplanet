@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getImageUrlById } from "../../../../../../../utils/helperFunctions";
+import { getImageUrlById } from "../../../../utils/helperFunctions";
 
 const Container = styled.div`
   height: 28px;

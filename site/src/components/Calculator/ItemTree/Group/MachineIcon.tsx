@@ -7,9 +7,9 @@ import {
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { bumpModules } from "redux/calculator/calculator.slice";
-import { IconTooltip } from "./IconTooltip";
+import { MachineTooltip } from "./MachineTooltip";
 import { useState } from "react";
-import { MachineEditPopup } from "../../../../../MachineEditPopup/MachineEditPopup";
+import { MachineEditPopup } from "../../MachineEditPopup/MachineEditPopup";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 import { OutputItem, OwnMachine } from "utils/types";
 
@@ -161,7 +161,7 @@ export function MachineIcon({ outputItem, pid }: Props) {
           </ImgContainer>
         </InnerContainer>
       </OutterContainer>
-      {machine && <IconTooltip machine={machine} uid={uid} />}
+      {machine && <MachineTooltip machine={machine} />}
       {machineEditId && (
         <MachineEditPopup
           machineId={machineEditId}

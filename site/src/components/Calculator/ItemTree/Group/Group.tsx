@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { ProductIcon } from "./ProductIcon/ProductIcon";
-import { MachineIcon } from "./MachineIcon/MachineIcon";
+import { ProductIcon } from "./ProductIcon";
+import { MachineIcon } from "./MachineIcon";
 import { OutputItem } from "utils/types";
 
 const Wrapper = styled.div`
@@ -29,7 +29,7 @@ interface Props {
   pid: string;
 }
 
-export function ListDiv({ outputItem, pid }: Props) {
+export function Group({ outputItem, pid }: Props) {
   return (
     <Wrapper>
       <Container>

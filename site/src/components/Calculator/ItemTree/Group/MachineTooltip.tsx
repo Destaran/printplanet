@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
-import { getNameById } from "../../../../../../../utils/helperFunctions";
+import { getNameById } from "../../../../utils/helperFunctions";
 import { ModuleIndicator } from "./ModuleIndicator";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 import { OwnMachine } from "utils/types";
@@ -42,10 +42,9 @@ const BeaconIcons = styled.div`
 
 interface Props {
   machine: OwnMachine;
-  uid: string;
 }
 
-export function IconTooltip({ machine, uid }: Props) {
+export function MachineTooltip({ machine }: Props) {
   const { id, craftingSpeed, productivity, modules, beacons } = machine;
   const displayName = getNameById(id);
   const displaySpeed = (craftingSpeed * 100).toFixed(0);
@@ -54,7 +53,7 @@ export function IconTooltip({ machine, uid }: Props) {
   const hasProd = modules.some((module) => module.includes("productivity"));
   const beaconAffShow = useDisplayNumber(beacons.affecting);
   return (
-    <Tooltip id={uid} style={{ opacity: 1 }} delayShow={500} place="top">
+    <Tooltip id={machine.id} style={{ opacity: 1 }} delayShow={500} place="top">
       <Container>
         <Title>
           <p>{displayName}</p>
