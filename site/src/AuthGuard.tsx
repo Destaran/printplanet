@@ -3,7 +3,7 @@ import { ComponentType } from "react";
 import { PageBase } from "./components/PageBase";
 
 interface Props {
-  component: ComponentType<any>;
+  component: ComponentType<unknown>;
 }
 
 export const AuthGuard = ({ component }: Props) => {
