@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../../utils/helperFunctions";
 import { FormInput } from "../../FormInput";
-import React, { ChangeEvent, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 const Container = styled.div`
   width: 110px;

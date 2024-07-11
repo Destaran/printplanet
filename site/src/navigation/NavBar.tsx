@@ -24,7 +24,7 @@ const SideWrapper = styled.div`
 `;
 
 export function NavBar() {
-  const location = useLocation();
+  useLocation();
   const { isAuthenticated } = useAuth0();
 
   return (

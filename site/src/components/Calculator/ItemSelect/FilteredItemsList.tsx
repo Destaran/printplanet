@@ -70,7 +70,7 @@ export function FilteredItemsList({ selectItem, searchString }: Props) {
   return (
     <Container>
       <FilteredItems>
-        {filteredItems.map((item, idx) => {
+        {filteredItems.map((item) => {
           const imgSrc = getImageUrlById(item.name);
           const name = getNameById(item.name);
 
