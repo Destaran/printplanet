@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useCallback, useMemo, useEffect } from "react";
-import { Beacons } from "./Beacons.component";
-import { Modules } from "./Modules.component";
+import { Beacons } from "./Beacons";
+import { Modules } from "./Modules";
 import { OwnMachine } from "../../../utils/types";
 
 const Container = styled.div`
@@ -14,7 +14,7 @@ interface Props {
   setMachineConfig: React.Dispatch<React.SetStateAction<OwnMachine>>;
 }
 
-export const ModuleConfig = ({ machineConfig, setMachineConfig }: Props) => {
+export function ModuleConfig({ machineConfig, setMachineConfig }: Props) {
   const [beacons, setBeacons] = useState(machineConfig.beacons);
   const [modules, setModules] = useState(machineConfig.modules);
 
@@ -67,4 +67,4 @@ export const ModuleConfig = ({ machineConfig, setMachineConfig }: Props) => {
       <Modules modules={modules} onModuleChange={onModuleChange} />
     </Container>
   );
-};
+}

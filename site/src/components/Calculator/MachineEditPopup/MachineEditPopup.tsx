@@ -15,7 +15,7 @@ import {
 import { Button } from "../../Button";
 import { useEffect } from "react";
 import { Popup } from "../../Popup";
-import { MachineConfig } from "../MachineConfig/MachineConfig.component";
+import { MachineConfig } from "../MachineConfig/MachineConfig";
 import { OwnMachine } from "utils/types";
 
 const MachineFunctions = styled.div`

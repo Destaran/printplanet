@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { Select } from "./Select.component";
-import { ModuleConfig } from "./ModuleConfig.component";
+import { Select } from "./Select";
+import { ModuleConfig } from "./ModuleConfig";
 import {
   checkIfDefault,
   getDefaultMachine,
@@ -53,7 +53,7 @@ interface Props {
   edit?: boolean;
 }
 
-export const MachineConfig = ({ config, setConfig, edit }: Props) => {
+export function MachineConfig({ config, setConfig, edit }: Props) {
   const dispatch = useDispatch();
   const defaultMachines = useSelector(craftingMachines);
   const initialMachine = config ? config : defaultMachines.crafting;
@@ -130,4 +130,4 @@ export const MachineConfig = ({ config, setConfig, edit }: Props) => {
       </FunctionsContainer>
     </Container>
   );
-};
+}

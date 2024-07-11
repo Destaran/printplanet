@@ -3,7 +3,7 @@ import { AuthGuard } from "./AuthGuard";
 import { About } from "./about/About.component";
 import { Calculator } from "./calculator/Calculator";
 import { Guide } from "./guide/Guide";
-import { LandingPage } from "./landing-page/LandingPage.component";
+import { LandingPage } from "./landing-page/LandingPage";
 import { Navigation } from "./navigation/Navigation";
 import { Profile } from "./profile/Profile";
 import { Route, Routes } from "react-router-dom";

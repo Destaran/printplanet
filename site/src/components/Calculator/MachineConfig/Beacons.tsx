@@ -3,7 +3,7 @@ import {
   getBeaconModules,
   getImageUrlById,
 } from "../../../utils/helperFunctions";
-import { ModuleSlot } from "./ModuleSlot.component";
+import { ModuleSlot } from "./ModuleSlot";
 import { Beacons as BeaconsType } from "../../../utils/types";
 
 const BeaconsContainer = styled.div`
@@ -60,7 +60,7 @@ interface Props {
 
 const beaconModules = getBeaconModules();
 
-export const Beacons = ({ beacons, onModuleChange, onBeaconChange }: Props) => {
+export function Beacons({ beacons, onModuleChange, onBeaconChange }: Props) {
   const handleInputFocus = ({ target }: React.FocusEvent<HTMLInputElement>) => {
     target.select();
   };
@@ -111,4 +111,4 @@ export const Beacons = ({ beacons, onModuleChange, onBeaconChange }: Props) => {
       />
     </BeaconsContainer>
   );
-};
+}

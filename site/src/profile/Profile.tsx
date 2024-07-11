@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { PageBase } from "../components/PageBase";
 
-export const Profile = () => {
+export function Profile() {
   const { user } = useAuth0();
 
   if (!user) {
@@ -13,4 +13,4 @@ export const Profile = () => {
       <h1>Hi {user.nickname}!</h1>
     </PageBase>
   );
-};
+}

@@ -82,11 +82,7 @@ interface Props {
   edit?: boolean;
 }
 
-export const Select = ({
-  currentSelected,
-  setCurrentSelected,
-  edit,
-}: Props) => {
+export function Select({ currentSelected, setCurrentSelected, edit }: Props) {
   const [showList, setShowList] = useState(false);
   const displayName = getNameById(currentSelected);
   const imgUrl = getImageUrlById(currentSelected);
@@ -133,4 +129,4 @@ export const Select = ({
       </UnorderedList>
     </Container>
   );
-};
+}

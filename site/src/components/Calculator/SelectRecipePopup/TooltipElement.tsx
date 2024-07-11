@@ -53,7 +53,7 @@ interface Props {
   object: { amount?: number; name: string };
 }
 
-export const TooltipElement = ({ object }: Props) => {
+export function TooltipElement({ object }: Props) {
   const { amount, name } = object;
   const imgUrl = getImageUrlById(name);
 
@@ -67,4 +67,4 @@ export const TooltipElement = ({ object }: Props) => {
       </InnerContainer>
     </OutterContainer>
   );
-};
+}

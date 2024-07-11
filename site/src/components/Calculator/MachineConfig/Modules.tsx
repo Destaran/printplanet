@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ModuleSlot } from "./ModuleSlot.component";
+import { ModuleSlot } from "./ModuleSlot";
 import { getModules } from "../../../utils/helperFunctions";
 
 const ModulesContainer = styled.div`
@@ -20,7 +20,7 @@ interface Props {
 
 const allModules = getModules();
 
-export const Modules = ({ modules, onModuleChange }: Props) => {
+export function Modules({ modules, onModuleChange }: Props) {
   return (
     <ModulesContainer>
       {modules.map((module, slotIdx) => {
@@ -36,4 +36,4 @@ export const Modules = ({ modules, onModuleChange }: Props) => {
       })}
     </ModulesContainer>
   );
-};
+}

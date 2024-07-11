@@ -47,13 +47,13 @@ interface Props {
   beaconModule?: boolean;
 }
 
-export const ModuleSlot = ({
+export function ModuleSlot({
   slotIdx,
   modules,
   module,
   onModuleChange,
   beaconModule,
-}: Props) => {
+}: Props) {
   const [moduleIdx, setModuleIdx] = useState(modules.indexOf(module));
 
   useEffect(() => {
@@ -76,4 +76,4 @@ export const ModuleSlot = ({
       )}
     </Slot>
   );
-};
+}

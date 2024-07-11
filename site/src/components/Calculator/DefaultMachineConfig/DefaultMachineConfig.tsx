@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MachineConfig } from "../MachineConfig/MachineConfig.component";
+import { MachineConfig } from "../MachineConfig/MachineConfig";
 
 const Container = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.blue};
