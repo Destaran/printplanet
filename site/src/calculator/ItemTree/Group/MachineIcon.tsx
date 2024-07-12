@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { bumpModules } from "redux/calculator/calculator.slice";
 import { MachineTooltip } from "./MachineTooltip";
 import { useState } from "react";
-import { MachineEditPopup } from "../../MachineEditPopup";
+import { ModifyMachinePopup } from "../../ModifyMachinePopup";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 import { OutputItem, OwnMachine } from "utils/types";
 
@@ -163,7 +163,7 @@ export function MachineIcon({ outputItem, pid }: Props) {
       </OutterContainer>
       {machine && <MachineTooltip machine={machine} />}
       {machineEditId && (
-        <MachineEditPopup
+        <ModifyMachinePopup
           machineId={machineEditId}
           setMachineId={setMachineEditId}
           uid={uid}

@@ -33,7 +33,7 @@ interface Props {
   singleMachine?: OwnMachine;
 }
 
-export function MachineEditPopup({
+export function ModifyMachinePopup({
   machineId,
   setMachineId,
   uid,

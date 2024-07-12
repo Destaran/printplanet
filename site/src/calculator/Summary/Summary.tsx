@@ -19,7 +19,7 @@ import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup";
 import { Window } from "./Window";
 import { OutputItem, SummaryItem } from "utils/types";
 import { ModifyOutputPopup } from "../ModifyOutputPopup";
-import { MachineEditPopup } from "../MachineEditPopup";
+import { ModifyMachinePopup } from "../ModifyMachinePopup";
 
 const Container = styled.div`
   display: grid;
@@ -90,7 +90,7 @@ export function Summary() {
         />
       )}
       {machineId && (
-        <MachineEditPopup machineId={machineId} setMachineId={setMachineId} />
+        <ModifyMachinePopup machineId={machineId} setMachineId={setMachineId} />
       )}
     </Container>
   );
