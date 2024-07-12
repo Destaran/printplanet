@@ -17,7 +17,6 @@ const Container = styled.div`
   width: auto;
   display: flex;
   justify-content: start;
-  margin-bottom: 20px;
 `;
 
 const WindowContainer = styled.div`

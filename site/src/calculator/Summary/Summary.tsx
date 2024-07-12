@@ -22,11 +22,12 @@ import { ModifyOutputPopup } from "../ModifyOutputPopup";
 import { ModifyMachinePopup } from "../ModifyMachinePopup";
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   object-fit: contain;
-  margin-bottom: 20px;
   justify-content: space-around;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 `;
 
 export function Summary() {
