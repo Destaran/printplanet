@@ -40,7 +40,8 @@ const WindowOutter = styled.div`
 
 const WindowInner = styled.div`
   display: grid;
-  grid-template-columns: repeat(10, auto);
+  grid-template-columns: repeat(auto-fill, 1fr);
+  grid-auto-flow: column;
   border: 1px black solid;
   background-color: ${({ theme }) => theme.colors.grey};
   width: 100%;
