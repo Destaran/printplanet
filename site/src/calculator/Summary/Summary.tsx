@@ -77,12 +77,6 @@ export function Summary() {
 
   return (
     <Container>
-      <Window title={"Output"} items={output} handleClick={handleOutputClick} />
-      {outputId && (
-        <ModifyOutputPopup outputId={outputId} setOutputId={setOutputId} />
-      )}
-      <Window title={"Input"} items={input} handleClick={handleInputClick} />
-      {inputId && <SelectRecipePopup id={inputId} setId={setInputId} />}
       {machines.length > 0 && (
         <Window
           title={"Machinery"}
@@ -92,6 +86,12 @@ export function Summary() {
       )}
       {machineId && (
         <ModifyMachinePopup machineId={machineId} setMachineId={setMachineId} />
+      )}
+      <Window title={"Input"} items={input} handleClick={handleInputClick} />
+      {inputId && <SelectRecipePopup id={inputId} setId={setInputId} />}
+      <Window title={"Output"} items={output} handleClick={handleOutputClick} />
+      {outputId && (
+        <ModifyOutputPopup outputId={outputId} setOutputId={setOutputId} />
       )}
     </Container>
   );
