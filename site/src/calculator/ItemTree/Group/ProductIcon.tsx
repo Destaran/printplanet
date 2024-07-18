@@ -128,7 +128,10 @@ export function ProductIcon({ outputItem }: Props) {
 
   return (
     <>
-      <Container onClick={handleClick}>
+      <Container
+        onClick={handleClick}
+        data-tooltip-id={outputItem.uid + ":product"}
+      >
         <InnerContainer>
           <ImgContainer>
             <img src={imgUrl} />
