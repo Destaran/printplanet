@@ -152,7 +152,19 @@ export function calculateTree(item: OutputItem): CalculatedItem {
   }
 
   const recipe = getRecipeById(recipeId);
+
   const product = recipe.products.find((item) => item.name === id);
+  const productIsIngredient: OutputItem | undefined = ingredients?.find(
+    (ingredient) => ingredient.id === id
+  );
+
+  if (!product) {
+    throw new Error("Could not find product by ID");
+  }
+
+  const actualAmount = productIsIngredient
+    ? (product.amount - (productIsIngredient as OutputItem).amount) * amount
+    : amount;
 
   if (!product) {
     throw new Error("Could not find product by ID");
@@ -168,7 +180,7 @@ export function calculateTree(item: OutputItem): CalculatedItem {
   const machineAmount = getReqMachineCount(
     craftingSpeed,
     productivity,
-    amount,
+    actualAmount,
     recipe.energy,
     recipe.constant,
     product.amount,
@@ -201,13 +213,13 @@ export function calculateTree(item: OutputItem): CalculatedItem {
 
     if (newIngredient.id === "satellite") {
       newIngredient.amount = Number(
-        (ingredientRecipe.amount * amount) /
+        (ingredientRecipe.amount * actualAmount) /
           product.amount /
           product.probability
       );
     } else {
       newIngredient.amount = Number(
-        (ingredientRecipe.amount * (amount / (productivity + 1))) /
+        (ingredientRecipe.amount * (actualAmount / (productivity + 1))) /
           product.amount /
           product.probability
       );
