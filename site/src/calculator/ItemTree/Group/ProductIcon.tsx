@@ -83,7 +83,11 @@ export function ProductIcon({ outputItem }: Props) {
   const [selectMultiple, setSelectMultiple] = useState(false);
   const dispatch = useDispatch();
   const imgUrl = getImageUrlById(id);
-  const displayAmount = useDisplayNumber(amount);
+  const productIsIngredient = ingredients?.find((i) => i.id === id);
+  const acutalAmount = productIsIngredient
+    ? productIsIngredient.amount + amount
+    : amount;
+  const displayAmount = useDisplayNumber(acutalAmount);
 
   function handleClick(event: React.MouseEvent<HTMLDivElement>) {
     if (!ingredients) {
