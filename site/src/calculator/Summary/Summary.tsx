@@ -26,8 +26,6 @@ const Container = styled.div`
   flex-direction: column;
   object-fit: contain;
   justify-content: space-around;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
 `;
 
 export function Summary() {

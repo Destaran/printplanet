@@ -9,7 +9,7 @@ const Header = styled.button`
   font-weight: bold;
   width: 100%;
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   border-radius: 0px;
   background-color: ${({ theme }) => theme.colors.orange};
   color: ${({ theme }) => theme.colors.black};
