@@ -86,12 +86,11 @@ export function checkIfMultipleRecipes(id: string): boolean {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === id)
   );
-  if (matchingObjects.length < 1) {
-    throw new Error("No recipes found for product");
-  } else if (matchingObjects.length === 1) {
-    return false;
+
+  if (matchingObjects.length > 1) {
+    return true;
   }
-  return true;
+  return false;
 }
 
 export function getRecipeByProduct(id: string) {
