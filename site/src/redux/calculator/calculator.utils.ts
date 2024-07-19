@@ -166,10 +166,6 @@ export function calculateTree(item: OutputItem): CalculatedItem {
     ? (product.amount - (productIsIngredient as OutputItem).amount) * amount
     : amount;
 
-  if (!product) {
-    throw new Error("Could not find product by ID");
-  }
-
   const craftingSpeed = getModdedMachineSpeed(
     machine.modules,
     machine.beacons,
