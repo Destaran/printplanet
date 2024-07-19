@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
-import { getNameById } from "../../../utils/helperFunctions";
+import {
+  checkIfMultipleRecipes,
+  getNameById,
+} from "../../../utils/helperFunctions";
 import { OutputItem } from "utils/types";
 
 const Title = styled.p`
@@ -29,7 +32,9 @@ export function ProductTooltip({ outputItem }: Props) {
   const recipeName = outputItem.recipe
     ? getNameById(outputItem.recipe)
     : "No recipe selected";
-  const showRecipeName = recipeName === displayName ? false : true;
+  const hasMultipleRecipes = checkIfMultipleRecipes(outputItem.id);
+  const showRecipeName =
+    recipeName !== displayName && hasMultipleRecipes ? true : false;
 
   return (
     <Tooltip
