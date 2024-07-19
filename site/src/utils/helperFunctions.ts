@@ -82,15 +82,16 @@ export function getMachineCategories(id: string) {
   return getMachineObjectById(id).categories;
 }
 
-export function checkIfMultipleRecipes(id: string) {
+export function checkIfMultipleRecipes(id: string): boolean {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === id)
   );
-  if (matchingObjects.length === 1) {
+  if (matchingObjects.length < 1) {
+    throw new Error("No recipes found for product");
+  } else if (matchingObjects.length === 1) {
     return false;
-  } else if (matchingObjects.length > 1) {
-    return true;
   }
+  return true;
 }
 
 export function getRecipeByProduct(id: string) {
