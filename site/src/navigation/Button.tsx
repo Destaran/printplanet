@@ -20,10 +20,11 @@ const NavLink = styled(Link)<NavlinkProps>`
   padding: 0px;
   cursor: pointer;
   transition: all 1s;
-  color: ${({ $isactive }) => ($isactive ? "orange" : "white")};
+  color: ${({ $isactive, theme }) =>
+    $isactive ? theme.colors.orange : "white"};
 
   &:hover {
-    color: ${({ color }) => (color ? color : "orange")};
+    color: ${({ color, theme }) => (color ? color : theme.colors.orangest)};
     transition: all 0.3s;
   }
 
