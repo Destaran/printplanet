@@ -50,14 +50,12 @@ const WindowInner = styled.div`
   height: auto;
 `;
 
-const Title = styled.div`
-  padding: 0 5px;
+const TitleContainer = styled.div`
   font-size: 1em;
   width: 100%;
   text-align: left;
   border-radius: 0px;
-  background-color: ${({ theme }) => theme.colors.darkOrange};
-  color: ${({ theme }) => theme.colors.lightGrey};
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 interface Props {
@@ -70,7 +68,9 @@ export function Window({ title, items, handleClick }: Props) {
   return (
     <Container>
       <WindowContainer>
-        <Title>{title}</Title>
+        <TitleContainer>
+          <p>{title}</p>
+        </TitleContainer>
         <WindowOutter>
           <WindowInner>
             {items.map((item, idx) => {
