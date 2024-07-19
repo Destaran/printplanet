@@ -5,12 +5,10 @@ import { ModuleIndicator } from "./ModuleIndicator";
 import { useDisplayNumber } from "utils/useDisplayNumber";
 import { OwnMachine } from "utils/types";
 
-const Container = styled.div`
-  display: block;
-  p {
-    margin: 2px 2px 2px 2px;
-  }
+const Line = styled.p`
+  margin: 2px 2px 2px 2px;
 `;
+
 const Title = styled.div`
   display: flex;
   justify-content: center;
@@ -48,20 +46,20 @@ interface Props {
 export function MachineTooltip({ machine, uid }: Props) {
   const { id, craftingSpeed, productivity, modules, beacons } = machine;
   const displayName = getNameById(id);
-  const displaySpeed = (craftingSpeed * 100).toFixed(0);
-  const displayProd = (productivity * 100).toFixed(0);
+  const displaySpeed = (craftingSpeed * 100).toFixed(0) + "%";
+  const displayProd = (productivity * 100).toFixed(0) + "%";
   const hasModules = modules.some((module) => module.length > 0);
   const hasProd = modules.some((module) => module.includes("productivity"));
-  const beaconAffShow = useDisplayNumber(beacons.affecting);
+  const beaconsAffecting = useDisplayNumber(beacons.affecting);
   return (
     <Tooltip id={uid} style={{ opacity: 1 }} delayShow={500} place="top">
-      <Container>
+      <div>
         <Title>
-          <p>{displayName}</p>
+          <Line>{displayName}</Line>
         </Title>
         <Details>
-          <p>Crafting Speed: {displaySpeed}%</p>
-          {hasProd && <p>Productivity: {displayProd}%</p>}
+          <Line>Crafting Speed: {displaySpeed}</Line>
+          {hasProd && <Line>Productivity: {displayProd}</Line>}
         </Details>
         {beacons.affecting > 0 && (
           <ModulesContainer>
@@ -71,8 +69,8 @@ export function MachineTooltip({ machine, uid }: Props) {
                   <ModuleIndicator key={key} module={module} />
                 ))}
               </BeaconIcons>
-              <p>&#x2715;</p>
-              <p>{beaconAffShow}</p>
+              <Line>&#x2715;</Line>
+              <Line>{beaconsAffecting}</Line>
               <ModuleIndicator module={"beacon"} />
             </ModulesInner>
           </ModulesContainer>
@@ -86,7 +84,7 @@ export function MachineTooltip({ machine, uid }: Props) {
             </ModulesInner>
           </ModulesContainer>
         )}
-      </Container>
+      </div>
     </Tooltip>
   );
 }

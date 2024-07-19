@@ -3,7 +3,7 @@ import { Tooltip } from "react-tooltip";
 import { getNameById } from "../../../utils/helperFunctions";
 import { OutputItem } from "utils/types";
 
-const Line = styled.p`
+const Title = styled.p`
   margin: 2px 2px 2px 2px;
 `;
 
@@ -29,6 +29,7 @@ export function ProductTooltip({ outputItem }: Props) {
   const recipeName = outputItem.recipe
     ? getNameById(outputItem.recipe)
     : "No recipe selected";
+  const showRecipeName = recipeName === displayName ? false : true;
 
   return (
     <Tooltip
@@ -39,12 +40,13 @@ export function ProductTooltip({ outputItem }: Props) {
     >
       <div>
         <TitleContainer>
-          <Line>{displayName}</Line>
-          {outputItem.recipe && <Line>produced with</Line>}
-          <Line>{recipeName}</Line>
+          <Title>{displayName}</Title>
         </TitleContainer>
         <Details>
-          <Line>attribute:</Line>
+          {showRecipeName && <Title>Recipe: {recipeName}</Title>}
+          <Title>Stack size:</Title>
+          <Title>Produced with:</Title>
+          <Title>Consumed by:</Title>
         </Details>
       </div>
     </Tooltip>
