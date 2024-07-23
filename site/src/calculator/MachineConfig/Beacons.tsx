@@ -23,6 +23,7 @@ const BeaconsContainer = styled.div`
       appearance: none;
       margin: 0;
     }
+    -moz-appearance: textfield;
   }
 
   img {
