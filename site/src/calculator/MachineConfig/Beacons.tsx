@@ -3,7 +3,7 @@ import { getBeaconModules, getImageUrlById } from "../../utils/helperFunctions";
 import { ModuleSlot } from "./ModuleSlot";
 import { Beacons as BeaconsType } from "../../utils/types";
 
-const BeaconsContainer = styled.div`
+const Container = styled.div`
   margin: 0;
   padding: 0;
   display: flex;
@@ -33,7 +33,7 @@ const BeaconsContainer = styled.div`
   }
 `;
 
-const BeaconImgContainer = styled.div`
+const Wrapper = styled.div`
   border: 2px;
   padding: 0;
   margin: 0;
@@ -63,7 +63,7 @@ export function Beacons({ beacons, onModuleChange, onBeaconChange }: Props) {
     target.select();
   };
   return (
-    <BeaconsContainer>
+    <Container>
       {beacons.modules.map((module, slotIdx) => {
         return (
           <ModuleSlot
@@ -86,9 +86,9 @@ export function Beacons({ beacons, onModuleChange, onBeaconChange }: Props) {
         onChange={onBeaconChange}
         onFocus={handleInputFocus}
       />
-      <BeaconImgContainer>
+      <Wrapper>
         <img src={getImageUrlById("beacon")} alt="Beacon" />
-      </BeaconImgContainer>
+      </Wrapper>
       <input
         type="number"
         value={beacons.constant}
@@ -107,6 +107,6 @@ export function Beacons({ beacons, onModuleChange, onBeaconChange }: Props) {
         onChange={onBeaconChange}
         onFocus={handleInputFocus}
       />
-    </BeaconsContainer>
+    </Container>
   );
 }
