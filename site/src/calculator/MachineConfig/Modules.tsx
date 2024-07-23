@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ModuleSlot } from "./ModuleSlot";
 import { getModules } from "../../utils/helperFunctions";
 
-const ModulesContainer = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: center;
   height: 30px;
@@ -22,7 +22,7 @@ const allModules = getModules();
 
 export function Modules({ modules, onModuleChange }: Props) {
   return (
-    <ModulesContainer>
+    <Container>
       {modules.map((module, slotIdx) => {
         return (
           <ModuleSlot
@@ -34,6 +34,6 @@ export function Modules({ modules, onModuleChange }: Props) {
           />
         );
       })}
-    </ModulesContainer>
+    </Container>
   );
 }
