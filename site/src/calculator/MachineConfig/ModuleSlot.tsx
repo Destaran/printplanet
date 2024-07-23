@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { getImageUrlById, getNameById } from "../../utils/helperFunctions";
 
-const Slot = styled.div`
+const Container = styled.div`
   height: 28px;
   width: 28px;
   margin: 1px;
@@ -70,10 +70,10 @@ export function ModuleSlot({
   };
 
   return (
-    <Slot onClick={handleClick}>
+    <Container onClick={handleClick}>
       {module.length > 0 && (
         <img src={getImageUrlById(module)} alt={getNameById(module)} />
       )}
-    </Slot>
+    </Container>
   );
 }
