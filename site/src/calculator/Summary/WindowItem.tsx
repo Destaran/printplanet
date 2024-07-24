@@ -1,21 +1,6 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { getImageUrlById } from "../../utils/helperFunctions";
 import { useDisplayNumber } from "utils/useDisplayNumber";
-
-const MountAnimation = keyframes`
-from {
-  width: 0px;
-  border-width: 0px;
-  scale: 0;
-  opacity: 0;
-}
-to {
-  width: 42px;
-  border-width: 2px;
-  scale: 1;
-  opacity: 1;
-}
-`;
 
 const OutterContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
@@ -27,7 +12,6 @@ const OutterContainer = styled.div`
   user-select: none;
   cursor: pointer;
   transition: all 1s;
-  animation: ${MountAnimation} 0.5s ease-out;
   &:hover {
     transition: all 0.2s;
 

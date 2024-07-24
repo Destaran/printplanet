@@ -1,15 +1,6 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { WindowItem } from "./WindowItem";
 import { OutputItem, SummaryItem } from "utils/types";
-
-const MountAnimation = keyframes`
-from {
-  opacity: 0;
-}
-to {
-  opacity: 1;
-}
-`;
 
 const Container = styled.div`
   min-width: auto;
@@ -20,11 +11,9 @@ const Container = styled.div`
 `;
 
 const WindowContainer = styled.div`
-  min-width: auto;
-  height: auto;
-  width: auto;
-  animation: ${MountAnimation} 0.5s ease-out;
   width: 100%;
+  height: auto;
+  min-width: auto;
   margin-bottom: 10px;
 `;
 
