@@ -64,10 +64,10 @@ export function ModuleSlot({
     onModuleChange(modules, slotIdx, moduleIdx, beaconModule);
   }, [onModuleChange, modules, slotIdx, moduleIdx, beaconModule]);
 
-  const handleClick = (event: React.MouseEvent) => {
+  function handleClick(event: React.MouseEvent) {
     const direction = event.shiftKey && event.button === 0 ? -1 : 1;
     setModuleIdx((moduleIdx + direction + modules.length) % modules.length);
-  };
+  }
 
   return (
     <Container onClick={handleClick}>
