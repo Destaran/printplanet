@@ -1,6 +1,17 @@
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+
+const MountAnimation = keyframes`
+from {
+  height: 0%;
+  opacity: 0;
+}
+to {
+  height: auto;
+  opacity: 1;
+}
+`;
 
 const Header = styled.button`
   display: flex;
@@ -27,6 +38,10 @@ const Header = styled.button`
   }
 `;
 
+const Wrapper = styled.div`
+  animation: ${MountAnimation} 0.5s;
+`;
+
 interface Props {
   children: React.ReactNode;
   name: string;
@@ -49,7 +64,7 @@ export function CalculatorSection({ children, name }: Props) {
         )}
         {name}
       </Header>
-      {active && children}
+      {active && <Wrapper>{children}</Wrapper>}
     </>
   );
 }
