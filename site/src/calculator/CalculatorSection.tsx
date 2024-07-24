@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 const Header = styled.button`
+  display: flex;
+  align-items: center;
   padding: 5px;
   margin: 0;
   font-size: 1em;
@@ -18,6 +20,10 @@ const Header = styled.button`
     background-color: ${({ theme }) => theme.colors.darkOrange};
     color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
+  }
+
+  svg {
+    margin-right: 5px;
   }
 `;
 
@@ -36,7 +42,11 @@ export function CalculatorSection({ children, name }: Props) {
   return (
     <>
       <Header onClick={handleClick}>
-        {active ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
+        {active ? (
+          <MdKeyboardArrowDown size={"1.25em"} />
+        ) : (
+          <MdKeyboardArrowUp size={"1.25em"} />
+        )}
         {name}
       </Header>
       {active && children}
