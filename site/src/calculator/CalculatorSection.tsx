@@ -4,12 +4,11 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 const MountAnimation = keyframes`
 from {
-  height: 0%;
-  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
 }
 to {
-  height: auto;
-  opacity: 1;
+  max-height: 1000px;
 }
 `;
 
@@ -39,7 +38,7 @@ const Header = styled.button`
 `;
 
 const Wrapper = styled.div`
-  animation: ${MountAnimation} 0.5s;
+  animation: ${MountAnimation} 1s;
 `;
 
 interface Props {
