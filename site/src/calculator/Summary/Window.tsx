@@ -3,28 +3,22 @@ import { WindowItem } from "./WindowItem";
 import { OutputItem, SummaryItem } from "utils/types";
 
 const Container = styled.div`
-  width: 100%;
-  height: auto;
-  min-width: auto;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
 `;
 
-const WrapperWrapper = styled.div`
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  background-color: ${({ theme }) => theme.colors.blue};
+const Title = styled.p`
+  font-weight: bold;
 `;
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
-  height: auto;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
+  display: flex;
+  width: auto;
+  max-width: max-content;
+  flex-wrap: wrap;
+  background-color: ${({ theme }) => theme.colors.blue};
   padding: 4px;
-  max-width: 100%;
 `;
 
 interface Props {
@@ -36,16 +30,12 @@ interface Props {
 export function Window({ title, items, handleClick }: Props) {
   return (
     <Container>
-      <p>{title}</p>
-      <WrapperWrapper>
-        <Wrapper>
-          {items.map((item, idx) => {
-            return (
-              <WindowItem item={item} key={idx} handleClick={handleClick} />
-            );
-          })}
-        </Wrapper>
-      </WrapperWrapper>
+      <Title>{title}</Title>
+      <Wrapper>
+        {items.map((item, idx) => {
+          return <WindowItem item={item} key={idx} handleClick={handleClick} />;
+        })}
+      </Wrapper>
     </Container>
   );
 }
