@@ -80,7 +80,7 @@ export function FilteredItemsList({ selectItem, searchString }: Props) {
               key={item.name}
               id={item.name}
             >
-              <ItemIcon src={imgSrc} alt={name} />
+              <ItemIcon src={imgSrc} />
               {name}
             </FilteredItem>
           );
