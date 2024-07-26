@@ -28,17 +28,16 @@ interface Props {
 }
 
 export function ProductTooltip({ outputItem }: Props) {
-  const displayName = getNameById(outputItem.id);
-  const recipeName = outputItem.recipe
-    ? getNameById(outputItem.recipe)
-    : "No recipe selected";
-  const multipleRecipes = hasMultipleRecipes(outputItem.id);
+  const { id, uid, recipe, amount } = outputItem;
+  const displayName = getNameById(id);
+  const recipeName = recipe ? getNameById(recipe) : "No recipe selected";
+  const multipleRecipes = hasMultipleRecipes(id);
   const showRecipeName =
     recipeName !== displayName && multipleRecipes ? true : false;
 
   return (
     <Tooltip
-      id={outputItem.uid + ":product"}
+      id={uid + ":product"}
       style={{ opacity: 1 }}
       delayShow={500}
       place="top"
@@ -49,6 +48,7 @@ export function ProductTooltip({ outputItem }: Props) {
         </TitleContainer>
         <Details>
           {showRecipeName && <Title>Recipe: {recipeName}</Title>}
+          <Title>Quantity: {amount}</Title>
           <Title>Stack size:</Title>
           <Title>Produced with:</Title>
           <Title>Consumed by:</Title>
