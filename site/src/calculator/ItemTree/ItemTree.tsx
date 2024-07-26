@@ -11,28 +11,44 @@ const TabIcon = styled.img`
   height: 32px;
 `;
 
+const StyledTabs = styled(Tabs)``;
+
+const StyledTabList = styled(TabList)`
+  padding: 0;
+`;
+
+const StyledTab = styled(Tab)`
+  display: inline-block;
+  border: 1px solid transparent;
+  border-bottom: none;
+  position: relative;
+  list-style: none;
+  padding: 6px 12px;
+  cursor: pointer;
+`;
+
 export function ItemTree() {
   const output = useSelector(calculatedOutput);
 
   return (
     <div>
-      <Tabs>
-        <TabList>
+      <StyledTabs>
+        <StyledTabList>
           {output.map((outputItem) => {
             const img = getImageUrlById(outputItem.id);
             return (
-              <Tab key={outputItem.id}>
+              <StyledTab key={outputItem.id}>
                 <TabIcon src={img} />
-              </Tab>
+              </StyledTab>
             );
           })}
-        </TabList>
+        </StyledTabList>
         {output.map((outputItem) => (
           <TabPanel>
             <TreeDiv outputItem={outputItem} key={outputItem.id} />
           </TabPanel>
         ))}
-      </Tabs>
+      </StyledTabs>
     </div>
   );
 }
