@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   justify-content: space-between;
   width: 80%;
+  max-width: 1088px;
 `;
 
 const SideWrapper = styled.div`

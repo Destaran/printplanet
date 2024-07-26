@@ -9,6 +9,7 @@ const Container = styled.div`
   margin: auto;
   justify-content: center;
   width: 80%;
+  max-width: 1088px;
   align-items: start;
   flex-grow: 1;
   padding: 20px;
