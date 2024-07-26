@@ -4,7 +4,7 @@ import { UnitSelect } from "./UnitSelect";
 import { ChangeEvent } from "react";
 
 const Container = styled.div`
-  width: 5%;
+  width: 50px;
 `;
 
 const Wrapper = styled.div`
