@@ -10,8 +10,10 @@ import { RootState } from "../store";
 import { OutputItem, SummaryItem } from "../../utils/types";
 
 export const outputObject = (state: RootState) => state.calculator.output;
+
 export const outputValues = (state: RootState): OutputItem[] =>
   Object.values(state.calculator.output);
+
 export const outputKeys = (state: RootState) =>
   Object.keys(state.calculator.output);
 
