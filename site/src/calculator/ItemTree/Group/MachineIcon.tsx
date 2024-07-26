@@ -4,7 +4,7 @@ import {
   checkModulesForBumping,
   getEmptyMachine,
 } from "utils/helperFunctions";
-import { useEffect } from "react";
+import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { bumpModules } from "redux/calculator/calculator.slice";
 import { MachineTooltip } from "./MachineTooltip";
@@ -131,7 +131,7 @@ export function MachineIcon({ outputItem, pid }: Props) {
     setMachineEditId(id);
   }
 
-  useEffect(() => {
+  useMemo(() => {
     if (checkModulesForBumping(uid, machine, recipe)) {
       const payload = {
         uid,
