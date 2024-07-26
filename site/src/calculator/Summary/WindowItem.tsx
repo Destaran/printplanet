@@ -4,21 +4,22 @@ import { useDisplayNumber } from "utils/useDisplayNumber";
 
 const OutterContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
-  height: 42px;
-  width: 42px;
+  height: 48px;
+  width: 48px;
   padding: 2px;
   margin: 1px;
   background-color: ${({ theme }) => theme.colors.grey};
   user-select: none;
   cursor: pointer;
   transition: all 1s;
+
   &:hover {
     transition: all 0.2s;
-
     background-color: orange;
     border: 2px solid #efefef;
     transform: translateY(-3px);
   }
+
   &:active {
     transition: all 0.2s;
     background-color: ${({ theme }) => theme.colors.grey};

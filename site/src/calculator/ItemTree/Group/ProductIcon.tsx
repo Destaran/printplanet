@@ -19,8 +19,8 @@ import { SelectRecipePopup } from "calculator/SelectRecipePopup/SelectRecipePopu
 
 const Container = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
-  height: 36px;
-  width: 36px;
+  height: 48px;
+  width: 48px;
   padding: 2px;
   margin: 1px;
   background-color: ${({ theme }) => theme.colors.grey};

@@ -15,8 +15,8 @@ import { OutputItem, OwnMachine } from "utils/types";
 
 const OutterContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};
-  height: 36px;
-  width: 36px;
+  height: 48px;
+  width: 48px;
   padding: 2px;
   margin: 1px;
   margin-left: 1px;
