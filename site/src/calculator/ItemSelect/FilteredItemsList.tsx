@@ -5,7 +5,7 @@ import { useAllProducts } from "./useAllProducts";
 
 const Container = styled.div`
   position: absolute;
-  top: 41px;
+  top: 22px;
   width: 100%;
   z-index: 50;
 `;
@@ -26,6 +26,7 @@ const FilteredItem = styled.li`
   align-items: center;
   padding: 5px;
   border: solid black 1px;
+  border-top: none;
   background-color: white;
   overflow: hidden;
   cursor: pointer;
