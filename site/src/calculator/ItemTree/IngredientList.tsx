@@ -12,7 +12,6 @@ const StyledList = styled.ul`
     border-color: transparent;
   }
 
-  // last child horizontal half
   li:last-child::after {
     content: "";
     position: absolute;
@@ -24,7 +23,6 @@ const StyledList = styled.ul`
     width: 2px;
   }
 
-  // vertical lines
   li::before {
     content: "";
     display: block;
