@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {
   summarizeBeacons,
   summarizeInputs,
@@ -18,7 +16,7 @@ export const outputKeys = (state: RootState) =>
   Object.keys(state.calculator.output);
 
 export const calculatedOutput = (state: RootState) => {
-  const output = Object.values(state.calculator.output);
+  const output: OutputItem[] = Object.values(state.calculator.output);
   return output.map((item) => {
     return calculateTree(item);
   });
