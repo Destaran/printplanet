@@ -10,12 +10,12 @@ export function Calculator() {
   const output = useSelector(outputValues);
   return (
     <PageBase>
-      <Section name="Product Select">
+      <Section name="Product Selection">
         <ItemSelect />
       </Section>
       {output.length > 0 && (
         <>
-          <Section name="Production Summary">
+          <Section name="I/O Configurator">
             <Summary />
           </Section>
           <Section name="Production Trees">
