@@ -1,12 +1,21 @@
 import numeral from "numeral";
 
 export function useDisplayNumber(number: number) {
-  let formatted = numeral(number).format("0.00a");
-  if (formatted.split(".")[1][1] === "0" || formatted.length > 5) {
-    formatted = numeral(number).format("0.0a");
-    if (formatted.split(".")[1][0] === "0" || formatted.length > 5) {
-      formatted = numeral(number).format("0a");
-    }
+  let indicator = null;
+  let formatted = numeral(number).format("0.0000a");
+  if (isNaN(Number(formatted[formatted.length - 1]))) {
+    indicator = formatted[formatted.length - 1];
+    formatted = formatted.slice(0, -1);
+  }
+  while (
+    (indicator && formatted.includes(".")) ||
+    (formatted.includes(".") && formatted[formatted.length - 1] === "0") ||
+    formatted[formatted.length - 1] === "."
+  ) {
+    formatted = formatted.slice(0, -1);
+  }
+  if (indicator) {
+    formatted += indicator;
   }
   return formatted;
 }
