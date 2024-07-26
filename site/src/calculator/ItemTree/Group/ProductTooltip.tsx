@@ -5,6 +5,7 @@ import {
   getNameById,
 } from "../../../utils/helperFunctions";
 import { OutputItem } from "utils/types";
+import { useShowAmount } from "./useShowAmount";
 
 const Title = styled.p`
   margin: 2px 2px 2px 2px;
@@ -29,11 +30,10 @@ interface Props {
 
 export function ProductTooltip({ outputItem }: Props) {
   const { id, uid, recipe, amount } = outputItem;
+  const showAmount = useShowAmount(amount);
   const displayName = getNameById(id);
   const recipeName = recipe ? getNameById(recipe) : "No recipe selected";
-  const multipleRecipes = hasMultipleRecipes(id);
-  const showRecipeName =
-    recipeName !== displayName && multipleRecipes ? true : false;
+  const showRecipeName = recipeName !== displayName && hasMultipleRecipes(id);
 
   return (
     <Tooltip
@@ -48,7 +48,7 @@ export function ProductTooltip({ outputItem }: Props) {
         </TitleContainer>
         <Details>
           {showRecipeName && <Title>Recipe: {recipeName}</Title>}
-          <Title>Quantity: {amount}</Title>
+          <Title>Quantity: {showAmount}</Title>
           <Title>Stack size:</Title>
           <Title>Produced with:</Title>
           <Title>Consumed by:</Title>
