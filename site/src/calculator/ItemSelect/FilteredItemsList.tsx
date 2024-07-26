@@ -32,10 +32,6 @@ const FilteredItem = styled.li`
   cursor: pointer;
   transition: all 1s;
 
-  img {
-    margin-right: 5px;
-  }
-
   &:hover {
     background-color: orange;
     transition: all 0.3s;
@@ -49,6 +45,7 @@ const FilteredItem = styled.li`
 const ItemIcon = styled.img`
   height: 32px;
   width: auto;
+  margin-right: 5px;
 `;
 
 interface Props {
