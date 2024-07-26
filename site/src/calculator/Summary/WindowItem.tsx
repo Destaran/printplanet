@@ -22,7 +22,6 @@ const OutterContainer = styled.div`
 
   &:active {
     transition: all 0.2s;
-    background-color: ${({ theme }) => theme.colors.grey};
     img {
       transform: scale(0.8);
     }
