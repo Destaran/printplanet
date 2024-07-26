@@ -7,6 +7,10 @@ import { getImageUrlById } from "utils/helperFunctions";
 import styled from "styled-components";
 import { StyledTab } from "./StyledTab";
 
+const Container = styled.div`
+  overflow: scroll;
+`;
+
 const TabIcon = styled.img`
   width: 36px;
   height: 36px;
@@ -17,7 +21,7 @@ export function ItemTree() {
   const output = useSelector(calculatedOutput);
 
   return (
-    <div>
+    <Container>
       <Tabs selectedTabClassName="selected">
         <TabList>
           {output.map((outputItem) => {
@@ -35,6 +39,6 @@ export function ItemTree() {
           </TabPanel>
         ))}
       </Tabs>
-    </div>
+    </Container>
   );
 }
