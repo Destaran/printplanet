@@ -24,8 +24,6 @@ import { ModifyMachinePopup } from "../ModifyMachinePopup";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  object-fit: contain;
-  justify-content: space-around;
 `;
 
 export function Summary() {
