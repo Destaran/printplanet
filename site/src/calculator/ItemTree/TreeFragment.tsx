@@ -7,7 +7,7 @@ import { OutputItem } from "utils/types";
 
 const ListElement = styled.li`
   padding: 0;
-  margin: 0 0 0 37px;
+  margin: 0 0 0 49px;
   list-style: none;
   border-left: 2px solid black;
   padding-left: 50px;
