@@ -95,7 +95,7 @@ export function hasMultipleRecipes(id: string): boolean {
 
 export function getRecipeByProduct(id: string) {
   if (hasMultipleRecipes(id)) {
-    return;
+    return null;
   }
   return recipes.find((recipe) =>
     recipe.products.find((product) => product.name === id)
