@@ -69,7 +69,7 @@ export function SearchBar({
       <SearchBarContainer>
         <FormInput
           autoFocus
-          placeholder="Search Item"
+          placeholder="Search Product"
           type="text"
           value={searchString}
           name="item-search"
@@ -86,11 +86,11 @@ export function SearchBar({
       <CurrentItemContainer>
         {currentItem ? (
           <>
-            <p>Current Item:</p>
+            <p>Selected Product:</p>
             <img src={getImageUrlById(currentItem)} alt={currentItem} />
           </>
         ) : (
-          <p>No item selected</p>
+          <p>No product selected</p>
         )}
       </CurrentItemContainer>
     </Container>
