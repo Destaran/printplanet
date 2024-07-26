@@ -7,9 +7,7 @@ import { getImageUrlById } from "utils/helperFunctions";
 import styled from "styled-components";
 import { StyledTab } from "./StyledTab";
 
-const Container = styled.div`
-  overflow: scroll;
-`;
+const Container = styled.div``;
 
 const TabIcon = styled.img`
   width: 36px;
