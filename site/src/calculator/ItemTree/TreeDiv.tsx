@@ -3,9 +3,7 @@ import { TreeFragment } from "./TreeFragment";
 import { OutputItem } from "utils/types";
 
 const Container = styled.div`
-  margin-bottom: 20px;
-  padding: 5px;
-  border: 1px solid grey;
+  margin: 20px 0;
 `;
 
 interface Props {
