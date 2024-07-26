@@ -19,8 +19,6 @@ import { UnitSelection } from "./UnitSelection";
 const Container = styled.div`
   display: flex;
   justify-content: start;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
 `;
 
 export function ItemSelect() {
