@@ -1,66 +1,16 @@
 import { useSelector } from "react-redux";
 import { calculatedOutput } from "../../redux/calculator/calculator.selector";
 import { TreeDiv } from "./TreeDiv";
-import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
+import { Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { getImageUrlById } from "utils/helperFunctions";
 import styled from "styled-components";
+import { StyledTab } from "./StyledTab";
 
 const TabIcon = styled.img`
   width: 36px;
   height: 36px;
-`;
-
-const StyledTabs = styled(Tabs)``;
-
-const StyledTabList = styled(TabList)`
-  padding: 0;
-`;
-
-const StyledTab = styled(Tab)`
-  display: inline-block;
-  border-left: 4px solid;
-  position: relative;
-  list-style: none;
-  padding: 3px 6px;
-  cursor: pointer;
-  border-color: ${({ theme }) => theme.colors.darkOrange};
-  background-color: ${({ theme }) => theme.colors.grey};
-
-  img {
-    filter: brightness(0.8);
-  }
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.orange};
-  }
-
-  &.selected {
-    border-color: ${({ theme }) => theme.colors.orange};
-    background-color: ${({ theme }) => theme.colors.blue};
-
-    img {
-      filter: brightness(1);
-    }
-  }
-
-  transition: all 1s;
-
-  &:hover {
-    transition: all 0.2s;
-    background-color: ${({ theme }) => theme.colors.blue2};
-    img {
-      filter: brightness(1);
-    }
-  }
-
-  &:active {
-    transition: all 0.2s;
-    background-color: ${({ theme }) => theme.colors.grey};
-    img {
-      filter: brightness(1);
-    }
-  }
+  opacity: 0.7;
 `;
 
 export function ItemTree() {
@@ -68,23 +18,23 @@ export function ItemTree() {
 
   return (
     <div>
-      <StyledTabs selectedTabClassName="selected">
-        <StyledTabList>
+      <Tabs selectedTabClassName="selected">
+        <TabList>
           {output.map((outputItem) => {
             const img = getImageUrlById(outputItem.id);
             return (
               <StyledTab key={outputItem.id}>
-                <TabIcon src={img} />
+                <TabIcon src={img} key={outputItem.id} />
               </StyledTab>
             );
           })}
-        </StyledTabList>
+        </TabList>
         {output.map((outputItem) => (
-          <TabPanel>
-            <TreeDiv outputItem={outputItem} key={outputItem.id} />
+          <TabPanel key={outputItem.id}>
+            <TreeDiv outputItem={outputItem} />
           </TabPanel>
         ))}
-      </StyledTabs>
+      </Tabs>
     </div>
   );
 }
