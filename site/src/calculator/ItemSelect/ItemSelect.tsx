@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { outputKeys } from "redux/calculator/calculator.selector";
@@ -13,7 +13,7 @@ import {
 } from "utils/helperFunctions";
 import { SelectRecipePopup } from "../SelectRecipePopup/SelectRecipePopup";
 import { QuantitySelect } from "./QuantitySelect";
-import { SearchBar } from "./SearchBar";
+import { Selection } from "./Selection";
 import { UnitSelection } from "./UnitSelection";
 
 const Container = styled.div`
@@ -25,10 +25,10 @@ export function ItemSelect() {
   const dispatch = useDispatch();
   const output = useSelector(outputKeys);
 
-  const [popupId, setPopupId] = useState<null | string>(null);
   const [searchString, setSearchString] = useState<string>("");
   const [currentItem, setCurrentItem] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
+  const [popupId, setPopupId] = useState<null | string>(null);
   const [unit, setUnit] = useState<number>(1);
 
   function handleUnitChange({ target }: React.ChangeEvent<HTMLInputElement>) {
@@ -83,26 +83,13 @@ export function ItemSelect() {
     setSearchString(name);
   }
 
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "a" && currentItem) {
-        addHandler();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [addHandler, currentItem]);
-
   return (
     <Container>
-      <SearchBar
+      <Selection
         selectItem={selectItem}
         currentItem={currentItem}
-        setCurrentItem={setCurrentItem}
         searchString={searchString}
+        setCurrentItem={setCurrentItem}
         setSearchString={setSearchString}
       />
       <QuantitySelect quantity={quantity} setQuantity={setQuantity} />
