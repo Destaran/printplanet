@@ -82,7 +82,7 @@ export function getMachineCategories(id: string) {
   return getMachineObjectById(id).categories;
 }
 
-export function checkIfMultipleRecipes(id: string): boolean {
+export function hasMultipleRecipes(id: string): boolean {
   const matchingObjects = recipes.filter((obj) =>
     obj.products.some((product) => product.name === id)
   );
@@ -94,7 +94,7 @@ export function checkIfMultipleRecipes(id: string): boolean {
 }
 
 export function getRecipeByProduct(id: string) {
-  if (checkIfMultipleRecipes(id)) {
+  if (hasMultipleRecipes(id)) {
     return;
   }
   return recipes.find((recipe) =>

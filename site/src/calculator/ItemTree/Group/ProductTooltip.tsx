@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
 import {
-  checkIfMultipleRecipes,
+  hasMultipleRecipes,
   getNameById,
 } from "../../../utils/helperFunctions";
 import { OutputItem } from "utils/types";
@@ -32,9 +32,9 @@ export function ProductTooltip({ outputItem }: Props) {
   const recipeName = outputItem.recipe
     ? getNameById(outputItem.recipe)
     : "No recipe selected";
-  const hasMultipleRecipes = checkIfMultipleRecipes(outputItem.id);
+  const multipleRecipes = hasMultipleRecipes(outputItem.id);
   const showRecipeName =
-    recipeName !== displayName && hasMultipleRecipes ? true : false;
+    recipeName !== displayName && multipleRecipes ? true : false;
 
   return (
     <Tooltip

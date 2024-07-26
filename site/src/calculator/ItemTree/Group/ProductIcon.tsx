@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {
-  checkIfMultipleRecipes,
+  hasMultipleRecipes,
   getImageUrlById,
   getRecipeByProduct,
 } from "../../../utils/helperFunctions";
@@ -91,7 +91,7 @@ export function ProductIcon({ outputItem }: Props) {
 
   function handleClick(event: React.MouseEvent<HTMLDivElement>) {
     if (!ingredients) {
-      if (checkIfMultipleRecipes(id)) {
+      if (hasMultipleRecipes(id)) {
         if (event.shiftKey && event.button === 0) {
           setSelectMultiple(true);
         }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {
   getProducers,
-  checkIfMultipleRecipes,
+  hasMultipleRecipes,
   getRecipeByProduct,
 } from "../../utils/helperFunctions";
 import { useState } from "react";
@@ -48,7 +48,7 @@ export function Summary() {
         dispatch(collapseSameTypeElements(id));
       });
     } else {
-      if (checkIfMultipleRecipes(id)) {
+      if (hasMultipleRecipes(id)) {
         const divElement = document.activeElement as HTMLDivElement;
         divElement.blur();
         setInputId(id);

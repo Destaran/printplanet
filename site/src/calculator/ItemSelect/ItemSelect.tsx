@@ -7,7 +7,7 @@ import {
   addToExistingOutput,
 } from "redux/calculator/calculator.slice";
 import {
-  checkIfMultipleRecipes,
+  hasMultipleRecipes,
   getRecipeById,
   getNameById,
 } from "utils/helperFunctions";
@@ -62,7 +62,7 @@ export function ItemSelect() {
       return;
     }
 
-    if (!checkIfMultipleRecipes(currentItem)) {
+    if (!hasMultipleRecipes(currentItem)) {
       dispatch(addToOutput(itemToAdd));
       reset();
       return;
