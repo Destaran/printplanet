@@ -44,7 +44,11 @@ interface Props {
 }
 
 export function MachineTooltip({ machine, uid }: Props) {
-  const { id, craftingSpeed, productivity, modules, beacons } = machine;
+  const { id, amount, craftingSpeed, productivity, modules, beacons } = machine;
+  if (!amount) {
+    return null;
+  }
+  const amountShow = Math.ceil(amount);
   const displayName = getNameById(id);
   const displaySpeed = (craftingSpeed * 100).toFixed(0) + "%";
   const displayProd = (productivity * 100).toFixed(0) + "%";
@@ -58,6 +62,7 @@ export function MachineTooltip({ machine, uid }: Props) {
           <Line>{displayName}</Line>
         </Title>
         <Details>
+          <Line>Quantity: {amountShow}</Line>
           <Line>Crafting Speed: {displaySpeed}</Line>
           {hasProd && <Line>Productivity: {displayProd}</Line>}
         </Details>
