@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getImageUrlById } from "../../utils/helperFunctions";
-import { useDisplayNumber } from "utils/useDisplayNumber";
+import { useDisplayNumber } from "utils/hooks/useDisplayNumber";
 
 const OutterContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.darkOrange};

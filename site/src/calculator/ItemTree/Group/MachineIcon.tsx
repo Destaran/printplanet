@@ -10,7 +10,7 @@ import { bumpModules } from "redux/calculator/calculator.slice";
 import { MachineTooltip } from "./MachineTooltip";
 import { useState } from "react";
 import { ModifyMachinePopup } from "../../ModifyMachinePopup";
-import { useDisplayNumber } from "utils/useDisplayNumber";
+import { useDisplayNumber } from "utils/hooks/useDisplayNumber";
 import { OutputItem, OwnMachine } from "utils/types";
 
 const OutterContainer = styled.div`

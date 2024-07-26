@@ -12,7 +12,7 @@ import {
   collapseElement,
   collapseSameTypeElements,
 } from "../../../redux/calculator/calculator.slice";
-import { useDisplayNumber } from "utils/useDisplayNumber";
+import { useDisplayNumber } from "utils/hooks/useDisplayNumber";
 import { OutputItem } from "utils/types";
 import { ProductTooltip } from "./ProductTooltip";
 import { SelectRecipePopup } from "calculator/SelectRecipePopup/SelectRecipePopup";

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
 import { useRef } from "react";
-import { useDisplayNumber } from "utils/useDisplayNumber";
 import { outputKeys, outputObject } from "redux/calculator/calculator.selector";
 import { getImageUrlById } from "utils/helperFunctions";
 import {
@@ -13,6 +12,7 @@ import {
 } from "redux/calculator/calculator.slice";
 import { Popup } from "components/Popup";
 import { Button } from "components/Button";
+import { useDisplayNumber } from "utils/hooks/useDisplayNumber";
 
 const InputContainer = styled.div`
   display: flex;
