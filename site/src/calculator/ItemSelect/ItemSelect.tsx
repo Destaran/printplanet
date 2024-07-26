@@ -22,20 +22,21 @@ const Container = styled.div`
 `;
 
 export function ItemSelect() {
+  const dispatch = useDispatch();
+  const output = useSelector(outputKeys);
+
   const [popupId, setPopupId] = useState<null | string>(null);
   const [searchString, setSearchString] = useState<string>("");
   const [currentItem, setCurrentItem] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
   const [unit, setUnit] = useState<number>(1);
-  const dispatch = useDispatch();
-  const output = useSelector(outputKeys);
 
   function handleUnitChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     const { value } = target;
     setUnit(Number(value));
   }
 
-  const resetOptions = useCallback(() => {
+  const reset = useCallback(() => {
     setSearchString("");
     setCurrentItem("");
     setQuantity(1);
@@ -43,32 +44,35 @@ export function ItemSelect() {
   }, [setCurrentItem, setQuantity, setSearchString]);
 
   const addHandler = useCallback(() => {
-    if (currentItem) {
-      const existingItem = output.find((item) => item === currentItem);
-      if (!existingItem) {
-        if (checkIfMultipleRecipes(currentItem) && document.activeElement) {
-          (document.activeElement as HTMLElement).blur();
-          setPopupId(currentItem);
-        } else {
-          const recipe = getRecipeById(currentItem);
-          const itemToAdd = {
-            id: currentItem,
-            amount: Number(quantity),
-            recipe: recipe.name,
-          };
-          dispatch(addToOutput(itemToAdd));
-          resetOptions();
-        }
-      } else {
-        const itemToAdd = {
-          id: currentItem,
-          amount: Number(quantity),
-        };
-        dispatch(addToExistingOutput(itemToAdd));
-        resetOptions();
-      }
+    if (!currentItem) {
+      return;
     }
-  }, [currentItem, dispatch, output, quantity, resetOptions]);
+
+    const recipe = getRecipeById(currentItem);
+    const existingItem = output.find((item) => item === currentItem);
+    const itemToAdd = {
+      id: currentItem,
+      amount: Number(quantity),
+      recipe: recipe.name,
+    };
+
+    if (existingItem) {
+      dispatch(addToExistingOutput(itemToAdd));
+      reset();
+      return;
+    }
+
+    if (!checkIfMultipleRecipes(currentItem)) {
+      dispatch(addToOutput(itemToAdd));
+      reset();
+      return;
+    }
+
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    setPopupId(currentItem);
+  }, [currentItem, dispatch, output, quantity, reset]);
 
   function selectItem(event: React.MouseEvent<HTMLLIElement>) {
     const target = event.target as HTMLLIElement;
@@ -113,7 +117,7 @@ export function ItemSelect() {
           setId={setPopupId}
           addInfo={{
             quantity,
-            resetItemSelect: resetOptions,
+            resetItemSelect: reset,
           }}
           uid={undefined}
           selectMultiple={undefined}
