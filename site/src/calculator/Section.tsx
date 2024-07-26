@@ -13,22 +13,22 @@ to {
 `;
 
 const Header = styled.button`
+  border: solid 1px ${({ theme }) => theme.colors.grey};
   display: flex;
   align-items: center;
   padding: 5px;
-  margin: 0;
   font-size: 1em;
   font-weight: bold;
   width: 100%;
   text-align: left;
-  margin-bottom: 10px;
-  border-radius: 0px;
   background-color: ${({ theme }) => theme.colors.orange};
   color: ${({ theme }) => theme.colors.black};
+  transition: all 1s;
 
   &:hover {
+    transition: all 0.2s;
     background-color: ${({ theme }) => theme.colors.darkOrange};
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.lightGrey};
     cursor: pointer;
   }
 
@@ -39,6 +39,7 @@ const Header = styled.button`
 
 const Wrapper = styled.div`
   animation: ${MountAnimation} 1s;
+  padding: 15px 0;
 `;
 
 interface Props {
