@@ -46,7 +46,7 @@ interface Props {
   name: string;
 }
 
-export function CalculatorSection({ children, name }: Props) {
+export function Section({ children, name }: Props) {
   const [active, setActive] = useState(true);
 
   function handleClick() {

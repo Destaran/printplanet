@@ -4,23 +4,23 @@ import { ItemSelect } from "./ItemSelect/ItemSelect";
 import { Summary } from "./Summary/Summary";
 import { ItemTree } from "./ItemTree/ItemTree";
 import { PageBase } from "../components/PageBase";
-import { CalculatorSection } from "./CalculatorSection";
+import { Section } from "./Section";
 
 export function Calculator() {
   const output = useSelector(outputValues);
   return (
     <PageBase>
-      <CalculatorSection name="Item Select">
+      <Section name="Product Select">
         <ItemSelect />
-      </CalculatorSection>
+      </Section>
       {output.length > 0 && (
         <>
-          <CalculatorSection name="Summary">
+          <Section name="Production Summary">
             <Summary />
-          </CalculatorSection>
-          <CalculatorSection name="Item Tree">
+          </Section>
+          <Section name="Production Trees">
             <ItemTree />
-          </CalculatorSection>
+          </Section>
         </>
       )}
     </PageBase>
