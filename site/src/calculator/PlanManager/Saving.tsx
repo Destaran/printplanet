@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "components/Button";
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
@@ -14,6 +15,7 @@ import { useAddPlan } from "utils/API/plan/useAddPlan";
 const Container = styled.div``;
 
 export function Saving() {
+  const queryClient = useQueryClient();
   const { user } = useAuth0();
 
   if (!user) {
@@ -40,7 +42,11 @@ export function Saving() {
       plan: planJson,
     };
 
-    addPlan(plan);
+    addPlan(plan, {
+      onSuccess: () => {
+        queryClient.invalidateQueries();
+      },
+    });
   }, [name, addPlan]);
 
   function nameChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
