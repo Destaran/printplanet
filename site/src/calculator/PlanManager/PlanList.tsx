@@ -1,12 +1,16 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { useMyPlans } from "utils/API/plan/useMyPlans";
+import { PlanSummary } from "./PlanSummary";
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+`;
 
 const PlanWrapper = styled.div`
   border: 1px solid black;
-  margin-bottom: 5px;
+  margin: 5px;
 `;
 
 export function PlanList() {
@@ -34,9 +38,7 @@ export function PlanList() {
     <Container>
       {plansQuery.data.map((plan) => (
         <PlanWrapper key={plan.id}>
-          <p>{plan.name}</p>
-          <p>input: {plan.input}</p>
-          <p>output: {plan.output}</p>
+          <PlanSummary plan={plan} />
         </PlanWrapper>
       ))}
     </Container>
