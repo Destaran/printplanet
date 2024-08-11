@@ -26,6 +26,11 @@ export class PlansController {
     return this.plansService.findById(id);
   }
 
+  @Get('my/:ownerId')
+  findAllByOwnerId(@Param('ownerId') ownerId: string) {
+    return this.plansService.findAllByOwnerId(ownerId);
+  }
+
   // @UseGuards(AuthGuard('jwt'))
   @Post()
   create(@Body() plan: PlanInput) {

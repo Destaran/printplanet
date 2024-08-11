@@ -17,6 +17,10 @@ export class PlansService {
     return this.plans.findOneBy({ id });
   }
 
+  async findAllByOwnerId(ownerId: string) {
+    return this.plans.findBy({ ownerId });
+  }
+
   async create(plan: PlanInput) {
     const newPlan = this.plans.create(plan);
     return this.plans.save(newPlan);
