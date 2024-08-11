@@ -8,9 +8,8 @@ import {
   outputValues,
 } from "redux/calculator/calculator.selector";
 import styled from "styled-components";
-import { Plan } from "utils/API/plan/Plan";
+import { PlanInput } from "utils/API/plan/Plan";
 import { useAddPlan } from "utils/API/plan/useAddPlan";
-import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div``;
 
@@ -33,8 +32,7 @@ export function Saving() {
   const addPlan = addPlanMutation.mutate;
 
   const saveHandler = useCallback(() => {
-    const plan: Plan = {
-      id: uuidv4(),
+    const plan: PlanInput = {
       name,
       ownerId: user.sub ?? "",
       input: inputJson,

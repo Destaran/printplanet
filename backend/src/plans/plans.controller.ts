@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { PlansService } from './plans.service';
 import { AuthGuard } from '@nestjs/passport';
+import { PlanInput } from './plan-input.dto';
 
 @Controller('plans')
 export class PlansController {
@@ -21,13 +22,13 @@ export class PlansController {
   }
 
   @Get(':id')
-  find(@Param('id') id: string) {
+  find(@Param('id') id: number) {
     return this.plansService.find(id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Body() plan) {
+  create(@Body() plan: PlanInput) {
     return this.plansService.create(plan);
   }
 
@@ -39,7 +40,7 @@ export class PlansController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id') id: number) {
     return this.plansService.delete(id);
   }
 }

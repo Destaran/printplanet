@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { post } from "../API";
-import { Plan } from "./Plan";
+import { PlanInput } from "./Plan";
 
-async function addPlan(plan: Plan) {
-  return await post<Plan>("/plans", plan);
+async function addPlan(plan: PlanInput) {
+  return await post<PlanInput>("/plans", plan);
 }
 
 export function useAddPlan() {

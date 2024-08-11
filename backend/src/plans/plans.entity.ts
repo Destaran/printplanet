@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('plan')
 export class Plan {
-  @PrimaryColumn('varchar', { length: 255, nullable: false })
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column('varchar', { length: 65535, nullable: true })
   plan: string;

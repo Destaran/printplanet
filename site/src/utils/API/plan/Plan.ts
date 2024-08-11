@@ -6,3 +6,5 @@ export interface Plan {
   output: string;
   input: string;
 }
+
+export type PlanInput = Omit<Plan, "id">;

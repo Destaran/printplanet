@@ -8,11 +8,10 @@ export class Plan1723383341774 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'varchar',
-            length: '255',
+            type: 'bigint',
             isPrimary: true,
-            isUnique: true,
-            isNullable: false,
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'plan',
