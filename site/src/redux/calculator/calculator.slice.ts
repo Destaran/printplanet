@@ -223,6 +223,7 @@ export const {
   swapMachines,
   swapMachine,
   bumpModules,
+  loadPlan,
 } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;
