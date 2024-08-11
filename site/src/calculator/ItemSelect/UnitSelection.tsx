@@ -5,6 +5,7 @@ import { ChangeEvent } from "react";
 
 const Container = styled.div`
   width: 50px;
+  margin-right: 10px;
 `;
 
 const Wrapper = styled.div`

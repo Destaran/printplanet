@@ -24,6 +24,12 @@ export const calculatedOutput = (state: RootState) => {
   });
 };
 
+export const outputArray = createSelector(outputValues, (output) => {
+  return output.map((item) => {
+    return { id: item.id, amount: item.amount };
+  });
+});
+
 export const inputArray = createSelector(calculatedOutput, (output) => {
   const input: SummaryItem[] = [];
   output.forEach((item) => {
