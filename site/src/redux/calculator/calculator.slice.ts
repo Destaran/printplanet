@@ -203,6 +203,9 @@ export const calculatorSlice = createSlice({
         machines[category] = machineConfig;
       });
     },
+    loadPlan: (state, { payload }) => {
+      state.output = payload;
+    },
   },
 });
 
