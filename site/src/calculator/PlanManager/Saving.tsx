@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import {
   inputArray,
   outputArray,
-  outputValues,
+  outputObject,
 } from "redux/calculator/calculator.selector";
 import styled from "styled-components";
 import { PlanInput } from "utils/API/plan/Plan";
@@ -23,7 +23,7 @@ export function Saving() {
   }
 
   const [name, setName] = useState("");
-  const output = useSelector(outputValues);
+  const output = useSelector(outputObject);
   const planJson = JSON.stringify(output);
   const outputSummary = useSelector(outputArray);
   const outputJson = JSON.stringify(outputSummary);
