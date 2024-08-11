@@ -4,13 +4,9 @@ import { useMyPlans } from "utils/API/plan/useMyPlans";
 import { PlanSummary } from "./PlanSummary";
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-`;
-
-const PlanWrapper = styled.div`
-  border: 1px solid black;
-  margin: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
 `;
 
 export function PlanList() {
@@ -37,9 +33,7 @@ export function PlanList() {
   return (
     <Container>
       {plansQuery.data.map((plan) => (
-        <PlanWrapper key={plan.id}>
-          <PlanSummary plan={plan} />
-        </PlanWrapper>
+        <PlanSummary plan={plan} key={plan.id} />
       ))}
     </Container>
   );
