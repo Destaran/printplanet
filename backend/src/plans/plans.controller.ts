@@ -21,13 +21,13 @@ export class PlansController {
   }
 
   @Get(':id')
-  find(@Param('id') id: number) {
+  find(@Param('id') id: string) {
     return this.plansService.find(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Body('plan') plan) {
+  create(@Body() plan) {
     return this.plansService.create(plan);
   }
 
@@ -39,7 +39,7 @@ export class PlansController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
-  delete(@Param('id') id: number) {
+  delete(@Param('id') id: string) {
     return this.plansService.delete(id);
   }
 }

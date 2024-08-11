@@ -1,24 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { Plan } from './plans.entity';
+import { PlansRepository } from './plans.repository';
 
 @Injectable()
 export class PlansService {
+  constructor(private readonly plans: PlansRepository) {}
+
   findAll() {
-    return 'This action returns all plans';
+    return this.plans.find({
+      order: { id: 'ASC' },
+    });
   }
 
-  find(id: number) {
-    return `This action returns the plan with id: ${id}`;
+  find(id: string) {
+    return this.plans.findOneBy({ id });
   }
 
-  create(plan) {
-    return `This action creates a new plan`;
+  create(plan: Plan) {
+    return this.plans.save(plan);
   }
 
-  update(id: number, plan) {
+  update(id: string, _plan: Plan) {
     return `This action updates the plan with id: ${id}`;
   }
 
-  delete(id: number) {
+  delete(id: string) {
     return `This action removes the plan with id: ${id}`;
   }
 }
