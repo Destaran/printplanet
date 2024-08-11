@@ -13,7 +13,7 @@ export class PlansService {
     });
   }
 
-  async find(id: number) {
+  async findById(id: number) {
     return this.plans.findOneBy({ id });
   }
 

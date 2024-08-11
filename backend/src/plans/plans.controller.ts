@@ -22,8 +22,8 @@ export class PlansController {
   }
 
   @Get(':id')
-  find(@Param('id') id: number) {
-    return this.plansService.find(id);
+  findById(@Param('id') id: number) {
+    return this.plansService.findById(id);
   }
 
   // @UseGuards(AuthGuard('jwt'))
