@@ -31,6 +31,6 @@ export class PlansService {
   }
 
   async delete(id: number) {
-    return `This action removes the plan with id: ${id}`;
+    return this.plans.delete(id);
   }
 }
